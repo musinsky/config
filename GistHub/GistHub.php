@@ -7,7 +7,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['parserhook'][] = array(
                                             'name' =>        'GistHub',
                                             'author' =>      'Adam Meyer, Jan Musinsky',
-                                            'description' => 'Import file(s) from [https://gist.github.com/ github:gist]',
+                                            'description' => 'Import file(s) from [https://gist.github.com/ GitHub Gist]',
                                             'url' =>         'https://github.com/musinsky/config/tree/master/GistHub'
                                             );
 
