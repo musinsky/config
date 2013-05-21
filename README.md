@@ -1,4 +1,1 @@
-config
-======
-
 Configuration files
