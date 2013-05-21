@@ -5,7 +5,7 @@ wget https://raw.github.com/musinsky/config/master/Eclipse/eclipse_custom.ini
 wget https://raw.github.com/musinsky/config/master/Eclipse/profile_AliRoot.xml
 ```
 
-### prepare config
+### Prepare config
 
 * replace all "=" by "\="
 ```
@@ -27,7 +27,7 @@ echo "org.eclipse.cdt.ui/org.eclipse.cdt.ui.formatterprofiles="`cat profile_AliR
 sed -i '/formatter_profile/ r profile_AliRoot.tmp' eclipse_custom.ini
 ```
 
-### start eclipse with custom config
+### Start Eclipse with custom config
 
 ```
 eclipse -plugincustomization /opt/eclipse/eclipse_custom.ini
