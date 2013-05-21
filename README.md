@@ -1,1 +1,1 @@
-Configuration files
+Configuration, settings and miscellaneous files
