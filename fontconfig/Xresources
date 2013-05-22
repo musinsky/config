@@ -1,0 +1,6 @@
+Xft.antialias:  true
+Xft.autohint:   true
+Xft.hinting:    false
+Xft.hintstyle:  hintmedium
+Xft.rgba:       rgb
+Xft.lcdfilter:  lcddefault
