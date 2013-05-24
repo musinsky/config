@@ -1,0 +1,83 @@
+;; https://github.com/musinsky/config/tree/master/Emacs
+
+(set-default-font "DejaVu Sans Mono-9")    ;; C-u C-x =
+(setq frame-title-format '(buffer-file-name "%f" ("%b")))
+(set-frame-position (selected-frame) -1 0) ;; in pixels (0 0 - left top)
+(set-frame-size (selected-frame) 80 60)    ;; in cols and rows
+(set-face-background 'fringe "grey85")
+
+(windmove-default-keybindings 'meta) ;; move between windows with M key
+(setq column-number-mode t)
+(setq-default fill-column 80)
+(show-paren-mode t)
+(setq-default indent-tabs-mode nil)  ;; no tabs (use spaces)
+;; (setq c-basic-offset 3)              ;; 3 spaces per indent level (CC mode)
+(setq visible-bell t)                ;; no beeping
+
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(setq make-backup-files t) ;; default
+(setq backup-directory-alist (quote (("." . "~/.emacs.d/backup"))))
+
+;; mucha
+(defun mucha-emacs-reload ()
+  "Reload .emacs"
+  (interactive) ;; working with M-x
+  (load-file "~/.emacs"))
+
+(defun mucha-iwb ()
+  "Indent the whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)) ;; replaces tabs with spaces
+  ;; (save-buffer)
+  (message "mucha-iwb is done, now you can save file with C-x C-s"))
+
+;; CMake
+(require 'cmake-mode)
+(setq auto-mode-alist
+      (append
+       '(("CMakeLists\\.txt\\'" . cmake-mode))
+       '(("\\.cmake\\'" . cmake-mode))
+       auto-mode-alist))
+
+;; Spelling
+(setq default-input-method "cyrillic-yawerty")
+(setq ispell-program-name "aspell")
+(setq ispell-dictionary "ru-lebedev-io")
+
+;; other
+;; http://root.cern.ch/viewvc/trunk/config/root-help.el.in
+;; (load "/path/to/root-help_new.el")
+
+;; AUCTeX
+(load "auctex.el" nil t t)
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ;; words wrapping
+(setq TeX-quote-language '("russian" "<<" ">>" nil))
+
+(setq TeX-PDF-mode t)
+(setq TeX-output-view-style
+      (quote (("^pdf$" "." "evince %o")
+              ("^ps$" "." "evince %o")
+              ("^dvi$" "." "evince %o"))))
+
+;; RefTeX
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex) ;; hook in AUCTeX
+(add-hook 'latex-mode-hook 'turn-on-reftex) ;; hook in Emacs
+(setq reftex-plug-into-auctex t)
+
+;; BibTeX
+(setq bibtex-user-optional-fields
+      '(("language" "Language for current bibitem")))
