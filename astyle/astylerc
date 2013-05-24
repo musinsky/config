@@ -1,0 +1,29 @@
+### ROOT & AliRoot code formatting style
+### https://github.com/musinsky/config/tree/master/astyle
+### tested on astyle 2.03
+
+--indent=spaces=2        # indent using 2 (ROOT uses 3) spaces per indent
+
+--indent-switches        # indent switch blocks
+--indent-namespaces      # add extra indentation to namespace blocks
+--indent-labels          # add extra indentation to labels
+--indent-preprocessor    # indent multi-line preprocessor definitions
+--min-conditional-indent=0  # multi-line will be aligned with the paren
+--max-instatement-indent=60 # maximum 60 spaces to indent a continuation line
+
+--keep-one-line-statements  # don't break lines
+--keep-one-line-blocks      # don't break blocks
+--convert-tabs              # convert tabs to the appropriate number of spaces
+--align-pointer=name        # attach (* or &) to either the operator name
+
+### optional options
+#--pad-oper              # insert space padding around operators
+#--pad-header            # insert space padding after paren headers
+#--unpad-paren           # remove unnecessary space padding around parenthesis
+
+#--lineend=linux         # force use linux line end style
+#--suffix=none           # do not retain a backup of the original file
+#--recursive             # process all subdirectories recursively
+
+### depreciated option (will be removed in a future release)
+#--brackets=stroustrup   # brackets on new line only for func
