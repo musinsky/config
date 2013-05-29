@@ -1,0 +1,95 @@
+@import url("/usr/share/gnome-shell/theme/gnome-shell.css");
+/* customizing GNOME Shell for desktop interface
+   with fonts size 9pt (instead default 11pt size) */
+
+
+/* Text Styles */
+/* default text style */
+stage {
+    font-size: 9pt;          /* 11pt */
+}
+
+/* Panel */
+/* used for the app menu header only */
+.panel-button {
+    -natural-hpadding: 4px;  /* 12px */
+    -minimum-hpadding: 3px;  /*  6px */
+}
+
+/* Search Box & Entries */
+#searchEntry {
+    font-size: 10pt;         /* 12pt */
+}
+
+/* Calendar popup */
+.calendar-month-label {
+    font-size: 8pt;          /* 9.5pt */
+}
+.calendar-day-base {
+    font-size: 7.5pt;        /* 9pt */
+}
+.calendar-day-base:active {
+    font-size: 7.5pt;        /* 9pt */
+}
+
+/* Application Launchers and Grid */
+.icon-grid {
+    spacing: 24px;                              /*  36px */
+    -shell-grid-horizontal-item-size: 72px;     /* 118px */
+    -shell-grid-vertical-item-size: 72px;       /* 118px */
+}
+
+.icon-grid .overview-icon {
+    icon-size: 48px;                            /*  96px */
+}
+
+/* Modal Dialogs */
+/* Dialog Subject Text Style */
+.show-processes-dialog-subject,
+.mount-question-dialog-subject,
+.end-session-dialog-subject {
+    font-size: 12pt;         /* 14pt */
+}
+
+
+/*
+ * Extensions
+ */
+
+/* Extension: Frippery Bottom Panel */
+#bottomPanel {
+    border-image: url();
+    padding-top: 1px;        /* no padding */
+    font-size: 9pt;          /* 10.5pt */
+}
+
+.message-button {
+    padding-left: 20px;      /* no padding */
+}
+
+.workspace-switcher {
+    spacing: 0px;            /* 3px */
+}
+
+.workspace-button {
+    border-radius: 5px;      /* no border-radius */
+    border: 0px;             /* 1px */
+}
+
+.workspace-button:outlined {
+    border: 0px;             /* 2px */
+}
+
+/* Extension: system-monitor */
+.sm-temp-label {
+    font-size: 9px;          /* 11px */
+}
+
+.sm-status-value {           /* 25px */
+    min-width: 20px;
+}
+
+/* Extension: Weather by Neroth */
+.weather-current-summary {
+    font-size: 12pt;         /* 31px */
+}
