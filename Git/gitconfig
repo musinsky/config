@@ -1,0 +1,12 @@
+[user]
+	name = Jan Musinsky
+	email = musinsky@gmail.com
+
+[color]
+	ui = true
+	diff = auto
+	status = auto
+	branch = auto
+
+[core]
+	editor = mcedit
