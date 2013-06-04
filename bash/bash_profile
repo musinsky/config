@@ -1,0 +1,7 @@
+
+# add mucha
+export LC_CTYPE="sk_SK.UTF-8"
+export LC_NUMERIC="sk_SK.UTF-8"
+export LC_MONETARY="sk_SK.UTF-8"
+export LC_PAPER="sk_SK.UTF-8"
+export LC_MEASUREMENT="sk_SK.UTF-8"
