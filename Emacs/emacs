@@ -1,28 +1,27 @@
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 (set-default-font "DejaVu Sans Mono-9")    ;; C-u C-x =
-(setq frame-title-format '(buffer-file-name "%f" ("%b")))
-(set-frame-position (selected-frame) -1 0) ;; in pixels (0 0 - left top)
+(set-frame-position (selected-frame) -1 0) ;; in pixels (0 0 is left top)
 (set-frame-size (selected-frame) 80 60)    ;; in cols and rows
 (set-face-background 'fringe "grey85")
 
-(windmove-default-keybindings 'meta) ;; move between windows with M key
-(setq column-number-mode t)
+(setq-default frame-title-format (concat "%b - emacs@" (system-name)))
+(setq-default column-number-mode t)
 (setq-default fill-column 80)
-(show-paren-mode t)
+(setq-default visible-bell t)        ;; no beeping
 (setq-default indent-tabs-mode nil)  ;; no tabs (use spaces)
-;; (setq c-basic-offset 3)              ;; 3 spaces per indent level (CC mode)
-(setq visible-bell t)                ;; no beeping
-
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(windmove-default-keybindings 'meta) ;; move between windows with M key
+(show-paren-mode t)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-(setq make-backup-files t) ;; default
+(setq make-backup-files t)
 (setq backup-directory-alist (quote (("." . "~/.emacs.d/backup"))))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(setq-default ispell-program-name "hunspell")
 
 ;; mucha
 (defun mucha-emacs-reload ()
@@ -39,39 +38,48 @@
   ;; (save-buffer)
   (message "mucha-iwb is done, now you can save file with C-x C-s"))
 
+(defun mucha-russian ()
+  "Russian environment"
+  (interactive)
+  (set-input-method "cyrillic-yawerty")
+  (setq ispell-dictionary "ru_RU")
+  (flyspell-mode t)
+  (message "switch to russian: cyrillic-yawerty and ru_RU"))
+
+(defun mucha-slovak ()
+  "Slovak environment"
+  (interactive)
+  (set-input-method "slovak-prog-2")
+  (setq ispell-dictionary "sk_SK")
+  (flyspell-mode t)
+  (message "switch to slovak: slovak-prog-2 and sk_SK"))
+
+(defun mucha-default-english ()
+  "Default english environment"
+  (interactive)
+  (set-input-method nil)
+  (setq ispell-dictionary "en_US")
+  (flyspell-mode -1)
+  (message "switch to default english"))
+
 ;; CMake
-(require 'cmake-mode)
+(autoload 'cmake-mode "cmake-mode" t)
 (setq auto-mode-alist
       (append
        '(("CMakeLists\\.txt\\'" . cmake-mode))
        '(("\\.cmake\\'" . cmake-mode))
        auto-mode-alist))
 
-;; Spelling
-(setq default-input-method "cyrillic-yawerty")
-(setq ispell-program-name "aspell")
-(setq ispell-dictionary "ru-lebedev-io")
-
-;; other
-;; http://root.cern.ch/viewvc/trunk/config/root-help.el.in
-;; (load "/path/to/root-help_new.el")
-
 ;; AUCTeX
-(load "auctex.el" nil t t)
-
+(autoload 'latex-mode "auctex" t)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 
+(setq TeX-PDF-mode t)
+(setq TeX-quote-language '("russian" "<<" ">>" nil))
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ;; words wrapping
-(setq TeX-quote-language '("russian" "<<" ">>" nil))
-
-(setq TeX-PDF-mode t)
-(setq TeX-output-view-style
-      (quote (("^pdf$" "." "evince %o")
-              ("^ps$" "." "evince %o")
-              ("^dvi$" "." "evince %o"))))
 
 ;; RefTeX
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ;; hook in AUCTeX
