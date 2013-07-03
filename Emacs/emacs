@@ -71,7 +71,7 @@
        auto-mode-alist))
 
 ;; AUCTeX
-(autoload 'latex-mode "auctex" t)
+(load "auctex.el" t)
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
