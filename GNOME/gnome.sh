@@ -35,8 +35,6 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>F4'
 
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 9'      # Cantarell Bold 11
-gsettings set org.gnome.desktop.wm.preferences visual-bell true
-gsettings set org.gnome.desktop.wm.preferences visual-bell-type 'frame-flash'
 
 gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
 
@@ -59,6 +57,9 @@ gsettings set org.gnome.shell.calendar show-weekdate true
 
 gsettings set org.gnome.shell.overrides button-layout ':minimize,maximize,close'
 gsettings set org.gnome.shell.overrides dynamic-workspaces false
+
+gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
+
 
 
 
