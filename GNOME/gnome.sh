@@ -1,8 +1,5 @@
 # GNOME 3.8.2
 
-gsettings set org.gnome.desktop.default-applications.terminal exec 'gnome-terminal --geometry=96x24+0-0'
-gsettings set org.gnome.desktop.default-applications.terminal exec-arg '-x'
-
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
 gsettings set org.gnome.desktop.background primary-color '#3C78B4'          # (Red: 60 Green: 120 Blue: 180)
@@ -16,7 +13,6 @@ gsettings set org.gnome.desktop.interface clock-show-date true
 gsettings set org.gnome.desktop.interface clock-show-seconds true
 gsettings set org.gnome.desktop.interface document-font-name 'Sans 9'                # Sans 11
 gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'                    # Cantarell 11
-gsettings set org.gnome.desktop.interface menubar-accel ''                           # disable F10
 gsettings set org.gnome.desktop.interface menus-have-icons true
 gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
 
@@ -59,17 +55,6 @@ gsettings set org.gnome.shell.overrides button-layout ':minimize,maximize,close'
 gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
-
-
-
-
-gconftool-2 --type string --set /apps/gnome-terminal/keybindings/help "F12"          # replace F1 to F12
-gconftool-2 --type int --set /apps/gnome-terminal/profiles/Default/default_size_columns 96
-gconftool-2 --type int --set /apps/gnome-terminal/profiles/Default/default_size_rows 24
-gconftool-2 --type bool --set /apps/gnome-terminal/profiles/Default/use_custom_default_size true
-# change only Palette entry 5 (Red: 45 Green: 90 Blue: 135)
-gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/palette "#000000:#CC0000:#4E9A06:#C4A000:#2D5A87"
-gconftool-2 --type bool --set /apps/gnome-terminal/profiles/Default/scrollback_unlimited true
 
 gconftool-2 --type bool --set /apps/nautilus-open-terminal/desktop_opens_home_dir true
 gconftool-2 --type bool --set /apps/nautilus-open-terminal/display_mc_item false
