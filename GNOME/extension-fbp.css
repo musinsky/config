@@ -1,0 +1,26 @@
+/* Extension
+   name: Frippery Bottom Panel
+   uuid: Bottom_Panel@rmy.pobox.com */
+
+#bottomPanel {
+    border-image: url();
+    padding-top: 1px;        /* no padding-top */
+    font-size: 9pt;          /* 10.5pt */
+}
+
+.message-button {
+    padding-left: 20px;      /* no padding-left */
+}
+
+.workspace-switcher {
+    spacing: 0px;            /* 6px */
+}
+
+.workspace-button {
+    border-radius: 5px;      /* no border-radius */
+    border: 0px;             /* 1px */
+}
+
+.workspace-button:outlined {
+    border: 0px;             /* 2px solid white */
+}
