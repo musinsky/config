@@ -50,9 +50,9 @@
   "Slovak environment"
   (interactive)
   (set-input-method "slovak-prog-2")
-  (setq ispell-dictionary "sk_SK")
+  (setq ispell-dictionary "sk-SK")
   (flyspell-mode t)
-  (message "switch to slovak: slovak-prog-2 and sk_SK"))
+  (message "switch to slovak: slovak-prog-2 and sk-SK"))
 
 (defun mucha-default-english ()
   "Default english environment"
