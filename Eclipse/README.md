@@ -22,7 +22,7 @@ sed -i ':a;N;$!ba;s/\n/\\n/g' profile_AliRoot.tmp
 echo "org.eclipse.cdt.ui/org.eclipse.cdt.ui.formatterprofiles="`cat profile_AliRoot.tmp` > profile_AliRoot.tmp
 ```
 
-* insert 'profile_AliRoot.tmp' file in 'eclipse_custom.ini' file (after "formatter_profile" word)
+* insert ``profile_AliRoot.tmp`` file to ``eclipse_custom.ini`` file (after "formatter_profile" word)
 ```
 sed -i '/formatter_profile/ r profile_AliRoot.tmp' eclipse_custom.ini
 ```
@@ -32,8 +32,13 @@ sed -i '/formatter_profile/ r profile_AliRoot.tmp' eclipse_custom.ini
 ```
 eclipse -plugincustomization /opt/eclipse/eclipse_custom.ini
 ```
-or add to ``eclipse.ini`` file this code
+or add to ``eclipse.ini`` file this line
 
 ```
 -Declipse.pluginCustomization=/opt/eclipse/eclipse_custom.ini
+```
+
+* append custon config to ``eclipse.ini`` file
+```
+echo -e "\n-Declipse.pluginCustomization=/opt/eclipse/eclipse_custom.ini" >> eclipse.ini
 ```
