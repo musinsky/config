@@ -38,7 +38,7 @@ or add to ``eclipse.ini`` file this line
 -Declipse.pluginCustomization=/opt/eclipse/eclipse_custom.ini
 ```
 
-* append custon config to ``eclipse.ini`` file
+* append custom config to ``eclipse.ini`` file
 ```
 echo -e "\n-Declipse.pluginCustomization=/opt/eclipse/eclipse_custom.ini" >> eclipse.ini
 ```
