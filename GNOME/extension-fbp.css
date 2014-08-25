@@ -3,13 +3,8 @@
    uuid: Bottom_Panel@rmy.pobox.com */
 
 #bottomPanel {
-    border-image: url();
     padding-top: 1px;        /* no padding-top */
     font-size: 9pt;          /* 10.5pt */
-}
-
-.message-button {
-    padding-left: 20px;      /* no padding-left */
 }
 
 .workspace-switcher {
