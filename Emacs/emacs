@@ -22,6 +22,7 @@
 (setq backup-directory-alist (quote (("." . "~/.emacs.d/backup"))))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (setq-default ispell-program-name "hunspell")
+(setq ispell-personal-dictionary "~/.musinsky.dic")
 
 ;; mucha
 (defun mucha-emacs-reload ()
