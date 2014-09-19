@@ -42,7 +42,8 @@
   "Russian environment"
   (interactive)
   (set-input-method "cyrillic-yawerty")
-  (setq ispell-dictionary "ru_RU")
+  ;; (setq ispell-dictionary "ru_RU")
+  (setq ispell-dictionary "russian")
   (flyspell-mode t)
   (message "switch to russian: cyrillic-yawerty and ru_RU"))
 
@@ -50,7 +51,8 @@
   "Slovak environment"
   (interactive)
   (set-input-method "slovak-prog-2")
-  (setq ispell-dictionary "sk-SK")
+  ;; (setq ispell-dictionary "sk-SK")
+  (setq ispell-dictionary "slovak")
   (flyspell-mode t)
   (message "switch to slovak: slovak-prog-2 and sk-SK"))
 
@@ -58,7 +60,8 @@
   "Default english environment"
   (interactive)
   (set-input-method nil)
-  (setq ispell-dictionary "en_US")
+  ;; (setq ispell-dictionary "en_US")
+  (setq ispell-dictionary "english")
   (flyspell-mode -1)
   (message "switch to default english"))
 
