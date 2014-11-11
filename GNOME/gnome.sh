@@ -1,4 +1,4 @@
-# GNOME 3.10.2
+# GNOME 3.14.1
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
@@ -14,11 +14,13 @@ gsettings set org.gnome.desktop.interface document-font-name 'Sans 9'           
 gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'                    # Cantarell 11
 gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
 
+gsettings set org.gnome.desktop.privacy remember-recent-files false
+
 gsettings set org.gnome.desktop.screensaver color-shading-type 'vertical'
+gsettings set org.gnome.desktop.screensaver lock-enabled false                       # disable lock screen
 gsettings set org.gnome.desktop.screensaver picture-options 'none'
 gsettings set org.gnome.desktop.screensaver primary-color '#1E3C5A'
 gsettings set org.gnome.desktop.screensaver secondary-color '#3C78B4'
-gsettings set org.gnome.desktop.screensaver lock-enabled false                       # disable lock screen
 
 gsettings set org.gnome.desktop.session idle-delay 1800                              # turn screen off
 
@@ -31,10 +33,14 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Alt>F2'
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>F3']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>F4']"
 
+gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 9'      # Cantarell Bold 11
 
 gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
+
+gsettings set org.gnome.gnome-system-monitor.proctree col-3-visible true             # Virtual Memory
+gsettings set org.gnome.gnome-system-monitor.proctree col-4-visible true             # Resident Memory
 
 gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
@@ -53,7 +59,6 @@ gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
 gsettings set org.gnome.shell.calendar show-weekdate true
 
-gsettings set org.gnome.shell.overrides button-layout ':minimize,maximize,close'
 gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal

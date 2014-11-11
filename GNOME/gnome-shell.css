@@ -13,23 +13,6 @@ stage {
     -minimum-hpadding: 3px;  /*  6px */
 }
 
-/* Message Tray */
-#message-tray {
-    height: 48px;            /* 72px */
-}
-
-.message-tray-summary {
-    height: 48px;            /* 72px */
-}
-
-.no-messages-label {
-    font-size: 9pt;          /* 11pt */
-}
-
-.notification, #notification-container {
-    font-size: 9pt;          /* 11pt */
-}
-
 /* Calendar popup */
 .calendar-month-label {
     font-size: 8pt;          /* 9.5pt */
@@ -41,4 +24,13 @@ stage {
 
 .calendar-day-base:active {
     font-size: 7.5pt;        /* 9pt */
+}
+
+/* Message Tray */
+.no-messages-label {
+    font-size: 9pt;          /* 11pt */
+}
+
+.notification, #notification-container {
+    font-size: 9pt;          /* 11pt */
 }
