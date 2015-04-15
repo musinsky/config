@@ -1,8 +1,10 @@
 Eclipse CDT
 -----------
 ```
-wget https://raw.github.com/musinsky/config/master/Eclipse/eclipse_custom.ini
-wget https://raw.github.com/musinsky/config/master/Eclipse/profile_AliRoot.xml
+wget https://raw.githubusercontent.com/musinsky/config/master/Eclipse/eclipse_custom.ini
+wget https://raw.githubusercontent.com/musinsky/config/master/Eclipse/profile_AliRoot.xml
+
+wget https://raw.githubusercontent.com/musinsky/config/master/Eclipse/eclipse.desktop -P /usr/share/applications/
 ```
 
 ### Prepare config
