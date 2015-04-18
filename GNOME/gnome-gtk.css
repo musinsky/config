@@ -1,0 +1,13 @@
+/* customized default GNOME GTK */
+
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained.css");
+
+.header-bar.default-decoration {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.header-bar.default-decoration .button.titlebutton {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
