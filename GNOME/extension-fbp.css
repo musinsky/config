@@ -2,6 +2,11 @@
    name: Frippery Bottom Panel
    uuid: Bottom_Panel@rmy.pobox.com */
 
+/*
+   $ sed -i 's/\x27-\x27/\x27 \x27/g' ~/.local/share/gnome-shell/extensions/Bottom_Panel@rmy.pobox.com/extension.js
+   $ wget -O - https://raw.githubusercontent.com/musinsky/config/master/GNOME/extension-fbp.css >> ~/.local/share/gnome-shell/extensions/Bottom_Panel@rmy.pobox.com/stylesheet.css
+*/
+
 #bottomPanel {
     padding-top: 1px;        /* no padding-top */
     font-size: 9pt;          /* 10.5pt */
