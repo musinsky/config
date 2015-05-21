@@ -1,4 +1,4 @@
-# GNOME 3.14.1
+# GNOME 3.16.2
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
@@ -40,12 +40,12 @@ gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 9' 
 gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
 
 gsettings set org.gnome.gnome-system-monitor.proctree col-3-visible true             # Virtual Memory
+gsettings set org.gnome.gnome-system-monitor.proctree col-3-width 70
 gsettings set org.gnome.gnome-system-monitor.proctree col-4-visible true             # Resident Memory
+gsettings set org.gnome.gnome-system-monitor.proctree col-4-width 70
 
 gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
-gsettings set org.gnome.nautilus.preferences show-directory-item-counts 'local-only'
-gsettings set org.gnome.nautilus.preferences show-image-thumbnails 'local-only'
 
 gsettings set org.gnome.settings-daemon.plugins.power button-power 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3000
@@ -61,4 +61,5 @@ gsettings set org.gnome.shell.calendar show-weekdate true
 
 gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
+gsettings set org.gnome.Terminal.Legacy.Settings dark-theme false
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
