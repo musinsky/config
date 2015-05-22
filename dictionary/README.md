@@ -4,7 +4,7 @@ Sharing personal dictionary
 * default sa personalne slovniky ukladaju (v zavislosti od jazyka) do suboru `~/.hunspell_sk_SK` resp. `~/.hunspell_ru_RU`
 * `(setq ispell-personal-dictionary "~/.musinsky.dic")` umoznuje nastavit personalny slovnik (spolocny pre vsetky jazyky). Slova sa pridavaju na koniec slovnika (suboru).
 ```
-wget https://raw.github.com/musinsky/config/master/dictionary/musinsky.dic -O ~/.musinsky.dic
+wget https://raw.githubusercontent.com/musinsky/config/master/dictionary/musinsky.dic -O ~/.musinsky.dic
 ```
 
 ### LibreOffice

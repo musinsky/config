@@ -1,5 +1,5 @@
 Git
 ---
 ```
-wget https://raw.github.com/musinsky/config/master/Git/gitconfig -O ~/.gitconfig
+wget https://raw.githubusercontent.com/musinsky/config/master/Git/gitconfig -O ~/.gitconfig
 ```

@@ -1,7 +1,7 @@
 Font Configuration
 ------------------
 ```
-wget https://raw.github.com/musinsky/config/master/fontconfig/19-mucha-font.conf -P /usr/share/fontconfig/conf.avail/
+wget https://raw.githubusercontent.com/musinsky/config/master/fontconfig/19-mucha-font.conf -P /usr/share/fontconfig/conf.avail/
 ln -s /usr/share/fontconfig/conf.avail/19-mucha-font.conf /etc/fonts/conf.d/19-mucha-font.conf
 ```
 

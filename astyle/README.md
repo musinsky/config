@@ -1,5 +1,5 @@
 Artistic Style
 --------------
 ```
-wget https://raw.github.com/musinsky/config/master/astyle/astylerc -O ~/.astylerc
+wget https://raw.githubusercontent.com/musinsky/config/master/astyle/astylerc -O ~/.astylerc
 ```

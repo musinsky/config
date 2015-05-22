@@ -1,7 +1,7 @@
 TeX Live
 --------
 ```
-wget https://raw.github.com/musinsky/config/master/TeXLive/texlive.profile
+wget https://raw.githubusercontent.com/musinsky/config/master/TeXLive/texlive.profile
 ./install-tl --profile=texlive.profile
 ```
 

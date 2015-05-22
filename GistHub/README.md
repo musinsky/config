@@ -6,7 +6,7 @@ GistHub is simple [MediaWiki](https://www.mediawiki.org) extension that allows y
 
 * download this file
 ```
-wget https://raw.github.com/musinsky/config/master/GistHub/GistHub.php
+wget https://raw.githubusercontent.com/musinsky/config/master/GistHub/GistHub.php
 ```
 
 * and place it in ``$IP/extensions/GistHub/GistHub.php``
