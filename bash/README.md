@@ -2,6 +2,10 @@ Bash shell
 ----------
 
 ### User
+```
+wget https://raw.githubusercontent.com/musinsky/config/master/bash/user-dirs.dirs -O ~/.config/user-dirs.dirs
+```
+
 append content of ``bash_profile`` to ``~/.bash_profile``
 ```
 wget -O - https://raw.githubusercontent.com/musinsky/config/master/bash/bash_profile >> .bash_profile
