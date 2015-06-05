@@ -50,7 +50,7 @@ echo -e "\n-Declipse.pluginCustomization=/opt/eclipse/eclipse_custom.ini" >> ecl
 eclipse --launcher.GTK_version 3   # or   export SWT_GTK3=1; eclipse
 ```
 
-* modified ``eclipse.ini`` file ("launcher.GTK_version" must be before "-vmargs")
+* modified ``eclipse.ini`` file ("launcher.GTK_version" should be before "--launcher.appendVmargs")
 ```
-sed -i '/-vmargs/ i \--launcher.GTK_version\n3' eclipse.ini
+sed -i '/--launcher.appendVmargs/ i \--launcher.GTK_version\n3' eclipse.ini
 ```
