@@ -7,6 +7,7 @@
 
 (setq-default frame-title-format (concat "%b - emacs@" (system-name)))
 (setq-default column-number-mode t)
+(setq-default c-basic-offset 2)
 (setq-default fill-column 80)
 (setq-default visible-bell t)        ;; no beeping
 (setq-default indent-tabs-mode nil)  ;; no tabs (use spaces)
