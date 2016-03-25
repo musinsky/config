@@ -19,7 +19,7 @@ rm bash_profile
 
 ### Admin
 ```
-wget https://raw.githubusercontent.com/musinsky/config/master/bash/mucha.sh -O /etc/profile.d/mucha.sh
+wget https://raw.githubusercontent.com/musinsky/config/master/bash/mucha_set.sh -O /etc/profile.d/mucha_set.sh
 ```
 
 ```
