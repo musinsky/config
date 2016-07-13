@@ -24,7 +24,7 @@ check_mucha CMAKE_PREFIX_PATH $ROOTSYS
 check_mucha PATH /cern/xrootd/bin
 check_mucha LD_LIBRARY_PATH /cern/xrootd/lib64
 
-check_mucha PATH /opt/texlive/2015/bin/x86_64-linux
+check_mucha PATH /opt/texlive/2016/bin/x86_64-linux
 
 # MAN and INFO are added automatically
 export ROOTSYS PATH LD_LIBRARY_PATH PYTHONPATH CMAKE_PREFIX_PATH
