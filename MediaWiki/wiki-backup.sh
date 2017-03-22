@@ -1,7 +1,7 @@
 #!/bin/bash
 # https://github.com/musinsky/config/tree/master/MediaWiki
 
-DBname=strela_wiki
+DBname=alice_wiki
 DBuser=wikiuser
 MWDIR=/opt/mediawiki
 DUMP="$DBname"_dump_`date +%F`
