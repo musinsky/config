@@ -1,13 +1,15 @@
 #!/bin/bash
 # https://github.com/musinsky/config/tree/master/MediaWiki
 
-DBname=alice_wiki
+DBname=strela_wiki
 DBuser=wikiuser
 MWDIR=/opt/mediawiki
 DUMP="$DBname"_dump_`date +%F`
 MWXML=$DUMP.xml
 MWSQL=$DUMP.sql
+MWEXT=extensions.list
 MWBCP="$DBname"_backup_`date +%F`.tar.gz
+BCPSC=`basename $0`
 
 # XML
 php $MWDIR/maintenance/dumpBackup.php --current > $MWXML
@@ -16,8 +18,12 @@ php $MWDIR/maintenance/dumpBackup.php --current > $MWXML
 echo "mysqldump --user=$DBuser --password $DBname"
 mysqldump --user=$DBuser --password $DBname -c > $MWSQL
 
-tar -czf $MWBCP $MWXML $MWSQL -C $MWDIR LocalSettings.php images \
+# extensions list
+ls -l $MWDIR/extensions | grep '^d' > $MWEXT
+
+# archiving
+tar -czf $MWBCP $MWXML $MWSQL $MWEXT $BCPSC -C $MWDIR LocalSettings.php images \
     -P /etc/httpd/conf.d/mediawiki.conf \
     /var/www/html/robots.txt /var/www/html/google*.html
-rm $MWXML $MWSQL
+rm $MWXML $MWSQL $MWEXT
 chmod 400 $MWBCP
