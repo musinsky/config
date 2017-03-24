@@ -1,4 +1,4 @@
-# GNOME 3.16.2
+# GNOME 3.22.2
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
@@ -47,7 +47,7 @@ gsettings set org.gnome.gnome-system-monitor.proctree col-4-width 70
 gsettings set org.gnome.nautilus.preferences always-use-location-entry true
 gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
 
-gsettings set org.gnome.settings-daemon.plugins.power button-power 'interactive'
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothing'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3000
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'blank'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 600
@@ -57,9 +57,9 @@ gsettings set org.gnome.shell always-show-log-out true                          
 
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
-gsettings set org.gnome.shell.calendar show-weekdate true
+gsettings set org.gnome.desktop.calendar show-weekdate true
 
 gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
-gsettings set org.gnome.Terminal.Legacy.Settings dark-theme false
+gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
