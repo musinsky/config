@@ -6,15 +6,9 @@ Bash shell
 wget https://raw.githubusercontent.com/musinsky/config/master/bash/user-dirs.dirs -O ~/.config/user-dirs.dirs
 ```
 
-append content of ``bash_profile`` to ``~/.bash_profile``
+append content of ``bashrc`` to ``~/.bashrc``
 ```
-wget -O - https://raw.githubusercontent.com/musinsky/config/master/bash/bash_profile >> .bash_profile
-```
-
-```
-wget https://raw.githubusercontent.com/musinsky/config/master/bash/bash_profile
-sed -i '$ r bash_profile' ~/.bash_profile
-rm bash_profile
+wget -O - https://raw.githubusercontent.com/musinsky/config/master/bash/bashrc >> ~/.bashrc
 ```
 
 ### Admin
