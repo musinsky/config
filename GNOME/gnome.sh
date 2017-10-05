@@ -70,3 +70,20 @@ gsettings set org.gnome.shell.overrides dynamic-workspaces false
 gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
 
+### change GNOME Terminal profile
+# UUID of the default profile
+PROFILE_UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+
+# get (and reset) default color palette
+gsettings reset org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/ palette
+COLOR_PALETTE=$(gsettings get org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/ palette)
+# find default COLOR5 (ugly blue color)
+COLOR5=$(echo ${COLOR_PALETTE} | gawk -F "', '#" '{print $5}')
+# default COLOR5 replace by rgb(37,75,112)=#254B70 in HHEEXX format (pretty blue color)
+COLOR_PALETTE=$(echo ${COLOR_PALETTE} | sed -e 's/'${COLOR5}'/25254B4B7070/g')
+# set new color palette
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/ palette "${COLOR_PALETTE}"
+
+# change initial terminal size
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/ default-size-columns 120
+
