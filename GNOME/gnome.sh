@@ -71,7 +71,8 @@ gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
 
 ### change GNOME Terminal profile
-# UUID of the default profile
+# get (and reset) UUID of the default profile
+gsettings reset org.gnome.Terminal.ProfilesList default
 PROFILE_UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d "\'")
 
 # get (and reset) default color palette
