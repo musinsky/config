@@ -72,6 +72,7 @@ gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false 
 
 ### change GNOME Terminal profile
 # get (and reset) UUID of the default profile
+gsettings reset org.gnome.Terminal.ProfilesList list
 gsettings reset org.gnome.Terminal.ProfilesList default
 PROFILE_UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d "\'")
 
