@@ -72,7 +72,7 @@ gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false 
 
 ### change GNOME Terminal profile
 # UUID of the default profile
-PROFILE_UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+PROFILE_UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d "\'")
 
 # get (and reset) default color palette
 gsettings reset org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/ palette
