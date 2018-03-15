@@ -15,11 +15,17 @@ check_mucha () {
     fi
 }
 
-ROOTSYS=/cern/root
-check_mucha PATH $ROOTSYS/bin
-check_mucha LD_LIBRARY_PATH $ROOTSYS/lib
-check_mucha PYTHONPATH $ROOTSYS/lib
-check_mucha CMAKE_PREFIX_PATH $ROOTSYS
+# https://sft.its.cern.ch/jira/browse/ROOT-9309
+# it's better to never set ROOTSYS, LD_LIBRARY_PATH and never source thisroot.sh
+#   ROOTSYS=/cern/root
+#   check_mucha PATH $ROOTSYS/bin
+#   check_mucha LD_LIBRARY_PATH $ROOTSYS/lib
+#   check_mucha CMAKE_PREFIX_PATH $ROOTSYS
+
+ROOTSYS2=/cern/root
+check_mucha PATH $ROOTSYS2/bin
+check_mucha PYTHONPATH $ROOTSYS2/lib
+check_mucha JUPYTER_PATH $ROOTSYS2/etc/notebook
 
 check_mucha PATH /cern/xrootd/bin
 check_mucha LD_LIBRARY_PATH /cern/xrootd/lib64
@@ -27,7 +33,6 @@ check_mucha LD_LIBRARY_PATH /cern/xrootd/lib64
 check_mucha PATH /opt/texlive/2017/bin/x86_64-linux
 
 # MAN and INFO are added automatically
-export ROOTSYS PATH LD_LIBRARY_PATH PYTHONPATH CMAKE_PREFIX_PATH
-alias root='root -l'
+export PATH LD_LIBRARY_PATH PYTHONPATH JUPYTER_PATH
 
 unset varvalue
