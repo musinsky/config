@@ -30,7 +30,7 @@ check_mucha JUPYTER_PATH $ROOTSYS2/etc/notebook
 check_mucha PATH /cern/xrootd/bin
 check_mucha LD_LIBRARY_PATH /cern/xrootd/lib64
 
-check_mucha PATH /opt/texlive/2017/bin/x86_64-linux
+check_mucha PATH /opt/texlive/2018/bin/x86_64-linux
 
 # MAN and INFO are added automatically
 export PATH LD_LIBRARY_PATH PYTHONPATH JUPYTER_PATH
