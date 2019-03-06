@@ -42,6 +42,7 @@ gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 9'      # Cantarell Bold 11
 
 gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
+gsettings set org.gnome.Evince page-cache-size 500                                   # zoom more than 400%
 
 gsettings set org.gnome.gnome-system-monitor.proctree col-3-visible true             # Virtual Memory
 gsettings set org.gnome.gnome-system-monitor.proctree col-3-width 70
