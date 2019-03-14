@@ -34,3 +34,9 @@ ln -s ~/.musinsky.dic `find ~/.config/libreoffice/*/user/wordbook -type d`/stand
 ```
 sed -n '5,$p' ~/.musinsky.dic ~/.mozilla/firefox/*.default/persdict.dat | sort -u > persdict_merge.dat
 ```
+
+### Google Chrome
+* default je personalny slovnik ulozeny `~/.config/google-chrome/Default/Custom Dictionary.txt`
+* nazov slovnika (suboru) nie je mozne menit
+* pri ulozeni noveho slova do `Custom Dictionary.txt` sa meni usporiadanie (abecedne) slov + nakoniec sa pridava jeden riadok s checksum
+* plati teda to iste ako pre Firefox, nemoznost pouzivat spolu s LibreOffice, resp. cas od casu manualne spajat slovniky
