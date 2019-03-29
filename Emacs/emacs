@@ -25,6 +25,9 @@
 (setq-default ispell-program-name "hunspell")
 (setq ispell-personal-dictionary "~/.musinsky.dic")
 
+;; auto-fill (words wrapping) mode on in all major modes
+;(setq-default auto-fill-function 'do-auto-fill)   ;; M-x auto-fill-mode
+
 ;; mucha
 (defun mucha-emacs-reload ()
   "Reload .emacs"
