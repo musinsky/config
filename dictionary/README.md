@@ -20,7 +20,7 @@ type: positive
 some_dict_word
 ```
 * ak sa subor so slovnikom vola `standard.dic` LibreOffice ho automaticky zapne, inak je ho potrebne pridat/aktivovat cez *Tools/Options => Language Settings/Writing Aids/User-defined dictionaries*
-* slova v slovniku sa automaticky usporiadavaju podla abecedy
+* slova v slovniku sa automaticky usporiadavaju podla abecedy (ekvivalent `LC_COLLATE=C sort -u standard.dic`)
 * sharing personal dictionary file `~/.musinsky.dic`
 ```
 ln -s ~/.musinsky.dic `find ~/.config/libreoffice/*/user/wordbook -type d`/standard.dic
