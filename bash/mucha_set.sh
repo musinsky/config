@@ -22,10 +22,10 @@ check_mucha () {
 #   check_mucha LD_LIBRARY_PATH $ROOTSYS/lib
 #   check_mucha CMAKE_PREFIX_PATH $ROOTSYS
 
-ROOTSYS2=/cern/root
-check_mucha PATH $ROOTSYS2/bin
-check_mucha PYTHONPATH $ROOTSYS2/lib
-check_mucha JUPYTER_PATH $ROOTSYS2/etc/notebook
+ROOTPREFIX=/cern/root
+check_mucha PATH $ROOTPREFIX/bin
+check_mucha PYTHONPATH $ROOTPREFIX/lib
+check_mucha JUPYTER_PATH $ROOTPREFIX/etc/notebook
 
 check_mucha PATH /cern/xrootd/bin
 check_mucha LD_LIBRARY_PATH /cern/xrootd/lib64
