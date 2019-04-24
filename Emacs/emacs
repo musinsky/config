@@ -26,7 +26,16 @@
 (setq ispell-personal-dictionary "~/.musinsky.dic")
 
 ;; auto-fill (words wrapping) mode on in all major modes
-;(setq-default auto-fill-function 'do-auto-fill)   ;; M-x auto-fill-mode
+;;(setq-default auto-fill-function 'do-auto-fill)   ;; M-x auto-fill-mode
+
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
+(setq-default fortran-check-all-num-for-matching-do t) ;; (default nil)
+(setq-default fortran-line-number-indent 5)            ;; (default 1) rigth-justify to end
+;;(setq-default fortran-do-indent 1)                     ;; (default 3)
+;;(setq-default fortran-if-indent 1)                     ;; (default 3)
+;;(setq-default fortran-structure-indent 1)              ;; (default 3)
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Comments.html
+(setq-default fortran-comment-indent-style nil)        ;; (default fixed)
 
 ;; mucha
 (defun mucha-emacs-reload ()
