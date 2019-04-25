@@ -1,9 +1,10 @@
 
-# add mucha
+# add musinsky
 export LC_PAPER='en_GB.UTF-8'
 export LC_TIME='en_GB.UTF-8'
 export LESSHISTFILE=-
 
 alias llt='ls --time-style="+%Y-%m-%d %H:%M:%S" -lt'
 # --time-style=full-iso
+alias cp='cp -p'
 alias root='root -l'
