@@ -1,5 +1,7 @@
 CERNLIB in Fedora
 -----------------
+* https://copr.fedorainfracloud.org/coprs/musinsky/cernlib/
+
 ### Fedora 14
 * last CERNLIB package in Fedora 14
 ```
