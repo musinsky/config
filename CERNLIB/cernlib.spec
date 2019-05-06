@@ -894,7 +894,12 @@ touch -r ../cernlib.in src/scripts/cernlib
 
 # replace gcc optimization flags
 # for gcc < 8 must be -O (no -O2 or -O3)
-%if 0%{?fedora} >= 28
+#
+# gcc -dumpversion => older 4.8.5 => newer 8
+%define gcc_dump_ver %(gcc -dumpversion | sed 's/[.].*$//')
+
+%if 0%{?gcc_dump_ver} >= 8
+echo default optflags
 %else
 %global optflags %(echo %{optflags} | sed 's/-O[0-3]/-O/')
 %endif
