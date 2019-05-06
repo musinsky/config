@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       35%{?dist}
+Release:       40%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -90,7 +90,10 @@ BuildRequires: tcsh
 BuildRequires: gawk
 
 BuildRequires: desktop-file-utils
+
+%if 0%{?fedora} >= 28
 BuildRequires: libnsl2-devel
+%endif
 
 %if %{with gfortran}
 BuildRequires: gcc-gfortran
@@ -889,6 +892,13 @@ touch -r ../cernlib.in src/scripts/cernlib
 # install mkdirhier which is needed to make directories
 %{__install} -p -m755 %{SOURCE104} bin/
 
+# replace gcc optimization flags
+# for gcc < 8 must be -O (no -O2 or -O3)
+%if 0%{?fedora} >= 28
+%else
+%global optflags %(echo %{optflags} | sed 's/-O[0-3]/-O/')
+%endif
+
 # set FC_OPTFLAGS and FC_COMPILER based on compiler used
 %if %{with gfortran}
 FC_OPTFLAGS="%{optflags}"
@@ -943,7 +953,8 @@ echo "#define InstPgmFlags -m 0755" >> ${CVSCOSRC}/config/host.def
 # and below, but they are not doubled for libs.
 echo "#define FortranLinkCmd $FC_COMPILER $FC_OPTFLAGS $G_LDFLAGS" >> ${CVSCOSRC}/config/host.def
 
-# dirty fix strfromd
+# glibc-2.25 (2017-02) added, among other things, function strfromd
+# replace strfromd by strfromd9
 cd $CERN_ROOT/src
 sed -i 's/strfromd/strfromd9/g' graflib/higz/kuip/kstring.h
 sed -i 's/strfromd/strfromd9/g' code_motif/mkdcmp.c
@@ -958,7 +969,7 @@ sed -i 's/strfromd/strfromd9/g' packlib/kuip/code_kuip/kmacro.c
 sed -i 's/strfromd/strfromd9/g' packlib/kuip/code_kuip/kmenu.c
 sed -i 's/strfromd/strfromd9/g' packlib/kuip/code_kuip/kvect.c
 
-# fix printf (flis_name[i])
+# fix printf with flis_name[i]
 sed -i 's/printf (flis_name/printf ("\%s", flis_name/' packlib/kuip/code_kuip/kmenu.c
 
 # Create the top level Makefile with imake
@@ -1278,8 +1289,8 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %defattr(-,root,root,-)
 %doc cernlib-%{verdir}.csh cernlib-%{verdir}.sh
 %{_bindir}/cernlib*%{?compiler}
-#%{_sysconfdir}/profile.d/cernlib-%{verdir}.sh
-#%{_sysconfdir}/profile.d/cernlib-%{verdir}.csh
+# %%{_sysconfdir}/profile.d/cernlib-%%{verdir}.sh
+# %%{_sysconfdir}/profile.d/cernlib-%%{verdir}.csh
 %{_mandir}/man1/cernlib*.1*
 
 
@@ -1457,6 +1468,17 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Mon May 06 2019 Jan Musinsky <musinsky@gmail.com> - 2006-40
+- unofficial release 40 after 9 years (previous last official release 35)
+- many fixies after long time
+- correct sed with optflags
+- fix MXLENG
+- replace strfromd/strfromd9 function name
+- fix printf with flis_name
+- add libnsl2-devel for newer distributions
+- replace -O2 (or -O3) by -O gcc flags for older distributions
+- cernlib package is now compiling (but not guaranteed to work properly)
+
 * Wed May 05 2010 Jon Ciesla <limb@jcomserv.net> 2006-35
 - Apply debian cernlib 2006.dfsg.2-14 patchset.
 
