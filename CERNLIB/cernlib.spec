@@ -362,6 +362,10 @@ Requires:       lapack blas
 Requires:       lapack-devel blas-devel
 %endif
 
+%if 0%{?fedora} >= 28
+Requires: libnsl2-devel
+%endif
+
 # Motif and X devel libs are indirectly required through xbae
 Requires: xbae-devel
 
