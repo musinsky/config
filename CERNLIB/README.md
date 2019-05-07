@@ -3,7 +3,7 @@ CERNLIB in Fedora
 * https://copr.fedorainfracloud.org/coprs/musinsky/cernlib/
 
 ### Fedora 14
-* last CERNLIB package in Fedora 14
+* last official CERNLIB package in Fedora 14
 ```
 wget https://kojipkgs.fedoraproject.org/packages/cernlib/2006/35.fc14/src/cernlib-2006-35.fc14.src.rpm
 ```
@@ -13,4 +13,5 @@ wget https://kojipkgs.fedoraproject.org/packages/cernlib/2006/35.fc14/src/cernli
 ```
 * used patched CERNLIB 2006 from Debian distribution (aka new Debian's cernlib)
 
-### Fedora 29
+### Fedora 30
+* Detailed information how [build CERNLIB in Fedora](http://alice.saske.sk/wiki/CERNLIB) (Slovak language)
