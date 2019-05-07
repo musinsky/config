@@ -1,6 +1,6 @@
 CERNLIB in Fedora
 -----------------
-* https://copr.fedorainfracloud.org/coprs/musinsky/cernlib/
+[CERNLIB copr](https://copr.fedorainfracloud.org/coprs/musinsky/cernlib/) package repository for Fedora and CentOS
 
 ### Fedora 14
 * last official CERNLIB package in Fedora 14
