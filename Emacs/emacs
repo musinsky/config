@@ -2,7 +2,9 @@
 
 ;; notes
 ;; M-x toggle-input-method => C-\
+;; C-q TAB (C-q insert the next character as a raw character)
 ;; C-u M-x ps-print-buffer
+;; M-x customize, M-x customize-mode, M-x customize-face, etc
 
 ;; customize
 (set-default-font "DejaVu Sans Mono-9")    ;; C-u C-x =
@@ -14,6 +16,8 @@
 (setq-default column-number-mode t)
 (setq-default c-basic-offset 2)
 (setq-default fill-column 80)
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "red1")
 (global-display-line-numbers-mode t)
 (set-face-background 'line-number "grey95")
 (set-face-foreground 'line-number "gray80")
