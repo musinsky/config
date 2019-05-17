@@ -16,8 +16,7 @@
 (setq-default column-number-mode t)
 (setq-default c-basic-offset 2)
 (setq-default fill-column 80)
-(setq-default show-trailing-whitespace t)
-(set-face-background 'trailing-whitespace "red1")
+
 (global-display-line-numbers-mode t)
 (set-face-background 'line-number "grey95")
 (set-face-foreground 'line-number "gray80")
@@ -118,3 +117,28 @@
 ;; BibTeX
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
+
+;; WhiteSpace
+;;
+;; show "trailing whitespace"
+;;(setq-default show-trailing-whitespace t)
+;;(set-face-background 'trailing-whitespace "red1")
+;; but no similar way how show "tab whitespace"
+;;
+;; package whitespace.el
+;; M-x whitespace-mode
+;;
+;; https://github.com/emacs-mirror/emacs/blob/master/lisp/whitespace.el
+;; https://www.emacswiki.org/emacs/WhiteSpace
+;; http://ergoemacs.org/emacs/whitespace-mode.html
+;; M-x whitespace-toggle-options
+(global-whitespace-mode t)
+(setq whitespace-style '(face tabs trailing)) ;; specify which kind of blank is visualized
+
+;; visualization via face-s (used to highlight the background with a color)
+(custom-set-faces
+ '(whitespace-tab      ((t (:background "MistyRose1"))))
+ '(whitespace-trailing ((t (:background "RosyBrown1")))))
+;; same as
+;; (set-face-background 'whitespace-tab      "gray75")
+;; (set-face-background 'whitespace-trailing "gray50")
