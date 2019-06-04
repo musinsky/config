@@ -11,7 +11,7 @@
 (set-frame-position (selected-frame) -1 0) ;; in pixels (0 0 is left top)
 (set-frame-size (selected-frame) 84 60)    ;; in cols and rows
 (set-face-background 'fringe "grey85")
-
+(setq-default inhibit-eol-conversion t)    ;; see ^M (DOS line endings)
 (setq-default frame-title-format (concat "%b - emacs@" (system-name)))
 (setq-default column-number-mode t)
 (setq-default c-basic-offset 2)
