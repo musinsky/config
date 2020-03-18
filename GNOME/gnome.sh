@@ -1,4 +1,4 @@
-# GNOME 3.26
+# GNOME 3.30
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
@@ -90,3 +90,5 @@ gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profi
 # change initial terminal size
 gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/ default-size-columns 120
 
+### other
+gsettings set org.gtk.Settings.FileChooser sort-directories-first true
