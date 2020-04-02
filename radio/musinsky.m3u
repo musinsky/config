@@ -1,8 +1,43 @@
-http://jazz-wr06.ice.infomaniak.ch/jazz-wr06-128.mp3
-http://jazzlounge.ice.infomaniak.ch/jazzlounge-high.mp3
-http://jfm1.hostingradio.ru:14536/sjstream.mp3
-http://radio.1jazz.ru:8040/radio
-http://stream.radiojazz.sk:8000/jazz128.aac
-http://fr1.lounge-radio.com:80
-http://uk2.internet-radio.com:31491/
+#EXTM3U
+
+# https://github.com/musinsky/config/tree/master/radio
+
+# The Radio Stream Directory
+# http://fmstream.org/
+
+# https://www.1.fm/
+#EXTINF:-1,1.FM - Chillout Lounge Radio
+http://sc1c-sjc.1.fm:7008/
 http://sc-tcl.1.fm:8010/
+#EXTINF:-1,1.FM - Adore Jazz Radio
+http://sc1c-sjc.1.fm:5084/
+http://strm112.1.fm/ajazz_mobile_mp3
+
+# https://www.jazzradio.fr/
+#EXTINF:-1,Jazz Radio Funk
+http://jazz-wr06.ice.infomaniak.ch/jazz-wr06-128.mp3
+http://jazz-wr06.ice.infomaniak.ch/jazz-wr06-64.aac
+#EXTINF:-1,Jazz Radio Lounge
+http://jazzlounge.ice.infomaniak.ch/jazzlounge-high.mp3
+http://jazzlounge.ice.infomaniak.ch/jazzlounge-high.aac
+#EXTINF:-1,Jazz Radio Jazz Fusion
+http://jazz-radio-fusion.ice.infomaniak.ch/jazz-radio-fusion.mp3
+http://jazz-radio-fusion.ice.infomaniak.ch/jazz-radio-fusion.aac
+
+# https://radiojazzfm.ru/
+#EXTINF:-1,Radio JAZZ - Smooth JAZZ
+https://jfm1.hostingradio.ru:14536/sjstream.mp3
+#EXTINF:-1,Radio JAZZ - Jazz FM
+https://nashe1.hostingradio.ru:80/jazz-128.mp3
+
+# https://lounge-radio.com/
+#EXTINF:-1,LOUNGE-RADIO.COM - swiss made
+http://fr1.lounge-radio.com/
+http://nl1.lounge-radio.com/
+http://nl1.lounge-radio.com:8010/
+
+# others
+#EXTINF:-1,Ambient Radio .org
+http://uk2.internet-radio.com:31491/
+#EXTINF:-1,Radio Jazz
+http://stream.radiojazz.sk:8000/jazz128.aac
