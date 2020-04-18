@@ -1,10 +1,11 @@
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; notes
-;; M-x toggle-input-method => C-\
+;; M-x toggle-input-method (C-\ to same)
 ;; C-q TAB (C-q insert the next character as a raw character)
 ;; C-u M-x ps-print-buffer
 ;; M-x customize, M-x customize-mode, M-x customize-face, etc
+;; C-h v, C-h k, C-h ?, etc (help)
 
 ;; customize
 (set-default-font "DejaVu Sans Mono-9")    ;; C-u C-x =
