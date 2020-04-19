@@ -143,3 +143,9 @@
 ;; same as
 ;; (set-face-background 'whitespace-tab      "gray75")
 ;; (set-face-background 'whitespace-trailing "gray50")
+
+;; MELPA repository
+;; M-x package-list-packages
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
