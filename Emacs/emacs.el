@@ -119,30 +119,25 @@
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
 
-;; WhiteSpace
-;;
-;; show "trailing whitespace"
+;; show white space
 ;;(setq-default show-trailing-whitespace t)
 ;;(set-face-background 'trailing-whitespace "red1")
 ;; but no similar way how show "tab whitespace"
 ;;
-;; package whitespace.el
-;; M-x whitespace-mode
-;;
+;; use library whitespace.el
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/whitespace.el
 ;; https://www.emacswiki.org/emacs/WhiteSpace
-;; http://ergoemacs.org/emacs/whitespace-mode.html
+;; M-x whitespace-mode
 ;; M-x whitespace-toggle-options
-(global-whitespace-mode t)
-(setq whitespace-style '(face tabs trailing)) ;; specify which kind of blank is visualized
 
+(global-whitespace-mode t)
+(setq whitespace-style '(face trailing tabs empty)) ;; specify which kind of blank is visualized
 ;; visualization via face-s (used to highlight the background with a color)
+;; M-x list-colors-display
 (custom-set-faces
- '(whitespace-tab      ((t (:background "MistyRose1"))))
- '(whitespace-trailing ((t (:background "RosyBrown1")))))
-;; same as
-;; (set-face-background 'whitespace-tab      "gray75")
-;; (set-face-background 'whitespace-trailing "gray50")
+ '(whitespace-trailing ((t (:background "RosyBrown1")))) ; (set-face-background 'whitespace-trailing "gray70")
+ '(whitespace-tab      ((t (:background "MistyRose1")))) ; (set-face-background 'whitespace-tab      "gray80")
+ '(whitespace-empty    ((t (:background "snow2")))))     ; (set-face-background 'whitespace-empty    "gray90")
 
 ;; MELPA repository
 ;; M-x package-list-packages
