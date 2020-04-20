@@ -51,9 +51,9 @@
 
 ;; mucha
 (defun mucha-emacs-reload ()
-  "Reload .emacs"
+  "Reload $HOME/.emacs.el init file"
   (interactive) ;; working with M-x
-  (load-file "~/.emacs"))
+  (load-file user-init-file))
 
 (defun mucha-iwb ()
   "Indent the whole buffer"
