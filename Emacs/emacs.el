@@ -19,6 +19,7 @@
 ;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>)
 ;;
 ;; M-x goto-address-mode => activate URLs
+;; M-x cua-mode          => use CUA keys (C-x, C-c, C-v, etc)
 
 ;; C-u => prefix argument, https://www.emacswiki.org/emacs/PrefixArgument
 ;; print the buffer (or region) to PostScript file
@@ -48,25 +49,13 @@
 (set-face-background 'line-number "grey90")
 (set-face-foreground 'line-number "gray60")
 (set-face-background 'fringe "grey75")
-;;(setq-default indicate-empty-lines t)
+(setq-default indicate-empty-lines t)
 ;;(setq inhibit-splash-screen t)
 
 (setq visible-bell t)
 (setq column-number-mode t)
 (setq inhibit-eol-conversion t) ; show ^M (DOS end of line)
 (show-paren-mode t)
-
-;; on Fedora default coding system is utf-8-unix (unix EOL type)
-;; M-x describe-coding-system
-(prefer-coding-system 'utf-8)
-
-;; https://www.emacswiki.org/emacs/LineWrap
-(setq-default fill-column 80) ; M-x set-fill-column
-;; M-q (bound) M-x fill-paragraph
-;; M-x set-fill-column RET 9999 (or 0) RET M-q
-;;(setq-default auto-fill-function 'do-auto-fill) ; M-x auto-fill-mode
-;; https://www.emacswiki.org/emacs/VisualLineMode
-;;(global-visual-line-mode t) ; M-x visual-line-mode
 
 ;; https://www.emacswiki.org/emacs/ShowWhiteSpace
 ;;(setq-default show-trailing-whitespace t)
@@ -85,8 +74,20 @@
 ;;  '(whitespace-trailing ((t (:background "gray60"))))
 ;;  '(whitespace-tab      ((t (:background "gray75"))))
 ;;  '(whitespace-empty    ((t (:background "gray90")))))
-;; custom-set-faces is created, added to user-init-file by Customize Emacs
+;; custom-set-faces (or variables) is created, added to user-init-file by Customize Emacs
 ;; init file should contain ONLY ONE such instance (otherwise won't work right)
+
+;; on Fedora default coding system is utf-8-unix (unix EOL type)
+;; M-x describe-coding-system
+(prefer-coding-system 'utf-8)
+
+;; https://www.emacswiki.org/emacs/LineWrap
+(setq-default fill-column 80) ; M-x set-fill-column
+;; M-q (bound) M-x fill-paragraph
+;; M-x set-fill-column RET 9999 (or 0) RET M-q
+;;(setq-default auto-fill-function 'do-auto-fill) ; M-x auto-fill-mode
+;; https://www.emacswiki.org/emacs/VisualLineMode
+;;(global-visual-line-mode t) ; M-x visual-line-mode
 
 (setq-default indent-tabs-mode nil) ; no tabs (use spaces)
 
