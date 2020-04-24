@@ -53,7 +53,7 @@
 
 (setq visible-bell t)
 (setq column-number-mode t)
-(setq inhibit-eol-conversion t) ; see ^M (DOS end of line)
+(setq inhibit-eol-conversion t) ; show ^M (DOS end of line)
 (show-paren-mode t)
 
 ;; on Fedora default coding system is utf-8-unix (unix EOL type)
