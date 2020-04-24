@@ -1,59 +1,115 @@
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
-;; notes
-;; M-x toggle-input-method (C-\ to same)
-;; C-q TAB (C-q insert the next character as a raw character)
-;; C-u M-x ps-print-buffer
-;; C-h v, C-h k, C-h ?, etc (help)
-;; M-x customize, M-x customize-variable, M-x customize-mode, M-x customize-face, etc
-;; M-x set-variable
-;; M-x eval-expression (M-: to same)
+;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
+;; keybinding help: C-h k C-x C-s => save-buffer    => M-x save-buffer
+;; keybinding help: C-h k M-q     => fill-paragraph => M-x fill-paragraph
+;; keybinding help: C-h k C-h k   => describe-key   => M-x describe-key
+;; function help: C-h f save-buffer    => bound to C-x C-s
+;; function help: C-h f fill-paragraph => bound to M-q
+;; function help: C-h f describe-key   => bound to C-h k, <f1> k
+;;
+;; ?! setq or setq-default ?! the best way is to try it ...
 
-;; customize
-(set-default-font "DejaVu Sans Mono-9")    ; C-u C-x =
+;; M-x set-variable, M-x describe-variable (bound) C-h v
+;; M-x eval-expression (bound) M-:
+;; M-x customize-variable, M-x customize-mode, M-x customize-face, etc
+
+;; M-q (bound) M-x fill-paragraph      => justify region
+;; C-\ (bound) M-x toggle-input-method => multilingual text input
+;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>)
+;;
+;; M-x goto-address-mode => activate URLs
+
+;; C-u => prefix argument, https://www.emacswiki.org/emacs/PrefixArgument
+;; print the buffer (or region) to PostScript file
+;; C-u M-x ps-print-buffer-with-faces (with-faces include color)
+;; describe the character at cursor position (charset, font, etc)
+;; C-u C-x = (bound) C-u M-x what-cursor-position (or M-x describe-char)
+
+;; https://www.emacswiki.org/emacs/SetFonts
+;; https://www.emacswiki.org/emacs/FrameSize
+;;(set-frame-font "DejaVu Sans Mono-9")
 (set-frame-position (selected-frame) -1 0) ; in pixels (0 0 is left top)
-(set-frame-size (selected-frame) 84 60)    ; in cols and rows
-(set-face-background 'fringe "grey85")
-(setq-default inhibit-eol-conversion t)    ; see ^M (DOS line endings)
-(setq-default frame-title-format (concat "%b - emacs@" (system-name)))
-(setq-default column-number-mode t)
-(setq-default c-basic-offset 2)
-(setq-default fill-column 80)
+(set-frame-size (selected-frame) 100 60)   ; in characters
+;; https://www.emacswiki.org/emacs/FrameTitle
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b")) " - emacs@" system-name))
+
+;; C-x 1 => delete-other-window => maximize the current window
+;; C-x 2 => split-window-below  => split the current window horizontally
+;; C-x 3 => split-window-right  => split the current window vertically
+;; https://www.emacswiki.org/emacs/WindMove
+(windmove-default-keybindings 'meta) ; windmove with M-arrows (default is shift)
+;; https://www.emacswiki.org/emacs/FrameMove
 
 (global-display-line-numbers-mode t)
-(set-face-background 'line-number "grey95")
-(set-face-foreground 'line-number "gray80")
-(setq-default visible-bell t)        ; no beeping
-(setq-default indent-tabs-mode nil)  ; no tabs (use spaces)
-(windmove-default-keybindings 'meta) ; move between windows with M key
+(set-face-background 'line-number "grey90")
+(set-face-foreground 'line-number "gray60")
+(set-face-background 'fringe "grey75")
+;;(setq-default indicate-empty-lines t)
+;;(setq inhibit-splash-screen t)
+
+(setq visible-bell t)
+(setq column-number-mode t)
+(setq inhibit-eol-conversion t) ; see ^M (DOS end of line)
 (show-paren-mode t)
 
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
+;; on Fedora default coding system is utf-8-unix (unix EOL type)
+;; M-x describe-coding-system
 (prefer-coding-system 'utf-8)
 
-;; https://www.emacswiki.org/emacs/AutoSave
+;; https://www.emacswiki.org/emacs/LineWrap
+(setq-default fill-column 80) ; M-x set-fill-column
+;; M-q (bound) M-x fill-paragraph
+;; M-x set-fill-column RET 9999 (or 0) RET M-q
+;;(setq-default auto-fill-function 'do-auto-fill) ; M-x auto-fill-mode
+;; https://www.emacswiki.org/emacs/VisualLineMode
+;;(global-visual-line-mode t) ; M-x visual-line-mode
+
+;; https://www.emacswiki.org/emacs/ShowWhiteSpace
+;;(setq-default show-trailing-whitespace t)
+;;(set-face-background 'trailing-whitespace "red1")
+;; but no similar way how show "tab whitespace" or "empty"
+;; https://github.com/emacs-mirror/emacs/blob/master/lisp/whitespace.el
+;; https://www.emacswiki.org/emacs/WhiteSpace
+;; M-x whitespace-toggle-options
+(global-whitespace-mode t) ; M-x global-whitespace-mode (or M-x whitespace-mode)
+(setq whitespace-style '(face trailing tabs empty)) ; specify which kind of blank is visualized
+;; visualization via face-s, M-x list-colors-display
+(set-face-background 'whitespace-trailing "RosyBrown1")
+(set-face-background 'whitespace-tab      "MistyRose1")
+(set-face-background 'whitespace-empty    "snow2")
+;; (custom-set-faces
+;;  '(whitespace-trailing ((t (:background "gray60"))))
+;;  '(whitespace-tab      ((t (:background "gray75"))))
+;;  '(whitespace-empty    ((t (:background "gray90")))))
+;; custom-set-faces is created, added to user-init-file by Customize Emacs
+;; init file should contain ONLY ONE such instance (otherwise won't work right)
+
+(setq-default indent-tabs-mode nil) ; no tabs (use spaces)
+
+(setq c-basic-offset 2)
+
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
+(setq fortran-check-all-num-for-matching-do t) ; (default nil)
+(setq fortran-line-number-indent 5)            ; (default 1) rigth-justify to end
+;;(setq fortran-do-indent 1)                     ; (default 3)
+;;(setq fortran-if-indent 1)                     ; (default 3)
+;;(setq fortran-structure-indent 1)              ; (default 3)
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Comments.html
+(setq fortran-comment-indent-style nil)        ; (default fixed)
+
 ;; https://www.emacswiki.org/emacs/BackupDirectory
 (setq make-backup-files t)
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup"))))
 ;;(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(setq-default ispell-program-name "/usr/bin/hunspell")
+;; https://www.emacswiki.org/emacs/AutoSave
+
+(setq ispell-program-name "/usr/bin/hunspell")
 (setq ispell-personal-dictionary "~/.musinsky.dic") ; don't use $HOME
-
-;; auto-fill (words wrapping) mode on in all major modes
-;;(setq-default auto-fill-function 'do-auto-fill) ; M-x auto-fill-mode
-
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
-(setq-default fortran-check-all-num-for-matching-do t) ; (default nil)
-(setq-default fortran-line-number-indent 5)            ; (default 1) rigth-justify to end
-;;(setq-default fortran-do-indent 1)                     ; (default 3)
-;;(setq-default fortran-if-indent 1)                     ; (default 3)
-;;(setq-default fortran-structure-indent 1)              ; (default 3)
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Comments.html
-(setq-default fortran-comment-indent-style nil)        ; (default fixed)
 
 ;; mucha
 (defun mucha-emacs-reload ()
@@ -62,14 +118,14 @@
   (load-file user-init-file)
   (message "load user init file: %s" user-init-file))
 
-(defun mucha-iwb ()
-  "Indent the whole buffer"
+(defun mucha-clean ()
+  "Clean the whole buffer"
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)) ; replaces tabs with spaces
   ;;(save-buffer)
-  (message "mucha-iwb is done, now you can save file with C-x C-s"))
+  (message "mucha-clean is done, now you can save file with C-x C-s"))
 
 (defun mucha-russian ()
   "Russian environment"
@@ -95,6 +151,12 @@
   (flyspell-mode -1)
   (message "switch to default english and flyspell mode off"))
 
+;; MELPA repository
+;; M-x package-list-packages
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
 ;; CMake
 ;; cmake-data.rpm provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
 
@@ -107,7 +169,7 @@
 (setq TeX-PDF-mode t)
 (setq TeX-quote-language '("russian" "<<" ">>" nil))
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ; words wrapping
+(add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ; line wrap
 
 ;; RefTeX
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; hook in AUCTeX
@@ -117,29 +179,3 @@
 ;; BibTeX
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
-
-;; show white space
-;;(setq-default show-trailing-whitespace t)
-;;(set-face-background 'trailing-whitespace "red1")
-;; but no similar way how show "tab whitespace"
-;;
-;; use library whitespace.el
-;; https://github.com/emacs-mirror/emacs/blob/master/lisp/whitespace.el
-;; https://www.emacswiki.org/emacs/WhiteSpace
-;; M-x whitespace-mode
-;; M-x whitespace-toggle-options
-
-(global-whitespace-mode t)
-(setq whitespace-style '(face trailing tabs empty)) ; specify which kind of blank is visualized
-;; visualization via face-s (used to highlight the background with a color)
-;; M-x list-colors-display
-(custom-set-faces
- '(whitespace-trailing ((t (:background "RosyBrown1")))) ; (set-face-background 'whitespace-trailing "gray70")
- '(whitespace-tab      ((t (:background "MistyRose1")))) ; (set-face-background 'whitespace-tab      "gray80")
- '(whitespace-empty    ((t (:background "snow2")))))     ; (set-face-background 'whitespace-empty    "gray90")
-
-;; MELPA repository
-;; M-x package-list-packages
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
