@@ -50,8 +50,10 @@
 (set-face-foreground 'line-number "gray60")
 (set-face-background 'fringe "grey75")
 (setq-default indicate-empty-lines t)
+(setq size-indication-mode t)
 ;;(setq inhibit-splash-screen t)
 
+(set-face-background 'region "#b3d9ff")
 (setq visible-bell t)
 (setq column-number-mode t)
 (setq inhibit-eol-conversion t) ; show ^M (DOS end of line)
@@ -67,9 +69,9 @@
 (global-whitespace-mode t) ; M-x global-whitespace-mode (or M-x whitespace-mode)
 (setq whitespace-style '(face trailing tabs empty)) ; specify which kind of blank is visualized
 ;; visualization via face-s, M-x list-colors-display
-(set-face-background 'whitespace-trailing "RosyBrown1")
-(set-face-background 'whitespace-tab      "MistyRose1")
-(set-face-background 'whitespace-empty    "snow2")
+(set-face-background 'whitespace-trailing "#ffb2b2")
+(set-face-background 'whitespace-tab      "#ffecea")
+(set-face-background 'whitespace-empty    "#ffd9d6")
 ;; (custom-set-faces
 ;;  '(whitespace-trailing ((t (:background "gray60"))))
 ;;  '(whitespace-tab      ((t (:background "gray75"))))
@@ -180,3 +182,5 @@
 ;; BibTeX
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
+
+;; Emacs customize
