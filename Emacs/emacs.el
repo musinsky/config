@@ -22,7 +22,7 @@
 ;; M-x cua-mode          => use CUA keys (C-x, C-c, C-v, etc)
 
 ;; C-u => prefix argument, https://www.emacswiki.org/emacs/PrefixArgument
-;; print the buffer (or region) to PostScript file
+;; print the buffer (or region) to PostScript file (see below)
 ;; C-u M-x ps-print-buffer-with-faces (with-faces include color)
 ;; describe the character at cursor position (charset, font, etc)
 ;; C-u C-x = (bound) C-u M-x what-cursor-position (or M-x describe-char)
@@ -78,7 +78,8 @@
 ;; https://www.emacswiki.org/emacs/WhiteSpace
 ;; M-x whitespace-toggle-options
 (global-whitespace-mode t) ; M-x global-whitespace-mode (or M-x whitespace-mode)
-(setq whitespace-style '(face trailing tabs empty)) ; specify which kind of blank is visualized
+;; specify which kind of blank is visualized (don't use tab-mark)
+(setq whitespace-style '(face trailing tabs empty))
 ;; visualization via face-s, M-x list-colors-display
 (set-face-attribute 'whitespace-trailing nil :background "#ffb2b2")
 (set-face-attribute 'whitespace-tab      nil :background "#ffecea")
@@ -125,6 +126,19 @@
       `(("." . ,(concat user-emacs-directory "backup"))))
 ;;(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
 ;; https://www.emacswiki.org/emacs/AutoSave
+
+;; https://github.com/emacs-mirror/emacs/blob/master/lisp/ps-print.el
+;; https://www.emacswiki.org/emacs/PsPrintPackage-23
+(setq ps-paper-type 'a4 ; C-u M-x ps-print-buffer-with-faces
+;;;   ps-right-header nil
+      ps-right-header
+      (list "/pagenumberstring load"
+;;;         (lambda () (format-time-string "%Y-%m-%d %H:%M:%S"))
+            'ps-time-stamp-yyyy-mm-dd)
+;;;   ps-print-header nil
+;;;   ps-landscape-mode t
+;;;   ps-number-of-columns 2
+      )
 
 (setq ispell-program-name "/usr/bin/hunspell")
 (setq ispell-personal-dictionary "~/.musinsky.dic") ; don't use $HOME
