@@ -29,9 +29,9 @@
 
 ;; https://www.emacswiki.org/emacs/SetFonts
 ;; https://www.emacswiki.org/emacs/FrameSize
-;;(set-frame-font "DejaVu Sans Mono-9")
+;;(set-frame-font "DejaVu Sans Mono-9") ; or via face-s (see below)
 (set-frame-position (selected-frame) -1 0) ; in pixels (0 0 is left top)
-(set-frame-size (selected-frame) 100 60)   ; in characters
+(set-frame-size (selected-frame) 100 60)   ; in characters (set font before)
 ;; https://www.emacswiki.org/emacs/FrameTitle
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -45,17 +45,28 @@
 (windmove-default-keybindings 'meta) ; windmove with M-arrows (default is shift)
 ;; https://www.emacswiki.org/emacs/FrameMove
 
+;;(setq inhibit-splash-screen t)
 (global-display-line-numbers-mode t)
-(set-face-background 'line-number "grey90")
-(set-face-foreground 'line-number "gray60")
-(set-face-background 'fringe "grey75")
 (setq-default indicate-empty-lines t)
 (setq size-indication-mode t)
-;;(setq inhibit-splash-screen t)
-
-(set-face-background 'region "#b3d9ff")
 (setq visible-bell t)
 (setq column-number-mode t)
+
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Attribute-Functions.html
+;; M-x list-faces-display, M-x describe-face
+(set-face-attribute 'line-number nil :background "grey90" :foreground "grey60")
+(set-face-attribute 'line-number-current-line nil :background "grey80")
+(set-face-attribute 'fringe nil :background "grey75")
+(set-face-attribute 'region nil :background "#b3d9ff")
+;;(set-face-background 'region "SkyBlue1") ; for Emacs 21+ is obsolete
+;; set-face-background calling set-face-attribute (provide compatibility with older versions)
+;;
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
+;;(set-face-attribute 'default nil :font "DejaVu Sans Mono-9")
+;;(set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 90)
+;;(set-face-attribute 'default nil :height 90) ; in units of 1/10 point
+
 (setq inhibit-eol-conversion t) ; show ^M (DOS end of line)
 (show-paren-mode t)
 
@@ -69,10 +80,14 @@
 (global-whitespace-mode t) ; M-x global-whitespace-mode (or M-x whitespace-mode)
 (setq whitespace-style '(face trailing tabs empty)) ; specify which kind of blank is visualized
 ;; visualization via face-s, M-x list-colors-display
-(set-face-background 'whitespace-trailing "#ffb2b2")
-(set-face-background 'whitespace-tab      "#ffecea")
-(set-face-background 'whitespace-empty    "#ffd9d6")
-;; (custom-set-faces
+(set-face-attribute 'whitespace-trailing nil :background "#ffb2b2")
+(set-face-attribute 'whitespace-tab      nil :background "#ffecea")
+(set-face-attribute 'whitespace-empty    nil :background "#ffd9d6")
+;;(set-face-background 'whitespace-trailing "#ffb2b2") ; obsolete
+;;(set-face-background 'whitespace-tab      "#ffecea") ; obsolete
+;;(set-face-background 'whitespace-empty    "#ffd9d6") ; obsolete
+;;
+;; (custom-set-faces ; don't use
 ;;  '(whitespace-trailing ((t (:background "gray60"))))
 ;;  '(whitespace-tab      ((t (:background "gray75"))))
 ;;  '(whitespace-empty    ((t (:background "gray90")))))
