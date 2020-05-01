@@ -1,16 +1,14 @@
 # PSCyr
-* PSCyr-0.4d (0.4d-beta9) fonts, Alexander Lebedev, 2000-2004
-* original fonts get from ftp://scon155.phys.msu.su/pub/russian/psfonts/0.4d-beta/
-* tested on TeX Live on Fedora linux (TeX Live installed from CTAN)
-* more info on http://alice.saske.sk/wiki/TeXLive
+* See on http://alice.saske.sk/wiki/TeXLive for more info.
+* Collection of PSCyr fonts (version 0.4d-beta9, 2004-10-15), Alexander Lebedev (2000-2004). Tested on Linux (Fedora) and TeX Live.
 ### install
 1. as **admin** (recommended) to **$TEXMFLOCAL** (`/opt/texlive/texmf-local`)
 ```
-export DEST_DIR=`kpsewhich -expand-var='$TEXMFLOCAL'`
+export DEST_DIR=$(kpsewhich -var-value=TEXMFLOCAL)
 ```
 2. or as **user** to **$TEXMFHOME** (`/home/musinsky/texmf`)
 ```
-export DEST_DIR=`kpsewhich -expand-var='$TEXMFHOME'`
+export DEST_DIR=$(kpsewhich -var-value=TEXMFHOME)
 ```
 * common parts
 ```
@@ -42,7 +40,6 @@ mv PSCyr/doc/PROBLEMS     $DEST_DIR/doc/fonts/pscyr
 mv PSCyr/doc/fonts-ex.tex $DEST_DIR/doc/fonts/pscyr
 iconv -f KOI8-R -t UTF8 < PSCyr/doc/README.koi > $DEST_DIR/doc/fonts/pscyr/README.utf8
 ```
-* file map `pscyr2.map` used only with (obsolete) dvipdfm, no more need to enable, need only `pscyr.map` file
 1. as **admin** (recommended)
 ```
 mktexlsr
@@ -51,5 +48,5 @@ updmap-sys --enable Map=pscyr.map
 2. or as **user**
 ```
 mktexlsr $DEST_DIR
-updmap --enable Map=pscyr.map
+updmap-user --enable Map=pscyr.map
 ```
