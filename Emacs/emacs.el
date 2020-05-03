@@ -192,23 +192,26 @@
 ;; CMake
 ;; cmake-data.rpm provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
 
-;; AUCTeX
-(load "auctex.el" t)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
+;; AUCTeX (installed from GNU ELPA repository)
+;; https://www.gnu.org/software/auctex/manual/auctex.html
+(setq TeX-parse-self t) ; parse on load
+(setq TeX-auto-save t)  ; parse on save
+(setq-default TeX-master nil) ; query for master file
 
-(setq TeX-PDF-mode t)
+;; https://www.gnu.org/software/auctex/manual/auctex.html#Style-Files-for-Different-Languages
+;; russian language style is not recognized (unlike slovak or english)
+;; https://github.com/emacsmirror/auctex/blob/master/style/slovak.el
 (setq TeX-quote-language '("russian" "<<" ">>" nil))
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ; line wrap
 
-;; RefTeX
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; hook in AUCTeX
-(add-hook 'latex-mode-hook 'turn-on-reftex) ; hook in Emacs
-(setq reftex-plug-into-auctex t)
+;; RefTeX (bundled with Emacs)
+;; https://www.gnu.org/software/auctex/manual/reftex.html
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex) ; with Emacs latex mode
+(setq reftex-plug-into-AUCTeX t)
 
-;; BibTeX
+;; BibTeX (bundled with Emacs)
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
 
