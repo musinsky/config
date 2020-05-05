@@ -194,8 +194,8 @@
 
 ;; AUCTeX (installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
-(setq TeX-parse-self t) ; parse on load
 (setq TeX-auto-save t)  ; parse on save
+(setq TeX-parse-self t) ; parse on load
 (setq-default TeX-master nil) ; query for master file
 
 ;; https://www.gnu.org/software/auctex/manual/auctex.html#Style-Files-for-Different-Languages
@@ -204,6 +204,25 @@
 (setq TeX-quote-language '("russian" "<<" ">>" nil))
 
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ; line wrap
+
+;; https://www.gnu.org/software/auctex/manual/auctex.html#Selecting-and-Executing-a-Command
+;; M-x customize-variable RET TeX-command-list (see various TeX-* commands)
+;; see pdflatex options for default LaTeX (switch toggle prompt on)
+;; C-c C-c RET LaTeX => pdflatex -file-line-error -interaction=nonstopmode file.tex
+;; add these pdflatex options to $HOME/.latexmkrc (or customize pdflatex)
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (add-to-list 'TeX-command-list
+                         '("mucha-make" "make" TeX-run-TeX nil ; make call latexmk
+                           (latex-mode)
+                           :help "Run mucha-make"))
+            (add-to-list 'TeX-command-list
+                         '("mucha-make-clean" "make clean" TeX-run-command nil
+                           (latex-mode)
+                           :help "Run mucha-make-clean"))
+;;;         (setq TeX-command-default "mucha-make")
+;;;         (add-hook 'after-save-hook 'TeX-command-master)
+            ))
 
 ;; RefTeX (bundled with Emacs)
 ;; https://www.gnu.org/software/auctex/manual/reftex.html
