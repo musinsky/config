@@ -1,4 +1,4 @@
-# https://github.com/musinsky/config/tree/master/latexmkrc
+# https://github.com/musinsky/config/tree/master/TeXLive
 
 # only with these options AUCTeX can forward/inverse search, catching the errors, etc.
 # however, these options are not needed to work without AUCTeX
