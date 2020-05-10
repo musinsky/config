@@ -1,0 +1,8 @@
+# https://github.com/musinsky/config/tree/master/latexmkrc
+
+# only with these options AUCTeX can forward/inverse search, catching the errors, etc.
+# however, these options are not needed to work without AUCTeX
+$pdflatex = 'pdflatex -file-line-error -synctex=1 -interaction=nonstopmode';
+
+# or more options
+# $pdflatex = 'pdflatex -shell-escape -file-line-error -synctex=1 -interaction=nonstopmode %O %S';
