@@ -31,7 +31,7 @@
 ;; https://www.emacswiki.org/emacs/FrameSize
 ;;(set-frame-font "DejaVu Sans Mono-9") ; or via face-s (see below)
 (set-frame-position (selected-frame) -1 0) ; in pixels (0 0 is left top)
-(set-frame-size (selected-frame) 100 60)   ; in characters (set font before)
+(set-frame-size (selected-frame) 105 60)   ; in characters (set font before)
 ;; https://www.emacswiki.org/emacs/FrameTitle
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -194,33 +194,49 @@
 
 ;; AUCTeX (installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
-(setq TeX-auto-save t)  ; parse on save
-(setq TeX-parse-self t) ; parse on load
+(setq TeX-auto-save t)        ; parse on save
+(setq TeX-parse-self t)       ; parse on load
 (setq-default TeX-master nil) ; query for master file
+(setq TeX-PDF-mode t)         ; from AUCTeX 11.88 enabled by default
 
 ;; https://www.gnu.org/software/auctex/manual/auctex.html#Style-Files-for-Different-Languages
 ;; russian language style is not recognized (unlike slovak or english)
 ;; https://github.com/emacsmirror/auctex/blob/master/style/slovak.el
 (setq TeX-quote-language '("russian" "<<" ">>" nil))
 
+(setq LaTeX-syntactic-comments nil)            ; don't indent, format comments
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill) ; line wrap
 
+;; https://www.gnu.org/software/auctex/manual/auctex.html#Forward-and-Inverse-Search
+;; forward search from Emacs to Evince => C-c C-v (bound) M-x TeX-view
+;; inverse search from Evince to Emacs => Ctrl + left click
+(setq TeX-source-correlate-mode t)         ; i.a. add option "-synctex=1" for pdflatex
+(setq TeX-source-correlate-start-server t) ; however inverse search works also with nil ?!
+
 ;; https://www.gnu.org/software/auctex/manual/auctex.html#Selecting-and-Executing-a-Command
-;; M-x customize-variable RET TeX-command-list (see various TeX-* commands)
-;; see pdflatex options for default LaTeX (switch toggle prompt on)
-;; C-c C-c RET LaTeX => pdflatex -file-line-error -interaction=nonstopmode file.tex
-;; add these pdflatex options to $HOME/.latexmkrc (or customize pdflatex)
+;; M-x customize-variable RET TeX-command-list (examine various commands with options)
+;; see pdflatex options for default LaTeX command (switch toggle prompt on)
+;; C-c C-c LaTeX => command: pdflatex -file-line-error -interaction=nonstopmode file.tex
+;; add these pdflatex options to $HOME/.latexmkrc or customize pdflatex command with options
+;; only with these options AUCTeX can forward/inverse search, catching the errors, etc.
+;; https://github.com/tom-tan/auctex-latexmk # LatexMk support to AUCTeX (clean solution)
 (add-hook 'LaTeX-mode-hook
           (lambda ()
             (add-to-list 'TeX-command-list
-                         '("mucha-make" "make" TeX-run-TeX nil ; make call latexmk
-                           (latex-mode)
-                           :help "Run mucha-make"))
+                         ;; pdflatex options are stored in Makefile (or via $HOME/.latexmkrc)
+                         '("mucha-make" "make" ; make call latexmk
+                           TeX-run-TeX nil     ; (nil or t) switch toggle prompt
+                           (latex-mode) :help "Run mucha-make"))
             (add-to-list 'TeX-command-list
-                         '("mucha-make-clean" "make clean" TeX-run-command nil
-                           (latex-mode)
-                           :help "Run mucha-make-clean"))
-;;;         (setq TeX-command-default "mucha-make")
+                         ;; pdflatex options set with command argument $ make OPT="auctex options"
+                         '("mucha-make-opt" "make OPT=\"%(file-line-error) %(extraopts) %S %(mode)\""
+                           TeX-run-TeX nil
+                           (latex-mode) :help "Run mucha-make-opt"))
+            (add-to-list 'TeX-command-list
+                         '("mucha-make-clean" "make clean"
+                           TeX-run-command nil
+                           (latex-mode) :help "Run mucha-make-clean"))
+;;;         (setq TeX-command-default "mucha-make-opt")
 ;;;         (add-hook 'after-save-hook 'TeX-command-master)
             ))
 
