@@ -1,8 +1,12 @@
 TeX Live
 --------
+More info on http://alice.saske.sk/wiki/TeXLive
 ```
 wget https://raw.githubusercontent.com/musinsky/config/master/TeXLive/texlive.profile
 ./install-tl --profile=texlive.profile
 ```
 
-More info on http://alice.saske.sk/wiki/TeXLive
+```
+wget -nc https://raw.githubusercontent.com/musinsky/config/master/TeXLive/latexmkrc -O $HOME/.latexmkrc
+
+```
