@@ -240,6 +240,12 @@
 ;;;         (add-hook 'after-save-hook 'TeX-command-master)
             ))
 
+;; https://www.gnu.org/software/auctex/manual/auctex.html#Controlling-Screen-Display
+;; M-x customize-group RET font-latex (Font-latex text highlighting package)
+(setq font-latex-fontify-sectioning (quote color)) ; only color
+(setq font-latex-script-display (quote (nil)))     ; _sub/^super-script on baseline
+;;(setq font-latex-fontify-script nil)             ; _sub/^super-script disable at all
+
 ;; RefTeX (bundled with Emacs)
 ;; https://www.gnu.org/software/auctex/manual/reftex.html
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex) ; with AUCTeX LaTeX mode
