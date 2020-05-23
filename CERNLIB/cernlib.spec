@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       40%{?dist}
+Release:       41%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -908,9 +908,16 @@ echo default optflags
 %global optflags %(echo %{optflags} | sed 's/-O[0-3]/-O/')
 %endif
 
+# 2020-05-23
+%if 0%{?gcc_dump_ver} >= 10
+%global optflags %(echo %{optflags} -fcommon)
+%endif
+
 # set FC_OPTFLAGS and FC_COMPILER based on compiler used
 %if %{with gfortran}
-FC_OPTFLAGS="%{optflags}"
+# FC_OPTFLAGS="%{optflags}"
+# 2020-05-23
+FC_OPTFLAGS="%{optflags} -fallow-argument-mismatch -fallow-invalid-boz"
 FC_COMPILER=gfortran
 %else
 # optflags are different for g77, so we remove problematic flags
@@ -1477,6 +1484,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Sat May 23 2020 Jan Musinsky <musinsky@gmail.com> - 2006-41
+- gcc10 support
+
 * Mon May 06 2019 Jan Musinsky <musinsky@gmail.com> - 2006-40
 - unofficial release 40 after 9 years (previous last official release 35)
 - many fixies after long time
