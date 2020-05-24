@@ -910,7 +910,7 @@ echo default optflags
 
 # 2020-05-23
 %if 0%{?gcc_dump_ver} >= 10
-%global optflags %(echo %{optflags} -fcommon)
+%global optflags %{optflags} -fcommon
 %endif
 
 # set FC_OPTFLAGS and FC_COMPILER based on compiler used
