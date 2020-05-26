@@ -2,14 +2,11 @@
  * nt_test.c
  *
  * minminal working example of using C source code to build CERNLIB HBOOK
- * routines.
+ * routines
  *
- * see
+ * see documentation regarding HBOOK calls and running PAW
  * https://cds.cern.ch/record/2296378/files/hbook.pdf
  * https://cds.cern.ch/record/2296392/files/paw.pdf
- * for some of the last surviving documentation regarding HBOOK calls
- * and running PAW that I can find.
- *
  *
  * successfully compiled and ran on Fedora release 30 x86_64
  * gcc -c -DgFortran nt_test.c -I/usr/include/cernlib/2006

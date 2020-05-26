@@ -1,30 +1,20 @@
-*
-* $Id: minexam.F,v 1.1.1.1 1996/03/07 14:31:32 mclareni Exp $
-*
-* $Log: minexam.F,v $
-* Revision 1.1.1.1  1996/03/07 14:31:32  mclareni
-* Minuit
-*
-*
+C 2020-05-26, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
+C
+C gfortran minexam.f fcnk0.f -o minexam $(cernlib packlib)
+C
+C original files from CERNLIB 2006 source
+C cernlib-2006/2006/src/packlib/minuit/examples/minexam.F
+C cernlib-2006/2006/src/packlib/minuit/examples/fcnk0.F
+C
       PROGRAM MNEXAM
 C             Minuit test case.  Fortran-callable.
 C             Fit randomly-generated leptonic K0 decays to the
 C       time distribution expected for interfering K1 and K2,
 C       with free parameters Re(X), Im(X), DeltaM, and GammaS.
-*
-* $Id: d506dp.inc,v 1.1.1.1 1996/03/07 14:31:32 mclareni Exp $
-*
-* $Log: d506dp.inc,v $
-* Revision 1.1.1.1  1996/03/07 14:31:32  mclareni
-* Minuit
-*
-*
-*
-*
-* d506dp.inc
-*
+C important include (begin)
 C ************ DOUBLE PRECISION VERSION *************
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+C important include (end)
       EXTERNAL FCNK0
 CC    OPEN (UNIT=6,FILE='DSDQ.OUT',STATUS='NEW',FORM='FORMATTED')
       DIMENSION NPRM(5),VSTRT(5),STP(5)

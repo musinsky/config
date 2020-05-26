@@ -1,5 +1,5 @@
 /*
- * 2020-01-16, Jan Musinsky, tested on Fedora31 (gcc 9.2.1) x86_64 linux
+ * 2020-05-26, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
  *
  * gcc -c chplot-example.c -I/usr/include/cernlib/2006
  * gfortran -o chplot-example chplot-example.o $(cernlib graflib mathlib)

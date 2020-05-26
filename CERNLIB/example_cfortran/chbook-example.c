@@ -1,5 +1,5 @@
 /*
- * 2020-01-16, Jan Musinsky, tested on Fedora31 (gcc 9.2.1) x86_64 linux
+ * 2020-05-26, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
  *
  * gcc -c chbook-example.c -I/usr/include/cernlib/2006
  * gfortran -o chbook-example chbook-example.o $(cernlib packlib)
@@ -30,8 +30,8 @@ void main()
 {
   printf("RAND_MAX = %d\n", RAND_MAX); // 2147483647 on linux
 
-  int hid = 1;
-  int i, j;
+  int hid=1;
+  int i,j;
   float r;
 
   HLIMIT(PAWC_SIZE);

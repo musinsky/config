@@ -1,26 +1,8 @@
-*
-* $Id: fcnk0.F,v 1.1.1.1 1996/03/07 14:31:32 mclareni Exp $
-*
-* $Log: fcnk0.F,v $
-* Revision 1.1.1.1  1996/03/07 14:31:32  mclareni
-* Minuit
-*
-*
       SUBROUTINE FCNK0(NPAR,GIN,F,X,IFLAG)
-*
-* $Id: d506dp.inc,v 1.1.1.1 1996/03/07 14:31:32 mclareni Exp $
-*
-* $Log: d506dp.inc,v $
-* Revision 1.1.1.1  1996/03/07 14:31:32  mclareni
-* Minuit
-*
-*
-*
-*
-* d506dp.inc
-*
+C important include (begin)
 C ************ DOUBLE PRECISION VERSION *************
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+C important include (end)
       REAL THPLUI, THMINI
       DIMENSION X(*),GIN(*)
       PARAMETER (MXBIN=50)
@@ -35,9 +17,9 @@ C ************ DOUBLE PRECISION VERSION *************
      +         / 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  1.,
      +           0.,  2.,  1.,  4.,  4.,  2.,  4.,  2.,  2.,  0.,
      +           2.,  3.,  7.,  2.,  3.,  6.,  2.,  4.,  1.,  5./
-C
+C important gfortran (begin)
       SAVE
-C
+C important gfortran (end)
       XRE = X(1)
       XIM = X(2)
       DM = X(5)

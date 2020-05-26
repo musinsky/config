@@ -1,5 +1,11 @@
-*     2005-11-09
-
+C 2020-05-26, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
+C
+C gfortran htest.f -o htest $(cernlib packlib)
+C
+C based on original files from CERNLIB 2006 source
+C cernlib-2006/2006/src/packlib/hbook/examples/hexam2.F
+C
+C     found on the net in 2005-11
       PROGRAM HTEST
       PARAMETER (NWPAWC=20000)
       COMMON/PAWC/H(NWPAWC)
