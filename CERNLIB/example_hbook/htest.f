@@ -1,11 +1,12 @@
-C 2020-05-26, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
+C 2020-05-27, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
 C
 C gfortran htest.f -o htest $(cernlib packlib)
 C
+C original file htest.f from HBOOK documentation tarball file
+C https://cds.cern.ch/record/2296378/files/hbook.tar.gz
 C based on original files from CERNLIB 2006 source
 C cernlib-2006/2006/src/packlib/hbook/examples/hexam2.F
 C
-C     found on the net in 2005-11
       PROGRAM HTEST
       PARAMETER (NWPAWC=20000)
       COMMON/PAWC/H(NWPAWC)
@@ -16,8 +17,8 @@ C     found on the net in 2005-11
       CALL HBOOK1(110,'Filled according to HTFUN1',100,0.,1.,1000.)
       CALL HBFUN2(200,'Test of HRNDM2',100,0.,1.,40,0.,1.,HTFUN2)
       CALL HSCALE(200,0.)
-      CALL HBOOK2(210,'Filled according to HTFUN2',100,0.,1.,40,0.,
-     +     1.,30.)
+      CALL HBOOK2(210,'Filled according to HTFUN2',
+     +     100,0.,1.,40,0.,1.,30.)
 *     Fill histograms
       DO 10 I=1,10000
          X=HRNDM1(100)
