@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       41%{?dist}
+Release:       42%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -92,7 +92,7 @@ BuildRequires: gawk
 BuildRequires: desktop-file-utils
 
 %if 0%{?fedora} >= 28
-BuildRequires: libnsl2-devel
+BuildRequires: libnsl2-devel make
 %endif
 
 %if %{with gfortran}
@@ -985,6 +985,14 @@ sed -i 's/strfromd/strfromd9/g' packlib/kuip/code_kuip/kmacro.c
 sed -i 's/strfromd/strfromd9/g' packlib/kuip/code_kuip/kmenu.c
 sed -i 's/strfromd/strfromd9/g' packlib/kuip/code_kuip/kvect.c
 
+# glibc-2.32 (2020-08) deprecated symbols sys_errlist, sys_nerr are no longer available
+# replace deprecated sys_errlist and sys_nerr by strerror
+cd $CERN_ROOT/src
+sed -i 's/sys_errlist\[errno\]/strerror\(errno\)/g' kernlib/kernbit/z268/systems.c # 2x
+sed -i 's/n<sys_nerr/n<strerror\(\)/g'              packlib/cspack/sysreq/serror.c
+sed -i 's/sys_errlist\[n\]/strerror\(n\)/g'         packlib/cspack/sysreq/serror.c
+sed -i 's/sys_errlist\[errno\]/strerror\(errno\)/g' packlib/cspack/sysreq/socket.c
+
 # fix printf with flis_name[i]
 sed -i 's/printf (flis_name/printf ("\%s", flis_name/' packlib/kuip/code_kuip/kmenu.c
 
@@ -1484,8 +1492,11 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Wed Oct 14 2020 Jan Musinsky <musinsky@gmail.com> - 2006-42
+- glibc-2.32 support, Fedora 33
+
 * Sat May 23 2020 Jan Musinsky <musinsky@gmail.com> - 2006-41
-- gcc10 support
+- gcc10 support, Fedora 32
 
 * Mon May 06 2019 Jan Musinsky <musinsky@gmail.com> - 2006-40
 - unofficial release 40 after 9 years (previous last official release 35)
