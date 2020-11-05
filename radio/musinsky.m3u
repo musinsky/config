@@ -11,6 +11,9 @@
 #EXTINF:-1,1.FM - Chillout Lounge Radio
 http://sc1c-sjc.1.fm:7008/
 http://sc-tcl.1.fm:8010/
+# https://m1.fm/
+#EXTINF:-1,M1.FM - Chillout
+http://tuner.m1.fm/chillout.mp3
 #EXTINF:-1,1.FM - Adore Jazz Radio
 http://sc1c-sjc.1.fm:5084/
 http://strm112.1.fm/ajazz_mobile_mp3
