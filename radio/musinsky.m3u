@@ -36,6 +36,11 @@ https://jfm1.hostingradio.ru:14536/sjstream.mp3
 #EXTINF:-1,Radio JAZZ - Jazz FM
 https://nashe1.hostingradio.ru:80/jazz-128.mp3
 
+# https://jazz.rozhlas.cz/
+#EXTINF:-1,Cesky rozhlas Jazz
+http://icecast4.play.cz/crojazz256.mp3
+http://icecast1.play.cz/crojazz128.mp3
+
 # https://lounge-radio.com/
 #EXTINF:-1,LOUNGE-RADIO.COM - swiss made
 http://fr1.lounge-radio.com/
@@ -45,5 +50,3 @@ http://nl1.lounge-radio.com:8010/
 # others
 #EXTINF:-1,Ambient Radio .org
 http://uk2.internet-radio.com:31491/
-#EXTINF:-1,Radio Jazz
-http://stream.radiojazz.sk:8000/jazz128.aac
