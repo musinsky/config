@@ -18,8 +18,13 @@
 ;; C-\ (bound) M-x toggle-input-method => multilingual text input
 ;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>)
 ;;
+;; C-x SPC (bound) M-x rectangle-mark-mode => rectangle (columns) select
+;; C-x SPC (rectangle mark mode) C-t       => string rectangle (columns replace)
+;;
+;; M-x cua-mode => use CUA keys (C-x, C-c, C-v, etc)
+;; C-RET        => start CUA enhanced rectangle support (in CUA mode)
+;;
 ;; M-x goto-address-mode => activate URLs
-;; M-x cua-mode          => use CUA keys (C-x, C-c, C-v, etc)
 
 ;; C-u => prefix argument, https://www.emacswiki.org/emacs/PrefixArgument
 ;; print the buffer (or region) to PostScript file (see below)
