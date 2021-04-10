@@ -1,3 +1,26 @@
+%if %{?rhel}%{!?rhel:0} >= 8
+%global optflags -std=legacy -DL_cuserid=512
+%endif
+
+%if %{?fedora}%{!?fedora:0} 
+#global optflags -std=legacy -DL_cuserid=512 -fallow-argument-mismatch -fallow-invalid-boz -fcommon
+#For Fedora it makes sense to check the compiler version
+# replace gcc optimization flags
+# for gcc < 8 must be -O (no -O2 or -O3)
+#
+# gcc -dumpversion => older 4.8.5 => newer 8
+%define gcc_dump_ver %(gcc -dumpversion | sed 's/[.].*$//')
+
+%if 0%{?gcc_dump_ver} < 8
+%global optflags %(echo %{optflags} | sed 's/-O[0-3]/-O/')
+%endif
+
+# 2020-05-23
+%if 0%{?gcc_dump_ver} >= 10
+%global optflags %(echo %{optflags} -fcommon)
+%endif
+%endif
+
 %if 0%{?fedora}
 %if 0%{?fedora} > 6
 %bcond_without gfortran
@@ -55,7 +78,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       42%{?dist}
+Release:       43%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -91,8 +114,8 @@ BuildRequires: gawk
 
 BuildRequires: desktop-file-utils
 
-%if 0%{?fedora} >= 28
-BuildRequires: libnsl2-devel make
+%if %{?fedora}%{!?fedora:0} >=28 || %{?rhel}%{!?rhel:0} >= 8
+BuildRequires: libnsl libnsl2-devel make
 %endif
 
 %if %{with gfortran}
@@ -362,7 +385,7 @@ Requires:       lapack blas
 Requires:       lapack-devel blas-devel
 %endif
 
-%if 0%{?fedora} >= 28
+%if 0%{?fedora} >= 28 || %{?rhel}%{!?rhel:0} >= 8
 Requires: libnsl2-devel
 %endif
 
@@ -896,28 +919,13 @@ touch -r ../cernlib.in src/scripts/cernlib
 # install mkdirhier which is needed to make directories
 %{__install} -p -m755 %{SOURCE104} bin/
 
-# replace gcc optimization flags
-# for gcc < 8 must be -O (no -O2 or -O3)
-#
-# gcc -dumpversion => older 4.8.5 => newer 8
-%define gcc_dump_ver %(gcc -dumpversion | sed 's/[.].*$//')
-
-%if 0%{?gcc_dump_ver} >= 8
-echo default optflags
-%else
-%global optflags %(echo %{optflags} | sed 's/-O[0-3]/-O/')
-%endif
-
-# 2020-05-23
-%if 0%{?gcc_dump_ver} >= 10
-%global optflags %{optflags} -fcommon
-%endif
-
 # set FC_OPTFLAGS and FC_COMPILER based on compiler used
 %if %{with gfortran}
-# FC_OPTFLAGS="%{optflags}"
-# 2020-05-23
+%if %{?fedora}%{!?fedora:0} >= 32 
 FC_OPTFLAGS="%{optflags} -fallow-argument-mismatch -fallow-invalid-boz"
+%else
+ FC_OPTFLAGS="%{optflags}"
+%endif
 FC_COMPILER=gfortran
 %else
 # optflags are different for g77, so we remove problematic flags
@@ -953,6 +961,12 @@ export PATH=$PATHSAVE
 
 # pass informations to the build system through host.def
 echo '#define DefaultCDebugFlags %{optflags} -D_GNU_SOURCE' >> ${CVSCOSRC}/config/host.def
+%if %{?rhel}%{!?rhel:0} >= 8
+echo '#define DefaultCDebugFlags %{optflags} -DIEC_60559_BFP_EXT=0 ' >> ${CVSCOSRC}/config/host.def
+%else
+echo '#define DefaultCDebugFlags %{optflags} -D_GNU_SOURCE' >> ${CVSCOSRC}/config/host.def
+%endif
+
 
 %if %{with gfortran}
 echo '#define Hasgfortran YES' >> ${CVSCOSRC}/config/host.def
@@ -1242,7 +1256,11 @@ export LD_LIBRARY_PATH=$CERN_ROOT/shlib/
 cd $CERN_ROOT/build
 
 # no test in code_motif paw_motif scripts patchy pawlib
+%if  %{?rhel}%{!?rhel:0} >= 7
+test_dirs='graflib mclibs kernlib mathlib packlib phtools'
+%else
 test_dirs='graflib mclibs kernlib mathlib packlib phtools geant321'
+%endif
 
 rm -f __dist_failed_builds
 
@@ -1492,6 +1510,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Tue Dec 1 2020 Andrii Verbytskyi <andrii.verbytskyi@mpp.mpg.de> 2006-43
+ - Adding CentOS7/CentOS8 support
+
 * Wed Oct 14 2020 Jan Musinsky <musinsky@gmail.com> - 2006-42
 - glibc-2.32 support, Fedora 33
 
@@ -1508,6 +1529,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 - add libnsl2-devel for newer distributions
 - replace -O2 (or -O3) by -O gcc flags for older distributions
 - cernlib package is now compiling (but not guaranteed to work properly)
+
+* Mon Feb 08 2016 Andrii Verbytskyi <andrii.verbytskyi@mpp.mpg.de> 2006-36
+- Disabled tests for geant321
 
 * Wed May 05 2010 Jon Ciesla <limb@jcomserv.net> 2006-35
 - Apply debian cernlib 2006.dfsg.2-14 patchset.
