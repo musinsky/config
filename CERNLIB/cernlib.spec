@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       42%{?dist}
+Release:       43%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -1492,6 +1492,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Sun Apr 11 2021 Jan Musinsky <musinsky@gmail.com> - 2006-43
+- without changes, Fedora 34
+
 * Wed Oct 14 2020 Jan Musinsky <musinsky@gmail.com> - 2006-42
 - glibc-2.32 support, Fedora 33
 
