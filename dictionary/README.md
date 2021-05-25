@@ -32,7 +32,7 @@ ln -s ~/.musinsky.dic `find ~/.config/libreoffice/*/user/wordbook -type d`/stand
 * pri ulozeni noveho slova do `persdict.dat` sa meni usporiadanie slov. Ak by sa tento slovnik (subor) zdielal s LibreOffice, potom by sa preusporiadali aj prve riadky z hlavicky tohoto slovnika, a teda pre LibreOffice by bol tento slovnik uz dalej nepouzitelny.
 * prijatelne riesenie je cas od casu vytvorit novy personalny slovnik pre Firefox spojenim jeho stareho slovnika a spolocneho slovnika pre Emacs a LibreOffice
 ```
-sed -n '5,$p' ~/.musinsky.dic ~/.mozilla/firefox/*.default/persdict.dat | sort -u > persdict_merge.dat
+sed -n '5,$p' ~/.musinsky.dic ~/.mozilla/firefox/*.default/persdict.dat | LC_COLLATE=C sort -u > persdict_merge.dat
 ```
 
 ### Google Chrome
