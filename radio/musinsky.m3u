@@ -50,3 +50,9 @@ http://nl1.lounge-radio.com:8010/
 # others
 #EXTINF:-1,Ambient Radio .org
 http://uk2.internet-radio.com:31491/
+
+# https://fm.rtvs.sk/
+#EXTINF:-1,Radio_FM RTVS
+http://live.slovakradio.sk:8000/FM_256.mp3
+http://live.slovakradio.sk:8000/FM_128.mp3
+http://icecast.stv.livebox.sk:80/fm_128.mp3
