@@ -5,13 +5,13 @@
 Name:           brother-brlaser-printer
 Version:        6
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Brother laser printer driver
 
 License:        GPLv2
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Patch0:         DCP-7070DW.patch
+Patch0:         patch-20210908.patch
 
 BuildRequires:  redhat-rpm-config
 BuildRequires:  cmake
@@ -33,7 +33,7 @@ For a detailed list of supported printers, please refer to
 
 %prep
 %forgesetup
-%patch0
+%patch0 -p1
 
 %build
 %cmake
@@ -49,6 +49,10 @@ For a detailed list of supported printers, please refer to
 %doc README.md
 
 %changelog
+* Thu Oct 07 2021 Jan Musinsky <musinsky@gmail.com> - 6-2
+- Fedora 35
+- Add patches from GitHub pull requests 92, 107 and 133
+
 * Sat Jan 30 2021 Jan Musinsky <musinsky@gmail.com> - 6-1
 - First release for Fedora 33
 - Patch adds support for Brother DCP-7070DW model
