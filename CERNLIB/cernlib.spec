@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       43%{?dist}
+Release:       44%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -996,6 +996,17 @@ sed -i 's/sys_errlist\[errno\]/strerror\(errno\)/g' packlib/cspack/sysreq/socket
 # fix printf with flis_name[i]
 sed -i 's/printf (flis_name/printf ("\%s", flis_name/' packlib/kuip/code_kuip/kmenu.c
 
+# binutils >= 2.36 (2021-11) replace "ar clq" by "ar cq"
+sed -i 's/ArCmd ArCmdBase clq/ArCmd ArCmdBase cq/g'       config/Imake.tmpl
+sed -i 's/ArAddCmd ArCmdBase rul/ArAddCmd ArCmdBase ru/g' config/Imake.tmpl
+sed -i 's/ArExtCmd ArCmdBase xl/ArExtCmd ArCmdBase x/g'   config/Imake.tmpl
+
+# 2021-11 replace "char *prompt" by "const char *prompt"
+# be careful with sed (4 spaces and *)
+#sed -i "s/char\s\{4,\}\*prompt/const char    *prompt/g" packlib/cspack/tcpaw/tcpaw.c
+sed -i "s/char    \*prompt/const char    *prompt/g" packlib/cspack/tcpaw/tcpaw.c
+
+
 # Create the top level Makefile with imake
 cd $CERN_ROOT/build
 $CVSCOSRC/config/imake_boot
@@ -1492,6 +1503,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Tue Nov 09 2021 Jan Musinsky <musinsky@gmail.com> - 2006-44
+- binutils-2.36 support, Fedora 35
+
 * Sun Apr 11 2021 Jan Musinsky <musinsky@gmail.com> - 2006-43
 - without changes, Fedora 34
 
