@@ -18,4 +18,7 @@ $cfg['Servers'][$i]['AllowNoPassword'] = true;
 
 $cfg['MaxRows'] = '999';
 
+/* MariaDB> SHOW GLOBAL VARIABLES LIKE '%collation%'; */
+$cfg['DefaultConnectionCollation'] = 'latin1_swedish_ci';
+
 ?>
