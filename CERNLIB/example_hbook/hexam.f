@@ -1,4 +1,4 @@
-C 2020-05-27, Jan Musinsky, last test on Fedora 32 (gcc 10.1.1) Linux x86_64
+C 2021-12-01, Jan Musinsky, last test on Fedora 35 (gcc 11.2.1) Linux x86_64
 C
 C gfortran hexam.f -o hexam $(cernlib packlib)
 C
