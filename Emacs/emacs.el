@@ -51,6 +51,7 @@
 ;; https://www.emacswiki.org/emacs/FrameMove
 
 ;;(setq inhibit-splash-screen t)
+;;(cua-mode t)
 (global-display-line-numbers-mode t)
 (setq-default indicate-empty-lines t)
 (setq size-indication-mode t)
@@ -195,6 +196,8 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+;; upgrade packages
+;; M-x package-list-packages => hit 'U' to mark available upgrades => hit 'x' to upgrade
 
 ;; CMake
 ;; cmake-data.rpm provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
