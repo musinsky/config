@@ -1,0 +1,5 @@
+fortran/file 68 htest.eps
+metafile 68 -113
+opt stat
+hi/fil 1 htest.hbook
+hi/pl 110

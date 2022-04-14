@@ -2,6 +2,10 @@ C 2021-12-01, Jan Musinsky, last test on Fedora 35 (gcc 11.2.1) Linux x86_64
 C
 C gfortran htest.f -o htest $(cernlib packlib)
 C
+C paw-gfortran
+C PAW > exec htest.kumac
+C PAW > exit
+C
 C original file htest.f from HBOOK documentation tarball file
 C https://cds.cern.ch/record/2296378/files/hbook.tar.gz
 C based on original files from CERNLIB 2006 source
