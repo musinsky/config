@@ -1,15 +1,17 @@
-#!/bin/bash
-# https://github.com/musinsky/config/tree/master/MediaWiki
+#!/usr/bin/bash
 
-DBname=alice_wiki
+# 2022-05-05
+# https://github.com/musinsky/config/blob/master/MediaWiki/wiki-backup.sh
+
+DBname=$(hostname)_wiki
 DBuser=wikiuser
 MWDIR=/opt/mediawiki
-DUMP="$DBname"_dump_`date +%F`
+DUMP="$DBname"_dump_$(date +%F)
 MWXML=$DUMP.xml
 MWSQL=$DUMP.sql
 MWEXT=extensions.list
-MWBCP="$DBname"_backup_`date +%F`.tar.gz
-BCPSC=`basename $0`
+MWBCP="$DBname"_backup_$(date +%F).tar.gz
+BCPSC=$(basename $0)
 
 # XML
 php $MWDIR/maintenance/dumpBackup.php --current > $MWXML
