@@ -1,5 +1,6 @@
 #EXTM3U
 
+# 2022-05-10
 # https://github.com/musinsky/config/tree/master/radio
 
 # The Radio Stream Directory
@@ -10,6 +11,10 @@
 # https://m1.fm/
 #EXTINF:-1,M1.FM - Chillout
 http://tuner.m1.fm/chillout.mp3
+
+# https://www.onefm.ch/
+#EXTINF:-1,One FM - Lounge
+https://webradio0002.ice.infomaniak.ch/webradio0007-128.mp3
 
 # https://www.1.fm/
 #EXTINF:-1,1.FM - Chillout Lounge Radio
