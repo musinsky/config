@@ -1,10 +1,11 @@
 #!/usr/bin/bash
 
-# 2022-06-06
+# 2022-06-08
 # https://github.com/musinsky/config/blob/master/MediaWiki/wiki-backup.sh
 
 MWDIR=/opt/mediawiki
 MWLSF=LocalSettings.php
+# parsing between two apostrophes ($wgDBname = "example_wiki"; => example_wiki)
 DBname=$(grep DBname $MWDIR/$MWLSF | grep -oP '(?<=").*(?=")')
 DBuser=$(grep DBuser $MWDIR/$MWLSF | grep -oP '(?<=").*(?=")')
 # DBcharset=$(grep DBTableOptions $MWDIR/$MWLSF | grep -oP '(?<=DEFAULT CHARSET=).*(?=")')
