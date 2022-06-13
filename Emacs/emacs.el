@@ -156,7 +156,7 @@
   "Reload ~/.emacs.el init file"
   (interactive) ; working with M-x
   (load-file user-init-file)
-  (message "load user init file: %s" user-init-file))
+  (message "Load user init file: %s" user-init-file))
 
 (defun mucha-clean ()
   "Clean the whole buffer"
@@ -173,7 +173,7 @@
   (set-input-method "cyrillic-yawerty")
   (setq ispell-dictionary "russian") ; russian = ru_RU
   (flyspell-mode 1)
-  (message "switch to russian: cyrillic-yawerty and flyspell mode on"))
+  (message "Switch to russian: cyrillic-yawerty and flyspell mode on"))
 
 (defun mucha-slovak ()
   "Slovak environment"
@@ -181,7 +181,7 @@
   (set-input-method "slovak-prog-2")
   (setq ispell-dictionary "slovak") ; slovak = sk_SK
   (flyspell-mode 1)
-  (message "switch to slovak: slovak-prog-2 and flyspell mode on"))
+  (message "Switch to slovak: slovak-prog-2 and flyspell mode on"))
 
 (defun mucha-slovak-ascii ()
   "Slovak ASCII environment"
@@ -189,7 +189,7 @@
   (set-input-method nil)
   (setq ispell-dictionary "sk_SK-ascii") ; slovak ascii
   (flyspell-mode 1)
-  (message "switch to slovak ascii and flyspell mode on"))
+  (message "Switch to slovak ascii and flyspell mode on"))
 
 (defun mucha-default-english ()
   "Default english environment"
@@ -197,7 +197,7 @@
   (set-input-method nil)
   (setq ispell-dictionary nil) ; default = english = en_US
   (flyspell-mode -1)
-  (message "switch to default english and flyspell mode off"))
+  (message "Switch to default english and flyspell mode off"))
 
 ;; https://www.emacswiki.org/emacs/FindingNonAsciiCharacters
 (defun find-next-non-ascii-char ()
@@ -214,7 +214,7 @@
                 (forward-char 1)))))
     (if point
         (goto-char point)
-      (message "no non-ascii characters"))))
+      (message "No non-ascii characters"))))
 
 (defun find-all-non-ascii-char ()
   "Find all non-ascii characters in the current buffer"
