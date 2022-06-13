@@ -51,7 +51,7 @@
 ;; https://www.emacswiki.org/emacs/FrameMove
 
 ;;(setq inhibit-splash-screen t)
-;;(cua-mode t)
+(cua-mode t)
 (global-display-line-numbers-mode t)
 (setq-default indicate-empty-lines t)
 (setq size-indication-mode t)
