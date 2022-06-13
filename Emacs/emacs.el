@@ -199,6 +199,28 @@
   (flyspell-mode -1)
   (message "switch to default english and flyspell mode off"))
 
+;; https://www.emacswiki.org/emacs/FindingNonAsciiCharacters
+(defun find-next-non-ascii-char ()
+  "Find next non-ascii character from point onwards"
+  (interactive)
+  (let (point)
+    (save-excursion
+      (setq point
+            (catch 'non-ascii
+              (while (not (eobp))
+                (or (eq (char-charset (following-char))
+                        'ascii)
+                    (throw 'non-ascii (point)))
+                (forward-char 1)))))
+    (if point
+        (goto-char point)
+      (message "no non-ascii characters"))))
+
+(defun find-all-non-ascii-char ()
+  "Find all non-ascii characters in the current buffer"
+  (interactive)
+  (occur "[[:nonascii:]]"))
+
 ;; MELPA repository
 ;; M-x package-list-packages
 (require 'package)
