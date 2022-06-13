@@ -151,7 +151,7 @@
 (setq ispell-program-name "/usr/bin/hunspell")
 (setq ispell-personal-dictionary "~/.musinsky.dic") ; don't use $HOME
 
-;; mucha
+;; mucha (user functions)
 (defun mucha-emacs-reload ()
   "Reload ~/.emacs.el init file"
   (interactive) ; working with M-x
@@ -182,6 +182,14 @@
   (setq ispell-dictionary "slovak") ; slovak = sk_SK
   (flyspell-mode 1)
   (message "switch to slovak: slovak-prog-2 and flyspell mode on"))
+
+(defun mucha-slovak-ascii ()
+  "Slovak ASCII environment"
+  (interactive)
+  (set-input-method nil)
+  (setq ispell-dictionary "sk_SK-ascii") ; slovak ascii
+  (flyspell-mode 1)
+  (message "switch to slovak ascii and flyspell mode on"))
 
 (defun mucha-default-english ()
   "Default english environment"
