@@ -33,15 +33,19 @@
 ;; C-u C-x = (bound) C-u M-x what-cursor-position (or M-x describe-char)
 
 ;; https://www.emacswiki.org/emacs/SetFonts
-;; https://www.emacswiki.org/emacs/FrameSize
 ;;(set-frame-font "DejaVu Sans Mono-9") ; or via face-s (see below)
-(set-frame-position (selected-frame) -1 0) ; in pixels (0 0 is left top)
-(set-frame-size (selected-frame) 105 60)   ; in characters (set font before)
+;; https://www.emacswiki.org/emacs/FrameSize
 ;; https://www.emacswiki.org/emacs/FrameTitle
-(setq frame-title-format
-      '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b")) " - emacs@" system-name))
+(when (display-graphic-p) ; don't set-frame-size in text terminal
+  (set-frame-position (selected-frame) -1 0) ; in pixels (0 0 is left top)
+  (set-frame-size (selected-frame) 105 60)   ; in characters (set font before)
+  (setq frame-title-format
+        '((:eval (if (buffer-file-name)
+                     (abbreviate-file-name (buffer-file-name))
+                   "%b")) " - emacs@" system-name)))
+;; works with text terminals and graphic displays together
+;;(setq default-frame-alist
+;;      '((left . -1) (top . 0) (width . 105) (height . 60)))
 
 ;; C-x 1 => delete-other-window => maximize the current window
 ;; C-x 2 => split-window-below  => split the current window horizontally
