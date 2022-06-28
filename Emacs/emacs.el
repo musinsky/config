@@ -111,10 +111,12 @@
 
 ;; https://www.emacswiki.org/emacs/LineWrap
 ;; https://www.emacswiki.org/emacs/FillParagraph
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fill-Commands.html
 (setq-default fill-column 80) ; M-x set-fill-column
 ;; M-q (bound) M-x fill-paragraph
 ;; M-x set-fill-column RET 9999 (or 0) RET M-q
 ;; C-u M-q => block fill paragraph (M-1 M-q faster to type)
+(setq sentence-end-double-space nil) ; fill paragraph with a single space (not double)
 ;;(setq-default auto-fill-function 'do-auto-fill) ; M-x auto-fill-mode
 ;; https://www.emacswiki.org/emacs/VisualLineMode
 ;;(global-visual-line-mode t) ; M-x visual-line-mode
