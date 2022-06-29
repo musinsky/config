@@ -1,0 +1,53 @@
+shell_patterns=1
+
+# 2022-06-29
+# https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
+# https://github.com/musinsky/develop/blob/master/linux/mc/mc.menu.debug
+
+*** Compress ***
+    %view
+    echo "Choose any compression method from menu"
+
+1   Compress (level -9) the current directory (tar.gz)
+    BND=$(basename %d)
+    echo -n "Name of the compressed file (without tar.gz extension) [$BND]: "
+    read TAR
+    [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
+    cd .. && \
+    tar cf - "$BND" | gzip --force -9 > "$TAR.tar.gz" && \
+    echo "../$TAR.tar.gz created"
+
+2   Compress (level -9) the current directory (tar.xz)
+    BND=$(basename %d)
+    echo -n "Name of the compressed file (without tar.xz extension) [$BND]: "
+    read TAR
+    [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
+    cd .. && \
+    tar cf - "$BND" | xz --force -9 > "$TAR.tar.xz" && \
+    echo "../$TAR.tar.xz created"
+
+
+m       Macro substitution
+        %view
+        echo -e "%%m   The current menu name\n=>   %m"
+        echo "##########"
+        echo -e "%%p   The current file name (without path, but pwd is its \
+                 path)\n=>   %p"
+        echo -e "%%f   The current file name (if non-local vfs, file will \
+                 be copied locally and %%f will be full path to it)\n=>   %f"
+        echo -e "%%x   The extension of current file name\n=>   %x"
+        echo -e "%%b   The current file name without extension\n=>   %b"
+        echo -e "%%d   The current directory name (pwd, without trailing \
+                 slash)\n=>   %d"
+        echo -e "%%t   The currently tagged files (space separated \
+                 list)\n=>   %t"
+        echo -e "%%u   Similar to the %%t macro, but in addition the files \
+                 are untagged\n=>   DOES NOT SHOW IN THIS EXAMPLE"
+        echo -e "%%s   The selected files (the tagged files if any, otherwise \
+                 the current file)\n=>   %s"
+        echo "##########"
+        echo -e "If the format letter is in uppercase (%%F, %%P, %%X, %%B, \
+                 %%D, %%T, %%U or %%S),\nit refers to the other (unselected) \
+                 panel. For example,"
+        echo "##########"
+        echo -e "%%S   The selected files in the unselected panel\n=>   %S"
