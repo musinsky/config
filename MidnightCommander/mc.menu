@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-06-29
+# 2022-06-30
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/musinsky/develop/blob/master/linux/mc/mc.menu.debug
 
@@ -8,24 +8,48 @@ shell_patterns=1
     %view
     echo "Choose any compression method from menu"
 
-1   Compress (level -9) the current directory (tar.gz)
+1   compress (level -9) the current directory (.tar.gz)
     BND=$(basename %d)
-    echo -n "Name of the compressed file (without tar.gz extension) [$BND]: "
+    echo -n "Name of the compressed file (without .tar.gz extension) [$BND]: "
     read TAR
     [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
     cd .. && \
-    tar cf - "$BND" | gzip --force -9 > "$TAR.tar.gz" && \
+    tar cf - "$BND" | gzip --verbose --force -9 > "$TAR.tar.gz" && \
     echo "../$TAR.tar.gz created"
 
-2   Compress (level -9) the current directory (tar.xz)
+2   compress (level -9) the current directory (.tar.xz)
     BND=$(basename %d)
-    echo -n "Name of the compressed file (without tar.xz extension) [$BND]: "
+    echo -n "Name of the compressed file (without .tar.xz extension) [$BND]: "
     read TAR
     [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
     cd .. && \
-    tar cf - "$BND" | xz --force -9 > "$TAR.tar.xz" && \
+    tar cf - "$BND" | xz --verbose --force -9 > "$TAR.tar.xz" && \
     echo "../$TAR.tar.xz created"
 
++ ! t t & t r
+g   gzip or gunzip the current file
+    case %f in
+        *.gz|*.[zZ]) gzip --verbose --decompress %f;;
+        *)           gzip --verbose %f;;
+    esac
+
+z   zip selected file(s) or dir(s)
+    ZND="pack_$(date +%%F_%%H%%M%%S)" # pack unique name
+    echo -n "Name of the zip file (without .zip extension) [$ZND]: "
+    read ZN
+    [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
+    zip -r --quiet "$ZN.zip" %s && \
+    echo "$ZN.zip created" && \
+    echo %u > /dev/null # files are untagged
+
+7   7z  selected file(s) or dir(s)
+    ZND="pack_$(date +%%F_%%H%%M%%S)" # pack unique name
+    echo -n "Name of the 7z file (without .7z extension) [$ZND]: "
+    read ZN
+    [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
+    7za a "$ZN.7z" %s > /dev/null && \
+    echo "$ZN.7z created" && \
+    echo %u > /dev/null # files are untagged
 
 m       Macro substitution
         %view
