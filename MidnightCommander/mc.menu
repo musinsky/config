@@ -3,7 +3,7 @@ shell_patterns=1
 # 2022-07-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
---- View Midnight Commander macros ---
+--- View Midnight Commander macro substitution ---
     %view
     echo -e "%%m   The current menu name\n=>   %m"
     echo "##########"
@@ -19,7 +19,7 @@ shell_patterns=1
     echo -e "%%s   The selected files (the tagged files if any, otherwise the current \
              file)\n=>   %s"
     echo "##########"
-    echo -e "If the format letter is in uppercase (%%F, %%P, %%X, %%B, %%D, %%T, %%U or \
+    echo -e "If the format letter is in uppercase (%%P, %%F, %%X, %%B, %%D, %%T, %%U or \
              %%S),\nit refers to the other (unselected, opposite) panel. For example,"
     echo "##########"
     echo -e "%%S   The selected files in the unselected panel\n=>   %S"
@@ -100,4 +100,4 @@ e   detect encoding of the current file (uchardet and enca)
 -   list block devices (lsblk)
     %view
     lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,\
-    PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS
+    PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree
