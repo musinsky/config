@@ -1,13 +1,34 @@
 shell_patterns=1
 
-# 2022-06-30
+# 2022-07-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
-# https://github.com/musinsky/develop/blob/master/linux/mc/mc.menu.debug
 
-*** Compress ***
+--- View Midnight Commander macros ---
+    %view
+    echo -e "%%m   The current menu name\n=>   %m"
+    echo "##########"
+    echo -e "%%p   The current file name (without path, but pwd is its path)\n=>   %p"
+    echo -e "%%f   The current file name (if non-local vfs, file will be copied locally \
+             and %%f will be full path to it)\n=>   %f"
+    echo -e "%%x   The extension of current file name\n=>   %x"
+    echo -e "%%b   The current file name without extension\n=>   %b"
+    echo -e "%%d   The current directory name (pwd, without trailing slash)\n=>   %d"
+    echo -e "%%t   The currently tagged files (space separated list)\n=>   %t"
+    echo -e "%%u   Similar to the %%t macro, but in addition the files are \
+             untagged\n=>   DOES NOT SHOW IN THIS EXAMPLE"
+    echo -e "%%s   The selected files (the tagged files if any, otherwise the current \
+             file)\n=>   %s"
+    echo "##########"
+    echo -e "If the format letter is in uppercase (%%F, %%P, %%X, %%B, %%D, %%T, %%U or \
+             %%S),\nit refers to the other (unselected, opposite) panel. For example,"
+    echo "##########"
+    echo -e "%%S   The selected files in the unselected panel\n=>   %S"
+
+--- Compress ---
     %view
     echo "Choose any compression method from menu"
 
++ ! t t
 1   compress (level -9) the current directory (.tar.gz)
     BND=$(basename %d)
     echo -n "Name of the compressed file (without .tar.gz extension) [$BND]: "
@@ -17,6 +38,7 @@ shell_patterns=1
     tar cf - "$BND" | gzip --verbose --force -9 > "$TAR.tar.gz" && \
     echo "../$TAR.tar.gz created"
 
++ ! t t
 2   compress (level -9) the current directory (.tar.xz)
     BND=$(basename %d)
     echo -n "Name of the compressed file (without .tar.xz extension) [$BND]: "
@@ -25,6 +47,12 @@ shell_patterns=1
     cd .. && \
     tar cf - "$BND" | xz --verbose --force -9 > "$TAR.tar.xz" && \
     echo "../$TAR.tar.xz created"
+
+# https://www.gnu.org/software/tar/manual/html_node/gzip.html
+# GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
+=+ f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
+x   extract the current compressed tar file to subdirectory
+    tar xvf %f --one-top-level
 
 + ! t t & t r
 g   gzip or gunzip the current file
@@ -51,41 +79,25 @@ z   zip selected file(s) or dir(s)
     echo "$ZN.7z created" && \
     echo %u > /dev/null # files are untagged
 
-# https://www.gnu.org/software/tar/manual/html_node/gzip.html
-# GNU tar (for extract) recognizes compression program format automatically based on
-# signatures. If this approach fails, tar falls back to using archive name suffix to
-# determine its format (see "--auto-compress", for a list of recognized suffixes and
-# compression programs).
-#
-# https://www.gnu.org/software/tar/manual/html_node/Option-Summary.html
-# GNU tar 1.28 (2014-07-28) with new option "--one-top-level" to create a new directory
-# beneath the extraction directory. The name of the new directory will be equal to the
-# base name of the archive (file name minus the archive suffix). Recognized file name
-# suffixes are ".tar", and any compression suffixes recognizable by "--auto-compress".
-
-=+ f *.tar.gz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
-x   extract the current compressed tar file to subdirectory
-    tar xvf %f --one-top-level
-# "one-top-level" if recognized base name is same as "root_dir" of archive, no effect,
-# otherwise, create new top-level "recognized_dir" with "root_dir" subdirectory
-
-*** Show Midnight Commander macros ***
+--- Miscellaneous ---
+=
+f   determine selected file(s) type
     %view
-    echo -e "%%m   The current menu name\n=>   %m"
-    echo "##########"
-    echo -e "%%p   The current file name (without path, but pwd is its path)\n=>   %p"
-    echo -e "%%f   The current file name (if non-local vfs, file will be copied locally \
-             and %%f will be full path to it)\n=>   %f"
-    echo -e "%%x   The extension of current file name\n=>   %x"
-    echo -e "%%b   The current file name without extension\n=>   %b"
-    echo -e "%%d   The current directory name (pwd, without trailing slash)\n=>   %d"
-    echo -e "%%t   The currently tagged files (space separated list)\n=>   %t"
-    echo -e "%%u   Similar to the %%t macro, but in addition the files are \
-             untagged\n=>   DOES NOT SHOW IN THIS EXAMPLE"
-    echo -e "%%s   The selected files (the tagged files if any, otherwise the current \
-             file)\n=>   %s"
-    echo "##########"
-    echo -e "If the format letter is in uppercase (%%F, %%P, %%X, %%B, %%D, %%T, %%U or \
-             %%S),\nit refers to the other (unselected) panel. For example,"
-    echo "##########"
-    echo -e "%%S   The selected files in the unselected panel\n=>   %S"
+    file %s
+
++ ! t t & t r
+e   detect encoding of the current file (uchardet and enca)
+    %view
+    echo -n "file      => "; file --mime %f
+    command -v uchardet > /dev/null && { \
+    echo -n "uchardet  => " ; uchardet %f; }
+    command -v enca > /dev/null && { \
+    echo -n "enca (sk) => "; enca --language=sk %f; \
+    echo -n "enca (ru) => "; enca --language=ru %f; }
+
+--- Utility ---
+# util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
+-   list block devices (lsblk)
+    %view
+    lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,\
+    PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS
