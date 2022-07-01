@@ -47,31 +47,45 @@ z   zip selected file(s) or dir(s)
     echo -n "Name of the 7z file (without .7z extension) [$ZND]: "
     read ZN
     [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
-    7za a "$ZN.7z" %s > /dev/null && \
+    7za a -bd -bso0 "$ZN.7z" %s && \
     echo "$ZN.7z created" && \
     echo %u > /dev/null # files are untagged
 
-m       Macro substitution
-        %view
-        echo -e "%%m   The current menu name\n=>   %m"
-        echo "##########"
-        echo -e "%%p   The current file name (without path, but pwd is its \
-                 path)\n=>   %p"
-        echo -e "%%f   The current file name (if non-local vfs, file will \
-                 be copied locally and %%f will be full path to it)\n=>   %f"
-        echo -e "%%x   The extension of current file name\n=>   %x"
-        echo -e "%%b   The current file name without extension\n=>   %b"
-        echo -e "%%d   The current directory name (pwd, without trailing \
-                 slash)\n=>   %d"
-        echo -e "%%t   The currently tagged files (space separated \
-                 list)\n=>   %t"
-        echo -e "%%u   Similar to the %%t macro, but in addition the files \
-                 are untagged\n=>   DOES NOT SHOW IN THIS EXAMPLE"
-        echo -e "%%s   The selected files (the tagged files if any, otherwise \
-                 the current file)\n=>   %s"
-        echo "##########"
-        echo -e "If the format letter is in uppercase (%%F, %%P, %%X, %%B, \
-                 %%D, %%T, %%U or %%S),\nit refers to the other (unselected) \
-                 panel. For example,"
-        echo "##########"
-        echo -e "%%S   The selected files in the unselected panel\n=>   %S"
+# https://www.gnu.org/software/tar/manual/html_node/gzip.html
+# GNU tar (for extract) recognizes compression program format automatically based on
+# signatures. If this approach fails, tar falls back to using archive name suffix to
+# determine its format (see "--auto-compress", for a list of recognized suffixes and
+# compression programs).
+#
+# https://www.gnu.org/software/tar/manual/html_node/Option-Summary.html
+# GNU tar 1.28 (2014-07-28) with new option "--one-top-level" to create a new directory
+# beneath the extraction directory. The name of the new directory will be equal to the
+# base name of the archive (file name minus the archive suffix). Recognized file name
+# suffixes are ".tar", and any compression suffixes recognizable by "--auto-compress".
+
+=+ f *.tar.gz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
+x   extract the current compressed tar file to subdirectory
+    tar xvf %f --one-top-level
+# "one-top-level" if recognized base name is same as "root_dir" of archive, no effect,
+# otherwise, create new top-level "recognized_dir" with "root_dir" subdirectory
+
+*** Show Midnight Commander macros ***
+    %view
+    echo -e "%%m   The current menu name\n=>   %m"
+    echo "##########"
+    echo -e "%%p   The current file name (without path, but pwd is its path)\n=>   %p"
+    echo -e "%%f   The current file name (if non-local vfs, file will be copied locally \
+             and %%f will be full path to it)\n=>   %f"
+    echo -e "%%x   The extension of current file name\n=>   %x"
+    echo -e "%%b   The current file name without extension\n=>   %b"
+    echo -e "%%d   The current directory name (pwd, without trailing slash)\n=>   %d"
+    echo -e "%%t   The currently tagged files (space separated list)\n=>   %t"
+    echo -e "%%u   Similar to the %%t macro, but in addition the files are \
+             untagged\n=>   DOES NOT SHOW IN THIS EXAMPLE"
+    echo -e "%%s   The selected files (the tagged files if any, otherwise the current \
+             file)\n=>   %s"
+    echo "##########"
+    echo -e "If the format letter is in uppercase (%%F, %%P, %%X, %%B, %%D, %%T, %%U or \
+             %%S),\nit refers to the other (unselected) panel. For example,"
+    echo "##########"
+    echo -e "%%S   The selected files in the unselected panel\n=>   %S"
