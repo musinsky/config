@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-01
+# 2022-07-11
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- View Midnight Commander macro substitution ---
@@ -90,7 +90,7 @@ e   detect encoding of the current file (uchardet and enca)
     %view
     echo -n "file      => "; file --mime %f
     command -v uchardet > /dev/null && { \
-    echo -n "uchardet  => " ; uchardet %f; }
+    echo -n "uchardet  => "; head -999 %f | uchardet; }
     command -v enca > /dev/null && { \
     echo -n "enca (sk) => "; enca --language=sk %f; \
     echo -n "enca (ru) => "; enca --language=ru %f; }
