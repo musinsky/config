@@ -79,6 +79,23 @@ z   zip selected file(s) or dir(s)
     echo "$ZN.7z created" && \
     echo %u > /dev/null # files are untagged
 
+--- ExifTool ---
+    %view
+    command -v exiftool > /dev/null || { \
+    echo "first must install exiftool"; \
+    echo "$ dnf install perl-Image-ExifTool   # on Fedora (or EPEL)"; \
+    exit 1; }
+    echo "https://exiftool.org/exiftool_pod.html"
+
+-   view all timestamp tags of selected file(s)
+    %view
+    exiftool -duplicates -short -G1 -time:all %s
+
+-   view Create/Modify tags of selected file(s)
+    %view
+    exiftool -short -G1 -FileModifyDate -CreateDate -ModifyDate %s
+
+
 --- Miscellaneous ---
 =
 f   determine selected file(s) type
@@ -101,3 +118,7 @@ e   detect encoding of the current file (uchardet and enca)
     %view
     lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,\
     PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree
+
+-   clear cached RAM (only as root)
+    sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
+
