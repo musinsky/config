@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-11
+# 2022-07-12
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- View Midnight Commander macro substitution ---
@@ -113,6 +113,15 @@ e   detect encoding of the current file (uchardet and enca)
     echo -n "enca (ru) => "; enca --language=ru %f; }
 
 --- Utility ---
+# https://www.gnu.org/software/grep/manual/html_node/Character-Classes-and-Bracket-Expressions.html
+# https://github.com/coreutils/coreutils/blob/master/src/pathchk.c
+-   find non-portable filename in the current directory
+    %view
+#    echo "0-9,A-Z,a-z,.<period aka full point>,_<underscore> and -<hyphen aka minus>"
+#    find %d -type f | grep "[^\x30-\x39\x41-\x5A\x61-\x7A._-]"
+
+
+
 # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
 -   list block devices (lsblk)
     %view
@@ -121,4 +130,5 @@ e   detect encoding of the current file (uchardet and enca)
 
 -   clear cached RAM (only as root)
     sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
+
 
