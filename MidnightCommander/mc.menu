@@ -117,7 +117,9 @@ e   detect encoding of the current file (uchardet and enca)
     %view
     find %d -type f -printf '"%%p"\n' \
     | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
-
+-   find non-portable filename in the current dir (grep)
+    %view
+    find %d -type f | LC_CTYPE=C grep '[^A-Za-z0-9/._-]'
 
 # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
 -   list block devices (lsblk)
