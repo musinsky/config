@@ -1,7 +1,8 @@
 shell_patterns=1
 
-# 2022-07-20
+# 2022-07-21
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
+# compatible with GNU Linux
 
 --- View Midnight Commander macro substitution ---
     %view
@@ -62,7 +63,11 @@ g   gzip or gunzip the current file
     esac
 
 z   zip selected file(s) or dir(s)
-    ZND="pack_$(date +%%F_%%H%%M%%S)" # pack unique name
+    if [ "%s" = ".." ]; then
+     echo "Don't try pack (zip) parent '..' directory"
+     exit 1
+    fi
+    ZND="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
     echo -n "Name of the zip file (without .zip extension) [$ZND]: "
     read ZN
     [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
@@ -71,7 +76,11 @@ z   zip selected file(s) or dir(s)
     echo %u > /dev/null # files are untagged
 
 7   7z  selected file(s) or dir(s)
-    ZND="pack_$(date +%%F_%%H%%M%%S)" # pack unique name
+    if [ "%s" = ".." ]; then
+     echo "Don't try pack (7z) parent '..' directory"
+     exit 1
+    fi
+    ZND="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
     echo -n "Name of the 7z file (without .7z extension) [$ZND]: "
     read ZN
     [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
