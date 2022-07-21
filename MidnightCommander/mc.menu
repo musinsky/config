@@ -35,9 +35,9 @@ shell_patterns=1
     echo -n "Name of the compressed file (without .tar.gz extension) [$BND]: "
     read TAR
     [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
-    cd .. && \
-    tar cf - "$BND" | gzip --verbose --force -9 > "$TAR.tar.gz" && \
-    echo "../$TAR.tar.gz created"
+    cd .. \
+        && tar cf - "$BND" | gzip --verbose --force -9 > "$TAR.tar.gz" \
+        && echo "../$TAR.tar.gz created"
 
 + ! t t
 2   compress (level -9) the current directory (.tar.xz)
@@ -45,9 +45,9 @@ shell_patterns=1
     echo -n "Name of the compressed file (without .tar.xz extension) [$BND]: "
     read TAR
     [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
-    cd .. && \
-    tar cf - "$BND" | xz --verbose --force -9 > "$TAR.tar.xz" && \
-    echo "../$TAR.tar.xz created"
+    cd .. \
+        && tar cf - "$BND" | xz --verbose --force -9 > "$TAR.tar.xz" \
+        && echo "../$TAR.tar.xz created"
 
 # https://www.gnu.org/software/tar/manual/html_node/gzip.html
 # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
@@ -64,36 +64,36 @@ g   gzip or gunzip the current file
 
 z   zip selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
-     echo "Don't try pack (zip) parent '..' directory"
-     exit 1
+        echo "Don't try pack (zip) parent '..' directory"
+        exit 1
     fi
     ZND="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
     echo -n "Name of the zip file (without .zip extension) [$ZND]: "
     read ZN
     [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
-    zip -r --quiet "$ZN.zip" %s && \
-    echo "$ZN.zip created" && \
-    echo %u > /dev/null # files are untagged
+    zip -r --quiet "$ZN.zip" %s \
+        && echo "$ZN.zip created" \
+        && echo %u > /dev/null # files are untagged
 
 7   7z  selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
-     echo "Don't try pack (7z) parent '..' directory"
-     exit 1
+        echo "Don't try pack (7z) parent '..' directory"
+        exit 1
     fi
     ZND="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
     echo -n "Name of the 7z file (without .7z extension) [$ZND]: "
     read ZN
     [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
-    7za a -bd -bso0 "$ZN.7z" %s && \
-    echo "$ZN.7z created" && \
-    echo %u > /dev/null # files are untagged
+    7za a -bd -bso0 "$ZN.7z" %s \
+        && echo "$ZN.7z created" \
+        && echo %u > /dev/null # files are untagged
 
 --- ExifTool ---
     %view
-    command -v exiftool > /dev/null || { \
-    echo "first must install exiftool"; \
-    echo "$ dnf install perl-Image-ExifTool   # on Fedora (or EPEL)"; \
-    exit 1; }
+    command -v exiftool > /dev/null \
+        || { echo "first must install exiftool"; \
+             echo "$ dnf install perl-Image-ExifTool   # on Fedora (or EPEL)"; \
+             exit 1; }
     echo "https://exiftool.org/exiftool_pod.html"
 
 -   view all timestamp tags of selected file(s)
@@ -103,7 +103,6 @@ z   zip selected file(s) or dir(s)
 -   view Create/Modify tags of selected file(s)
     %view
     exiftool -short -G1 -FileModifyDate -CreateDate -ModifyDate %s
-
 
 --- Miscellaneous ---
 =
@@ -115,17 +114,18 @@ f   determine selected file(s) type
 e   detect encoding of the current file (uchardet and enca)
     %view
     echo -n "file      => "; file --mime %f
-    command -v uchardet > /dev/null && { \
-    echo -n "uchardet  => "; head -999 %f | uchardet; }
-    command -v enca > /dev/null && { \
-    echo -n "enca (sk) => "; enca --language=sk %f; \
-    echo -n "enca (ru) => "; enca --language=ru %f; }
+    command -v uchardet > /dev/null \
+        && { echo -n "uchardet  => "; head -999 %f | uchardet; }
+    command -v enca > /dev/null \
+        && { echo -n "enca (sk) => "; enca --language=sk %f; \
+             echo -n "enca (ru) => "; enca --language=ru %f; }
 
 --- Utility ---
 -   find non-portable filename in the current dir (pathchk)
     %view
     find %d -type f -printf '"%%p"\n' \
-    | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
+        | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
+
 -   find non-portable filename in the current dir (grep)
     %view
     find %d -type f | LC_CTYPE=C grep '[^A-Za-z0-9/._-]'
@@ -134,9 +134,8 @@ e   detect encoding of the current file (uchardet and enca)
 -   list block devices (lsblk)
     %view
     lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,\
-    PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree
+          PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree
 
 -   clear cached RAM (only as root)
     sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
-
 
