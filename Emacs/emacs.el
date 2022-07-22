@@ -1,3 +1,4 @@
+;; 2022-07-22
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -231,6 +232,8 @@
 ;; M-x package-list-packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 ;; upgrade packages
 ;; M-x package-list-packages => hit 'U' to mark available upgrades => hit 'x' to upgrade
@@ -238,7 +241,7 @@
 ;; CMake
 ;; cmake-data.rpm provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
 
-;; AUCTeX (installed from GNU ELPA repository)
+;; AUCTeX (package "auctex" installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
 (setq TeX-auto-save t)        ; parse on save
 (setq TeX-parse-self t)       ; parse on load
@@ -302,4 +305,4 @@
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
 
-;; Emacs customize
+;; Emacs customize (options saved by emacs)
