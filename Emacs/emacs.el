@@ -244,6 +244,7 @@
 ;; Flycheck (package "flycheck" installed from MELPA repository)
 ;; https://www.flycheck.org
 ;;(add-hook 'after-init-hook #'global-flycheck-mode)
+;; M-x flycheck-mode
 
 ;; AUCTeX (package "auctex" installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
