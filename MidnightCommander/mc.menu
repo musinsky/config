@@ -133,9 +133,9 @@ e   detect encoding of the current file (uchardet and enca)
 # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
 -   list block devices (lsblk)
     %view
-    lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,\
-          PTTYPE,PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree
+    lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,PTTYPE,\
+          PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree 2>/dev/null \
+        || lsblk -p -f --sort=NAME --tree
 
 -   clear cached RAM (only as root)
     sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
-
