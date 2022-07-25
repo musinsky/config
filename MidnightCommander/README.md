@@ -13,11 +13,11 @@ tried in the same way, and otherwise mc uses the default system-wide menu
 `%pkgdatadir%/mc.menu` (on Fedora/CentOS `/etc/mc/mc.menu`).
 
 ```
-# user
+# as user (recommended)
 wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O $HOME/.config/mc/menu
 ```
 ```
-# admin (for all users)
+# or as admin (for all users)
 cp -p /etc/mc/mc.menu /etc/mc/mc.menu.orig
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O /etc/mc/mc.menu
 ```
