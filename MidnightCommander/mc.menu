@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-21
+# 2022-07-25
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # compatible with GNU Linux
 
@@ -128,7 +128,7 @@ e   detect encoding of the current file (uchardet and enca)
 
 -   find non-portable filename in the current dir (grep)
     %view
-    find %d -type f | LC_CTYPE=C grep '[^A-Za-z0-9/._-]'
+    find %d -type f | grep -P '[^A-Za-z0-9/._-]'
 
 # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
 -   list block devices (lsblk)
