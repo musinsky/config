@@ -5,7 +5,7 @@ directory browser/file manager for Unix-like operating systems.
 
 ### User menu
 
-The user menu (inoke by press F2) is a menu of useful actions that can be
+The user menu (invoke by press F2) is a menu of useful actions that can be
 customized by the user. When you access the user menu, the file `.mc.menu` from
 the current directory is used if it exists, but only if it is owned by user or
 root and is not world-writable. If no such file found, `~/.config/mc/menu` is
