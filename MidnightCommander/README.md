@@ -21,4 +21,4 @@ wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightComman
 cp -p /etc/mc/mc.menu /etc/mc/mc.menu.orig
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O /etc/mc/mc.menu
 ```
-Customized user menu file is compatible with GNU Linux systems.
+Customized user menu file is compatible with GNU Linux systems (tested on Fedora).
