@@ -2,9 +2,139 @@ shell_patterns=1
 
 # 2022-07-26
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
-# compatible with GNU Linux
 
---- View Midnight Commander macro substitution ---
+--- Compress ---
+    %view
+    echo "Choose any compression method from menu"
+
++ ! t t
+1   compress (level 9) the current directory (.tar.gz)
+    BNDIR=$(basename %d)
+    echo -n "Name of the compressed file (without .tar.gz extension) [$BNDIR]: "
+    read TARNAME
+    [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
+    cd .. \
+        && tar cf - "$BNDIR" | gzip --verbose --force -9 > "$TARNAME.tar.gz" \
+        && echo "../$TARNAME.tar.gz created"
+
++ ! t t
+2   compress (level 9) the current directory (.tar.xz)
+    BNDIR=$(basename %d)
+    echo -n "Name of the compressed file (without .tar.xz extension) [$BNDIR]: "
+    read TARNAME
+    [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
+    cd .. \
+        && tar cf - "$BNDIR" | xz --verbose --force -9 > "$TARNAME.tar.xz" \
+        && echo "../$TARNAME.tar.xz created"
+
+=+ f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
+x   extract the current compressed tar file to subdirectory
+    tar xvf %f --one-top-level
+    # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
+
++ ! t t & t r
+g   gzip or gunzip the current file
+    case %f in
+        *.gz|*.[zZ]) gzip --verbose --decompress %f;;
+        *)           gzip --verbose %f;;
+    esac
+
+z   zip selected file(s) or dir(s)
+    if [ "%s" = ".." ]; then
+        echo "Don't try compress (zip) parent '..' directory"
+        exit 1
+    fi
+    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    echo -n "Name of the zip file (without .zip extension) [$PACKUNIQ]: "
+    read PACKNAME
+    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
+    zip -r --quiet "$PACKNAME.zip" %s \
+        && echo "$PACKNAME.zip created" \
+        && echo %u > /dev/null # files are untagged
+
+7   7z  selected file(s) or dir(s)
+    if [ "%s" = ".." ]; then
+        echo "Don't try compress (7z) parent '..' directory"
+        exit 1
+    fi
+    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    echo -n "Name of the 7z file (without .7z extension) [$PACKUNIQ]: "
+    read PACKNAME
+    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
+    7za a -bd -bso0 "$PACKNAME.7z" %s \
+        && echo "$PACKNAME.7z created" \
+        && echo %u > /dev/null # files are untagged
+
+--- ExifTool ---
+    %view
+    command -v exiftool > /dev/null \
+        || { echo "first must install exiftool"; \
+             echo "$ dnf install perl-Image-ExifTool   # on Fedora (or EPEL)"; \
+             exit 1; }
+    echo "https://exiftool.org/exiftool_pod.html"
+
+-   view all timestamp tags of selected file(s)
+    %view
+    exiftool -duplicates -short1 -groupNames0:1 -time:all %s
+
+-   view Create/Modify tags of selected file(s)
+    %view
+    exiftool -short1 -groupNames0:1 -FileModifyDate -CreateDate -ModifyDate %s
+
+--- Utility ---
+    %view
+    echo "Choose any utility from menu"
+
+=
+f   determine selected file(s) type (file)
+    %view
+    file %s
+
++ ! t t & t r
+e   detect encoding of the current file (uchardet and enca)
+    %view
+    echo -n          "file      => "; file --mime %f
+    command -v uchardet > /dev/null \
+        && { echo -n "uchardet  => "; head -999 %f | uchardet; }
+    command -v enca > /dev/null \
+        && { echo -n "enca (sk) => "; enca --language=sk %f; \
+             echo -n "enca (ru) => "; enca --language=ru %f; }
+
+-   find non-portable filename in the current dir (pathchk)
+    %view
+    echo "Non-portable filename in '%d'"
+    echo "Find with 'pathchk' (exclude _POSIX_NAME_MAX 14 limitation)"
+    echo "==========================================================="
+    find %d -type f -printf '"%%p"\n' \
+        | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
+
+-   find non-portable filename in the current dir (grep)
+    %view
+    echo "Non-portable filename in '%d'"
+    echo "Find with 'grep' ([^A-Za-z0-9/._-] only ASCII)"
+    echo "=============================================="
+    find %d -type f | grep -P '[^A-Za-z0-9/._-]'
+
+--- Miscellaneous ---
+    %view
+    echo "Choose any from menu"
+
+b   list block devices (lsblk)
+    %view
+    lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,PTTYPE,\
+          PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort NAME --tree 2>/dev/null \
+        || lsblk -p -f --sort NAME --tree
+    # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
+
+c   clear cached RAM (only as root)
+    %view
+    if [ $EUID -ne 0 ]; then
+        echo "only as root"
+        exit 1
+    fi
+    sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
+
+d   view Midnight Commander macro substitution (debug)
     %view
     echo -e "%%m   The current menu name\n=>   %m"
     echo "##########"
@@ -24,118 +154,3 @@ shell_patterns=1
              %%S),\nit refers to the other (unselected, opposite) panel. For example,"
     echo "##########"
     echo -e "%%S   The selected files in the unselected panel\n=>   %S"
-
---- Compress ---
-    %view
-    echo "Choose any compression method from menu"
-
-+ ! t t
-1   compress (level -9) the current directory (.tar.gz)
-    BND=$(basename %d)
-    echo -n "Name of the compressed file (without .tar.gz extension) [$BND]: "
-    read TAR
-    [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
-    cd .. \
-        && tar cf - "$BND" | gzip --verbose --force -9 > "$TAR.tar.gz" \
-        && echo "../$TAR.tar.gz created"
-
-+ ! t t
-2   compress (level -9) the current directory (.tar.xz)
-    BND=$(basename %d)
-    echo -n "Name of the compressed file (without .tar.xz extension) [$BND]: "
-    read TAR
-    [ "$TAR"x = x ] && TAR="$BND" # if $TAR is empty
-    cd .. \
-        && tar cf - "$BND" | xz --verbose --force -9 > "$TAR.tar.xz" \
-        && echo "../$TAR.tar.xz created"
-
-# https://www.gnu.org/software/tar/manual/html_node/gzip.html
-# GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
-=+ f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
-x   extract the current compressed tar file to subdirectory
-    tar xvf %f --one-top-level
-
-+ ! t t & t r
-g   gzip or gunzip the current file
-    case %f in
-        *.gz|*.[zZ]) gzip --verbose --decompress %f;;
-        *)           gzip --verbose %f;;
-    esac
-
-z   zip selected file(s) or dir(s)
-    if [ "%s" = ".." ]; then
-        echo "Don't try pack (zip) parent '..' directory"
-        exit 1
-    fi
-    ZND="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
-    echo -n "Name of the zip file (without .zip extension) [$ZND]: "
-    read ZN
-    [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
-    zip -r --quiet "$ZN.zip" %s \
-        && echo "$ZN.zip created" \
-        && echo %u > /dev/null # files are untagged
-
-7   7z  selected file(s) or dir(s)
-    if [ "%s" = ".." ]; then
-        echo "Don't try pack (7z) parent '..' directory"
-        exit 1
-    fi
-    ZND="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
-    echo -n "Name of the 7z file (without .7z extension) [$ZND]: "
-    read ZN
-    [ "$ZN"x = x ] && ZN="$ZND" # if $ZN is empty
-    7za a -bd -bso0 "$ZN.7z" %s \
-        && echo "$ZN.7z created" \
-        && echo %u > /dev/null # files are untagged
-
---- ExifTool ---
-    %view
-    command -v exiftool > /dev/null \
-        || { echo "first must install exiftool"; \
-             echo "$ dnf install perl-Image-ExifTool   # on Fedora (or EPEL)"; \
-             exit 1; }
-    echo "https://exiftool.org/exiftool_pod.html"
-
--   view all timestamp tags of selected file(s)
-    %view
-    exiftool -duplicates -short -G1 -time:all %s
-
--   view Create/Modify tags of selected file(s)
-    %view
-    exiftool -short -G1 -FileModifyDate -CreateDate -ModifyDate %s
-
---- Miscellaneous ---
-=
-f   determine selected file(s) type
-    %view
-    file %s
-
-+ ! t t & t r
-e   detect encoding of the current file (uchardet and enca)
-    %view
-    echo -n "file      => "; file --mime %f
-    command -v uchardet > /dev/null \
-        && { echo -n "uchardet  => "; head -999 %f | uchardet; }
-    command -v enca > /dev/null \
-        && { echo -n "enca (sk) => "; enca --language=sk %f; \
-             echo -n "enca (ru) => "; enca --language=ru %f; }
-
---- Utility ---
--   find non-portable filename in the current dir (pathchk)
-    %view
-    find %d -type f -printf '"%%p"\n' \
-        | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
-
--   find non-portable filename in the current dir (grep)
-    %view
-    find %d -type f | grep -P '[^A-Za-z0-9/._-]'
-
-# util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
--   list block devices (lsblk)
-    %view
-    lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,PTTYPE,\
-          PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort NAME --tree 2>/dev/null \
-        || lsblk -p -f --sort NAME --tree
-
--   clear cached RAM (only as root)
-    sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
