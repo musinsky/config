@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-25
+# 2022-07-26
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # compatible with GNU Linux
 
@@ -134,8 +134,8 @@ e   detect encoding of the current file (uchardet and enca)
 -   list block devices (lsblk)
     %view
     lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,PTTYPE,\
-          PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort=NAME --tree 2>/dev/null \
-        || lsblk -p -f --sort=NAME --tree
+          PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort NAME --tree 2>/dev/null \
+        || lsblk -p -f --sort NAME --tree
 
 -   clear cached RAM (only as root)
     sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
