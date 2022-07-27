@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-26
+# 2022-07-27
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -8,7 +8,7 @@ shell_patterns=1
     echo "Choose any compression method from menu"
 
 + ! t t
-1   compress (level 9) the current directory (.tar.gz)
+1   compress (level 9) the current dir (.tar.gz)
     BNDIR=$(basename %d)
     echo -n "Name of the compressed file (without .tar.gz extension) [$BNDIR]: "
     read TARNAME
@@ -18,7 +18,7 @@ shell_patterns=1
         && echo "../$TARNAME.tar.gz created"
 
 + ! t t
-2   compress (level 9) the current directory (.tar.xz)
+2   compress (level 9) the current dir (.tar.xz)
     BNDIR=$(basename %d)
     echo -n "Name of the compressed file (without .tar.xz extension) [$BNDIR]: "
     read TARNAME
@@ -88,7 +88,8 @@ z   zip selected file(s) or dir(s)
 =
 f   determine selected file(s) type (file)
     %view
-    file %s
+    paste <(file --mime-encoding %s) <(file --brief %s) |
+        column --separator $'\t' --output-separator '    ' --table
 
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)
