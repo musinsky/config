@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-27
+# 2022-07-28
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -32,12 +32,14 @@ x   extract the current compressed tar file to subdirectory
     tar xvf %f --one-top-level
     # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
 
-+ ! t t & t r
-g   gzip or gunzip the current file
-    case %f in
-        *.gz|*.[zZ]) gzip --verbose --decompress %f;;
-        *)           gzip --verbose %f;;
-    esac
++ t r | t t
+g   gzip or gunzip selected file(s)
+    for ifile in %s ; do
+        case "$ifile" in
+            *.gz|*.[zZ]) gzip --verbose --decompress "$ifile";;
+            *)           gzip --verbose "$ifile";;
+        esac
+    done
 
 z   zip selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
