@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-07-28
+# 2022-08-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -96,12 +96,14 @@ f   determine selected file(s) type (file)
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)
     %view
-    echo -n          "file      => "; file --mime %f
+    echo -n          "file       => "; file --mime %f
     command -v uchardet > /dev/null \
-        && { echo -n "uchardet  => "; head -999 %f | uchardet; }
+        && { echo -n "uchardet   => "; head -999 %f | uchardet; }
     command -v enca > /dev/null \
-        && { echo -n "enca (sk) => "; enca --language=sk %f; \
-             echo -n "enca (ru) => "; enca --language=ru %f; }
+        && { echo -n "enca (sk)  => "; enca --language=sk %f; \
+             echo -n "enca (ru)  => "; enca --language=ru %f; }
+    command -v chardetect > /dev/null \
+        && { echo -n "chardetect => "; head -999 %f | chardetect; }
 
 -   find non-portable filename in the current dir (pathchk)
     %view
