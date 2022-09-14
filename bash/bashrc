@@ -4,6 +4,10 @@ export LC_PAPER='en_GB.UTF-8'
 export LC_TIME='en_GB.UTF-8'
 export LESSHISTFILE=-
 
+# color for man pages
+#export MANROFFOPT="-c"
+#export MANPAGER="less -Dd+y -Dur --use-color"
+
 alias llt='ls --time-style="+%Y-%m-%d %H:%M:%S" -lt'
 alias llt_utc='TZ=UTC llt'
 alias cp='cp -p'
