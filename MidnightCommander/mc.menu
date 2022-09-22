@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-08-01
+# 2022-09-22
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -116,11 +116,22 @@ e   detect encoding of the current file (uchardet and enca)
         | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
 
 -   find non-portable filename in the current dir (grep)
-    %view
     echo "Non-portable filename in '%d'"
     echo "Find with 'grep' ([^A-Za-z0-9/._-] only ASCII)"
     echo "=============================================="
-    find %d -type f | grep -P '[^A-Za-z0-9/._-]'
+    find %d -type f | grep --color=always -P '[^A-Za-z0-9/._-]'
+
+-   find non-portable filename in the current dir (cgrep)
+    %view{nroff}
+    # nroff "force" format mode (F9 toggle the format/unformat mode)
+    G_COLOR='\x1b\[31m' # SGR color
+    G_RESET='\x1b\[m'   # SGR reset
+    G_UNDER='_\x08'     # underline (overstriking with backspace)
+    echo "Non-portable filename in '%d'"
+    echo "Find with 'grep' ([^A-Za-z0-9/._-] only ASCII) in _c_o_l_o_r"
+    echo "======================================================="
+    find %d -type f | GREP_COLORS='mt=31:ne' grep --color=always -P '[^A-Za-z0-9/._-]' \
+        | sed -e "s/$G_COLOR/$G_UNDER/g" -e "s/$G_RESET//g"
 
 --- Miscellaneous ---
     %view
