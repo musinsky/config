@@ -1,4 +1,4 @@
-;; 2022-07-22
+;; 2022-09-22
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -17,7 +17,7 @@
 
 ;; M-q (bound) M-x fill-paragraph      => justify region
 ;; C-\ (bound) M-x toggle-input-method => multilingual text input
-;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>)
+;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>, <^[>)
 ;;
 ;; C-x SPC (bound) M-x rectangle-mark-mode => rectangle (columns) select
 ;; C-x SPC (rectangle mark mode) C-t       => string rectangle (columns replace)
@@ -72,6 +72,7 @@
 (set-face-attribute 'region nil :background "#b3d9ff")
 ;;(set-face-background 'region "SkyBlue1") ; for Emacs 21+ is obsolete
 ;; set-face-background calling set-face-attribute (provide compatibility with older versions)
+(set-face-attribute 'escape-glyph nil :background "grey85" :foreground "black")
 ;;
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
 ;;(set-face-attribute 'default nil :font "DejaVu Sans Mono-9")
