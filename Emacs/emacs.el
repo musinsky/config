@@ -1,4 +1,4 @@
-;; 2022-09-22
+;; 2022-09-26
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -72,7 +72,7 @@
 (set-face-attribute 'region nil :background "#b3d9ff")
 ;;(set-face-background 'region "SkyBlue1") ; for Emacs 21+ is obsolete
 ;; set-face-background calling set-face-attribute (provide compatibility with older versions)
-(set-face-attribute 'escape-glyph nil :background "grey85" :foreground "black")
+(set-face-attribute 'escape-glyph nil :background "grey25" :foreground "white")
 ;;
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
 ;;(set-face-attribute 'default nil :font "DejaVu Sans Mono-9")
