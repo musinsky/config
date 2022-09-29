@@ -1,31 +1,32 @@
 shell_patterns=1
 
-# 2022-09-22
+# 2022-09-29
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
     %view
-    echo "Choose any compression method from menu"
+    printf "Choose any compression method from menu (all with default \
+            compression level).\n"
 
 + ! t t
-1   compress (level 9) the current dir (.tar.gz)
+1   archive and compress the current dir (tar.gz)
     BNDIR=$(basename %d)
-    echo -n "Name of the compressed file (without .tar.gz extension) [$BNDIR]: "
+    printf "Name of the compressed file (without .tar.gz extension) [$BNDIR]: "
     read TARNAME
     [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
     cd .. \
-        && tar cf - "$BNDIR" | gzip --verbose --force -9 > "$TARNAME.tar.gz" \
-        && echo "../$TARNAME.tar.gz created"
+        && tar cf - "$BNDIR" | gzip --verbose --force > "$TARNAME.tar.gz" \
+        && printf "../$TARNAME.tar.gz created\n"
 
 + ! t t
-2   compress (level 9) the current dir (.tar.xz)
+2   archive and compress the current dir (tar.xz)
     BNDIR=$(basename %d)
-    echo -n "Name of the compressed file (without .tar.xz extension) [$BNDIR]: "
+    printf "Name of the compressed file (without .tar.xz extension) [$BNDIR]: "
     read TARNAME
     [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
     cd .. \
-        && tar cf - "$BNDIR" | xz --verbose --force -9 > "$TARNAME.tar.xz" \
-        && echo "../$TARNAME.tar.xz created"
+        && tar cf - "$BNDIR" | xz --verbose --force > "$TARNAME.tar.xz" \
+        && printf "../$TARNAME.tar.xz created\n"
 
 =+ f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
 x   extract the current compressed tar file to subdirectory
@@ -43,29 +44,29 @@ g   gzip or gunzip selected file(s)
 
 z   zip selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
-        echo "Don't try compress (zip) parent '..' directory"
+        printf "Don't try compress (zip) parent '..' directory\n"
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
-    echo -n "Name of the zip file (without .zip extension) [$PACKUNIQ]: "
+    printf "Name of the zip file (without .zip extension) [$PACKUNIQ]: "
     read PACKNAME
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
     zip -r --quiet "$PACKNAME.zip" %s \
-        && echo "$PACKNAME.zip created" \
-        && echo %u > /dev/null # files are untagged
+        && printf "$PACKNAME.zip created\n" \
+        && printf "%u" > /dev/null # files are untagged
 
 7   7z  selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
-        echo "Don't try compress (7z) parent '..' directory"
+        printf "Don't try compress (7z) parent '..' directory\n"
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
-    echo -n "Name of the 7z file (without .7z extension) [$PACKUNIQ]: "
+    printf "Name of the 7z file (without .7z extension) [$PACKUNIQ]: "
     read PACKNAME
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
     7za a -bd -bso0 "$PACKNAME.7z" %s \
-        && echo "$PACKNAME.7z created" \
-        && echo %u > /dev/null # files are untagged
+        && printf "$PACKNAME.7z created\n" \
+        && printf "%u" > /dev/null # files are untagged
 
 --- ExifTool ---
     %view
