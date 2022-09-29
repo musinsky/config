@@ -12,13 +12,15 @@ root and is not world-writable. If no such file found, `~/.config/mc/menu` is
 tried in the same way, and otherwise mc uses the default system-wide menu
 `%pkgdatadir%/mc.menu` (on Fedora/CentOS `/etc/mc/mc.menu`).
 
+Customized user menu file is compatible with Linux GNU Bash shell systems
+(tested on Fedora).
+
 ```
 # as user (recommended)
 wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O $HOME/.config/mc/menu
 ```
 ```
 # or as admin (for all users)
-cp -p /etc/mc/mc.menu /etc/mc/mc.menu.orig
+cp -i -p /etc/mc/mc.menu /etc/mc/mc.menu.orig
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O /etc/mc/mc.menu
 ```
-Customized user menu file is compatible with GNU Linux systems (tested on Fedora).
