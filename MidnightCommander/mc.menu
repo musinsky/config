@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-09-29
+# 2022-09-30
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -68,25 +68,9 @@ z   zip selected file(s) or dir(s)
         && printf "$PACKNAME.7z created\n" \
         && printf "%u" > /dev/null # files are untagged
 
---- ExifTool ---
-    %view
-    command -v exiftool > /dev/null \
-        || { echo "first must install exiftool"; \
-             echo "$ dnf install perl-Image-ExifTool   # on Fedora (or EPEL)"; \
-             exit 1; }
-    echo "https://exiftool.org/exiftool_pod.html"
-
--   view all timestamp tags of selected file(s)
-    %view
-    exiftool -duplicates -short1 -groupNames0:1 -time:all %s
-
--   view Create/Modify tags of selected file(s)
-    %view
-    exiftool -short1 -groupNames0:1 -FileModifyDate -CreateDate -ModifyDate %s
-
 --- Utility ---
     %view
-    echo "Choose any utility from menu"
+    printf "Choose any utility from menu\n"
 
 =
 f   determine selected file(s) type (file)
@@ -97,46 +81,54 @@ f   determine selected file(s) type (file)
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)
     %view
-    echo -n          "file       => "; file --mime %f
+    printf          "file      => "; file --mime %f
     command -v uchardet > /dev/null \
-        && { echo -n "uchardet   => "; head -999 %f | uchardet; }
+        && { printf "uchardet  => "; head --lines=999 %f | uchardet; }
     command -v enca > /dev/null \
-        && { echo -n "enca (sk)  => "; enca --language=sk %f; \
-             echo -n "enca (ru)  => "; enca --language=ru %f; }
-    command -v chardetect > /dev/null \
-        && { echo -n "chardetect => "; head -999 %f | chardetect; }
+        && { printf "enca (sk) => "; enca --language=sk %f;
+             printf "enca (ru) => "; enca --language=ru %f; }
+
+-   find non-portable filename in the current dir (grep)
+    %view{nroff}
+    # nroff "force" format mode (F9 toggle the format/unformat mode)
+    printf "Non-portable filename in dir '%d'\n"
+    printf "Find with 'grep' ([^A-Za-z0-9/._-] only ASCII) in _\bc_\bo_\bl_\bo_\br\n"
+    printf "=======================================================\n"
+    G_COLOR='\x1b\[31m' # SGR color
+    G_RESET='\x1b\[m'   # SGR reset
+    G_UNDER='_\x08'     # underline (overstriking with backspace)
+    find %d -type f | GREP_COLORS='mt=31:ne' grep --color=always -P '[^A-Za-z0-9/._-]' \
+        | sed -e "s/$G_COLOR/$G_UNDER/g" -e "s/$G_RESET//g"
 
 -   find non-portable filename in the current dir (pathchk)
     %view
     pathchk --portability "123456789@12345" 2>&1 \
-        | grep 'nonportable' > /dev/null || { echo "wrong test"; exit 1; }
-    echo "Non-portable filename in '%d'"
-    echo "Find with 'pathchk' (exclude _POSIX_NAME_MAX 14 limitation)"
-    echo "==========================================================="
+        | grep 'nonportable' > /dev/null || { printf "wrong test\n"; exit 1; }
+    printf "Non-portable filename in dir '%d'\n"
+    printf "Find with 'pathchk' (exclude _POSIX_NAME_MAX 14 limitation)\n"
+    printf "===========================================================\n"
     find %d -type f -printf '"%%p"\n' \
         | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
 
--   find non-portable filename in the current dir (grep)
-    echo "Non-portable filename in '%d'"
-    echo "Find with 'grep' ([^A-Za-z0-9/._-] only ASCII)"
-    echo "=============================================="
-    find %d -type f | grep --color=always -P '[^A-Za-z0-9/._-]'
+--- ExifTool ---
+    %view
+    command -v exiftool > /dev/null \
+        || { printf "first must install exiftool\n";
+             printf "$ dnf install perl-Image-ExifTool   # on Fedora/CentOS\n";
+             exit 1; }
+    printf "https://exiftool.org/exiftool_pod.html\n"
 
--   find non-portable filename in the current dir (cgrep)
-    %view{nroff}
-    # nroff "force" format mode (F9 toggle the format/unformat mode)
-    G_COLOR='\x1b\[31m' # SGR color
-    G_RESET='\x1b\[m'   # SGR reset
-    G_UNDER='_\x08'     # underline (overstriking with backspace)
-    echo "Non-portable filename in '%d'"
-    echo "Find with 'grep' ([^A-Za-z0-9/._-] only ASCII) in _c_o_l_o_r"
-    echo "======================================================="
-    find %d -type f | GREP_COLORS='mt=31:ne' grep --color=always -P '[^A-Za-z0-9/._-]' \
-        | sed -e "s/$G_COLOR/$G_UNDER/g" -e "s/$G_RESET//g"
+-   view all timestamp tags of selected file(s)
+    %view
+    exiftool -duplicates -short1 -groupNames0:1 -time:all %s
+
+-   view Create/Modify tags of selected file(s)
+    %view
+    exiftool -short1 -groupNames0:1 -FileModifyDate -CreateDate -ModifyDate %s
 
 --- Miscellaneous ---
     %view
-    echo "Choose any from menu"
+    printf "Choose any from menu\n"
 
 b   list block devices (lsblk)
     %view
@@ -145,31 +137,32 @@ b   list block devices (lsblk)
         || lsblk -p -f --sort NAME --tree
     # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
 
-c   clear cached RAM (only as root)
+c   clear (echo 3) cached RAM (only as root)
     %view
     if [ $EUID -ne 0 ]; then
-        echo "only as root"
+        printf "only as root\n"
         exit 1
     fi
-    sync && echo 3 > /proc/sys/vm/drop_caches && echo "cache dropped"
+    free --human && sync && echo 3 > /proc/sys/vm/drop_caches \
+        && printf "\ncache dropped\n\n" && free --human
 
 d   view Midnight Commander macro substitution (debug)
     %view
-    echo -e "%%m   The current menu name\n=>   %m"
-    echo "##########"
-    echo -e "%%p   The current file name (without path, but pwd is its path)\n=>   %p"
-    echo -e "%%f   The current file name (if non-local vfs, file will be copied locally \
-             and %%f will be full path to it)\n=>   %f"
-    echo -e "%%x   The extension of current file name\n=>   %x"
-    echo -e "%%b   The current file name without extension\n=>   %b"
-    echo -e "%%d   The current directory name (pwd, without trailing slash)\n=>   %d"
-    echo -e "%%t   The currently tagged files (space separated list)\n=>   %t"
-    echo -e "%%u   Similar to the %%t macro, but in addition the files are \
-             untagged\n=>   DOES NOT SHOW IN THIS EXAMPLE"
-    echo -e "%%s   The selected files (the tagged files if any, otherwise the current \
-             file)\n=>   %s"
-    echo "##########"
-    echo -e "If the format letter is in uppercase (%%P, %%F, %%X, %%B, %%D, %%T, %%U or \
-             %%S),\nit refers to the other (unselected, opposite) panel. For example,"
-    echo "##########"
-    echo -e "%%S   The selected files in the unselected panel\n=>   %S"
+    printf "%%%%m   The current menu name\n     %m\n"
+    printf "=====\n"
+    printf "%%%%p   The current file name (without path, but pwd is its path)\n     %p\n"
+    printf "%%%%f   The current file name (if non-local vfs, file will be copied locally \
+            and %%%%f will be full path to it)\n     %f\n"
+    printf "%%%%x   The extension of current file name\n     %x\n"
+    printf "%%%%b   The current file name without extension\n     %b\n"
+    printf "%%%%d   The current directory name (pwd, without trailing slash)\n     %d\n"
+    printf "%%%%t   The currently tagged files (space separated list)\n     %t\n"
+    printf "%%%%u   Similar to the %%%%t macro, but in addition the files are \
+            untagged\n     DOES NOT SHOW IN THIS EXAMPLE\n"
+    printf "%%%%s   The selected files (the tagged files if any, otherwise the current \
+            file)\n     %s\n"
+    printf "=====\n"
+    printf "If the format letter is in uppercase (%%%%P, %%%%F, %%%%X, %%%%B, %%%%D, \
+           %%%%T, %%%%U or %%%%S),\nit refers to the other (unselected, opposite) panel.\n"
+    printf "=====\n"
+    printf "%%%%S   The selected files in the other (unselected) panel\n     %S\n"
