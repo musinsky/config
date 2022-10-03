@@ -20,7 +20,7 @@ Customized user menu file is compatible with Linux GNU Bash shell systems
 wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O $HOME/.config/mc/menu
 ```
 ```
-# or as admin (for all users)
+# or as admin (for all users) # be careful, will be replaced after upgrade or reinstall mc
 cp -i -p /etc/mc/mc.menu /etc/mc/mc.menu.orig
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O /etc/mc/mc.menu
 ```
