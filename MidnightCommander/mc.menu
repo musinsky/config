@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-09-30
+# 2022-10-05
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -130,12 +130,15 @@ e   detect encoding of the current file (uchardet and enca)
     %view
     printf "Choose any from menu\n"
 
-b   list block devices (lsblk)
+b   list block devices (lsblk) and file system usage (df)
     %view
     lsblk -p -o NAME,SIZE,FSUSE%%,TYPE,FSTYPE,FSVER,LABEL,UUID,MOUNTPOINT,PTTYPE,\
           PARTTYPE,PARTTYPENAME,PARTLABEL,PARTFLAGS --sort NAME --tree 2>/dev/null \
         || lsblk -p -f --sort NAME --tree
     # util-linux 2.35+ (2020-01-21) lsblk support all necessary columns to print
+    printf "\n\n\n"
+    df --human-readable --print-type | (sed -u 1q && sort) # skip first line and sort
+    # df | head -n 1 && df | tail -n +2 | sort             # skip first line and sort
 
 c   clear (echo 3) cached RAM (only as root)
     %view
