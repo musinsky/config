@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-10-05
+# 2022-10-06
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -44,7 +44,7 @@ g   gzip or gunzip selected file(s)
 
 z   zip selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
-        printf "Don't try compress (zip) parent '..' directory\n"
+        printf "Don't try compress (zip) parent directory '..'\n"
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
@@ -57,7 +57,7 @@ z   zip selected file(s) or dir(s)
 
 7   7z  selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
-        printf "Don't try compress (7z) parent '..' directory\n"
+        printf "Don't try compress (7z) parent directory '..'\n"
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
@@ -113,7 +113,7 @@ e   detect encoding of the current file (uchardet and enca)
 --- ExifTool ---
     %view
     command -v exiftool > /dev/null \
-        || { printf "first must install exiftool\n";
+        || { printf "first must install 'exiftool'\n";
              printf "$ dnf install perl-Image-ExifTool   # on Fedora/CentOS\n";
              exit 1; }
     printf "https://exiftool.org/exiftool_pod.html\n"
