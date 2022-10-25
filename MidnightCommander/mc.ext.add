@@ -1,0 +1,24 @@
+# 2022-10-25
+# https://github.com/musinsky/config/blob/master/MidnightCommander/mc.ext.add
+
+### Documents ###
+shell/i/.rtf
+	View=%view{ascii} /usr/libexec/mc/ext.d/doc.sh view msdoc
+
+### Images ###
+shell/i/.webp
+	Include=image
+
+### Sound files ###
+shell/i/.flac
+	View=%view{ascii} /usr/libexec/mc/ext.d/sound.sh view
+
+### Video ###
+regex/i/\.(m2ts|mpls|clpi|bdmv)$
+	Include=video
+
+### Miscellaneous ###
+shell/.root
+	View=%view{ascii} rootls -t %f
+
+### End of additional entries ###
