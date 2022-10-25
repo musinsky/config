@@ -24,3 +24,21 @@ wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightComman
 cp -i -p /etc/mc/mc.menu /etc/mc/mc.menu.orig
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O /etc/mc/mc.menu
 ```
+
+### Extension file
+
+Commands in extension file allows you to specify programs to executed when you
+try to open (invoked on Enter or double click), view (F3) or edit (F4) and do a
+bunch of other thing on files with certain extensions (filename endings). If the
+extension of the selected file name matches one of the extensions in the
+extensions file then the corresponding command (for open, view or edit) is
+executed. Rules are matched from top to bottom, thus the order is important.
+
+`%pkgdatadir%/mc.ext` (on Fedora/CentOS `/etc/mc/mc.ext`) is the default system
+wide extension file. `~/.config/mc/mc.ext` user's own extension file. They
+override the contents of the system wide files if present.
+
+Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
+`/usr/libexec/mc/ext.d` dir) are compatible with Linux GNU Bash shell systems
+(tested on Fedora). All changes are for view action (F3) only. For open action
+(Enter) is used `xdg-open` (opens a file in the user's preferred application).
