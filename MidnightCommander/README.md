@@ -17,7 +17,7 @@ Customized user menu file is compatible with Linux GNU Bash shell systems
 
 ```
 # as user (recommended)
-wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O $HOME/.config/mc/menu
+wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O "$HOME"/.config/mc/menu
 ```
 ```
 # or as admin (for all users) # be careful, will be replaced after upgrade or reinstall mc
@@ -29,7 +29,7 @@ wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/
 
 Commands in extension file allows you to specify programs to executed when you
 try to open (invoked on Enter or double click), view (F3) or edit (F4) and do a
-bunch of other thing on files with certain extensions (filename endings). If the
+bunch of other thing on files with certain extensions (file name endings). If the
 extension of the selected file name matches one of the extensions in the
 extensions file then the corresponding command (for open, view or edit) is
 executed. Rules are matched from top to bottom, thus the order is important.
@@ -42,3 +42,22 @@ Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 `/usr/libexec/mc/ext.d` dir) are compatible with Linux GNU Bash shell systems
 (tested on Fedora). All changes are for view action (F3) only. For open action
 (Enter) is used `xdg-open` (opens a file in the user's preferred application).
+
+```
+GH_MC="https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander"
+# copy default extension file and add (prepend) a few extra extensions (order is important)
+wget "$GH_MC"/mc.ext.add -O - | cat - /etc/mc/mc.ext > "$HOME"/.config/mc/mc.ext
+# copy customized shell scripts
+SYSTEM_DIR="/usr/libexec/mc/ext.d"
+CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (as admin CUSTOM_DIR="$SYSTEM_DIR")
+wget "$GH_MC"/ext.d/doc.custom.sh   -P "$CUSTOM_DIR"
+wget "$GH_MC"/ext.d/image.custom.sh -P "$CUSTOM_DIR"
+wget "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
+wget "$GH_MC"/ext.d/video.custom.sh -P "$CUSTOM_DIR"
+chmod 755 "$CUSTOM_DIR"/*.custom.sh
+# in extension file replace default shell scripts by customized shell scripts
+sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc/mc.ext
+sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/mc.ext
+sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/mc.ext
+sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/mc.ext
+```
