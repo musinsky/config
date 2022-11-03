@@ -60,4 +60,6 @@ sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc
 sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/mc.ext
+# nroff (aka simple color) "force" format mode, F9 (in view mode) toggle the format/unformat mode
+sed -i '/.custom.sh/s/ascii/ascii,nroff/' "$HOME"/.config/mc/mc.ext
 ```
