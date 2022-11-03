@@ -41,7 +41,8 @@ override the contents of the system wide files if present.
 Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 `/usr/libexec/mc/ext.d` dir) are compatible with Linux GNU Bash shell systems
 (tested on Fedora). All changes are for view action (F3) only. For open action
-(Enter) is used `xdg-open` (opens a file in the user's preferred application).
+(Enter) is used `xdg-open` (opens a file in the user's preferred application)
+by default.
 
 ```
 GH_MC="https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander"
@@ -49,7 +50,7 @@ GH_MC="https://raw.githubusercontent.com/musinsky/config/master/MidnightCommande
 wget "$GH_MC"/mc.ext.add -O - | cat - /etc/mc/mc.ext > "$HOME"/.config/mc/mc.ext
 # copy customized shell scripts
 SYSTEM_DIR="/usr/libexec/mc/ext.d"
-CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (as admin CUSTOM_DIR="$SYSTEM_DIR")
+CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
 wget "$GH_MC"/ext.d/doc.custom.sh   -P "$CUSTOM_DIR"
 wget "$GH_MC"/ext.d/image.custom.sh -P "$CUSTOM_DIR"
 wget "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
@@ -60,6 +61,6 @@ sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc
 sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/mc.ext
-# nroff (aka simple color) "force" format mode, F9 (in view mode) toggle the format/unformat mode
+# nroff (aka simple color) "force" format mode in view mode
 sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/mc.ext
 ```
