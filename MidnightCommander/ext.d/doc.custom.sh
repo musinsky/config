@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2022-10-18
+# 2022-11-09
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/doc.custom.sh
 
 action=$1   # $1 - action
@@ -27,10 +27,18 @@ do_view_action() {
             ;;
         pdf)
             print_info
-            paste <(pdfinfo -v 2>&1 | head --lines=1; \
-                    pdfinfo -isodates "${MC_EXT_FILENAME}") \
-                  <(exiftool "${MC_EXT_FILENAME}") | \
+            TF1=$(mktemp) || exit 1; TF2=$(mktemp) || exit 1
+            pdfinfo -v 2>&1 | head --lines=1 > "$TF1"
+            pdfinfo -isodates "${MC_EXT_FILENAME}" >> "$TF1"
+            exiftool "${MC_EXT_FILENAME}" > "$TF2"
+            paste "$TF1" "$TF2" | \
                 column --separator $'\t' --output-separator '   #   ' --table
+            rm --force "$TF1" "$TF2"
+#            # only bash v5+
+#            paste <(pdfinfo -v 2>&1 | head --lines=1; \
+#                    pdfinfo -isodates "${MC_EXT_FILENAME}") \
+#                  <(exiftool "${MC_EXT_FILENAME}") | \
+#                column --separator $'\t' --output-separator '   #   ' --table
             print_view
             pdftotext -layout -nodiag -nopgbrk "${MC_EXT_FILENAME}" -
             ;;
