@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-10-06
+# 2022-11-09
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 
 --- Compress ---
@@ -75,8 +75,14 @@ z   zip selected file(s) or dir(s)
 =
 f   determine selected file(s) type (file)
     %view
-    paste <(file --mime-encoding %s) <(file --brief %s) |
-        column --separator $'\t' --output-separator '    ' --table
+    TF1=$(mktemp) || exit 1; TF2=$(mktemp) || exit 1
+    file --mime-encoding %s > "$TF1"; file --brief %s > "$TF2"
+    paste "$TF1" "$TF2" \
+        | column --separator $'\t' --output-separator '    ' --table
+    rm --force "$TF1" "$TF2"
+#    # only bash v5+
+#    paste <(file --mime-encoding %s) <(file --brief %s) \
+#        | column --separator $'\t' --output-separator '    ' --table
 
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)
