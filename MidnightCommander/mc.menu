@@ -80,9 +80,7 @@ f   determine selected file(s) type (file)
     paste "$TF1" "$TF2" \
         | column --separator $'\t' --output-separator '    ' --table
     rm --force "$TF1" "$TF2"
-#    # only bash v5+
-#    paste <(file --mime-encoding %s) <(file --brief %s) \
-#        | column --separator $'\t' --output-separator '    ' --table
+    # paste <(file --mime-encoding %s) <(file --brief %s) # only bash v5+
 
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)

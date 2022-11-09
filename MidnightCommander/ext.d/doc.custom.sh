@@ -34,11 +34,6 @@ do_view_action() {
             paste "$TF1" "$TF2" | \
                 column --separator $'\t' --output-separator '   #   ' --table
             rm --force "$TF1" "$TF2"
-#            # only bash v5+
-#            paste <(pdfinfo -v 2>&1 | head --lines=1; \
-#                    pdfinfo -isodates "${MC_EXT_FILENAME}") \
-#                  <(exiftool "${MC_EXT_FILENAME}") | \
-#                column --separator $'\t' --output-separator '   #   ' --table
             print_view
             pdftotext -layout -nodiag -nopgbrk "${MC_EXT_FILENAME}" -
             ;;
