@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2022-10-10
+# 2023-01-30
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/image.custom.sh
 
 action=$1   # $1 - action
@@ -26,7 +26,7 @@ do_view_action() {
             printf "\n_\b=_\b=_\b= _\bi_\bd_\be_\bn_\bt_\bi_\bf_\by _\b=_\b=_\b=\n"
             identify -version | head --lines 1
             identify "${MC_EXT_FILENAME}"
-            identify -format "%M %m compression quality: %Q, depth: %z-bit, class and colorspace: %r\n" "${MC_EXT_FILENAME}"
+            identify -units PixelsPerInch -format "%M %m compression quality: %Q, depth: %z-bit, class and colorspace: %r, DPI: %[fx:round(resolution.x)]x%[fx:round(resolution.y)]\n" "${MC_EXT_FILENAME}"
             printf "\n_\b=_\b=_\b= _\be_\bx_\bi_\bf_\bt_\bo_\bo_\bl _\b=_\b=_\b=\n"
             exiftool "${MC_EXT_FILENAME}"
             ;;
