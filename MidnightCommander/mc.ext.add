@@ -1,4 +1,4 @@
-# 2022-10-25
+# 2023-03-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.ext.add
 
 ### Documents ###
@@ -21,4 +21,8 @@ regex/i/\.(m2ts|mpls|clpi|bdmv)$
 shell/.root
 	View=%view{ascii} rootls -t %f
 
+shell/i/.torrent
+	View=%view{ascii} exiftool %f   # override mc extension
+
 ### End of additional entries ###
+
