@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2022-03-01
+# 2023-03-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/doc.custom.sh
 
 action=$1   # $1 - action
