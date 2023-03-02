@@ -39,7 +39,7 @@ do_open_action() {
 
     case "${filetype}" in
         *)
-            printf "do nothing, 'xdg-open' is used\n"
+            printf "no open action, 'xdg-open' is used\n"
             #(eog "${MC_EXT_FILENAME}" &)
             ;;
     esac
