@@ -2,6 +2,7 @@
 
 # 2023-01-31
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/image.custom.sh
+# https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/image.sh
 
 action=$1   # $1 - action
 filetype=$2 # $2 - type of file

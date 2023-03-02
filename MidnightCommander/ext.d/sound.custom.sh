@@ -2,6 +2,7 @@
 
 # 2022-10-19
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/sound.custom.sh
+# https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/sound.sh
 
 action=$1   # $1 - action
 filetype=$2 # $2 - type of file

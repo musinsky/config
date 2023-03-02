@@ -2,6 +2,7 @@
 
 # 2023-03-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/doc.custom.sh
+# https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/doc.sh.in
 
 action=$1   # $1 - action
 filetype=$2 # $2 - type of file

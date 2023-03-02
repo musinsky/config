@@ -2,6 +2,7 @@ shell_patterns=1
 
 # 2022-11-09
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
+# https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
 --- Compress ---
     %view
