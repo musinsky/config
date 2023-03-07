@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2023-03-02
+# 2023-03-07
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -19,64 +19,62 @@ print_mc_under() {
 
 do_view_action() {
     filetype=$1
+    print_mc_under "=== file ==="
+    file "${MC_EXT_FILENAME}" && printf "\n";
 
     case "${filetype}" in
         iso9660)
-            isoinfo -d -i "${MC_EXT_FILENAME}" && \
-                isoinfo -l -R -J -i "${MC_EXT_FILENAME}"   # WITHOUT -R and -J
+            print_mc_under "=== isoinfo ==="
+            isoinfo -d -i "${MC_EXT_FILENAME}" 2>/dev/null && \
+                isoinfo -l -i "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         cat)
             cat "${MC_EXT_FILENAME}"
             ;;
         lib)
-            file "${MC_EXT_FILENAME}" && printf "\n";
             cat "${MC_EXT_FILENAME}"
             ;;
         ar)
-            print_mc_under "=== file ==="
-            file "${MC_EXT_FILENAME}"
-            printf "\n"; print_mc_under "=== nm ==="
+            print_mc_under "=== nm ==="
             nm -C "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         so)
-            print_mc_under "=== file ==="
-            file "${MC_EXT_FILENAME}"
-            printf "\n"; print_mc_under "=== ldd ==="
+            print_mc_under "=== ldd ==="
             ldd "${MC_EXT_FILENAME}" 2>/dev/null
             printf "\n"; print_mc_under "=== nm ==="
             nm -C -D "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         elf)
             # i.e. all executable programs
-            print_mc_under "=== file ==="
-            file "${MC_EXT_FILENAME}"
-            printf "\n"; print_mc_under "=== ldd ==="
+            print_mc_under "=== ldd ==="
             ldd "${MC_EXT_FILENAME}" 2>/dev/null
             printf "\n"; print_mc_under "=== nm ==="
             nm -C "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         dbf)
-            file "${MC_EXT_FILENAME}"
             # dbview is dead
+            cat "${MC_EXT_FILENAME}"
             ;;
         sqlite)
-            file "${MC_EXT_FILENAME}" && printf "\n"
-            sqlite3 "file:${MC_EXT_FILENAME}?immutable=1" .dump
+            print_mc_under "=== sqlite3 ==="
+            sqlite3 "file:${MC_EXT_FILENAME}?immutable=1" .dump 2>/dev/null
             ;;
         mo)
-            file "${MC_EXT_FILENAME}" && printf "\n"
-            msgunfmt --indent --no-wrap "${MC_EXT_FILENAME}"
+            print_mc_under "=== msgunfmt ==="
+            msgunfmt --indent --no-wrap "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         root)
-            file "${MC_EXT_FILENAME}" && printf "\n"
-            rootls --treeListing "${MC_EXT_FILENAME}"
+            print_mc_under "=== rootls ==="
+            rootls --treeListing "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         torrent)
+            print_mc_under "=== transmission-show ===";
             transmission-show "${MC_EXT_FILENAME}" 2>/dev/null || \
-                exiftool "${MC_EXT_FILENAME}"
+                { printf "\n"; print_mc_under "=== exiftool ===";
+                  exiftool "${MC_EXT_FILENAME}" 2>/dev/null; }
             ;;
         javaclass)
-            file "${MC_EXT_FILENAME}" && printf "\n"
+            print_mc_under "=== javap ==="
             javap -private "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         *)
