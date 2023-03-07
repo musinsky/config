@@ -53,12 +53,14 @@ SYSTEM_DIR="/usr/libexec/mc/ext.d"
 CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
 wget "$GH_MC"/ext.d/doc.custom.sh   -P "$CUSTOM_DIR"
 wget "$GH_MC"/ext.d/image.custom.sh -P "$CUSTOM_DIR"
+wget "$GH_MC"/ext.d/misc.custom.sh  -P "$CUSTOM_DIR"
 wget "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
 wget "$GH_MC"/ext.d/video.custom.sh -P "$CUSTOM_DIR"
 chmod 755 "$CUSTOM_DIR"/*.custom.sh
 # in extension file replace default shell scripts by customized shell scripts
 sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/mc.ext
+sed -i "s|$SYSTEM_DIR/misc.sh|$CUSTOM_DIR/misc.custom.sh|g"   "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/mc.ext
 sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/mc.ext
 # nroff (aka simple color) "force" format mode in view mode
