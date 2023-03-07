@@ -17,7 +17,7 @@ Customized user menu file is compatible with Linux GNU Bash shell systems
 
 ```
 # as user (recommended)
-wget -nc https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O "$HOME"/.config/mc/menu
+wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/mc.menu -O "$HOME"/.config/mc/menu
 ```
 ```
 # or as admin (for all users) # be careful, will be replaced after upgrade or reinstall mc
@@ -51,11 +51,11 @@ wget "$GH_MC"/mc.ext.add -O - | cat - /etc/mc/mc.ext > "$HOME"/.config/mc/mc.ext
 # copy customized shell scripts
 SYSTEM_DIR="/usr/libexec/mc/ext.d"
 CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
-wget "$GH_MC"/ext.d/doc.custom.sh   -P "$CUSTOM_DIR"
-wget "$GH_MC"/ext.d/image.custom.sh -P "$CUSTOM_DIR"
-wget "$GH_MC"/ext.d/misc.custom.sh  -P "$CUSTOM_DIR"
-wget "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
-wget "$GH_MC"/ext.d/video.custom.sh -P "$CUSTOM_DIR"
+wget -N "$GH_MC"/ext.d/doc.custom.sh   -P "$CUSTOM_DIR"
+wget -N "$GH_MC"/ext.d/image.custom.sh -P "$CUSTOM_DIR"
+wget -N "$GH_MC"/ext.d/misc.custom.sh  -P "$CUSTOM_DIR"
+wget -N "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
+wget -N "$GH_MC"/ext.d/video.custom.sh -P "$CUSTOM_DIR"
 chmod 755 "$CUSTOM_DIR"/*.custom.sh
 # in extension file replace default shell scripts by customized shell scripts
 sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc/mc.ext
