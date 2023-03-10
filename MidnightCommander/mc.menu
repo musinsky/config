@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2022-11-09
+# 2023-03-10
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -114,6 +114,13 @@ e   detect encoding of the current file (uchardet and enca)
     printf "===========================================================\n"
     find %d -type f -printf '"%%p"\n' \
         | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
+
++ ! t t
+t   rename (translit) file/dir to portable name
+    command -v translit.rename.sh > /dev/null \
+        || { printf "'translit.rename.sh' script not found\n";
+             exit 1; }
+    translit.rename.sh %p
 
 --- ExifTool ---
     %view
