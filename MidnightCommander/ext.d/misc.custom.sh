@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2023-03-07
+# 2023-03-13
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -76,6 +76,12 @@ do_view_action() {
         javaclass)
             print_mc_under "=== javap ==="
             javap -private "${MC_EXT_FILENAME}" 2>/dev/null
+            ;;
+        font)
+            print_mc_under "=== exiftool ===";
+            exiftool "${MC_EXT_FILENAME}" 2>/dev/null;
+            printf "\n"; print_mc_under "=== fc-query ==="
+            fc-query "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         *)
             printf "no view action\n"

@@ -1,4 +1,4 @@
-# 2023-03-07
+# 2023-03-13
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.ext.add
 
 ### Documents ###
@@ -20,6 +20,9 @@ regex/i/\.(m2ts|mpls|clpi|bdmv)$
 ### Miscellaneous ###
 shell/.root
 	View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view root
+
+type/i/font
+	View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view font
 
 ### End of additional entries ###
 
