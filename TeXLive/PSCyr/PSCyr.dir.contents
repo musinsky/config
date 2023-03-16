@@ -1,0 +1,23 @@
+# 2023-03-16
+
+ftp://scon155.phys.msu.su/pub/russian/psfonts/0.4d-beta/
+
+ftp> pwd
+257 "/pub/russian/psfonts/0.4d-beta" is the current directory
+ftp> dir
+227 Entering Passive Mode (93,180,52,227,173,39).
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0            3865 Oct 15  2004 ChangeLog
+-rw-r--r--    1 0        0             323 Jul 16  2003 LICENSE
+-rw-r--r--    1 0        0             484 Oct 18  2004 MD5SUMS
+-rw-r--r--    1 0        0            1460 Jan 13  2004 PROBLEMS
+-rw-r--r--    1 0        0          535507 Oct 18  2004 PSCyr-0.4-beta9-tex.tar.gz
+-rw-r--r--    1 0        0         2041127 Oct 18  2004 PSCyr-0.4-beta9-type1.tar.gz
+-rw-r--r--    1 0        0           10504 Oct 16  2004 README.alt
+-rw-r--r--    1 0        0           10294 Oct 16  2004 README.koi
+-rw-r--r--    1 0        0           10504 Oct 16  2004 README.win
+drwxr-xr-x    2 0        0            4096 Mar 23  2004 T2D
+-rwxr-xr-x    1 0        0            1050 May 16  2004 install2004.sh
+-rw-r--r--    1 0        0           46072 Oct 16  2004 manifest.txt
+226 Directory send OK.
+ftp>
