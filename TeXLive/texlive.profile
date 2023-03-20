@@ -1,5 +1,7 @@
 # TeX Live 2023
 # https://github.com/musinsky/config/tree/master/TeXLive
+#
+# /opt/texlive/2023/tlpkg/texlive.profile
 
 selected_scheme scheme-custom
 TEXDIR /opt/texlive/2023
