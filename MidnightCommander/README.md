@@ -51,12 +51,16 @@ Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 by default.
 
 ```
-MC_EXT_FILE="mc.ext"     # for mc version 4.8.28-
-MC_EXT_FILE="mc.ext.ini" # for mc version 4.8.29+
+# v4.8.29+
+MC_EXT_FILE="mc.ext.ini"
+MC_EXT_FORM="mc.4.0.ext.add"
+# v4.8.28-
+[ -f /etc/mc/mc.ext ] && { MC_EXT_FILE="mc.ext"; MC_EXT_FORM="mc.3.0.ext.add"; }
+echo "'$MC_EXT_FILE' and '$MC_EXT_FORM'"
 
 GH_MC="https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander"
 # copy default extension file and add (prepend) a few extra extensions (order is important)
-wget "$GH_MC"/mc.ext.add -O - | cat - /etc/mc/"$MC_EXT_FILE" > "$HOME"/.config/mc/"$MC_EXT_FILE"
+wget "$GH_MC/MC_EXT_FORM" -O - | cat - /etc/mc/"$MC_EXT_FILE" > "$HOME"/.config/mc/"$MC_EXT_FILE"
 # copy customized shell scripts
 SYSTEM_DIR="/usr/libexec/mc/ext.d"
 CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
