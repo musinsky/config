@@ -58,9 +58,10 @@ MC_EXT_FORM="mc.4.0.ext.add"
 [ -f /etc/mc/mc.ext ] && { MC_EXT_FILE="mc.ext"; MC_EXT_FORM="mc.3.0.ext.add"; }
 echo "'$MC_EXT_FILE' and '$MC_EXT_FORM'"
 
+mkdir -p "$HOME"/.config/mc
 GH_MC="https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander"
 # copy default extension file and add (prepend) a few extra extensions (order is important)
-wget "$GH_MC/MC_EXT_FORM" -O - | cat - /etc/mc/"$MC_EXT_FILE" > "$HOME"/.config/mc/"$MC_EXT_FILE"
+wget "$GH_MC/$MC_EXT_FORM" -O - | cat - /etc/mc/"$MC_EXT_FILE" > "$HOME"/.config/mc/"$MC_EXT_FILE"
 # copy customized shell scripts
 SYSTEM_DIR="/usr/libexec/mc/ext.d"
 CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
