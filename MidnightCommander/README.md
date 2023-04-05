@@ -1,4 +1,5 @@
 ## Midnight Commander
+Last update 2023-04-05.
 
 GNU [Midnight Commander](https://midnight-commander.org/) (aka **mc**) is a
 directory browser/file manager for Unix-like operating systems.
@@ -34,9 +35,12 @@ extension of the selected file name matches one of the extensions in the
 extensions file then the corresponding command (for open, view or edit) is
 executed. Rules are matched from top to bottom, thus the order is important.
 
-`%pkgdatadir%/mc.ext` (on Fedora/CentOS `/etc/mc/mc.ext`) is the default system
-wide extension file. `~/.config/mc/mc.ext` user's own extension file. They
-override the contents of the system wide files if present.
+`%pkgdatadir%/mc.ext.ini` (on Fedora/CentOS `/etc/mc/mc.ext.ini`) is the default
+system wide extension file. `~/.config/mc/mc.ext.ini` user's own extension file.
+They override the contents of the system wide files if present.
+
+**NOTE** for GNU Midnight Commander version <= 4.8.28 `mc.ext`, from version
+4.8.29+ `mc.ext.ini`
 
 Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 `/usr/libexec/mc/ext.d` dir) are compatible with Linux GNU Bash shell systems
@@ -45,9 +49,12 @@ Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 by default.
 
 ```
+MC_EXT_FILE="mc.ext"     # for mc version 4.8.28-
+MC_EXT_FILE="mc.ext.ini" # for mc version 4.8.29+
+
 GH_MC="https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander"
 # copy default extension file and add (prepend) a few extra extensions (order is important)
-wget "$GH_MC"/mc.ext.add -O - | cat - /etc/mc/mc.ext > "$HOME"/.config/mc/mc.ext
+wget "$GH_MC"/mc.ext.add -O - | cat - /etc/mc/"$MC_EXT_FILE" > "$HOME"/.config/mc/"$MC_EXT_FILE"
 # copy customized shell scripts
 SYSTEM_DIR="/usr/libexec/mc/ext.d"
 CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
@@ -58,11 +65,11 @@ wget -N "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
 wget -N "$GH_MC"/ext.d/video.custom.sh -P "$CUSTOM_DIR"
 chmod 755 "$CUSTOM_DIR"/*.custom.sh
 # in extension file replace default shell scripts by customized shell scripts
-sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc/mc.ext
-sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/mc.ext
-sed -i "s|$SYSTEM_DIR/misc.sh|$CUSTOM_DIR/misc.custom.sh|g"   "$HOME"/.config/mc/mc.ext
-sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/mc.ext
-sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/mc.ext
+sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc/"$MC_EXT_FILE"
+sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
+sed -i "s|$SYSTEM_DIR/misc.sh|$CUSTOM_DIR/misc.custom.sh|g"   "$HOME"/.config/mc/"$MC_EXT_FILE"
+sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
+sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
 # nroff (aka simple color) "force" format mode in view mode
-sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/mc.ext
+sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/"$MC_EXT_FILE"
 ```
