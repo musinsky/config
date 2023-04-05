@@ -1,0 +1,36 @@
+# 2023-04-05
+# https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
+
+# Midnight Commander 4.0 extension file format
+# from mc version 4.8.29
+
+### Documents ###
+[rtf]
+Shell=.rtf
+ShellIgnoreCase=true
+View=%view{ascii} /usr/libexec/mc/ext.d/doc.sh view msdoc
+
+### Images ###
+[webp]
+Shell=.webp
+ShellIgnoreCase=true
+Include=image
+
+### Video ###
+[Blu-ray]
+Regex=\.(m2ts|mpls|clpi|bdmv)$
+RegexIgnoreCase=true
+Include=video
+
+### Miscellaneous ###
+[root]
+Shell=.root
+View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view root
+
+[font]
+Type=font
+TypeIgnoreCase=true
+View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view font
+
+### End of additional entries ###
+
