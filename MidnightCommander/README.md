@@ -35,12 +35,14 @@ extension of the selected file name matches one of the extensions in the
 extensions file then the corresponding command (for open, view or edit) is
 executed. Rules are matched from top to bottom, thus the order is important.
 
+**NOTE** from Midnight Commander version 4.8.29 (2023-01) changes in extension
+file.
+* version <= 4.8.28: **3.0** extension file format, `mc.ext` file
+* version >= 4.8.29: **4.0** extension file format, `mc.ext.ini` file
+
 `%pkgdatadir%/mc.ext.ini` (on Fedora/CentOS `/etc/mc/mc.ext.ini`) is the default
 system wide extension file. `~/.config/mc/mc.ext.ini` user's own extension file.
 They override the contents of the system wide files if present.
-
-**NOTE** for GNU Midnight Commander version <= 4.8.28 `mc.ext`, from version
-4.8.29+ `mc.ext.ini`
 
 Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 `/usr/libexec/mc/ext.d` dir) are compatible with Linux GNU Bash shell systems
