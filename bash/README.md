@@ -1,22 +1,28 @@
-Bash shell
-----------
+## Bash shell
 
-### User
+### user
+* customize `~/.bashrc` file
 ```
-wget https://raw.githubusercontent.com/musinsky/config/master/bash/user-dirs.dirs -O ~/.config/user-dirs.dirs
+cp -ip "$HOME"/.bashrc "$HOME"/.bashrc.orig
+
+# restore `~/.bashrc` to default (otional)
+# cp -ip /etc/skel/.bashrc "$HOME"
+# append content of customized `bashrc` to `~/.bashrc`
+wget -O - https://raw.githubusercontent.com/musinsky/config/master/bash/bashrc >> "$HOME"/.bashrc
 ```
 
-append content of ``bashrc`` to ``~/.bashrc``
+* restore `~/.bashrc` to default (if something wrong)
 ```
-wget -O - https://raw.githubusercontent.com/musinsky/config/master/bash/bashrc >> ~/.bashrc
+/usr/bin/cp -ip /etc/skel/.bashrc "$HOME"
+source "$HOME"/.bashrc
 ```
 
-### Admin
+* user dirs
+```
+wget https://raw.githubusercontent.com/musinsky/config/master/bash/user-dirs.dirs -O "$HOME"/.config/user-dirs.dirs
+```
+
+### admin
 ```
 wget https://raw.githubusercontent.com/musinsky/config/master/bash/mucha_set.sh -O /etc/profile.d/mucha_set.sh
-```
-
-```
-wget https://raw.githubusercontent.com/musinsky/config/master/bash/gnome-terminal -O /usr/local/bin/gnome-terminal
-chmod 755 /usr/local/bin/gnome-terminal
 ```
