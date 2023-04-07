@@ -1,19 +1,46 @@
+# 2023-04-07
+# https://github.com/musinsky/config/blob/master/bash/bashrc
+#
+# $ source $HOME/.bashrc   # reload .bashrc settings
 
-# add musinsky
-export LC_PAPER='en_GB.UTF-8'
-export LC_TIME='en_GB.UTF-8'
+export LC_PAPER='sk_SK.UTF-8'
+export LC_TIME='sk_SK.UTF-8'
+export LC_MEASUREMENT='sk_SK.UTF-8'
+
+# https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
+export HISTCONTROL=ignoreboth:erasedups
+export HISTIGNORE=?:??:history
+export HISTFILESIZE=99999 # file
+export HISTSIZE=99999     # buffer
+
 export LESSHISTFILE=-
-
+export EDITOR='emacs -nw'
 # color for man pages
 #export MANROFFOPT="-c"
 #export MANPAGER="less -Dd+y -Dur --use-color"
+
+# https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+source /usr/share/git-core/contrib/completion/git-prompt.sh
+# unstaged (*) and staged (+) changes !!! slows down !!!
+export GIT_PS1_SHOWDIRTYSTATE=true
+# something is stashed '$'
+export GIT_PS1_SHOWSTASHSTATE=true
+# untracked files '%'
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+# difference between HEAD and its upstream '<', '>', '<>'  or '='
+export GIT_PS1_SHOWUPSTREAM="auto"
+# change PS1
+export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 alias llt='ls --time-style="+%Y-%m-%d %H:%M:%S" -lt'
 alias llt_utc='TZ=UTC llt'
 alias cp='cp -p'
 alias dos2unix='dos2unix -k'
+alias root='root --version && root -l --web=off'
+# source /cern/root_v5-34-00-patches/bin/thisroot.sh
+# alias root='root -l'
 
-#source /cern/root_master/bin/thisroot.sh
-alias root='root --version; root -l'
-#source /cern/root_v5-34-00-patches/bin/thisroot.sh
-#alias root='root -l'
+
+# Local Variables:
+# mode: sh
+# End:
