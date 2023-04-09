@@ -1,6 +1,4 @@
 ## Midnight Commander
-Last update 2023-04-05.
-
 GNU [Midnight Commander](https://midnight-commander.org/) (aka **mc**) is a
 directory browser/file manager for Unix-like operating systems.
 
@@ -30,8 +28,8 @@ wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/
 
 Commands in extension file allows you to specify programs to executed when you
 try to open (invoked on Enter or double click), view (F3) or edit (F4) and do a
-bunch of other thing on files with certain extensions (file name endings). If the
-extension of the selected file name matches one of the extensions in the
+bunch of other thing on files with certain extensions (file name endings). If
+the extension of the selected file name matches one of the extensions in the
 extensions file then the corresponding command (for open, view or edit) is
 executed. Rules are matched from top to bottom, thus the order is important.
 
@@ -47,8 +45,8 @@ They override the contents of the system wide files if present.
 Customized shell script files in EXTHELPERSDIR (on Fedora/CentOS
 `/usr/libexec/mc/ext.d` dir) are compatible with Linux GNU Bash shell systems
 (tested on Fedora). All changes are for view action (F3) only. For open action
-(Enter) is used `xdg-open` (opens a file in the user's preferred application)
-by default.
+(Enter) is used `xdg-open` (opens a file in the user's preferred application) by
+default.
 
 ```
 # v4.8.29+
@@ -79,4 +77,11 @@ sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc
 sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
 # nroff (aka simple color) "force" format mode in view mode
 sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/"$MC_EXT_FILE"
+```
+
+### Skin
+Customized truecolor skin derived from the default skin.
+```
+mkdir -p "$HOME"/.local/share/mc/skins
+wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray16M.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray16M.ini
 ```
