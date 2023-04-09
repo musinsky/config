@@ -3,7 +3,6 @@ GNU [Midnight Commander](https://midnight-commander.org/) (aka **mc**) is a
 directory browser/file manager for Unix-like operating systems.
 
 ### User menu
-
 The user menu (invoke by press F2) is a menu of useful actions that can be
 customized by the user. When you access the user menu, the file `.mc.menu` from
 the current directory is used if it exists, but only if it is owned by user or
@@ -25,7 +24,6 @@ wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/
 ```
 
 ### Extension file
-
 Commands in extension file allows you to specify programs to executed when you
 try to open (invoked on Enter or double click), view (F3) or edit (F4) and do a
 bunch of other thing on files with certain extensions (file name endings). If
@@ -84,4 +82,10 @@ Customized truecolor skin derived from the default skin.
 ```
 mkdir -p "$HOME"/.local/share/mc/skins
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray16M.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray16M.ini
+```
+
+### Options
+```
+sed -i '/timeformat_recent/c\timeformat_recent=%Y-%m-%d %H:%M:%S' "$HOME"/.config/mc/ini
+sed -i '/timeformat_old/c\timeformat_old=%Y-%m-%d %H:%M   '       "$HOME"/.config/mc/ini # 3 spaces after minute
 ```
