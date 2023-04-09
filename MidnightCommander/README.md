@@ -86,6 +86,9 @@ wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/
 
 ### Options
 ```
-sed -i '/timeformat_recent/c\timeformat_recent=%Y-%m-%d %H:%M:%S' "$HOME"/.config/mc/ini
-sed -i '/timeformat_old/c\timeformat_old=%Y-%m-%d %H:%M   '       "$HOME"/.config/mc/ini # 3 spaces after minute
+# exit from mc
+sed -i '/skin=/c\skin=default-gray16M'                             "$HOME"/.config/mc/ini
+
+sed -i '/timeformat_recent=/c\timeformat_recent=%Y-%m-%d %H:%M:%S' "$HOME"/.config/mc/ini
+sed -i '/timeformat_old=/c\timeformat_old=%Y-%m-%d %H:%M   '       "$HOME"/.config/mc/ini # 3 spaces after minute
 ```
