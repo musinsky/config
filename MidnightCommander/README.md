@@ -78,17 +78,18 @@ sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/"$MC_EXT_FILE"
 ```
 
 ### Skin
-Customized truecolor skin derived from the default skin. Midnight Commander
-support for True Color (16 millions colors) from version 4.8.19 (2017-03).
+Customized 256colors skin derived from the default skin. Midnight Commander
+support color aliases in skin files nad True Color (16 millions colors) from
+version 4.8.19 (2017-03).
 ```
 mkdir -p "$HOME"/.local/share/mc/skins
-wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray16M.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray16M.ini
+wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray256.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray256.ini
 ```
 
 ### Options
 ```
 # exit from mc
-sed -i '/skin=/c\skin=default-gray16M'                             "$HOME"/.config/mc/ini
+sed -i '/skin=/c\skin=default-gray256'                             "$HOME"/.config/mc/ini
 
 sed -i '/timeformat_recent=/c\timeformat_recent=%Y-%m-%d %H:%M:%S' "$HOME"/.config/mc/ini
 sed -i '/timeformat_old=/c\timeformat_old=%Y-%m-%d %H:%M   '       "$HOME"/.config/mc/ini # 3 spaces after minute
