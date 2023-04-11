@@ -79,7 +79,7 @@ sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/"$MC_EXT_FILE"
 
 ### Skin
 Customized 256colors skin derived from the default skin. Midnight Commander
-support color aliases in skin files nad True Color (16 millions colors) from
+support color aliases in skin files and True Color (16 millions colors) from
 version 4.8.19 (2017-03).
 ```
 mkdir -p "$HOME"/.local/share/mc/skins
