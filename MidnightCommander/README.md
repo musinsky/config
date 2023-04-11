@@ -78,7 +78,8 @@ sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$HOME"/.config/mc/"$MC_EXT_FILE"
 ```
 
 ### Skin
-Customized truecolor skin derived from the default skin.
+Customized truecolor skin derived from the default skin. Midnight Commander
+support for True Color (16 millions colors) from version 4.8.19 (2017-03).
 ```
 mkdir -p "$HOME"/.local/share/mc/skins
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray16M.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray16M.ini
