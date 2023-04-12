@@ -85,6 +85,15 @@ version 4.8.19 (2017-03).
 mkdir -p "$HOME"/.local/share/mc/skins
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray256.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray256.ini
 ```
+For version <= 4.8.19 (without color aliases in skin files) manual "aliases" is
+required (i.a. CentOS 7).
+```
+sed -i 's/lightgray/color250/g'  "$HOME"/.local/share/mc/skins/default-gray256.ini
+sed -i 's/blue/color238/g'       "$HOME"/.local/share/mc/skins/default-gray256.ini
+sed -i 's/cyan/color244/g'       "$HOME"/.local/share/mc/skins/default-gray256.ini
+sed -i 's/gray/color254/g'       "$HOME"/.local/share/mc/skins/default-gray256.ini
+sed -i 's/brightblue/color244/g' "$HOME"/.local/share/mc/skins/default-gray256.ini
+```
 
 ### Options
 ```
