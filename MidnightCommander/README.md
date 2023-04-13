@@ -82,8 +82,13 @@ Customized 256colors skin derived from the default skin. Midnight Commander
 support color aliases in skin files and True Color (16 millions colors) from
 version 4.8.19 (2017-03).
 ```
+# as user
 mkdir -p "$HOME"/.local/share/mc/skins
 wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray256.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray256.ini
+```
+```
+# or as admin (for all users)
+wget -N https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray256.skin.ini -P /usr/share/mc/skins
 ```
 For version <= 4.8.19 (without color aliases in skin files) manual "aliases" is
 required (i.a. CentOS 7).
