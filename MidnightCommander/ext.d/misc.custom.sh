@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2023-04-13
+# 2023-04-21
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -65,6 +65,9 @@ do_view_action() {
             ;;
         root)
             print_mc_under "=== rootls ==="
+            # aliases in the sub-shell are ignored
+            (type rootls; printf "\n"; \
+             root --version 2>&1) | awk '{print "# " $0}'; printf "\n"
             rootls --treeListing "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         torrent)
