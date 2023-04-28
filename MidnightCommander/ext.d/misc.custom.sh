@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2023-04-21
+# 2023-04-28
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -20,7 +20,7 @@ print_mc_under() {
 do_view_action() {
     filetype=$1
     print_mc_under "=== file ==="
-    file "${MC_EXT_FILENAME}" && printf "\n";
+    file "${MC_EXT_FILENAME}" && printf "\n"
 
     case "${filetype}" in
         iso9660)
@@ -71,7 +71,7 @@ do_view_action() {
             rootls --treeListing "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         torrent)
-            print_mc_under "=== transmission-show ===";
+            print_mc_under "=== transmission-show ==="
             transmission-show "${MC_EXT_FILENAME}" 2>/dev/null || \
                 { printf "\n"; print_mc_under "=== exiftool ===";
                   exiftool "${MC_EXT_FILENAME}" 2>/dev/null; }
@@ -81,14 +81,15 @@ do_view_action() {
             javap -private "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         font)
-            print_mc_under "=== exiftool ===";
-            exiftool "${MC_EXT_FILENAME}" 2>/dev/null;
+            print_mc_under "=== exiftool ==="
+            exiftool "${MC_EXT_FILENAME}" 2>/dev/null
             printf "\n"; print_mc_under "=== fc-query ==="
             fc-query "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         certificate)
-            print_mc_under "=== openssl ===";
-            openssl x509 -in "${MC_EXT_FILENAME}" -text
+            print_mc_under "=== openssl (X.509 certificates) ==="
+            printf "$ openssl x509 -in ${MC_EXT_FILENAME} -text\n"
+            openssl x509 -in "${MC_EXT_FILENAME}" -text 2>&1
             ;;
         *)
             printf "no view action\n"
