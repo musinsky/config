@@ -917,7 +917,10 @@ echo default optflags
 %if %{with gfortran}
 # FC_OPTFLAGS="%{optflags}"
 # 2020-05-23
-FC_OPTFLAGS="%{optflags} -fallow-argument-mismatch -fallow-invalid-boz"
+# 2023-04-29
+# 'legacy standard' is equivalent to the default 'gnu standard'
+# but without the warnings for obsolete extensions
+FC_OPTFLAGS="-std=legacy %{optflags} -fallow-argument-mismatch -fallow-invalid-boz"
 FC_COMPILER=gfortran
 %else
 # optflags are different for g77, so we remove problematic flags
