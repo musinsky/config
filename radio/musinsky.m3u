@@ -61,3 +61,7 @@ http://uk2.internet-radio.com:31491/
 http://live.slovakradio.sk:8000/FM_256.mp3
 http://live.slovakradio.sk:8000/FM_128.mp3
 http://icecast.stv.livebox.sk:80/fm_128.mp3
+
+# https://www.nostalgie.fr/
+#EXTINF:-1,Nostalgie FM France
+https://scdn.nrjaudio.fm/audio1/fr/30601/mp3_128.mp3
