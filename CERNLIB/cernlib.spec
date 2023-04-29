@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       44%{?dist}
+Release:       45%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -945,8 +945,9 @@ fi
         sed -i.optflags -e 's~FOPT \+=.*~FOPT = "'"$FC_OPTFLAGS"'"~' \
                  -e 's~COPT  \+=.*~COPT = "%{optflags} -D_GNU_SOURCE"~' p4boot.sh
         sed -i.mxleng -e 's/MXLENG=256/MXLENG=1024/' fcasplit.f
-#        export PATH="$CERN/patchy:$CERN/patchy/p4sub:$PATH" 
-        export PATH=".:..:$PATH" 
+        sed -i.chtext -e 's/CHTEXT\*511/CHTEXT\*1022/' fcasplit.f
+#        export PATH="$CERN/patchy:$CERN/patchy/p4sub:$PATH"
+        export PATH=".:..:$PATH"
         p4boot.sh 0
 popd
 export PATH=$PATHSAVE
@@ -1503,6 +1504,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Sat Apr 29 2023 Jan Musinsky <musinsky@gmail.com> - 2006-45
+- fix CHTEXT, Fedora 38
+
 * Tue Nov 09 2021 Jan Musinsky <musinsky@gmail.com> - 2006-44
 - binutils-2.36 support, Fedora 35
 
