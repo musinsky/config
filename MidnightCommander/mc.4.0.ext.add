@@ -1,4 +1,4 @@
-# 2023-04-28
+# 2023-05-03
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 
 # Midnight Commander 4.0 extension file format (starting with mc v4.8.29+)
@@ -36,6 +36,10 @@ Type=certificate
 TypeIgnoreCase=true
 Include=certificate
 
+[certificate.cer]
+Shell=.cer
+Include=certificate
+
 [certificate.crt]
 Shell=.crt
 Include=certificate
@@ -43,6 +47,10 @@ Include=certificate
 [certificate.pem]
 Shell=.pem
 Include=certificate
+
+[certificate.crl]
+Shell=.crl
+View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate-crl
 
 [Include/certificate]
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate

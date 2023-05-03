@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2023-04-28
+# 2023-05-03
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -87,9 +87,19 @@ do_view_action() {
             fc-query "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         certificate)
-            print_mc_under "=== openssl (X.509 certificates) ==="
-            printf "$ openssl x509 -in ${MC_EXT_FILENAME} -text\n"
-            openssl x509 -in "${MC_EXT_FILENAME}" -text 2>&1
+            print_mc_under "=== openssl (X.509 Certificate) ==="
+            print_mc_under "# brief"
+            openssl x509 -in "${MC_EXT_FILENAME}" -noout -text \
+                    -certopt no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_extensions \
+                    -nameopt multiline 2>&1
+            print_mc_under "# full details"
+            printf "$ openssl x509 -in ${MC_EXT_FILENAME} -noout -text\n"
+            openssl x509 -in "${MC_EXT_FILENAME}" -noout -text 2>&1
+            ;;
+        certificate-crl)
+            print_mc_under "=== openssl (Certificate Revocation List) ==="
+            printf "$ openssl crl -in ${MC_EXT_FILENAME} -noout -text\n"
+            openssl crl -in "${MC_EXT_FILENAME}" -noout -text 2>&1
             ;;
         *)
             printf "no view action\n"
