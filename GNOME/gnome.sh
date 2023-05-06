@@ -9,12 +9,13 @@ gsettings set org.gnome.desktop.calendar show-weekdate true
 
 gsettings set org.gnome.desktop.input-sources per-window true
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'ru+phonetic'), ('xkb', 'sk+qwerty')]"
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:none']"            # Caps Lock disabled
 
 gsettings set org.gnome.desktop.interface clock-show-date true
 gsettings set org.gnome.desktop.interface clock-show-seconds true
-gsettings set org.gnome.desktop.interface document-font-name 'Sans 9'                # Sans 11
-gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'                    # Cantarell 11
-gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
+#gsettings set org.gnome.desktop.interface document-font-name 'Sans 9'                # Sans 11
+#gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'                    # Cantarell 11
+#gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 
 gsettings set org.gnome.desktop.privacy remember-app-usage false
@@ -39,7 +40,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>F4'
 
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 9'      # Cantarell Bold 11
+#gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 9'      # Cantarell Bold 11
 
 gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
 gsettings set org.gnome.Evince page-cache-size 500                                   # zoom more than 400%
@@ -63,10 +64,11 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-typ
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
 ### this keys overrides the keys in org.gnome.mutter when running GNOME Shell
-# gsettings get org.gnome.mutter attach-modal-dialogs
-# gsettings get org.gnome.mutter dynamic-workspaces
-gsettings set org.gnome.shell.overrides attach-modal-dialogs false                   # Attach modal dialog to the parent window
-gsettings set org.gnome.shell.overrides dynamic-workspaces false
+### need upgrade 20023-05
+gsettings set org.gnome.mutter attach-modal-dialogs false                            # Attach modal dialog to the parent window
+gsettings set org.gnome.mutter dynamic-workspaces false
+##gsettings set org.gnome.shell.overrides attach-modal-dialogs false
+##gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
 gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'
 gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false      # disable F10 in GNOME terminal
