@@ -16,22 +16,23 @@ function wget_file {
 }
 
 function self_upgrade {
-    printf "${SGR}# script self upgrade${SGR}\n" '1' '0'
+    printf "\n${SGR}# script self upgrade${SGR0}\n" '1'
     local gfile="$GH_MC/$GH_MC_SCRIPT"
     wget_file "$gfile"
     local lfile="$0"
     cmp --silent "$TMP_F" "$lfile" || {
-        echo "remote '$gfile' and local '$lfile' files are differ"
+        printf "'$gfile' ${SGR}!=${SGR0} '$lfile'\n" '1;31'
         read -r -p "overwrite file '$lfile'? [y]:"
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             cp --no-preserve=mode "$TMP_F" "$lfile"
-            echo "now restart '$lfile' script"
+            echo "now run the script '$lfile' again"
             exit 0
         fi
-        echo "you must upgrade/overwrite file '$lfile' and restart script"
+        echo "you must upgrade (overwrite) file '$lfile'"
         exit 1
     }
-    echo "remote '$gfile' and local '$lfile' files are the same, no upgrade required"
+    printf "'$gfile' ${SGR}==${SGR0} '$lfile'\n" '1'
+    printf 'no upgrade required\n'
 }
 
 function create_backup {
@@ -45,8 +46,9 @@ GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommande
 GH_MC_SCRIPT='muke-mc-config.sh'
 TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
 SGR='\x1b[%bm'
+SGR0='\x1b[0m'
 
-printf "${SGR}# https://github.com/musinsky/config/tree/master/MidnightCommander${SGR}\n\n" '1' '0'
+printf "${SGR}# https://github.com/musinsky/config/tree/master/MidnightCommander${SGR0}\n" '1'
 self_upgrade
 
 exit
@@ -69,7 +71,7 @@ printf "1${SGR}=${SGR}1\n" '31' '0'
 exit
 
 
-printf "${SGR}# user menu${SGR}\n" '1' '0'
+printf "${SGR}# user menu${SGR0}\n" '1'
 create_backup "$MC_CONFIG_DIR/menu"
 
 
