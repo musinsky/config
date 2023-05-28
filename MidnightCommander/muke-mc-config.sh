@@ -145,7 +145,6 @@ menu_file
 ## EXTENSION
 extension_file
 
-
 rm "$TMP_F"
 
 # MC_SKIN_DIR="$HOME/.local/share/mc/skins"
