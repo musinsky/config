@@ -17,12 +17,21 @@ function create_backup {
     }
 }
 function print_section {
+    # SGR only this place (maybe local)
     printf "\n${SGR}# ${1}${SGR0}\n" '1'
 }
 function print_files_info {
-    printf "'$1' ${SGR}${3}${SGR0} '$2'\n" '0'
+    #local short_gh_mc="$1"
+    local short_gh_mc="${1/$GH_MC/\$GH_MC}"
+    #local short_home="$2"
+    local short_home="${2/$HOME/\$HOME}"
+    printf "'$short_gh_mc' ${SGR}${3}${SGR0} '$short_home'\n" '0'
 }
 function compare_and_copy_files {
+    # $1 only for print
+    # compare and copy always $TMP_F and $2
+    ## alebo ak je TMP_F prazdny tak download, ale potom
+    ## namiesto "wget_file" bude ">TMP_F", takze v podstate to iste
     local f_git="$1"
     local f_local="$2"
     local f_mode="$3"
@@ -40,119 +49,104 @@ function compare_and_copy_files {
 
 function self_upgrade {
     print_section 'script self upgrade'
-    local g_self="$GH_MC/muke-mc-config.sh"
-    local l_self="$0"
-    wget_file "$g_self"
-    cmp --silent "$TMP_F" "$l_self" || {
-        print_files_info "$g_self" "$l_self" "!="
-        read -r -p "overwrite file '$l_self'? [y]:"
+    local git_self="$GH_MC/muke-mc-config.sh"
+    local user_self="$0"
+    wget_file "$git_self"
+    cmp --silent "$TMP_F" "$user_self" || {
+        print_files_info "$git_self" "$user_self" "!="
+        read -r -p "overwrite file '$user_self'? [y]:"
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            cp --no-preserve=mode "$TMP_F" "$l_self"
-            echo "now run the script '$l_self' again"
+            cp --no-preserve=mode "$TMP_F" "$user_self"
+            echo "now run the script '$user_self' again"
             exit 0
         fi
-        echo "you must upgrade (overwrite) file '$l_self'"
+        echo "you must overwrite (upgrade) file '$user_self'"
         exit 1
     }
-    print_files_info "$g_self" "$l_self" "=="
-    printf 'no upgrade required\n'
+    print_files_info "$git_self" "$user_self" "=="
+    #printf 'no upgrade required\n'
 }
 
 function menu_file {
     print_section 'user menu file'
-    local g_menu="$GH_MC/mc.menu"
-    local l_menu="$USER_MC_CONFIG_DIR/menu"
-    wget_file "$g_menu"
-    compare_and_copy_files "$g_menu" "$l_menu" "644"
+    local git_menu="$GH_MC/mc.menu"
+    local user_menu="$USER_MC_CONFIG_DIR/menu"
+    wget_file "$git_menu"
+    compare_and_copy_files "$git_menu" "$user_menu" "644"
 }
 
+function extension_file {
+    print_section 'user extension file'
+    local user_ext_dir="$USER_MC_CONFIG_DIR/ext.d" # or wherever you want
+    local system_ext_dir='/usr/libexec/mc/ext.d'
+    mkdir -p "$user_ext_dir"
+    local all_ext_script=("doc" "image" "misc" "sound" "video")
+    local git_file
+    local local_file
+    for ext_script in "${all_ext_script[@]}"; do
+        # copy customized shell scripts
+        git_file="$GH_MC/ext.d/${ext_script}.custom.sh"
+        local_file="$user_ext_dir/${ext_script}.custom.sh"
+        wget_file "$git_file"
+        compare_and_copy_files "$git_file" "$local_file" "755"
+        printf "\n"
+    done
+    # Midnight Commander v4.8.29 (2023-01) changes in the extension file
+    # /etc/mc/mc.ext.ini => v4.8.29+ and 4.0 extension file format
+    # /etc/mc/mc.ext     => v4.8.28- and 3.0 extension file format
+    local mc_ext_file='mc.ext.ini' # v4.8.29+
+    local mc_ext_format='mc.4.0.ext.add'
+    if [[ -f "$SYSTEM_MC_ETC_DIR/mc.ext" ]]; then
+        mc_ext_file='mc.ext'       # v4.8.28-
+        mc_ext_format='mc.3.0.ext.add'
+        printf "found '$SYSTEM_MC_ETC_DIR/$mc_ext_file'"
+        printf '=> mc v4.8.28- and 3.0 extension file format\n'
+    else
+        printf "found '$SYSTEM_MC_ETC_DIR/$mc_ext_file'"
+        printf '=> mc v4.8.29+ and 4.0 extension file format\n'
+    fi
+    # copy default (system) extension file and add/prepend (user) extension file
+    # order is important
+    wget_file "$GH_MC/$mc_ext_format"                 # user
+    cat "$SYSTEM_MC_ETC_DIR/$mc_ext_file" >> "$TMP_F" # user + system
+    for ext_script in "${all_ext_script[@]}"; do
+        # replace default shell script by customized shell script in extension file
+        sed -i "s|$system_ext_dir/${ext_script}.sh|$user_ext_dir/${ext_script}.custom.sh|g" \
+            "$TMP_F"
+    done
+    # nroff (aka simple color) "force" format mode in view mode
+    sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$TMP_F"
+
+    git_file="$GH_MC/$mc_ext_format + $SYSTEM_MC_ETC_DIR/$mc_ext_file"
+    local_file="$USER_MC_CONFIG_DIR/$mc_ext_file"
+    compare_and_copy_files "$git_file" "$local_file" "644"
+
+    # mozno pridat: local sc_extension=".custom.sh"
+}
 
 TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
 SGR='\x1b[%bm'
 SGR0='\x1b[0m'
 GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
-SYSTEM_MC_ETC_DIR='/etc/mc'
 USER_MC_CONFIG_DIR="$HOME/.config/mc"
+SYSTEM_MC_ETC_DIR='/etc/mc'
 
 ## INTRO
 print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
+printf "'\$GH_MC'='$GH_MC'\n"
+printf "'\$HOME'='$HOME'\n"
+mkdir -p "$USER_MC_CONFIG_DIR"
 ## SELF UPGRADE
 self_upgrade
 ## MENU
-mkdir -p "$USER_MC_CONFIG_DIR"
 menu_file
-
-
-exit
-
-# mc global
-
-SYSTEM_MC_EXT_DIR='/usr/libexec/mc/ext.d'
-# mc user
-
-MC_EXT_DIR="$USER_MC_CONFIG_DIR/ext.d"
-MC_SKIN_DIR="$HOME/.local/share/mc/skins"
-
-
-
-
-
-exit
-
-
-
 ## EXTENSION
-printf "\n${SGR}# extension file${SGR0}\n" '1'
-# Midnight Commander v4.8.29 (2023-01) changes in the extension file
-# /etc/mc/mc.ext.ini => v4.8.29+ and 4.0 extension file format
-# /etc/mc/mc.ext     => v4.8.28- and 3.0 extension file format
-
-MC_EXT_FILE='mc.ext.ini'   # v4.8.29+
-MC_EXT_FORM='mc.4.0.ext.add'
-if [[ -f "$SYSTEM_MC_ETC_DIR/mc.ext" ]]; then
-    MC_EXT_FILE='mc.ext'   # v4.8.28-
-    MC_EXT_FORM='mc.3.0.ext.add'
-    echo "found '$SYSTEM_MC_ETC_DIR/$MC_EXT_FILE' => mc v4.8.28- and 3.0 extension file format"
-else
-    echo "found '$SYSTEM_MC_ETC_DIR/$MC_EXT_FILE' => mc v4.8.29+ and 4.0 extension file format"
-fi
-
-# copy default extension file and add (prepend) a few extra extensions (order is important)
-###wget --quiet "$GH_MC/$MC_EXT_FORM" -O - | cat - "$SYSTEM_MC_ETC_DIR/$MC_EXT_FILE" > "$TMP_F"
-
-wget_file "$GH_MC/$MC_EXT_FORM"
-cat "$SYSTEM_MC_ETC_DIR/$MC_EXT_FILE" >> "$TMP_F"
-MC_EXT_FILE="$USER_MC_CONFIG_DIR/$MC_EXT_FILE" # now full path
-
-all_script=("doc" "image" "misc" "sound" "video")
-for cscript in "${all_script[@]}"
-do
-    echo "$cscript";
-    # in extension file replace default shell scripts by customized shell scripts
-    sed -i "s|$SYSTEM_MC_EXT_DIR/${cscript}.sh|$MC_EXT_DIR/${cscript}.custom.sh|g" "$TMP_F"
-done
-# nroff (aka simple color) "force" format mode in view mode
-sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$TMP_F"
-exit
-
-# sed -i "s|$SYSTEM_DIR/doc.sh|$CUSTOM_DIR/doc.custom.sh|g"     "$HOME"/.config/mc/"$MC_EXT_FILE"
-# sed -i "s|$SYSTEM_DIR/image.sh|$CUSTOM_DIR/image.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
-# sed -i "s|$SYSTEM_DIR/misc.sh|$CUSTOM_DIR/misc.custom.sh|g"   "$HOME"/.config/mc/"$MC_EXT_FILE"
-# sed -i "s|$SYSTEM_DIR/sound.sh|$CUSTOM_DIR/sound.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
-# sed -i "s|$SYSTEM_DIR/video.sh|$CUSTOM_DIR/video.custom.sh|g" "$HOME"/.config/mc/"$MC_EXT_FILE"
-
-# copy customized shell scripts
-SYSTEM_DIR="/usr/libexec/mc/ext.d"
-CUSTOM_DIR="$HOME/.config/mc/ext.d" # or wherever you want (for example CUSTOM_DIR="$SYSTEM_DIR")
-wget -N "$GH_MC"/ext.d/doc.custom.sh   -P "$CUSTOM_DIR"
-wget -N "$GH_MC"/ext.d/image.custom.sh -P "$CUSTOM_DIR"
-wget -N "$GH_MC"/ext.d/misc.custom.sh  -P "$CUSTOM_DIR"
-wget -N "$GH_MC"/ext.d/sound.custom.sh -P "$CUSTOM_DIR"
-wget -N "$GH_MC"/ext.d/video.custom.sh -P "$CUSTOM_DIR"
-chmod 755 "$CUSTOM_DIR"/*.custom.sh
+extension_file
 
 
-#rm $TMP_F  !!!!!!!!!!!!
+rm "$TMP_F"
+
+# MC_SKIN_DIR="$HOME/.local/share/mc/skins"
 
 # Default shell script files are in EXTHELPERSDIR (on Fedora/CentOS
 # /usr/libexec/mc/ext.d dir).
