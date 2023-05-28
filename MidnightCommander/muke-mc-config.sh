@@ -58,9 +58,11 @@ function self_upgrade {
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             cp --no-preserve=mode "$TMP_F" "$user_self"
             echo "now run the script '$user_self' again"
+            rm "$TMP_F";
             exit 0
         fi
         echo "you must overwrite (upgrade) file '$user_self'"
+        rm "$TMP_F";
         exit 1
     }
     print_files_info "$git_self" "$user_self" "=="
