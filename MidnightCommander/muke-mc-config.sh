@@ -1,86 +1,104 @@
 #!/usr/bin/env bash
 
-# 2023-05-27
+# 2023-05-28
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 # shellcheck disable=SC2059
 # shellcheck disable=SC2317
 
-function wget_file { # POZRO pouizvab $1
+function wget_file {
     wget --quiet "$1" -O "$TMP_F" || {
-        echo "wget '$1' error"
-        rm "$TMP_F"
-        exit 1
+        echo "wget '$1' error"; rm "$TMP_F"; exit 1
     }
+}
+function create_backup {
+    [[ -f "$1" ]] && {
+        cp --verbose --preserve "$1" "$1.$(date +%F_%T)"
+    }
+}
+function print_section {
+    printf "\n${SGR}# ${1}${SGR0}\n" '1'
+}
+function print_files_info {
+    printf "'$1' ${SGR}${3}${SGR0} '$2'\n" '0'
+}
+function compare_and_copy_files {
+    local f_git="$1"
+    local f_local="$2"
+    local f_mode="$3"
+    cmp --silent "$TMP_F" "$f_local" || {
+        print_files_info "$f_git" "$f_local" "!="
+        create_backup "$f_local"
+        cp "$TMP_F" "$f_local" && {
+            chmod "$f_mode" "$f_local"
+            print_files_info "$f_git" "$f_local" "->"
+        }
+        return
+    }
+    print_files_info "$f_git" "$f_local" "=="
 }
 
 function self_upgrade {
-    printf "\n${SGR}# script self upgrade${SGR0}\n" '1'
-    local gfile="$GH_MC/$GH_MC_SCRIPT"
-    wget_file "$gfile"
-    local lfile="$0"
-    cmp --silent "$TMP_F" "$lfile" || {
-        printf "'$gfile' ${SGR}!=${SGR0} '$lfile'\n" '1;31'
-        read -r -p "overwrite file '$lfile'? [y]:"
+    print_section 'script self upgrade'
+    local g_self="$GH_MC/muke-mc-config.sh"
+    local l_self="$0"
+    wget_file "$g_self"
+    cmp --silent "$TMP_F" "$l_self" || {
+        print_files_info "$g_self" "$l_self" "!="
+        read -r -p "overwrite file '$l_self'? [y]:"
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            cp --no-preserve=mode "$TMP_F" "$lfile"
-            echo "now run the script '$lfile' again"
+            cp --no-preserve=mode "$TMP_F" "$l_self"
+            echo "now run the script '$l_self' again"
             exit 0
         fi
-        echo "you must upgrade (overwrite) file '$lfile'"
+        echo "you must upgrade (overwrite) file '$l_self'"
         exit 1
     }
-    printf "'$gfile' ${SGR}==${SGR0} '$lfile'\n" '1'
+    print_files_info "$g_self" "$l_self" "=="
     printf 'no upgrade required\n'
 }
 
-function compare_copy_file {
-    local gfile="$1"
-    wget_file "$gfile" # volat extra pre funkciou compare_and_backup
-    local lfile="$2"
-    cmp --silent "$TMP_F" "$lfile" || {
-        printf "'$gfile' ${SGR}!=${SGR0} '$lfile'\n" '1;31'
-        create_backup "$lfile"
-        cp "$TMP_F" "$lfile" && \
-            printf "'$gfile' ${SGR}->${SGR0} '$lfile'\n" '1;31'
-        return
-    }
-    printf "'$gfile' ${SGR}==${SGR0} '$lfile'\n" '1'
-    printf 'no upgrade required\n'
+function menu_file {
+    print_section 'user menu file'
+    local g_menu="$GH_MC/mc.menu"
+    local l_menu="$USER_MC_CONFIG_DIR/menu"
+    wget_file "$g_menu"
+    compare_and_copy_files "$g_menu" "$l_menu" "644"
 }
 
-function create_backup {
-    local bfile="$1"
-    [[ -f "$bfile" ]] && {
-        cp --verbose --preserve "$bfile" "$bfile.$(date +%F_%T)"
-    }
-}
 
-GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
-GH_MC_SCRIPT='muke-mc-config.sh'
 TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
 SGR='\x1b[%bm'
 SGR0='\x1b[0m'
+GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
+SYSTEM_MC_ETC_DIR='/etc/mc'
+USER_MC_CONFIG_DIR="$HOME/.config/mc"
 
 ## INTRO
-printf "${SGR}# https://github.com/musinsky/config/tree/master/MidnightCommander${SGR0}\n" '1'
-
+print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 ## SELF UPGRADE
-# self_upgrade
+#self_upgrade
+mkdir -p "$USER_MC_CONFIG_DIR"
+## MENU
+menu_file
+
+
+exit
 
 # mc global
-SYSTEM_MC_ETC_DIR='/etc/mc'
+
 SYSTEM_MC_EXT_DIR='/usr/libexec/mc/ext.d'
 # mc user
-MC_CONFIG_DIR="$HOME/.config/mc"
-MC_EXT_DIR="$MC_CONFIG_DIR/ext.d"
+
+MC_EXT_DIR="$USER_MC_CONFIG_DIR/ext.d"
 MC_SKIN_DIR="$HOME/.local/share/mc/skins"
 
-mkdir -p "$MC_CONFIG_DIR"
 
-printf "\n${SGR}# user menu file${SGR0}\n" '1'
-#compare_copy_file "$GH_MC/mc.menu" "$MC_CONFIG_DIR/menu"
-#chmod 644 "$MC_CONFIG_DIR/menu"
+
+
+
+exit
+
 
 
 ## EXTENSION
@@ -104,7 +122,7 @@ fi
 
 wget_file "$GH_MC/$MC_EXT_FORM"
 cat "$SYSTEM_MC_ETC_DIR/$MC_EXT_FILE" >> "$TMP_F"
-MC_EXT_FILE="$MC_CONFIG_DIR/$MC_EXT_FILE" # now full path
+MC_EXT_FILE="$USER_MC_CONFIG_DIR/$MC_EXT_FILE" # now full path
 
 all_script=("doc" "image" "misc" "sound" "video")
 for cscript in "${all_script[@]}"
