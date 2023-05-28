@@ -77,9 +77,9 @@ USER_MC_CONFIG_DIR="$HOME/.config/mc"
 ## INTRO
 print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 ## SELF UPGRADE
-#self_upgrade
-mkdir -p "$USER_MC_CONFIG_DIR"
+self_upgrade
 ## MENU
+mkdir -p "$USER_MC_CONFIG_DIR"
 menu_file
 
 
