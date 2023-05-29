@@ -12,12 +12,11 @@ function wget_file {
 }
 function create_backup {
     local orig_name="$1"
-    local backup_name # SC2155
+    local backup_name="$1.$DATIME"
     [[ -f "$orig_name" ]] || {
         printf "'$orig_name' (does not exist)\n"
         return
     }
-    backup_name="$orig_name.$(date +%F_%T)"
     cp --preserve "$orig_name" "$backup_name" && \
         printf "'$backup_name' (backup created)\n"
 }
@@ -155,6 +154,7 @@ function skin_file {
 }
 
 TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
+DATIME=$(date +%F_%T)
 SGR='\x1b[%bm'
 SGR0='\x1b[0m'
 GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
