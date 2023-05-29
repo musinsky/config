@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2023-05-28
+# 2023-05-29
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 # shellcheck disable=SC2059
@@ -12,9 +12,15 @@ function wget_file {
     }
 }
 function create_backup {
-    [[ -f "$1" ]] && {
-        cp --verbose --preserve "$1" "$1.$(date +%F_%T)"
+    local orig_name="$1"
+    [[ -f "$orig_name" ]] || {
+        printf "'$orig_name' (does not exist)\n"
+        return
     }
+    local backup_name # SC2155
+    backup_name="$orig_name.$(date +%F_%T)"
+    cp --preserve "$orig_name" "$backup_name" && \
+        printf "'$backup_name' (backup created)\n"
 }
 function print_section {
     # SGR only this place (maybe local)
@@ -28,10 +34,8 @@ function print_files_info {
     printf "'$short_gh_mc' ${SGR}${3}${SGR0} '$short_home'\n" '0'
 }
 function compare_and_copy_files {
-    # $1 only for print
     # compare and copy always $TMP_F and $2
-    ## alebo ak je TMP_F prazdny tak download, ale potom
-    ## namiesto "wget_file" bude ">TMP_F", takze v podstate to iste
+    # $1 only for print
     local f_git="$1"
     local f_local="$2"
     local f_mode="$3"
@@ -83,12 +87,13 @@ function extension_file {
     local system_ext_dir='/usr/libexec/mc/ext.d'
     mkdir -p "$user_ext_dir"
     local all_ext_script=("doc" "image" "misc" "sound" "video")
+    local ext_script_ext='custom.sh'
     local git_file
     local local_file
     for ext_script in "${all_ext_script[@]}"; do
         # copy customized shell scripts
-        git_file="$GH_MC/ext.d/${ext_script}.custom.sh"
-        local_file="$user_ext_dir/${ext_script}.custom.sh"
+        git_file="$GH_MC/ext.d/$ext_script.$ext_script_ext"
+        local_file="$user_ext_dir/$ext_script.$ext_script_ext"
         wget_file "$git_file"
         compare_and_copy_files "$git_file" "$local_file" "755"
         printf "\n"
@@ -113,18 +118,40 @@ function extension_file {
     cat "$SYSTEM_MC_ETC_DIR/$mc_ext_file" >> "$TMP_F" # user + system
     for ext_script in "${all_ext_script[@]}"; do
         # replace default shell script by customized shell script in extension file
-        sed -i "s|$system_ext_dir/${ext_script}.sh|$user_ext_dir/${ext_script}.custom.sh|g" \
+        sed -i "s|$system_ext_dir/$ext_script.sh|$user_ext_dir/$ext_script.$ext_script_ext|g" \
             "$TMP_F"
     done
     # nroff (aka simple color) "force" format mode in view mode
-    sed -i "/.custom.sh/s/{ascii}/{ascii,nroff}/" "$TMP_F"
+    sed -i "/.$ext_script_ext/s/{ascii}/{ascii,nroff}/" "$TMP_F"
 
     git_file="$GH_MC/$mc_ext_format + $SYSTEM_MC_ETC_DIR/$mc_ext_file"
     local_file="$USER_MC_CONFIG_DIR/$mc_ext_file"
     compare_and_copy_files "$git_file" "$local_file" "644"
-
-    # mozno pridat: local sc_extension=".custom.sh"
 }
+
+function skin_file {
+    print_section 'user skin file'
+    local user_skin_file='default-gray256.ini'
+    local user_skin_dir="$HOME/.local/share/mc/skins"
+    local system_skin_dir='/usr/share/mc/skins'
+    mkdir -p "$user_skin_dir"
+    local git_skin="$GH_MC/skins/default-gray256.ini"
+    local user_skin="$user_skin_dir/$user_skin_file"
+    wget_file "$git_skin"
+    compare_and_copy_files "$git_skin" "$user_skin" "644"
+
+    # Midnight Commander v4.8.19 (2017-03) started
+    # support color aliases in skin files
+    find "$system_skin_dir" -type f -name '*.ini' -print0 | \
+        xargs -0 grep --silent "\[aliases\]" || \
+        return
+    printf "not found [aliases] in '$system_skin_dir/*.ini' files => mc v4.8.19-\n"
+    sed -i \
+        -e 's/lightgray/color250/g' -e 's/blue/color238/g' \
+        -e 's/cyan/color244/g'      -e 's/gray/color254/g' \
+        -e 's/brightblue/color244/g' "$user_skin"
+}
+
 
 TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
 SGR='\x1b[%bm'
@@ -132,18 +159,20 @@ SGR0='\x1b[0m'
 GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
 USER_MC_CONFIG_DIR="$HOME/.config/mc"
 SYSTEM_MC_ETC_DIR='/etc/mc'
+mkdir -p "$USER_MC_CONFIG_DIR"
 
 ## INTRO
 print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 printf "'\$GH_MC'='$GH_MC'\n"
 printf "'\$HOME'='$HOME'\n"
-mkdir -p "$USER_MC_CONFIG_DIR"
 ## SELF UPGRADE
-self_upgrade
+#self_upgrade
 ## MENU
-menu_file
+#menu_file
 ## EXTENSION
-extension_file
+#extension_file
+## skin
+skin_file
 
 rm "$TMP_F"
 
