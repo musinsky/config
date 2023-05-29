@@ -4,7 +4,6 @@
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 # shellcheck disable=SC2059
-# shellcheck disable=SC2317
 
 function wget_file {
     wget --quiet "$1" -O "$TMP_F" || {
@@ -13,11 +12,11 @@ function wget_file {
 }
 function create_backup {
     local orig_name="$1"
+    local backup_name # SC2155
     [[ -f "$orig_name" ]] || {
         printf "'$orig_name' (does not exist)\n"
         return
     }
-    local backup_name # SC2155
     backup_name="$orig_name.$(date +%F_%T)"
     cp --preserve "$orig_name" "$backup_name" && \
         printf "'$backup_name' (backup created)\n"
@@ -27,11 +26,10 @@ function print_section {
     printf "\n${SGR}# ${1}${SGR0}\n" '1'
 }
 function print_files_info {
-    #local short_gh_mc="$1"
+    # replace value of variable by variable name
     local short_gh_mc="${1/$GH_MC/\$GH_MC}"
-    #local short_home="$2"
     local short_home="${2/$HOME/\$HOME}"
-    printf "'$short_gh_mc' ${SGR}${3}${SGR0} '$short_home'\n" '0'
+    printf "'$short_gh_mc' ${SGR}${3}${SGR0} '$short_home'\n" '1;31'
 }
 function compare_and_copy_files {
     # compare and copy always $TMP_F and $2
@@ -60,12 +58,13 @@ function self_upgrade {
         print_files_info "$git_self" "$user_self" "!="
         read -r -p "overwrite file '$user_self'? [y]:"
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            cp --no-preserve=mode "$TMP_F" "$user_self"
-            echo "now run the script '$user_self' again"
-            rm "$TMP_F";
-            exit 0
+            cp --no-preserve=mode "$TMP_F" "$user_self" && {
+                printf "now run the script '$user_self' again\n"
+                rm "$TMP_F";
+                exit 0
+            }
         fi
-        echo "you must overwrite (upgrade) file '$user_self'"
+        printf "you must overwrite (upgrade) file '$user_self'\n"
         rm "$TMP_F";
         exit 1
     }
@@ -85,11 +84,11 @@ function extension_file {
     print_section 'user extension file'
     local user_ext_dir="$USER_MC_CONFIG_DIR/ext.d" # or wherever you want
     local system_ext_dir='/usr/libexec/mc/ext.d'
-    mkdir -p "$user_ext_dir"
     local all_ext_script=("doc" "image" "misc" "sound" "video")
     local ext_script_ext='custom.sh'
     local git_file
     local local_file
+    mkdir -p "$user_ext_dir"
     for ext_script in "${all_ext_script[@]}"; do
         # copy customized shell scripts
         git_file="$GH_MC/ext.d/$ext_script.$ext_script_ext"
@@ -98,6 +97,7 @@ function extension_file {
         compare_and_copy_files "$git_file" "$local_file" "755"
         printf "\n"
     done
+
     # Midnight Commander v4.8.29 (2023-01) changes in the extension file
     # /etc/mc/mc.ext.ini => v4.8.29+ and 4.0 extension file format
     # /etc/mc/mc.ext     => v4.8.28- and 3.0 extension file format
@@ -107,15 +107,17 @@ function extension_file {
         mc_ext_file='mc.ext'       # v4.8.28-
         mc_ext_format='mc.3.0.ext.add'
         printf "found '$SYSTEM_MC_ETC_DIR/$mc_ext_file'"
-        printf '=> mc v4.8.28- and 3.0 extension file format\n'
+        printf ' => mc v4.8.28- and 3.0 extension file format\n'
     else
         printf "found '$SYSTEM_MC_ETC_DIR/$mc_ext_file'"
-        printf '=> mc v4.8.29+ and 4.0 extension file format\n'
+        printf ' => mc v4.8.29+ and 4.0 extension file format\n'
     fi
     # copy default (system) extension file and add/prepend (user) extension file
     # order is important
-    wget_file "$GH_MC/$mc_ext_format"                 # user
-    cat "$SYSTEM_MC_ETC_DIR/$mc_ext_file" >> "$TMP_F" # user + system
+    git_file="$GH_MC/$mc_ext_format"
+    local_file="$SYSTEM_MC_ETC_DIR/$mc_ext_file"
+    wget_file "$git_file"           # user
+    cat "$local_file" >> "$TMP_F"   # user + system
     for ext_script in "${all_ext_script[@]}"; do
         # replace default shell script by customized shell script in extension file
         sed -i "s|$system_ext_dir/$ext_script.sh|$user_ext_dir/$ext_script.$ext_script_ext|g" \
@@ -123,35 +125,34 @@ function extension_file {
     done
     # nroff (aka simple color) "force" format mode in view mode
     sed -i "/.$ext_script_ext/s/{ascii}/{ascii,nroff}/" "$TMP_F"
-
-    git_file="$GH_MC/$mc_ext_format + $SYSTEM_MC_ETC_DIR/$mc_ext_file"
+    git_file="$git_file + $local_file"
     local_file="$USER_MC_CONFIG_DIR/$mc_ext_file"
     compare_and_copy_files "$git_file" "$local_file" "644"
 }
 
 function skin_file {
     print_section 'user skin file'
-    local user_skin_file='default-gray256.ini'
     local user_skin_dir="$HOME/.local/share/mc/skins"
+    local user_skin_file="$user_skin_dir/default-gray256.ini"
     local system_skin_dir='/usr/share/mc/skins'
-    mkdir -p "$user_skin_dir"
     local git_skin="$GH_MC/skins/default-gray256.ini"
-    local user_skin="$user_skin_dir/$user_skin_file"
     wget_file "$git_skin"
-    compare_and_copy_files "$git_skin" "$user_skin" "644"
-
-    # Midnight Commander v4.8.19 (2017-03) started
-    # support color aliases in skin files
-    find "$system_skin_dir" -type f -name '*.ini' -print0 | \
-        xargs -0 grep --silent "\[aliases\]" || \
-        return
-    printf "not found [aliases] in '$system_skin_dir/*.ini' files => mc v4.8.19-\n"
-    sed -i \
-        -e 's/lightgray/color250/g' -e 's/blue/color238/g' \
-        -e 's/cyan/color244/g'      -e 's/gray/color254/g' \
-        -e 's/brightblue/color244/g' "$user_skin"
+    # Midnight Commander v4.8.19 (2017-03) started support
+    # color aliases in the skin files
+    find "$system_skin_dir" -type f -print0 | \
+        xargs -0 grep --quiet '\[aliases\]' || {
+        printf "not found [aliases] in '$system_skin_dir/*' files"
+        printf ' => mc v4.8.19- and without aliases in skin file\n'
+        # TODO: move to separate file 'default-gray256.noalias.ini'
+        sed -i \
+            -e 's/lightgray/color250/g' -e 's/blue/color238/g' \
+            -e 's/cyan/color244/g'      -e 's/gray/color254/g' \
+            -e 's/brightblue/color244/g' "$TMP_F"
+        git_skin="$git_skin + no aliases"
+    }
+    mkdir -p "$user_skin_dir"
+    compare_and_copy_files "$git_skin" "$user_skin_file" "644"
 }
-
 
 TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
 SGR='\x1b[%bm'
@@ -166,17 +167,15 @@ print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 printf "'\$GH_MC'='$GH_MC'\n"
 printf "'\$HOME'='$HOME'\n"
 ## SELF UPGRADE
-#self_upgrade
+self_upgrade
 ## MENU
-#menu_file
+menu_file
 ## EXTENSION
-#extension_file
+extension_file
 ## skin
 skin_file
 
 rm "$TMP_F"
-
-# MC_SKIN_DIR="$HOME/.local/share/mc/skins"
 
 # Default shell script files are in EXTHELPERSDIR (on Fedora/CentOS
 # /usr/libexec/mc/ext.d dir).
