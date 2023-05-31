@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2023-05-29
+# 2023-05-31
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 # shellcheck disable=SC2059
@@ -135,20 +135,19 @@ function skin_file {
     local user_skin_file="$user_skin_dir/default-gray256.ini"
     local system_skin_dir='/usr/share/mc/skins'
     local git_skin="$GH_MC/skins/default-gray256.ini"
-    wget_file "$git_skin"
+
     # Midnight Commander v4.8.19 (2017-03) started support
-    # color aliases in the skin files
-    find "$system_skin_dir" -type f -print0 | \
-        xargs -0 grep --quiet '\[aliases\]' || {
+    # color aliases in the skin files (and TrueColor)
+    if find "$system_skin_dir" -type f -print0 | \
+            xargs -0 grep --quiet '\[aliases\]'; then
+        printf "found [aliases] in '$system_skin_dir/*' files"
+        printf ' => mc v4.8.19+ with aliases in skin file\n'
+    else
+        git_skin="$GH_MC/skins/default-gray256.no.aliases.ini"
         printf "not found [aliases] in '$system_skin_dir/*' files"
-        printf ' => mc v4.8.19- and without aliases in skin file\n'
-        # TODO: move to separate file 'default-gray256.noalias.ini'
-        sed -i \
-            -e 's/lightgray/color250/g' -e 's/blue/color238/g' \
-            -e 's/cyan/color244/g'      -e 's/gray/color254/g' \
-            -e 's/brightblue/color244/g' "$TMP_F"
-        git_skin="$git_skin + no aliases"
-    }
+        printf ' => mc v4.8.18- without aliases in skin file\n'
+    fi
+    wget_file "$git_skin"
     mkdir -p "$user_skin_dir"
     compare_and_copy_files "$git_skin" "$user_skin_file" "644"
 }
@@ -162,17 +161,13 @@ USER_MC_CONFIG_DIR="$HOME/.config/mc"
 SYSTEM_MC_ETC_DIR='/etc/mc'
 mkdir -p "$USER_MC_CONFIG_DIR"
 
-## INTRO
 print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 printf "'\$GH_MC'='$GH_MC'\n"
 printf "'\$HOME'='$HOME'\n"
-## SELF UPGRADE
+# functions
 self_upgrade
-## MENU
 menu_file
-## EXTENSION
 extension_file
-## skin
 skin_file
 
 rm "$TMP_F"
