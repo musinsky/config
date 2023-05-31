@@ -24,7 +24,7 @@ sed -i "s/$F_ALIAS/$F_NOALIAS/g" "$F_NOALIAS"
 
 # replace all color names after line starts with '[core]' ('gray' is in title)
 # be careful with order (lightgray/gray and brightblue/blue)
-L_NUMBER=$(grep -n '\[core\]' "$F_NOALIAS" | cut -f 1 -d ':')
+L_NUMBER="$(grep -n '\[core\]' "$F_NOALIAS" | cut -f 1 -d ':')"
 sed -i "$L_NUMBER,$ {s/lightgray/color250/g;  s/gray/color254/g}" "$F_NOALIAS"
 sed -i "$L_NUMBER,$ {s/brightblue/color244/g; s/blue/color238/g}" "$F_NOALIAS"
 sed -i "$L_NUMBER,$  s/cyan/color244/g"                           "$F_NOALIAS"
