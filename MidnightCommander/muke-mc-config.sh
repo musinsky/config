@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2023-05-31
+# 2023-06-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 # shellcheck disable=SC2059
@@ -19,6 +19,7 @@ function create_backup {
     }
     cp --preserve "$orig_name" "$backup_name" && \
         printf "'$backup_name' (backup created)\n"
+    MC_INI_NEED_BACKUP=   # empty
 }
 function print_section {
     # SGR only this place (maybe local)
@@ -152,25 +153,99 @@ function skin_file {
     compare_and_copy_files "$git_skin" "$user_skin_file" "644"
 }
 
-TMP_F=$(mktemp) || { echo 'mktemp error'; exit 1; }
-DATIME=$(date +%F_%T)
+function mc_ini_var_replace { # alebo change ?
+    # local var="$1"
+    local value="$2"
+    local var_eq="$1="
+    local var_value="$1=$2"
+    local add_after_line="$3"
+    local info="'${MC_INI_FILE/$HOME/\$HOME}' config line"
+    # line in $MC_INI_FILE must starts with 'var=value'
+    if grep --quiet "^$var_eq" "$MC_INI_FILE"; then       # var exist
+        # -x, --line-regexp => var=value != var=value2
+        grep --quiet -x "^$var_value" "$MC_INI_FILE" && { # with same value
+            printf "$info untouched: \t'${SGR}$var_value${SGR0}'\n" '0'
+            return
+        }                                                 # with other value
+        [[ "$MC_INI_NEED_BACKUP" ]] && create_backup "$MC_INI_FILE"
+        # substitute 's' (replace) line
+        sed -i "s/^$var_eq.*/$var_value/" "$MC_INI_FILE"
+        printf "$info modified: \t'$var_eq${SGR}$value${SGR0}'\n" '0;31'
+    else                                                  # var does not exist
+        # dont try without (empty) $add_after_line
+        [[ "$add_after_line" ]] || {
+            printf "emptyyyyyy\n"
+            return
+        }
+        grep --quiet "^$add_after_line" "$MC_INI_FILE" && {
+            [[ "$MC_INI_NEED_BACKUP" ]] && create_backup "$MC_INI_FILE"
+            # append 'a' text after a line (insert 'i' text before a line)
+            sed -i "/^$add_after_line.*/a $var_value" "$MC_INI_FILE"
+            printf "$info added: \t'${SGR}$var_value${SGR0}'\n" '0;31'
+            return
+        }
+        printf "NENASOL SOM add_after_line\n"
+    fi
+}
+
+TMP_F="$(mktemp)" || { echo 'mktemp error'; exit 1; }
+DATIME="$(date +%F_%T)"
 SGR='\x1b[%bm'
 SGR0='\x1b[0m'
 GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
 USER_MC_CONFIG_DIR="$HOME/.config/mc"
 SYSTEM_MC_ETC_DIR='/etc/mc'
+MC_INI_FILE="$USER_MC_CONFIG_DIR/ini"
+MC_INI_NEED_BACKUP='notnull'
+
+
+mc_ini_var_replace 'skin' 'default-gray256.ini'
+mc_ini_var_replace 'mcview_eof' 'bla'
+mc_ini_var_replace 'skuskac' 'daco' ''
+#mc_ini_var_replace 'bla2' 'b2' 'vfs_timeout'
+exit
+
+# check ini file
+[[ -f "$MC_INI_FILE" ]] || {
+    printf "'$MC_INI_FILE' does not exist\n"
+    printf "please run 'mc' program at least once\n"
+    exit 1
+}
+# check running mc
+# 'whoami' utility has been obsoleted and is equivalent to 'id -un'
+pgrep -a -u "$(id -un)" --full "$(type -P mc)" && {
+    printf "please close all running 'mc' processes\n"
+    exit 1
+}
+exit
+
+
 mkdir -p "$USER_MC_CONFIG_DIR"
 
 print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 printf "'\$GH_MC'='$GH_MC'\n"
 printf "'\$HOME'='$HOME'\n"
 # functions
-self_upgrade
-menu_file
-extension_file
+#self_upgrade
+#menu_file
+#extension_file
 skin_file
 
 rm "$TMP_F"
+
+# user ini file modification
+
+
+
+# $ pgrep -a -u "$(id -un)" --full "$(type -P mc)" # FINAL
+#         -c => count
+# vracia 0 ak nasiel process (inak 1)
+# The whoami utility has been obsoleted, and is equivalent to id -un
+
+# https://superuser.com/questions/644036/how-to-do-replace-using-sed-only-in-one-section-of-file
+# $ sed '/\[viewer\]/,/^\[/ s/238/XXX/' default-gray256.no.aliases.ini
+
+# Заключайте в кавычки подстановку команд например var="$(command)"
 
 # Default shell script files are in EXTHELPERSDIR (on Fedora/CentOS
 # /usr/libexec/mc/ext.d dir).
