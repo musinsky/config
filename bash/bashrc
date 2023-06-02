@@ -1,4 +1,4 @@
-# 2023-04-08
+# 2023-06-02
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 #
 # /etc/skel/.bashrc        # default .basrc file
@@ -17,7 +17,7 @@ export EDITOR='emacs -nw'
 #export MANPAGER="less -Dd+y -Dur --use-color"
 
 export LC_PAPER='sk_SK.UTF-8'
-export LC_TIME='sk_SK.UTF-8'
+#export LC_TIME='sk_SK.UTF-8'
 export LC_MEASUREMENT='sk_SK.UTF-8'
 
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
@@ -33,7 +33,7 @@ GIT_PS1_SHOWUPSTREAM="auto"
 # change PS1
 PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
-alias llt='ls --time-style="+%Y-%m-%d %H:%M:%S" -lt'
+alias llt='ls -lt --time-style="+%F %T"'
 alias llt_utc='TZ=UTC llt'
 alias cp='cp -p'
 alias dos2unix='dos2unix -k'
