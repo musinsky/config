@@ -38,12 +38,16 @@ alias lls="ls -l --block-size=\"'1\""     # or global BLOCK_SIZE env
 #alias lls="LC_NUMERIC=de_DE.UTF8 ls -l --block-size=\"'1\"" # with "."
 # LC_TIME: data and time formatting (full time format)
 # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
+# format strings separated by a newline are used for non-recent and recent files
+#newline=$'\n'   # bash ANSI-C Quoting
+#alias llt='ls -l --time-style="+%F %H:%M:%S $newline%F %H:%M:%S^"'
 alias llt='ls -l --time-style="+%F %T"'   # or global TIME_STYLE env
 alias llt-utc='TZ=UTC llt'
 # all in one
 alias lll="LC_NUMERIC= ls -l --block-size=\"'1\" --time-style=\"+%F %T\""
 
 alias cp='cp -p'
+alias sftp='sftp -p'
 alias dos2unix='dos2unix -k'
 alias root='root --version && root -l --web=off'
 # source /cern/root_v5-34-00-patches/bin/thisroot.sh
