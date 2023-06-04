@@ -1,8 +1,8 @@
-# 2023-06-02
+# 2023-06-04
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 #
-# /etc/skel/.bashrc        # default .basrc file
-# $ source $HOME/.bashrc   # reload .bashrc settings
+# /etc/skel/.bashrc        # default '.basrc' file
+# $ source $HOME/.bashrc   # reload '.bashrc' settings
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
 HISTCONTROL=ignoreboth:erasedups
@@ -13,12 +13,41 @@ HISTSIZE=99999       # memory
 export LESSHISTFILE=-
 export EDITOR='emacs -nw'
 # color for man pages
-#export MANROFFOPT="-c"
-#export MANPAGER="less -Dd+y -Dur --use-color"
+#export MANROFFOPT='-c'
+#export MANPAGER='less -Dd+y -Dur --use-color'
 
+# https://www.gnu.org/software/libc/manual/html_node/Locales.html
+# LANG=en_US.UTF-8   # current locale
+# LC_ALL=            # locale based on environment variable (i.e. en_US.UTF-8)
 export LC_PAPER='sk_SK.UTF-8'
 export LC_MEASUREMENT='sk_SK.UTF-8'
-#export LC_TIME='sk_SK.UTF-8'
+
+# LC_COLLATE: filename sorting (case sensitive, dot files first, etc.)
+if locale -a | grep -i -x -q C.UTF8; then
+    alias ls='LC_ALL=C.UTF8 ls --color=auto --group-directories-first'
+    # glibc 2.35 (2022-02) support C.UTF-8 locale
+else
+    alias ls='LC_COLLATE=C ls --color=auto --group-directories-first'
+    # don't use recommended LC_ALL=C (UTF8 chars as ASCII numerical codes)
+fi
+# LC_NUMERIC: number formatting (thousands separator)
+# $ LC_NUMERIC= locale -k LC_NUMERIC   # (i.e. en_US.UTF-8)
+# thousands_sep="," (de_DE.UTF8 => ".", sk_SK.utf8 => " ", C => "")
+# https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
+alias lls="ls -l --block-size=\"'1\""     # or global BLOCK_SIZE env
+#alias lls="LC_NUMERIC=de_DE.UTF8 ls -l --block-size=\"'1\"" # with "."
+# LC_TIME: data and time formatting (full time format)
+# https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
+alias llt='ls -l --time-style="+%F %T"'   # or global TIME_STYLE env
+alias llt-utc='TZ=UTC llt'
+# all in one
+alias lll="LC_NUMERIC= ls -l --block-size=\"'1\" --time-style=\"+%F %T\""
+
+alias cp='cp -p'
+alias dos2unix='dos2unix -k'
+alias root='root --version && root -l --web=off'
+# source /cern/root_v5-34-00-patches/bin/thisroot.sh
+# alias root='root -l'
 
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
@@ -32,25 +61,6 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto"
 # change PS1
 PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-
-alias ls='ls --color=auto --group-directories-first'
-# $ LC_ALL=   # "" empty name select a locale based on environment variables
-# $ LC_NUMERIC= locale -k LC_NUMERIC
-# thousands_sep="," (de_DE.UTF8 => ".", sk_SK.utf8 => " ", C => "")
-# https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
-alias lls="LC_NUMERIC= ls -lS --block-size=\"'1\""   # or BLOCK_SIZE env
-# case sensitive (and dot files first) name sorting
-# sort option uses LC_COLLATE environment variables (recommended use LC_ALL)
-alias lln='LC_COLLATE=C ls -l'
-alias llt='ls -lt --time-style="+%F %T"'             # or TIME_STYLE env
-alias llt-utc='TZ=UTC llt'
-alias llf="LC_COLLATE=C LC_NUMERIC= ls -l --block-size=\"'1\" --time-style=\"+%F %T\""
-
-alias cp='cp -p'
-alias dos2unix='dos2unix -k'
-alias root='root --version && root -l --web=off'
-# source /cern/root_v5-34-00-patches/bin/thisroot.sh
-# alias root='root -l'
 
 
 # Local Variables:
