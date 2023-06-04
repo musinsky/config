@@ -23,12 +23,12 @@ export LC_PAPER='sk_SK.UTF-8'
 export LC_MEASUREMENT='sk_SK.UTF-8'
 
 # LC_COLLATE: filename sorting (case sensitive, dot files first, etc.)
+# don't use recommended LC_ALL=C (overrides any other LC_ variable, see bellow)
 if locale -a | grep -i -x -q C.UTF8; then
-    alias ls='LC_ALL=C.UTF8 ls --color=auto --group-directories-first'
     # glibc 2.35 (2022-02) support C.UTF-8 locale
+    alias ls='LC_COLLATE=C.UTF8 ls --color=auto --group-directories-first'
 else
     alias ls='LC_COLLATE=C ls --color=auto --group-directories-first'
-    # don't use recommended LC_ALL=C (UTF8 chars as ASCII numerical codes)
 fi
 # LC_NUMERIC: number formatting (thousands separator)
 # $ LC_NUMERIC= locale -k LC_NUMERIC   # (i.e. en_US.UTF-8)
