@@ -39,8 +39,8 @@ alias lls="ls -l --block-size=\"'1\""     # or global BLOCK_SIZE env
 # LC_TIME: data and time formatting (full time format)
 # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
 # format strings separated by a newline are used for non-recent and recent files
-#newline=$'\n'   # bash ANSI-C Quoting
-#alias llt='ls -l --time-style="+%F %H:%M:%S $newline%F %H:%M:%S^"'
+#tsf_newline=$'\n'   # bash ANSI-C Quoting
+#alias llt='ls -l --time-style="+%F %H:%M:%S $tsf_newline%F %H:%M:%S^"'
 alias llt='ls -l --time-style="+%F %T"'   # or global TIME_STYLE env
 alias llt-utc='TZ=UTC llt'
 # all in one
