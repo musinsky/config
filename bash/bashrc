@@ -1,8 +1,8 @@
-# 2023-06-04
+# 2023-06-05
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 #
 # /etc/skel/.bashrc        # default '.basrc' file
-# $ source $HOME/.bashrc   # reload '.bashrc' settings
+# $ source $HOME/.bashrc   # reload  '.bashrc' settings
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
 HISTCONTROL=ignoreboth:erasedups
@@ -12,6 +12,7 @@ HISTSIZE=99999       # memory
 
 export LESSHISTFILE=-
 export EDITOR='emacs -nw'
+export LS_COLORS=${LS_COLORS/di=01;34/di=01;30}   # color dirname blue/black
 # color for man pages
 #export MANROFFOPT='-c'
 #export MANPAGER='less -Dd+y -Dur --use-color'
@@ -22,31 +23,32 @@ export EDITOR='emacs -nw'
 export LC_PAPER='sk_SK.UTF-8'
 export LC_MEASUREMENT='sk_SK.UTF-8'
 
+LS_COMMON='--color=auto --group-directories-first --time-style="+%F %T"'
 # LC_COLLATE: filename sorting (case sensitive, dot files first, etc.)
-# don't use recommended LC_ALL=C (overrides any other LC_ variable, see bellow)
-if locale -a | grep -i -x -q C.UTF8; then
+# don't use recommended LC_ALL=C (overrides any others LC_ variables, used bellow)
+if locale -a | grep -i -x -q 'C.UTF8'; then
     # glibc 2.35 (2022-02) support C.UTF-8 locale
-    alias ls='LC_COLLATE=C.UTF8 ls --color=auto --group-directories-first'
+    alias ls="LC_COLLATE=C.UTF8 ls $LS_COMMON"
 else
-    alias ls='LC_COLLATE=C ls --color=auto --group-directories-first'
+    alias ls="LC_COLLATE=C ls $LS_COMMON"
 fi
+unset LS_COMMON
 # LC_NUMERIC: number formatting (thousands separator)
 # $ LC_NUMERIC= locale -k LC_NUMERIC   # (i.e. en_US.UTF-8)
 # thousands_sep="," (de_DE.UTF8 => ".", sk_SK.utf8 => " ", C => "")
 # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
-alias lls="ls -l --block-size=\"'1\""     # or global BLOCK_SIZE env
-#alias lls="LC_NUMERIC=de_DE.UTF8 ls -l --block-size=\"'1\"" # with "."
+alias lls="ls -l --block-size=\"'1\""         # or global BLOCK_SIZE env
+alias lls-dot='LC_NUMERIC=de_DE.UTF8 lls'
 # LC_TIME: data and time formatting (full time format)
 # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
+alias llt='ls -l --time-style="+%F %T %:z"'   # or global TIME_STYLE env
+alias llt-utc='TZ=UTC llt'
 # format strings separated by a newline are used for non-recent and recent files
 #tsf_newline=$'\n'   # bash ANSI-C Quoting
 #alias llt='ls -l --time-style="+%F %H:%M:%S $tsf_newline%F %H:%M:%S^"'
-alias llt='ls -l --time-style="+%F %T"'   # or global TIME_STYLE env
-alias llt-utc='TZ=UTC llt'
-# all in one
-alias lll="LC_NUMERIC= ls -l --block-size=\"'1\" --time-style=\"+%F %T\""
 
 alias cp='cp -p'
+alias scp='scp -p'
 alias sftp='sftp -p'
 alias dos2unix='dos2unix -k'
 alias root='root --version && root -l --web=off'
