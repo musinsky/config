@@ -12,10 +12,10 @@ HISTSIZE=99999       # memory
 
 export LESSHISTFILE=-
 export EDITOR='emacs -nw'
-export LS_COLORS=${LS_COLORS/di=01;34/di=01;30}   # color dirname blue/black
 # color for man pages
 #export MANROFFOPT='-c'
 #export MANPAGER='less -Dd+y -Dur --use-color'
+export LS_COLORS=$LS_COLORS:'di=01;30:'   # bold black dirname color
 
 # https://www.gnu.org/software/libc/manual/html_node/Locales.html
 # LANG=en_US.UTF-8   # current locale
@@ -25,7 +25,7 @@ export LC_MEASUREMENT='sk_SK.UTF-8'
 
 LS_COMMON='--color=auto --group-directories-first --time-style="+%F %T"'
 # LC_COLLATE: filename sorting (case sensitive, dot files first, etc.)
-# don't use recommended LC_ALL=C (overrides any others LC_ variables, used bellow)
+# don't use recommended LC_ALL=C (overrides any others LC_ variables, used in ls bellow)
 if locale -a | grep -i -x -q 'C.UTF8'; then
     # glibc 2.35 (2022-02) support C.UTF-8 locale
     alias ls="LC_COLLATE=C.UTF8 ls $LS_COMMON"
