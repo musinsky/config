@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2023-03-10
+# 2023-06-07
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -73,7 +73,8 @@ z   zip selected file(s) or dir(s)
     %view
     printf "Choose any utility from menu\n"
 
-=
+=+ t t | t d
+    # default entry if any tagged/selected file(s) or file=directory
 f   determine selected file(s) type (file)
     %view
     TF1=$(mktemp) || exit 1; TF2=$(mktemp) || exit 1
@@ -82,6 +83,27 @@ f   determine selected file(s) type (file)
         | column --separator $'\t' --output-separator '    ' --table
     rm --force "$TF1" "$TF2"
     # paste <(file --mime-encoding %s) <(file --brief %s) # only bash v5+
+
+=+ ! t t & t n
+    # default entry if no tagged/selected file(s) and file=not a directory
+i   information about the current file (file and stat)
+    %view
+    # file %f; FNAME=%f; file "$FNAME"   # be careful with quotes
+    # echo "$(basename %f)"; echo "$(basename "$FNAME")"
+    printf '%%s   %%s\n\n' "$(file --mime-encoding %f)" "$(file --brief %f)"
+    stat %f; printf '\n'
+    FSIZE_NUM="$(stat --format '%%s' %f)"
+    FSIZE_CHAR="$(numfmt "$FSIZE_NUM" --to=iec-i --suffix='B' --format='%%.2f')"
+    [ "$FSIZE_NUM" -lt 1024 ] && \
+        FSIZE_CHAR="$(numfmt "$FSIZE_NUM" --to=iec-i --suffix='B' --format='%%.0f')"
+    FSIZE_CHAR="$(echo "$FSIZE_CHAR" | sed -E 's/([A-Z])/ \1/')" # 123KiB => 123 KiB
+    printf "  Size: %%s = %%'.0f bytes = %%s" "$FSIZE_NUM" "$FSIZE_NUM" "$FSIZE_CHAR"
+    FSIZE_CHAR="$(numfmt "$FSIZE_NUM" --to=iec)"   # same as 'ls --human-readable'
+    printf ' (default round from zero = %%s)\n' "$FSIZE_CHAR"
+    FMODIFY="$(stat --format '%%Y' %f)"   # seconds since Epoch
+    printf 'Modify: %%s' "$(date --date="@$FMODIFY" '+%%F %%T %%:z')"
+    printf ' (%%s)\n' "$(LC_TIME=C date --date="@$FMODIFY")" # 07:33 PM => 19:33
+    printf '        %%s (UTC)\n' "$(date --utc --date="@$FMODIFY" '+%%F %%T %%:z')"
 
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)
