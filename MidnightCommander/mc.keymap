@@ -1,0 +1,10 @@
+# 2023-06-17
+# https://github.com/musinsky/config/blob/master/MidnightCommander/mc.keymap
+# https://github.com/MidnightCommander/mc/blob/master/misc/mc.default.keymap
+
+[panel]
+# SortReverse = alt-R
+SortByName = alt-N
+# SortByExt =
+SortBySize = alt-S
+SortByMTime = alt-M
