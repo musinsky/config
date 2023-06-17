@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-# 2023-06-01
+# 2023-06-17
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
-
-# shellcheck disable=SC2059
 
 function wget_file {
     wget --quiet "$1" -O "$TMP_F" || {
@@ -14,21 +12,23 @@ function create_backup {
     local orig_name="$1"
     local backup_name="$1.$DATIME"
     [[ -f "$orig_name" ]] || {
-        printf "'$orig_name' (does not exist)\n"
+        printf "'%s' (does not exist)\n" "$orig_name"
         return
     }
     cp --preserve "$orig_name" "$backup_name" && \
-        printf "'$backup_name' (backup created)\n"
-    MC_INI_NEED_BACKUP=   # empty
+        printf "'%s' (backup created)\n" "$backup_name"
+    MC_INI_NEED_BACKUP=   # empty (null)
 }
 function print_section {
     # SGR only this place (maybe local)
+    # shellcheck disable=SC2059
     printf "\n${SGR}# ${1}${SGR0}\n" '1'
 }
 function print_files_info {
     # replace value of variable by variable name
     local short_gh_mc="${1/$GH_MC/\$GH_MC}"
     local short_home="${2/$HOME/\$HOME}"
+    # shellcheck disable=SC2059
     printf "'$short_gh_mc' ${SGR}${3}${SGR0} '$short_home'\n" '1;31'
 }
 function compare_and_copy_files {
@@ -48,7 +48,6 @@ function compare_and_copy_files {
     }
     print_files_info "$f_git" "$f_local" "=="
 }
-
 function self_upgrade {
     print_section 'script self upgrade'
     local git_self="$GH_MC/muke-mc-config.sh"
@@ -59,12 +58,12 @@ function self_upgrade {
         read -r -p "overwrite file '$user_self'? [y]:"
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             cp --no-preserve=mode "$TMP_F" "$user_self" && {
-                printf "now run the script '$user_self' again\n"
+                printf "now run the script '%s' again\n" "$user_self"
                 rm "$TMP_F";
                 exit 0
             }
         fi
-        printf "you must overwrite (upgrade) file '$user_self'\n"
+        printf "you must overwrite (upgrade) file '%s'\n" "$user_self"
         rm "$TMP_F";
         exit 1
     }
@@ -72,7 +71,7 @@ function self_upgrade {
     #printf 'no upgrade required\n'
 }
 
-function menu_file {
+function mc_menu_file {
     print_section 'user menu file'
     local git_menu="$GH_MC/mc.menu"
     local user_menu="$USER_MC_CONFIG_DIR/menu"
@@ -80,7 +79,7 @@ function menu_file {
     compare_and_copy_files "$git_menu" "$user_menu" "644"
 }
 
-function extension_file {
+function mc_extension_file {
     print_section 'user extension file'
     local user_ext_dir="$USER_MC_CONFIG_DIR/ext.d" # or wherever you want
     local system_ext_dir='/usr/libexec/mc/ext.d'
@@ -106,10 +105,10 @@ function extension_file {
     if [[ -f "$SYSTEM_MC_ETC_DIR/mc.ext" ]]; then
         mc_ext_file='mc.ext'       # v4.8.28-
         mc_ext_format='mc.3.0.ext.add'
-        printf "found '$SYSTEM_MC_ETC_DIR/$mc_ext_file'"
+        printf "found '%s/%s'" "$SYSTEM_MC_ETC_DIR" "$mc_ext_file"
         printf ' => mc v4.8.28- and 3.0 extension file format\n'
     else
-        printf "found '$SYSTEM_MC_ETC_DIR/$mc_ext_file'"
+        printf "found '%s/%s'" "$SYSTEM_MC_ETC_DIR" "$mc_ext_file"
         printf ' => mc v4.8.29+ and 4.0 extension file format\n'
     fi
     # copy default (system) extension file and add/prepend (user) extension file
@@ -130,7 +129,7 @@ function extension_file {
     compare_and_copy_files "$git_file" "$local_file" "644"
 }
 
-function skin_file {
+function mc_skin_file {
     print_section 'user skin file'
     local user_skin_dir="$HOME/.local/share/mc/skins"
     local user_skin_file="$user_skin_dir/default-gray256.ini"
@@ -141,11 +140,11 @@ function skin_file {
     # color aliases in the skin files (and TrueColor)
     if find "$system_skin_dir" -type f -print0 | \
             xargs -0 grep --quiet '\[aliases\]'; then
-        printf "found [aliases] in '$system_skin_dir/*' files"
+        printf "found [aliases] in '%s/*' files" "$system_skin_dir"
         printf ' => mc v4.8.19+ with aliases in skin file\n'
     else
         git_skin="$GH_MC/skins/default-gray256.no.aliases.ini"
-        printf "not found [aliases] in '$system_skin_dir/*' files"
+        printf "not found [aliases] in '%s/*' files" "$system_skin_dir"
         printf ' => mc v4.8.18- without aliases in skin file\n'
     fi
     wget_file "$git_skin"
@@ -153,7 +152,8 @@ function skin_file {
     compare_and_copy_files "$git_skin" "$user_skin_file" "644"
 }
 
-function mc_ini_var_replace { # alebo change ?
+function mc_ini_var_replace {
+    # print_section 'user ini file'
     # local var="$1"
     local value="$2"
     local var_eq="$1="
@@ -164,27 +164,28 @@ function mc_ini_var_replace { # alebo change ?
     if grep --quiet "^$var_eq" "$MC_INI_FILE"; then       # var exist
         # -x, --line-regexp => var=value != var=value2
         grep --quiet -x "^$var_value" "$MC_INI_FILE" && { # with same value
-            printf "$info untouched: \t'${SGR}$var_value${SGR0}'\n" '0'
+            printf "%s untouched: \t'${SGR}%s${SGR0}'\n" "$info" "0" "$var_value"
             return
         }                                                 # with other value
         [[ "$MC_INI_NEED_BACKUP" ]] && create_backup "$MC_INI_FILE"
         # substitute 's' (replace) line
         sed -i "s/^$var_eq.*/$var_value/" "$MC_INI_FILE"
-        printf "$info modified: \t'$var_eq${SGR}$value${SGR0}'\n" '0;31'
+        printf "%s modified: \t'%s${SGR}%s${SGR0}'\n" "$info" "$var_eq" "0;31" "$value"
     else                                                  # var does not exist
         # dont try without (empty) $add_after_line
         [[ "$add_after_line" ]] || {
-            printf "emptyyyyyy\n"
+            # shellcheck disable=SC2059
+            printf "${SGR}empty${SGR0} add_after_line parameter\n" '1;31'
             return
         }
         grep --quiet "^$add_after_line" "$MC_INI_FILE" && {
             [[ "$MC_INI_NEED_BACKUP" ]] && create_backup "$MC_INI_FILE"
             # append 'a' text after a line (insert 'i' text before a line)
             sed -i "/^$add_after_line.*/a $var_value" "$MC_INI_FILE"
-            printf "$info added: \t'${SGR}$var_value${SGR0}'\n" '0;31'
+            printf "%s added: \t'${SGR}%s${SGR0}'\n" "$info" "0;31" "$var_value"
             return
         }
-        printf "NENASOL SOM add_after_line\n"
+        printf "%s doesn't exist: \t'${SGR}%s${SGR0}'\n" "$info" "1;31" "$add_after_line"
     fi
 }
 
@@ -198,58 +199,43 @@ SYSTEM_MC_ETC_DIR='/etc/mc'
 MC_INI_FILE="$USER_MC_CONFIG_DIR/ini"
 MC_INI_NEED_BACKUP='notnull'
 
-
-mc_ini_var_replace 'skin' 'default-gray256.ini'
-mc_ini_var_replace 'mcview_eof' 'bla'
-mc_ini_var_replace 'skuskac' 'daco' ''
-#mc_ini_var_replace 'bla2' 'b2' 'vfs_timeout'
-exit
+self_upgrade
 
 # check ini file
 [[ -f "$MC_INI_FILE" ]] || {
-    printf "'$MC_INI_FILE' does not exist\n"
+    printf "'%s' does not exist\n" "$MC_INI_FILE"
     printf "please run 'mc' program at least once\n"
+    rm "$TMP_F"
     exit 1
 }
 # check running mc
 # 'whoami' utility has been obsoleted and is equivalent to 'id -un'
 pgrep -a -u "$(id -un)" --full "$(type -P mc)" && {
     printf "please close all running 'mc' processes\n"
+    rm "$TMP_F"
     exit 1
 }
-exit
-
-
-mkdir -p "$USER_MC_CONFIG_DIR"
 
 print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
-printf "'\$GH_MC'='$GH_MC'\n"
-printf "'\$HOME'='$HOME'\n"
-# functions
-#self_upgrade
-#menu_file
-#extension_file
-skin_file
+printf "'\$GH_MC'='%s'\n" "$GH_MC"
+printf "'\$HOME'='%s'\n"  "$HOME"
+
+mc_menu_file
+mc_extension_file
+mc_skin_file
+mc_ini_var_replace 'skin' 'default-gray256'
+
+print_section 'user ini file modifications'
+# parameters as regex (used by grep and sed)
+mc_ini_var_replace 'timeformat_recent' '%F %T '
+mc_ini_var_replace 'timeformat_old'    '%F %T•'
+#mc_ini_var_replace 'timeformat_old'    '%F %T'"$(printf '\u2021')"
+mc_ini_var_replace 'select_flags'      '7'
+
+# panelize entry (mc automatically sort this entries)
+mc_ini_var_replace 'muke: Find 1) empty files' \
+                   'find . -type f -empty' '\[Panelize\]'
+mc_ini_var_replace 'muke: Find 2) empty dirs' \
+                   'find . -type d -empty' '\[Panelize\]'
 
 rm "$TMP_F"
-
-# user ini file modification
-
-
-
-# $ pgrep -a -u "$(id -un)" --full "$(type -P mc)" # FINAL
-#         -c => count
-# vracia 0 ak nasiel process (inak 1)
-# The whoami utility has been obsoleted, and is equivalent to id -un
-
-# https://superuser.com/questions/644036/how-to-do-replace-using-sed-only-in-one-section-of-file
-# $ sed '/\[viewer\]/,/^\[/ s/238/XXX/' default-gray256.no.aliases.ini
-
-# Заключайте в кавычки подстановку команд например var="$(command)"
-
-# Default shell script files are in EXTHELPERSDIR (on Fedora/CentOS
-# /usr/libexec/mc/ext.d dir).
-
-# Some customized shell script files are in /home/user/ext.d (linka na dir)
-# and are compatible with Linux GNU Bash shell systems
-# (tested on Fedora).
