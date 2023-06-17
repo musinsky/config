@@ -129,6 +129,14 @@ function mc_extension_file {
     compare_and_copy_files "$git_file" "$local_file" "644"
 }
 
+function mc_keymap_file {
+    print_section 'user keymap file'
+    local git_keymap="$GH_MC/mc.keymap"
+    local user_keymap="$USER_MC_CONFIG_DIR/mc.keymap"
+    wget_file "$git_keymap"
+    compare_and_copy_files "$git_keymap" "$user_keymap" "644"
+}
+
 function mc_skin_file {
     print_section 'user skin file'
     local user_skin_dir="$HOME/.local/share/mc/skins"
@@ -222,6 +230,7 @@ printf "'\$HOME'='%s'\n"  "$HOME"
 
 mc_menu_file
 mc_extension_file
+mc_keymap_file
 mc_skin_file
 mc_ini_var_replace 'skin' 'default-gray256'
 
