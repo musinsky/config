@@ -138,7 +138,7 @@ function mc_keymap_file {
 
 function mc_skin_file {
     print_section 'user skin file'
-    local user_skin_dir="$HOME/.local/share/mc/skins"
+    local user_skin_dir="$USER_MC_SHARE_DIR/skins"
     local user_skin_file="$user_skin_dir/default-gray256.ini"
     local system_skin_dir='/usr/share/mc/skins'
     local git_skin="$GH_MC/skins/default-gray256.ini"
@@ -202,12 +202,26 @@ function mc_ini_var_replace {
     fi
 }
 
+function mc_remove_all_user_files {
+    # shellcheck disable=SC2059
+    printf "${SGR}complete remove this user 'mc' directories${SGR0}:\n" '1;31'
+    printf "'%s'\n" "$USER_MC_CONFIG_DIR"
+    printf "'%s'\n" "$USER_MC_SHARE_DIR"
+    printf "'%s'\n" "$HOME/.cache/mc"
+    read -r -p "type [y] only if you want delete (not recommended):"
+    [[ $REPLY =~ ^[Yy]$ ]] && {
+        rm -rf "$USER_MC_CONFIG_DIR" "$USER_MC_SHARE_DIR" "$HOME/.cache/mc"
+        printf "removed\n"
+    }
+}
+
 TMP_F="$(mktemp)" || { echo 'mktemp error'; exit 1; }
 DATIME="$(date +%F_%T)"   # one datime for all backups
 SGR='\x1b[%bm'
 SGR0='\x1b[0m'
 GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
 USER_MC_CONFIG_DIR="$HOME/.config/mc"
+USER_MC_SHARE_DIR="$HOME/.local/share/mc"
 SYSTEM_MC_ETC_DIR='/etc/mc'
 MC_INI_FILE="$USER_MC_CONFIG_DIR/ini"
 MC_INI_NEED_BACKUP='yes' # non-null (non-empty)
@@ -216,7 +230,8 @@ print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
 printf "'\$GH_MC'='%s'\n"  "$GH_MC"
 printf "'\$HOME'='%s'\n\n" "$HOME"
 
-#####self_upgrade
+self_upgrade
+#mc_remove_all_user_files
 
 # check ini file
 [[ -f "$MC_INI_FILE" ]] || {
