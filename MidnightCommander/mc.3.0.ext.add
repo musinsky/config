@@ -1,8 +1,8 @@
 # 2023-04-05
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.3.0.ext.add
+# https://github.com/MidnightCommander/mc/blob/4.8.28/misc/mc.ext.in
 
-# Midnight Commander 3.0 extension file format
-# up to mc version 4.8.28 (including)
+# Midnight Commander 3.0 extension file format (ending with mc v4.8.28-)
 
 ### Documents ###
 shell/i/.rtf

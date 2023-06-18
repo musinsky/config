@@ -1,5 +1,6 @@
 # 2023-05-03
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
+# https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
 # Midnight Commander 4.0 extension file format (starting with mc v4.8.29+)
 
@@ -56,3 +57,4 @@ View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate-crl
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate
 
 ### End of additional entries ###
+
