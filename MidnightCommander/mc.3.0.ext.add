@@ -1,4 +1,4 @@
-# 2023-04-05
+# 2023-06-18
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.3.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/4.8.28/misc/mc.ext.in
 
@@ -26,6 +26,9 @@ shell/.root
 
 type/i/font
 	View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view font
+
+regex/\.(cer|crt|pem)$
+	View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate
 
 ### End of additional entries ###
 
