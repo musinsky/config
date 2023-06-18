@@ -255,7 +255,12 @@ mc_skin_file
 mc_ini_var_replace 'skin' 'default-gray256'
 
 print_section 'user ini file modifications'
-# parameters as regex (used by grep and sed)
+# option 1) use function mc_ini_var_replace
+#           var=value is replaced (if exist) or added
+# option 2) simple add var=value at the end of the ini file
+#           var=value overrides previous
+
+# parameters of mc_ini_var_replace function as regex (used by grep and sed)
 mc_ini_var_replace 'timeformat_recent' '%F %T '
 mc_ini_var_replace 'timeformat_old'    '%F %T•'
 #mc_ini_var_replace 'timeformat_old'    '%F %T'"$(printf '\u2021')"
