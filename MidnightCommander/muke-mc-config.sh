@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2023-06-17
+# 2023-06-18
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 function wget_file {
@@ -17,7 +17,6 @@ function create_backup {
     }
     cp --preserve "$orig_name" "$backup_name" && \
         printf "'%s' (backup created)\n" "$backup_name"
-    MC_INI_NEED_BACKUP=   # empty (null)
 }
 function print_section {
     # SGR only this place (maybe local)
@@ -175,7 +174,10 @@ function mc_ini_var_replace {
             printf "%s untouched: \t'${SGR}%s${SGR0}'\n" "$info" "0" "$var_value"
             return
         }                                                 # with other value
-        [[ "$MC_INI_NEED_BACKUP" ]] && create_backup "$MC_INI_FILE"
+        [[ "$MC_INI_NEED_BACKUP" ]] && {
+            create_backup "$MC_INI_FILE"
+            MC_INI_NEED_BACKUP=   # null (empty)
+        }
         # substitute 's' (replace) line
         sed -i "s/^$var_eq.*/$var_value/" "$MC_INI_FILE"
         printf "%s modified: \t'%s${SGR}%s${SGR0}'\n" "$info" "$var_eq" "0;31" "$value"
@@ -187,7 +189,10 @@ function mc_ini_var_replace {
             return
         }
         grep --quiet "^$add_after_line" "$MC_INI_FILE" && {
-            [[ "$MC_INI_NEED_BACKUP" ]] && create_backup "$MC_INI_FILE"
+            [[ "$MC_INI_NEED_BACKUP" ]] && {
+                create_backup "$MC_INI_FILE"
+                MC_INI_NEED_BACKUP=   # null (empty)
+            }
             # append 'a' text after a line (insert 'i' text before a line)
             sed -i "/^$add_after_line.*/a $var_value" "$MC_INI_FILE"
             printf "%s added: \t'${SGR}%s${SGR0}'\n" "$info" "0;31" "$var_value"
@@ -198,16 +203,20 @@ function mc_ini_var_replace {
 }
 
 TMP_F="$(mktemp)" || { echo 'mktemp error'; exit 1; }
-DATIME="$(date +%F_%T)"
+DATIME="$(date +%F_%T)"   # one datime for all backups
 SGR='\x1b[%bm'
 SGR0='\x1b[0m'
 GH_MC='https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander'
 USER_MC_CONFIG_DIR="$HOME/.config/mc"
 SYSTEM_MC_ETC_DIR='/etc/mc'
 MC_INI_FILE="$USER_MC_CONFIG_DIR/ini"
-MC_INI_NEED_BACKUP='notnull'
+MC_INI_NEED_BACKUP='yes' # non-null (non-empty)
 
-self_upgrade
+print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
+printf "'\$GH_MC'='%s'\n"  "$GH_MC"
+printf "'\$HOME'='%s'\n\n" "$HOME"
+
+#####self_upgrade
 
 # check ini file
 [[ -f "$MC_INI_FILE" ]] || {
@@ -223,10 +232,6 @@ pgrep -a -u "$(id -un)" --full "$(type -P mc)" && {
     rm "$TMP_F"
     exit 1
 }
-
-print_section "https://github.com/musinsky/config/tree/master/MidnightCommander"
-printf "'\$GH_MC'='%s'\n" "$GH_MC"
-printf "'\$HOME'='%s'\n"  "$HOME"
 
 mc_menu_file
 mc_extension_file
