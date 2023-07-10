@@ -56,10 +56,14 @@ gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3000
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3000   # 0 disables completely
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'blank'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 600
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'blank'
+
+# Fedora38+ (suspend even when plugged in)
+sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3000
+sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'blank'
 
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
