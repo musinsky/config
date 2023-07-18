@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2023-06-07
+# 2023-07-18
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -143,6 +143,14 @@ t   rename (translit) file/dir to portable name
         || { printf "'translit.rename.sh' script not found\n";
              exit 1; }
     translit.rename.sh %p
+
++ ! t t & t r & ! T t & T r
+d   diff and compare current two files from two panels
+    %view
+    printf "diff: "
+    diff %d/%f %D/%F && printf "files '%d/%f' and '%D/%F' are identical\n"
+    printf "cmp:  "
+    cmp  %d/%f %D/%F && printf "files '%d/%f' and '%D/%F' are identical\n"
 
 --- ExifTool ---
     %view
