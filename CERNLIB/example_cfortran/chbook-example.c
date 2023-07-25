@@ -1,5 +1,5 @@
 /*
- * 2021-12-01, Jan Musinsky, last test on Fedora 35 (gcc 11.2.1) Linux x86_64
+ * 2023-07-25, Jan Musinsky, last test on Fedora 38 (gcc 13.1.1) Linux x86_64
  *
  * gcc -c chbook-example.c -I/usr/include/cernlib/2006
  * gfortran -o chbook-example chbook-example.o $(cernlib packlib)
