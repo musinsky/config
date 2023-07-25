@@ -1,3 +1,6 @@
+* $ pawX11-gfortran
+* PAW > exec htest.kumac
+
 fortran/file 68 htest.eps
 metafile 68 -113
 opt stat
