@@ -1,4 +1,4 @@
-;; 2022-09-26
+;; 2023-08-02
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -125,7 +125,14 @@
 
 (setq-default indent-tabs-mode nil) ; no tabs (use spaces)
 
+;; https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html
 (setq c-basic-offset 2)
+(add-hook 'c-mode-hook
+          (lambda ()
+            ;; toggle from block comments to line comments
+            (c-toggle-comment-style -1)              ; from Emacs 26.1 (2018-05)
+;;;         (setq comment-start "//" comment-end "") ; old solution
+            ))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
 (setq fortran-check-all-num-for-matching-do t) ; (default nil)
