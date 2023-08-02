@@ -236,6 +236,12 @@
   (interactive)
   (occur "[[:nonascii:]]"))
 
+(defun display-ansi-colors ()
+  "Colorize the full buffer containing SGR control sequences"
+  (require 'ansi-color)
+  (interactive)
+  (ansi-color-apply-on-region (point-min) (point-max)))
+
 ;; MELPA repository
 ;; M-x package-list-packages
 (require 'package)
