@@ -1,3 +1,3 @@
-MediaWiki
----------
-More info on http://alice.saske.sk/wiki/MediaWiki
+## MediaWiki
+
+More info on https://muke.saske.sk/wiki/MediaWiki
