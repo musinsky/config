@@ -1,4 +1,4 @@
-;; 2023-08-02
+;; 2023-08-17
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -142,6 +142,13 @@
 ;;(setq fortran-structure-indent 1)              ; (default 3)
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Comments.html
 (setq fortran-comment-indent-style nil)        ; (default fixed)
+
+;; https://www.flycheck.org/en/latest/languages.html#fortran
+(setq flycheck-gfortran-language-standard nil) ; don't use "-std" option at all
+;; gfortran default value for std is "gnu", flycheck default value is "f95"
+;;(add-hook 'fortran-mode-hook
+;;          (lambda ()
+;;            (setq flycheck-gfortran-language-standard "gnu")))
 
 ;; https://www.emacswiki.org/emacs/BackupDirectory
 (setq make-backup-files t)
