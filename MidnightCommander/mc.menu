@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2023-07-18
+# 2023-09-06
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -108,12 +108,14 @@ i   information about the current file (file and stat)
 + ! t t & t r
 e   detect encoding of the current file (uchardet and enca)
     %view
-    printf          "file      => "; file --mime %f
+    printf            "file      => "; file --mime %f
     command -v uchardet > /dev/null \
-        && { printf "uchardet  => "; head --lines=999 %f | uchardet; }
+        && { printf "\nuchardet  => "; head --lines=999 %f | uchardet; }
     command -v enca > /dev/null \
-        && { printf "enca (sk) => "; enca --language=sk %f;
-             printf "enca (ru) => "; enca --language=ru %f; }
+        && { # TODO write extra shell script "convert.text.to.utf8.sh"
+             # enca --version | grep --quiet '+iconv-interface' => '--iconv-name'
+             printf "\nenca (sk) => "; enca --language=sk --iconv-name %f;
+             printf   "enca (ru) => "; enca --language=ru --iconv-name %f; }
 
 -   find non-portable filename in the current dir (grep)
     %view{nroff}
