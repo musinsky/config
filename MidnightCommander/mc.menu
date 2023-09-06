@@ -150,9 +150,9 @@ t   rename (translit) file/dir to portable name
 d   diff and compare current two files from two panels
     %view
     printf "diff: "
-    diff %d/%f %D/%F && printf "files '%d/%f' and '%D/%F' are identical\n"
+    diff %d/%f %D/%F      && printf "files '%d/%f' and '%D/%F' are identical\n"
     printf "cmp:  "
-    cmp  %d/%f %D/%F && printf "files '%d/%f' and '%D/%F' are identical\n"
+    cmp  %d/%f %D/%F 2>&1 && printf "files '%d/%f' and '%D/%F' are identical\n"
 
 --- ExifTool ---
     %view
