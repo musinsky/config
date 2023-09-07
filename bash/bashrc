@@ -1,4 +1,4 @@
-# 2023-06-05
+# 2023-09-07
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 #
 # /etc/skel/.bashrc        # default '.basrc' file
@@ -51,6 +51,7 @@ alias cp='cp -p'
 alias scp='scp -p'
 alias sftp='sftp -p'
 alias dos2unix='dos2unix -k'
+alias unix2dos='unix2dos -k'
 alias root='root --version && root -l --web=off'
 # source /cern/root_v5-34-00-patches/bin/thisroot.sh
 # alias root='root -l'
