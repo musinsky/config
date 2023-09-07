@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2023-09-06
+# 2023-09-07
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -17,6 +17,7 @@ shell_patterns=1
     [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
     cd .. \
         && tar cf - "$BNDIR" | gzip --verbose --force > "$TARNAME.tar.gz" \
+        && chmod 0444 "$TARNAME.tar.gz" \
         && printf "../$TARNAME.tar.gz created\n"
 
 + ! t t
@@ -27,6 +28,7 @@ shell_patterns=1
     [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
     cd .. \
         && tar cf - "$BNDIR" | xz --verbose --force > "$TARNAME.tar.xz" \
+        && chmod 0444 "$TARNAME.tar.xz" \
         && printf "../$TARNAME.tar.xz created\n"
 
 =+ f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
