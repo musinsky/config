@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-# 2023-09-12
+# 2023-09-13
 # https://github.com/musinsky/config/blob/master/Emacs/muke-emacs-format.sh
 
-command -v emacs > /dev/null || { printf "'emacs' not found\n"; exit 1; }
 [[ "$#" -ne 1 ]] && {
-    printf 'enter just one file name\n'
+    printf 'usage: %s [FILE] # just one file\n' "$0"
     exit 1
 }
 [[ -f "$1" ]] || {
@@ -13,27 +12,34 @@ command -v emacs > /dev/null || { printf "'emacs' not found\n"; exit 1; }
     exit 1
 }
 
-FMT_FUNC='mucha-clean'
+FMT_FUNC='muke-clean'
 FMT_FILE="$(mktemp)" || { printf 'mktemp error\n'; exit 1; }
-cat << EOF > "$FMT_FILE"
+# copy user specific configuration (if exist), increases emacs execution time
+cp "$HOME/.emacs.el" "$FMT_FILE" 2>/dev/null
+
+cat << EOF >> "$FMT_FILE"
+;; appended by $0
 (defun $FMT_FUNC ()
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max)))
-EOF
-MUKE_INIT_FILE="$HOME/.emacs.el"
-grep --quiet --no-messages "$FMT_FUNC" "$MUKE_INIT_FILE" && {
-    printf "muke formatting\n"
-    cp "$MUKE_INIT_FILE" "$FMT_FILE"
-}
-cat << EOF >> "$FMT_FILE"
-;; override muke init
+  (untabify (point-min) (point-max))
+  (save-buffer))
+;; override user config
 (setq make-backup-files t)
 (setq backup-directory-alist nil)
 EOF
 
 # '--batch' implies '-q' (do not load an initialization file)
-# '--quick' start Emacs with minimum customizations (minimal time reduction effect)
+# '--quick' start emacs with minimum customizations, minimal reduction time effect
 
-emacs --batch --quick "$1" -l "$FMT_FILE" -f "$FMT_FUNC" -f save-buffer #&> /dev/null
+# simple test, small LaTeX file (latex-mode)
+# emacs --batch         (without $HOME/.emacs.el): 0.092s
+# emacs --batch --quick (without $HOME/.emacs.el): 0.088s
+# emacs --batch         (with $HOME/.emacs.el):    0.295s
+# emacs --batch --quick (with $HOME/.emacs.el):    0.285s
+
+# ToDo: $ muke-emacs-format.sh sample.tex -mode=latex-mode
+# emacs --batch --quick "$1" --eval="(latex-mode)" -l "$FMT_FILE" -f "$FMT_FUNC"
+
+emacs --batch --quick "$1" -l "$FMT_FILE" -f "$FMT_FUNC" # &>/dev/null
 rm "$FMT_FILE"
