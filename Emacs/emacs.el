@@ -1,4 +1,4 @@
-;; 2023-08-17
+;; 2023-09-14
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -250,14 +250,14 @@
   (ansi-color-apply-on-region (point-min) (point-max)))
 
 ;; MELPA repository
-;; M-x package-list-packages
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; (add-to-list 'package-archives
-;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
-;; upgrade packages
 ;; M-x package-list-packages => hit 'U' to mark available upgrades => hit 'x' to upgrade
+(unless noninteractive   ; variable is non-nil when Emacs is running in batch mode
+  ;; this part takes about 90% of the load time and is unnecessary in batch mode
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  ;; (add-to-list 'package-archives
+  ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (package-initialize))
 
 ;; CMake
 ;; cmake-data.rpm provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
