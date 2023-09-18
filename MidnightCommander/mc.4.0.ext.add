@@ -1,4 +1,4 @@
-# 2023-08-21
+# 2023-09-18
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
@@ -18,7 +18,7 @@ Include=image
 
 ### Video ###
 [Blu-ray]
-Regex=\.(m2ts|mpls|clpi|bdmv)$
+Regex=\\.(m2ts|mpls|clpi|bdmv)$
 RegexIgnoreCase=true
 Include=video
 
@@ -58,11 +58,9 @@ View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate
 
 ### Other ###
 [ipk2]
-# must be other name than default "ipk" section name
-# https://midnight-commander.org/ticket/4497
+# override default 'ipk' section
 Shell=.ipk
 ShellIgnoreCase=false
 Open=%cd %p/uar://
 
 ### End of additional entries ###
-
