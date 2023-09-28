@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2023-09-07
+# 2023-09-28
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -88,7 +88,7 @@ f   determine selected file(s) type (file)
 
 =+ ! t t & t n
     # default entry if no tagged/selected file(s) and file=not a directory
-i   information about the current file (file and stat)
+i   information about the current file (file + stat)
     %view
     # file %f; FNAME=%f; file "$FNAME"   # be careful with quotes
     # echo "$(basename %f)"; echo "$(basename "$FNAME")"
@@ -108,7 +108,7 @@ i   information about the current file (file and stat)
     printf '        %%s (UTC)\n' "$(date --utc --date="@$FMODIFY" '+%%F %%T %%:z')"
 
 + ! t t & t r
-e   detect encoding of the current file (uchardet and enca)
+e   detect encoding of the current file (uchardet + enca)
     %view
     printf            "file      => "; file --mime %f
     command -v uchardet > /dev/null \
@@ -149,12 +149,20 @@ t   rename (translit) file/dir to portable name
     translit.rename.sh %p
 
 + ! t t & t r & ! T t & T r
-d   diff and compare current two files from two panels
-    %view
-    printf "diff: "
-    diff %d/%f %D/%F      && printf "files '%d/%f' and '%D/%F' are identical\n"
-    printf "cmp:  "
-    cmp  %d/%f %D/%F 2>&1 && printf "files '%d/%f' and '%D/%F' are identical\n"
+d   compare current two files from two panels (diff + cmp)
+    %view{nroff}
+    FILE1=%d/%f; FILE2=%D/%F
+    printf 'file: %%s # size: %%s\nfile: %%s # size: %%s\n' \
+           "$FILE1" "$(stat --format '%%s' "$FILE1")" \
+           "$FILE2" "$(stat --format '%%s' "$FILE2")" \
+        | column --table --table-columns A,B,C,D,E --table-right B,E --table-noheadings
+    DIFFER='_\bd_\bi_\bf_\bf_\be_\br_\be_\bn_\bt'
+    printf '\ndiff: files are '
+    if diff "$FILE1" "$FILE2" >/dev/null; then
+        printf 'identical\n'; else printf '%%b\n' "$DIFFER"; fi
+    printf 'cmp:  files are '
+    if cmp --quiet "$FILE1" "$FILE2" 2>&1; then
+        printf 'identical\n'; else printf '%%b\n' "$DIFFER"; fi
 
 --- ExifTool ---
     %view
