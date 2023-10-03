@@ -1,4 +1,4 @@
-;; 2023-10-03
+;; 2023-10-04
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -252,7 +252,7 @@
 ;; MELPA repository
 ;; M-x package-list-packages => hit 'U' to mark available upgrades => hit 'x' to upgrade
 (unless noninteractive   ; variable is non-nil when Emacs is running in batch mode
-  ;; this part takes about 90% of the load time and is unnecessary in batch mode
+  ;; this part takes about 90% of the emacs load time in batch mode
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   ;; (add-to-list 'package-archives

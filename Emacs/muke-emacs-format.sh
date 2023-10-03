@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2023-09-14
+# 2023-10-04
 # https://github.com/musinsky/config/blob/master/Emacs/muke-emacs-format.sh
 
 function print_usage {
@@ -68,14 +68,24 @@ rm "$FMT_FILE"
 # effect of reducing emacs execution time.
 #
 # simple test, small LaTeX file (latex-mode)
-# emacs --batch         (no $HOME/.emacs.el)        0.095s
-# emacs --batch --quick (no $HOME/.emacs.el)        0.090s
-# emacs --batch         (load $HOME/.emacs.el)      0.295s
-# emacs --batch --quick (load $HOME/.emacs.el)      0.285s
+# emacs --batch         (no $HOME/.emacs.el)                    0.095s
+# emacs --batch --quick (no $HOME/.emacs.el)                    0.090s
+# emacs --batch         (load $HOME/.emacs.el)                  0.295s
+# emacs --batch --quick (load $HOME/.emacs.el)                  0.285s
 #
-# emacs --batch --quick (load hack $HOME/.emacs.el) 0.100s
+# emacs --batch --quick (load $HOME/.emacs.el without packages) 0.100s
 #
-# In my custom init file, part with "(require 'package)" (needed for MELPA repo)
-# takes about 90% of the load time and is absolutely unnecessary in batch mode.
-# Use of 'noninteractive' variable (non-nil when Emacs is running in batch mode)
-# as condition for loading this part, seriously reduces emacs execution time.
+# In my custom init file, part with "(require 'package)" (needed for ELPA
+# packages) takes about 90% of the emacs load time in batch mode. Use of
+# 'noninteractive' variable (non-nil when Emacs is running in batch mode) as
+# condition for loading this part, seriously reduces emacs execution time.
+
+# Exist way how ignore 'noninteractive' variable (if using in .emacs.el file),
+# i.e. how enable use of packages (previously disabled) in my custom init file.
+#
+# emacs --batch "$1" --eval="(setq noninteractive nil)" -l "$FMT_FILE" \
+#       --eval="($EEVAL)" --eval="(setq noninteractive t)" -f "$FMT_FUNC"
+#
+# $ muke-emacs-format.sh -i -e TeX-latex-mode sample.tex # only with AUCTeX
+#
+# Function 'TeX-latex-mode' from AUCTeX package installed from ELPA repository.
