@@ -1,4 +1,4 @@
-;; 2023-09-14
+;; 2023-10-03
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -266,6 +266,10 @@
 ;; https://www.flycheck.org
 ;;(add-hook 'after-init-hook #'global-flycheck-mode)
 ;; M-x flycheck-mode
+
+;; sql-indent (package "sql-indent" installed from GNU ELPA repository)
+;; https://www.emacswiki.org/emacs/SqlIndent
+;; sql-mode will automatically use sql-indent when it’s installed
 
 ;; AUCTeX (package "auctex" installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
