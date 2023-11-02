@@ -1,3 +1,2 @@
-GNOME
------
-More info on http://alice.saske.sk/wiki/GNOME
+## GNOME
+More info on https://muke.saske.sk/wiki/GNOME
