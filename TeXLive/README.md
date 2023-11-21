@@ -1,6 +1,5 @@
-TeX Live
---------
-More info on http://alice.saske.sk/wiki/TeXLive
+## TeX Live
+More info on https://muke.saske.sk/wiki/TeXLive
 ```
 wget https://raw.githubusercontent.com/musinsky/config/master/TeXLive/texlive.profile
 ./install-tl --profile=texlive.profile

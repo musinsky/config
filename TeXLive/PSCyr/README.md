@@ -1,5 +1,5 @@
 # PSCyr
-* See on http://alice.saske.sk/wiki/TeXLive for more info.
+* See on https://muke.saske.sk/wiki/TeXLive for more info.
 * Collection of PSCyr fonts (version 0.4d-beta9, 2004-10-15), Alexander Lebedev (2000-2004). Tested on Linux (Fedora) and TeX Live.
 ### install
 1. as **admin** (recommended) to **$TEXMFLOCAL** (`/opt/texlive/texmf-local`)

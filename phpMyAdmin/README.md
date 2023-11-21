@@ -1,5 +1,4 @@
-phpMyAdmin
-----------
+## phpMyAdmin
 * Download latest [phpMyAdmin](https://www.phpmyadmin.net/downloads/) tarball and unpack to `/opt/` directory.
 ```
 wget -nc https://raw.githubusercontent.com/musinsky/config/master/phpMyAdmin/phpMyAdmin.conf -O /etc/httpd/conf.d/phpMyAdmin.conf
@@ -12,4 +11,4 @@ chown root:apache /opt/phpMyAdmin/config.inc.php
 
 systemctl restart httpd.service
 ```
-* More info on http://alice.saske.sk/wiki/MySQL
+* More info on https://muke.saske.sk/wiki/MySQL
