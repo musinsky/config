@@ -1,0 +1,32 @@
+/*
+ * add/override variables from original window-list/stylesheet-dark.css
+ * https://gitlab.gnome.org/GNOME/gnome-shell-extensions/-/blob/main/extensions/window-list/stylesheet-dark.css
+ * last original commit: 836f81f2e231794663cfb56102b38b03814a57d3
+ * last add/override: 2023-12-04 (GNOME 45)
+ *
+ * https://www.w3schools.com/css/css_border.asp
+ * https://www.w3schools.com/css/css_boxmodel.asp
+ * https://www.w3schools.com/css/css3_shadows_box.asp
+ */
+
+.window-button.focused > StWidget,
+.window-picker-toggle:checked > StWidget {
+    border: 1px solid #fff;      /* default: none */
+}
+
+.window-list-workspace-indicator .workspace {
+    background-color: #4e4e4e;   /* default: #1e1e1e */
+}
+
+.window-list-workspace-indicator .workspace.active {
+    border-radius: 1px;          /* default: none */
+    border: 1px solid #fff;      /* default: none */
+}
+
+.window-list-window-preview {
+    border: 1px solid #000;      /* default: none */
+}
+
+.window-list-window-preview.active {
+    background-color: #f4f4f4;   /* default: #d4d4d4 */
+}
