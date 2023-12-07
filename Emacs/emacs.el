@@ -1,4 +1,4 @@
-;; 2023-10-04
+;; 2023-12-08
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -266,6 +266,11 @@
 ;; https://www.flycheck.org
 ;;(add-hook 'after-init-hook #'global-flycheck-mode)
 ;; M-x flycheck-mode
+
+;; Eglot, Emacs Polyglot (package "eglot" installed from GNU ELPA repository)
+;; https://github.com/joaotavora/eglot
+;; M-x eglot   # "clangd" (package "clang-tools-extra") is required for C/C++ support
+;; Emacs 29.1 (2023-07) with built-in Eglot package
 
 ;; sql-indent (package "sql-indent" installed from GNU ELPA repository)
 ;; https://www.emacswiki.org/emacs/SqlIndent
