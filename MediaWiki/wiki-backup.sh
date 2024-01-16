@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 
-# 2023-08-10
+# 2024-01-16
 # https://github.com/musinsky/config/blob/master/MediaWiki/wiki-backup.sh
 
-MWDIR='/opt/mediawiki'
-MWLSF='LocalSettings.php'
+[[ $EUID -ne 0 ]] && { printf "only root user\n"; exit 1; }
+
+MWDIR="/opt/mediawiki"
+MWLSF="LocalSettings.php"
 # parsing between two apostrophes ($wgDBname = "example_wiki"; => example_wiki)
 DBname="$(grep wgDBname     "$MWDIR/$MWLSF" | grep -oP '(?<=").*(?=")')"
 DBuser="$(grep wgDBuser     "$MWDIR/$MWLSF" | grep -oP '(?<=").*(?=")')"
 DBpass="$(grep wgDBpassword "$MWDIR/$MWLSF" | grep -oP '(?<=").*(?=")')" # only view
 # DBcharset="$(grep wgDBTableOptions "$MWDIR/$MWLSF" | grep -oP '(?<=DEFAULT CHARSET=).*(?=")')"
 # mysqldump --default-character-set=binary
+MWBCP="$DBname-backup_$(date +%F).tar.xz"
 DUMP="$DBname-dump_$(date +%F)"
 MWSQL="$DUMP.sql"
 MWXML="$DUMP.xml"
 MWUPL="$DUMP.uploads"
-MWEXT='extensions.dir'
-MWBCP="$DBname-backup_$(date +%F).tar.xz"
-BCPSC="$(basename "$0")"
+MWEXT="$DUMP.extensions"
 
 # SQL
 printf "mysqldump --user=%s --password  %s" "$DBuser" "$DBname"
@@ -32,8 +33,9 @@ php "$MWDIR/maintenance/dumpUploads.php" > "$MWUPL"
 ls --time-style=long-iso -l -d "$MWDIR/extensions"/*/ > "$MWEXT" # don't quotes "*"
 
 # archiving
-tar -cJf "$MWBCP" "$MWSQL" "$MWXML" "$MWUPL" "$MWEXT" "$BCPSC" \
-    -C "$MWDIR" "$MWLSF" images \
+tar -chJf "$MWBCP" "$MWSQL" "$MWXML" "$MWUPL" "$MWEXT" \
+    "$MWDIR/$MWLSF" "$MWDIR/images" \
+    -C "$(dirname "$0")" "$(basename "$0")" \
     -P /etc/httpd/conf.d/mediawiki.conf \
     /var/www/html/robots.txt \
     /var/www/html/google*.html \
