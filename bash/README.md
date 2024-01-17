@@ -20,6 +20,8 @@ source "$HOME"/.bashrc
 * user dirs
 ```
 wget https://raw.githubusercontent.com/musinsky/config/master/bash/user-dirs.dirs -O "$HOME"/.config/user-dirs.dirs
+chmod 600 "$HOME"/.config/user-dirs.dirs
+chown "$USER":"$USER" "$HOME"/.config/user-dirs.dirs
 ```
 
 ### admin

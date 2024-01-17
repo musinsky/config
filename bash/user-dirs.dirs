@@ -1,8 +1,11 @@
-# 2024-01-16
+# 2024-01-17
 
 # /etc/xdg/user-dirs.conf
 # /etc/xdg/user-dirs.defaults
 # $HOME/.config/user-dirs.dirs   # this file
+#
+# chmod 600 $HOME/.config/user-dirs.dirs
+# chown $USER:$USER $HOME/.config/user-dirs.dirs
 
 # Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
 # homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
