@@ -1,4 +1,4 @@
-;; 2023-12-08
+;; 2024-01-18
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -260,7 +260,7 @@
   (package-initialize))
 
 ;; CMake
-;; cmake-data.rpm provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
+;; "cmake-data.rpm" provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
 
 ;; Flycheck (package "flycheck" installed from MELPA repository)
 ;; https://www.flycheck.org
@@ -269,7 +269,7 @@
 
 ;; Eglot, Emacs Polyglot (package "eglot" installed from GNU ELPA repository)
 ;; https://github.com/joaotavora/eglot
-;; M-x eglot   # "clangd" (package "clang-tools-extra") is required for C/C++ support
+;; M-x eglot   # "clangd" ("clang-tools-extra.rpm") is required for C/C++ support
 ;; Emacs 29.1 (2023-07) with built-in Eglot package
 
 ;; sql-indent (package "sql-indent" installed from GNU ELPA repository)
