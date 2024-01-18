@@ -6,12 +6,14 @@
 
 ### Documents ###
 [rtf]
+# override default 'rtf' section
 Shell=.rtf
 ShellIgnoreCase=true
 View=%view{ascii} /usr/libexec/mc/ext.d/doc.sh view msdoc
 
 ### Images ###
 [webp]
+# override default 'webp' section from mc v4.8.31+
 Shell=.webp
 ShellIgnoreCase=true
 Include=image
