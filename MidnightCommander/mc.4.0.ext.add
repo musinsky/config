@@ -1,4 +1,4 @@
-# 2023-09-18
+# 2024-01-18
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
@@ -28,12 +28,12 @@ Shell=.root
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view root
 
 [font]
-Type=font
+Type=\x20font\x20
 TypeIgnoreCase=true
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view font
 
 [certificate]
-Type=certificate
+Type=\x20certificate\x20
 TypeIgnoreCase=true
 Include=certificate
 
