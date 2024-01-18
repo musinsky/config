@@ -43,6 +43,7 @@ alias lls-dot='LC_NUMERIC=de_DE.UTF8 lls'
 # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-timestamps.html
 alias llt='ls -l --time-style="+%F %T %:z"'   # or global TIME_STYLE env
 alias llt-utc='TZ=UTC llt'
+alias llt-full='ls -l --time-style="+%F %T.%N %:z"' # full-time/full-iso equivalent
 # format strings separated by a newline are used for non-recent and recent files
 #tsf_newline=$'\n'   # bash ANSI-C Quoting
 #alias llt='ls -l --time-style="+%F %H:%M:%S $tsf_newline%F %H:%M:%S^"'
