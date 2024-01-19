@@ -1,4 +1,4 @@
-# 2024-01-18
+# 2024-01-19
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 #
 # /etc/skel/.bashrc        # default '.basrc' file
@@ -68,4 +68,5 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 # difference between HEAD and its upstream '<', '>', '<>'  or '='
 GIT_PS1_SHOWUPSTREAM="auto"
 # change PS1
+# PS1='[\u@\h \W]\$ '   # traditional prompt
 PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
