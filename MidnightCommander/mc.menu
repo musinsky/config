@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2023-09-28
+# 2024-01-22
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -16,7 +16,7 @@ shell_patterns=1
     read TARNAME
     [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
     cd .. \
-        && tar cf - "$BNDIR" | gzip --verbose --force > "$TARNAME.tar.gz" \
+        && tar --format=posix -cf - "$BNDIR" | gzip --verbose --force > "$TARNAME.tar.gz" \
         && chmod 0444 "$TARNAME.tar.gz" \
         && printf "../$TARNAME.tar.gz created\n"
 
@@ -27,11 +27,22 @@ shell_patterns=1
     read TARNAME
     [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
     cd .. \
-        && tar cf - "$BNDIR" | xz --verbose --force > "$TARNAME.tar.xz" \
+        && tar --format=posix -cf - "$BNDIR" | xz --verbose --force > "$TARNAME.tar.xz" \
         && chmod 0444 "$TARNAME.tar.xz" \
         && printf "../$TARNAME.tar.xz created\n"
 
-=+ f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz | f *.tar.zst & t r & ! t t
++ ! t t
+3   archive only the current dir (tar)
+    BNDIR=$(basename %d)
+    printf "Name of the archived file (without .tar extension) [$BNDIR]: "
+    read TARNAME
+    [ "$TARNAME"x = x ] && TARNAME="$BNDIR" # if $TARNAME is empty
+    cd .. \
+        && tar --format=posix -cf "$TARNAME.tar" "$BNDIR" \
+        && chmod 0444 "$TARNAME.tar" \
+        && printf "../$TARNAME.tar created\n"
+
+=+ f *.tar | f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz & t rl & ! t t
 x   extract the current compressed tar file to subdirectory
     tar xvf %f --one-top-level
     # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
