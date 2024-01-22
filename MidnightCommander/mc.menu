@@ -44,7 +44,7 @@ shell_patterns=1
 
 =+ f *.tar | f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz & t rl & ! t t
 x   extract the current compressed tar file to subdirectory
-    tar xvf %f --one-top-level
+    tar --one-top-level -xvf %f
     # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
 
 + t r | t t
