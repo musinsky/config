@@ -1,7 +1,5 @@
-# 2024-01-23
+# 2024-01-24
 # https://github.com/musinsky/config/blob/master/bash/bashrc
-#
-# $ source "$HOME/.bashrc"   # reload  '.bashrc' settings
 
 ### default (file '/etc/skel/.bashrc') ###
 
@@ -83,15 +81,10 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto"
 # colored hint
 GIT_PS1_SHOWCOLORHINTS="nonempty"
-# change PS1 prompt
+# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
 # PS1='[\u@\h \W]\$ '                       # traditional prompt
 # PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '   # traditional + git
 #
-# escape colors with '\001' and '\002' in PS1: '\001\033[0m\002' instead of '\033[0m'
-# see for example in 'git-prompt.sh' link above
-# https://mywiki.wooledge.org/BashFAQ/053
-# https://superuser.com/q/301353
-#PS1='[\u@\h \001\033[1m\002\W\001\033[0m\002$(__git_ps1 " (%s)")]\$ '
-# https://src.fedoraproject.org/rpms/shell-color-prompt/blob/rawhide/f/bash-color-prompt.sh
-# use '\[\e[0m\]' instead of '\e[0m'
+# don't use '\e[COLORm', use '\[\e[COLORm\]' or '\001\e[COLORm\002' instead
+#PS1='[\u@\h \001\e[1m\002\W\001\e[0m\002$(__git_ps1 " (%s)")]\$ '
 PS1='[\u@\h \[\e[1m\]\W\[\e[0m\]$(__git_ps1 " (%s)")]\$ '
