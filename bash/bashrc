@@ -86,4 +86,12 @@ GIT_PS1_SHOWCOLORHINTS="nonempty"
 # change PS1 prompt
 # PS1='[\u@\h \W]\$ '                       # traditional prompt
 # PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '   # traditional + git
-PS1='[\u@\h \e[1m\W\e[0m$(__git_ps1 " (%s)")]\$ '
+#
+# escape colors with '\001' and '\002' in PS1: '\001\033[0m\002' instead of '\033[0m'
+# see for example in 'git-prompt.sh' link above
+# https://mywiki.wooledge.org/BashFAQ/053
+# https://superuser.com/q/301353
+#PS1='[\u@\h \001\033[1m\002\W\001\033[0m\002$(__git_ps1 " (%s)")]\$ '
+# https://src.fedoraproject.org/rpms/shell-color-prompt/blob/rawhide/f/bash-color-prompt.sh
+# use '\[\e[0m\]' instead of '\e[0m'
+PS1='[\u@\h \[\e[1m\]\W\[\e[0m\]$(__git_ps1 " (%s)")]\$ '
