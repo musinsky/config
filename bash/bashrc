@@ -81,6 +81,9 @@ GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 # difference between HEAD and its upstream '<', '>', '<>'  or '='
 GIT_PS1_SHOWUPSTREAM="auto"
-# change PS1
-# PS1='[\u@\h \W]\$ '   # traditional prompt
-PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+# colored hint
+GIT_PS1_SHOWCOLORHINTS="nonempty"
+# change PS1 prompt
+# PS1='[\u@\h \W]\$ '                       # traditional prompt
+# PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '   # traditional + git
+PS1='[\u@\h \e[1m\W\e[0m$(__git_ps1 " (%s)")]\$ '
