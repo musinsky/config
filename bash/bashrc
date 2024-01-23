@@ -1,8 +1,22 @@
-# 2024-01-19
+# 2024-01-23
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 #
-# /etc/skel/.bashrc        # default '.basrc' file
-# $ source $HOME/.bashrc   # reload  '.bashrc' settings
+# $ source "$HOME/.bashrc"   # reload  '.bashrc' settings
+
+### default (file '/etc/skel/.bashrc') ###
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+### user customized ###
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
 HISTCONTROL=ignoreboth:erasedups
