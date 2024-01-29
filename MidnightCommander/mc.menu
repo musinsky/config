@@ -164,7 +164,7 @@ e   detect encoding of the current file (uchardet + enca)
     [ "%p" = ".." ] && { printf "Don't try with parent directory '..'\n"; exit 1; }
     # exclude hidden paths (i.e. directories or files)
     find %p -depth -type d -not -path '*/\.*' -exec sh -c \
-         'touch -r "$0/$(ls -t "$0" | head -n 1)" "$0"' \
+         'touch -r "$0/$(ls -tL "$0" | head -n 1)" "$0"' \
          {} \;
     printf 'Done\n'
 
