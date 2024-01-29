@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2024-01-22
+# 2024-01-29
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -153,11 +153,20 @@ e   detect encoding of the current file (uchardet + enca)
         | xargs pathchk --portability 2>&1 | grep --invert-match 'limit'
 
 + ! t t
-t   rename (translit) file/dir to portable name
+-   rename (translit) file/dir to portable name
     command -v translit.rename.sh > /dev/null \
         || { printf "'translit.rename.sh' script not found\n";
              exit 1; }
     translit.rename.sh %p
+
++ ! t t & t d
+-   dir(s) timestamp (recursively) to latest file timestamp
+    [ "%p" = ".." ] && { printf "Don't try with parent directory '..'\n"; exit 1; }
+    # exclude hidden paths (i.e. directories or files)
+    find %p -depth -type d -not -path '*/\.*' -exec sh -c \
+         'touch -r "$0/$(ls -t "$0" | head -n 1)" "$0"' \
+         {} \;
+    printf 'Done\n'
 
 + ! t t & t r & ! T t & T r
 d   compare current two files from two panels (diff + cmp)
