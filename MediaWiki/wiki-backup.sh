@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2024-01-16
+# 2024-01-31
 # https://github.com/musinsky/config/blob/master/MediaWiki/wiki-backup.sh
 
 [[ $EUID -ne 0 ]] && { printf "only root user\n"; exit 1; }
@@ -34,6 +34,7 @@ ls --time-style=long-iso -l -d "$MWDIR/extensions"/*/ > "$MWEXT" # don't quotes 
 
 # archiving
 tar -chJf "$MWBCP" "$MWSQL" "$MWXML" "$MWUPL" "$MWEXT" \
+    --exclude="$MWDIR/images/thumb" \
     "$MWDIR/$MWLSF" "$MWDIR/images" \
     -C "$(dirname "$0")" "$(basename "$0")" \
     -P /etc/httpd/conf.d/mediawiki.conf \
