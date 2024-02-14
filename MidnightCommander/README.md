@@ -1,4 +1,4 @@
-<p align="right">last edit: 2023-04-19</p>
+<p align="right">last edit: 2024-02-14</p>
 
 ## Midnight Commander
 GNU [Midnight Commander](https://midnight-commander.org/) (aka **mc**) is a
@@ -86,11 +86,11 @@ version 4.8.19 (2017-03).
 ```
 # as user
 mkdir -p "$HOME"/.local/share/mc/skins
-wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray256.skin.ini -O "$HOME"/.local/share/mc/skins/default-gray256.ini
+wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/skins/default-gray256.ini -O "$HOME"/.local/share/mc/skins/default-gray256.ini
 ```
 ```
 # or as admin (for all users)
-wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/default-gray256.skin.ini -O /usr/share/mc/skins/default-gray256.ini
+wget https://raw.githubusercontent.com/musinsky/config/master/MidnightCommander/skins/default-gray256.ini -O /usr/share/mc/skins/default-gray256.ini
 ```
 For version <= 4.8.19 (without color aliases in skin files) manual "aliases" is
 required (i.a. CentOS 7).
