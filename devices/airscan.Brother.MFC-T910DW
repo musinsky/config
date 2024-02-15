@@ -1,4 +1,4 @@
-# 2024-02-14
+# 2024-02-15
 
 /etc/sane.d/airscan.conf
 [devices]
@@ -13,6 +13,11 @@ $ scanimage --list-devices
 device `airscan:e0:Brother MFC-T910DW' is a eSCL Brother MFC-T910DW ip=10.0.0.202
 
 === bother4 vendor proprietary drivers ===
+$ brsaneconfig4 -a name=Brother_MFC-T910DW model=MFC-T910DW ip=172.30.0.55
+$ cat /etc/opt/brother/scanner/brscan4/brsanenetdevice4.cfg
+#  -> /opt/brother/scanner/brscan4/brsanenetdevice4.cfg
+DEVICE=Brother_MFC-T910DW , "MFC-T910DW" , 0x4f9:0x413 , IP-ADDRESS=172.30.0.55
+#                                  vendor: 0x4f9 (Brother), product: 0x413 (MFC-T910DW)
 $ scanimage --list-devices
 device `brother4:net1;dev0' is a Brother Brother_MFC-T910DW MFC-T910DW
 $ scanimage --all-options
