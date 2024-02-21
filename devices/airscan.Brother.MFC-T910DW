@@ -1,16 +1,25 @@
-# 2024-02-15
+# 2024-02-21
 
 /etc/sane.d/airscan.conf
 [devices]
-R322 Brother MFC-T910DW = http://172.30.0.55:80/eSCL/, eSCL
+Brother MFC-T910DW (room322) = http://172.30.0.55:80/eSCL/, eSCL
 
 === airscan ===
-$ airscan-discover
+$ airscan-discover   # WiFi 'osf'
 [devices]
   Brother MFC-T910DW = http://10.0.0.202:80/eSCL/, eSCL
   Brother MFC-T910DW = http://10.0.0.202:80/WebServices/ScannerService, WSD
 $ scanimage --list-devices
 device `airscan:e0:Brother MFC-T910DW' is a eSCL Brother MFC-T910DW ip=10.0.0.202
+$ scanimage --all-options
+All options specific to device `airscan:e0:Brother MFC-T910DW':
+  Standard:
+    --resolution 100|200|300|600dpi [300]
+        Sets the resolution of the scanned image.
+    --mode Color|Gray [Color]
+        Selects the scan mode (e.g., lineart, monochrome, or color).
+    --source Flatbed|ADF [Flatbed]
+        Selects the scan source (such as a document-feeder).
 
 === bother4 vendor proprietary drivers ===
 $ brsaneconfig4 -a name=Brother_MFC-T910DW model=MFC-T910DW ip=172.30.0.55
