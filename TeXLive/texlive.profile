@@ -3,6 +3,9 @@
 #
 # /opt/texlive/2024/tlpkg/texlive.profile
 
+# must be set every 4 dirs with prefix '/opt', otherwise the default
+# prefix '/usr/local' will be used instead
+
 selected_scheme scheme-custom
 TEXDIR /opt/texlive/2024
 TEXMFLOCAL /opt/texlive/texmf-local
