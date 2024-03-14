@@ -1,4 +1,4 @@
-# 2023-06-05
+# 2024-03-14
 # https://github.com/musinsky/config/blob/master/bash/muke-profile.sh
 
 function __muke_var_value {
@@ -34,7 +34,7 @@ __muke_var_value JUPYTER_PATH "$ROOT_PATH/etc/notebook"
 __muke_var_value PATH            '/cern/xrootd/bin'
 __muke_var_value LD_LIBRARY_PATH '/cern/xrootd/lib64'
 
-__muke_var_value PATH '/opt/texlive/2023/bin/x86_64-linux'
+__muke_var_value PATH '/opt/texlive/2024/bin/x86_64-linux'
 
 # MAN and INFO are added automatically
 export PATH LD_LIBRARY_PATH PYTHONPATH JUPYTER_PATH
