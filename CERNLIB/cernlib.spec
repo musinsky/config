@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       45%{?dist}
+Release:       46%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -1507,6 +1507,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Mon Oct 16 2023 Jan Musinsky <musinsky@gmail.com> - 2006-46
+- without changes, Fedora 39
+
 * Sat Apr 29 2023 Jan Musinsky <musinsky@gmail.com> - 2006-45
 - fix CHTEXT, Fedora 38
 
