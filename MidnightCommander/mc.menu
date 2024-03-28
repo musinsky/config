@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2024-01-29
+# 2024-03-28
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -183,6 +183,15 @@ d   compare current two files from two panels (diff + cmp)
     printf 'cmp:  files are '
     if cmp --quiet "$FILE1" "$FILE2" 2>&1; then
         printf 'identical\n'; else printf '%%b\n' "$DIFFER"; fi
+
++ ! t t & t r & ! T t & T r
+-   diff current two files from two panels (meld)
+    FILE1=%d/%f; FILE2=%D/%F
+    meld "$FILE1" "$FILE2"
+
++ ! t t & ! T t
+-   recursive diff current two dirs from two panels (meld)
+    meld %d %D
 
 --- ExifTool ---
     %view
