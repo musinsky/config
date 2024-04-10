@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2024-03-28
+# 2024-04-10
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -172,10 +172,11 @@ e   detect encoding of the current file (uchardet + enca)
 d   compare current two files from two panels (diff + cmp)
     %view{nroff}
     FILE1=%d/%f; FILE2=%D/%F
-    printf 'file: %%s # size: %%s\nfile: %%s # size: %%s\n' \
+    printf 'file:\t%%s\t# size:\t%%s\nfile:\t%%s\t# size:\t%%s\n' \
            "$FILE1" "$(stat --format '%%s' "$FILE1")" \
            "$FILE2" "$(stat --format '%%s' "$FILE2")" \
-        | column --table --table-columns A,B,C,D,E --table-right B,E --table-noheadings
+        | column --separator $'\t' --table --table-columns A,B,C,D,E \
+                 --table-right B,D --table-noheadings
     DIFFER='_\bd_\bi_\bf_\bf_\be_\br_\be_\bn_\bt'
     printf '\ndiff: files are '
     if diff "$FILE1" "$FILE2" >/dev/null; then
