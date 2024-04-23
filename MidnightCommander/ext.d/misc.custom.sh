@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2023-05-03
+# 2024-04-23
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -35,7 +35,9 @@ do_view_action() {
             cat "${MC_EXT_FILENAME}"
             ;;
         ar)
-            print_mc_under "=== nm ==="
+            print_mc_under "=== ar ==="
+            ar tv "${MC_EXT_FILENAME}" 2>/dev/null
+            printf "\n"; print_mc_under "=== nm ==="
             nm -C "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         so)
