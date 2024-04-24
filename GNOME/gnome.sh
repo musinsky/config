@@ -1,4 +1,4 @@
-# GNOME 3.30
+# GNOME 46
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
@@ -13,6 +13,7 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['caps:none']"       
 
 gsettings set org.gnome.desktop.interface clock-show-date true
 gsettings set org.gnome.desktop.interface clock-show-seconds true
+gsettings set org.gnome.desktop.interface clock-format '24h'
 #gsettings set org.gnome.desktop.interface document-font-name 'Sans 9'                # Sans 11
 #gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'                    # Cantarell 11
 #gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
@@ -64,6 +65,8 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-typ
 # Fedora38+ (suspend even when plugged in)
 sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3000
 sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'blank'
+# GNOME 46+
+sudo -u gdm dbus-run-session gsettings set org.gnome.desktop.interface clock-format '24h'
 
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
