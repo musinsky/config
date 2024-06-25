@@ -1,4 +1,4 @@
-;; 2024-03-28
+;; 2024-06-25
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -253,8 +253,10 @@
   (interactive)
   (ansi-color-apply-on-region (point-min) (point-max)))
 
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html
+;; M-x list-packages (or alias) M-x package-list-packages
+;; type 'U' (mark Upgradable packages) and then 'x' (eXecute installs and deletions)
 ;; MELPA repository
-;; M-x package-list-packages => hit 'U' to mark available upgrades => hit 'x' to upgrade
 (unless noninteractive   ; variable is non-nil when Emacs is running in batch mode
   ;; this part takes about 90% of the emacs load time in batch mode
   (require 'package)
@@ -279,6 +281,10 @@
 ;; sql-indent (package "sql-indent" installed from GNU ELPA repository)
 ;; https://www.emacswiki.org/emacs/SqlIndent
 ;; sql-mode will automatically use sql-indent when it’s installed
+
+;; apache-mode (package "apache-mode" installed from MELPA repository)
+;; https://github.com/emacs-php/apache-mode
+;; M-x apache-mode
 
 ;; AUCTeX (package "auctex" installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
