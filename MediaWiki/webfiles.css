@@ -1,0 +1,24 @@
+/*
+ * 2024-06-26
+ * https://github.com/musinsky/config/blob/master/MediaWiki/webfiles.css
+ *
+ * chmod 644       /opt/webfiles/webfiles.css
+ * chown root:root /opt/webfiles/webfiles.css
+ */
+
+body {
+    background-color: #fafafa;
+}
+
+table {
+    font-family: monospace;
+}
+
+td.indexcollastmod {
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+tr.odd {
+    background-color: #eaeaea;
+}
