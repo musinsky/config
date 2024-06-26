@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2024-01-31
+# 2024-06-26
 # https://github.com/musinsky/config/blob/master/MediaWiki/wiki-backup.sh
 
 [[ $EUID -ne 0 ]] && { printf "only root user\n"; exit 1; }
@@ -43,3 +43,12 @@ tar -chJf "$MWBCP" "$MWSQL" "$MWXML" "$MWUPL" "$MWEXT" \
     && printf "'%s' created\n" "$MWBCP"
 rm "$MWSQL" "$MWXML" "$MWUPL" "$MWEXT"
 chmod 400 "$MWBCP"
+
+### webfiles ###
+WFDIR="/opt/webfiles"
+[[ -d "$WFDIR" ]] || { printf "'%s' no such directory\n" "$WFDIR"; exit 1; }
+
+WFBCP="webfiles_$(date +%F).tar.gz"
+tar -chzf "$WFBCP" -P "$WFDIR" /etc/httpd/conf.d/webfiles.conf \
+    && printf "'%s' created\n" "$WFBCP"
+chmod 444 "$WFBCP"
