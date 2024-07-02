@@ -1,4 +1,4 @@
-;; 2024-06-25
+;; 2024-07-02
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -277,6 +277,10 @@
 ;; https://github.com/joaotavora/eglot
 ;; M-x eglot   # "clangd" ("clang-tools-extra.rpm") is required for C/C++ support
 ;; Emacs 29.1 (2023-07) with built-in Eglot package
+
+;; Markdown Mode (package "markdown-mode" installed from MELPA repository)
+;; https://jblevins.org/projects/markdown-mode/
+;; markdown-mode and/or gfm-mode are autoloaded
 
 ;; sql-indent (package "sql-indent" installed from GNU ELPA repository)
 ;; https://www.emacswiki.org/emacs/SqlIndent
