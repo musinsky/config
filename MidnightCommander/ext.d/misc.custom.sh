@@ -10,6 +10,7 @@ filetype=$2 # $2 - type of file
 [ -n "${MC_XDG_OPEN}" ] || MC_XDG_OPEN="xdg-open"
 
 print_mc_under() {
+    # only in bash (not in POSIX sh)
     underline=$1
     for ((i=0; i < ${#underline}; i++)); do
         printf "_\b%b" "${underline:i:1}"
@@ -105,12 +106,12 @@ do_view_action() {
                     -certopt no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_extensions \
                     -nameopt multiline 2>&1
             print_mc_under "# full details"
-            printf "$ openssl x509 -in ${MC_EXT_FILENAME} -noout -text\n"
+            printf "$ openssl x509 -in %s -noout -text\n" "${MC_EXT_FILENAME}"
             openssl x509 -in "${MC_EXT_FILENAME}" -noout -text 2>&1
             ;;
         certificate-crl)
             print_mc_under "=== openssl (Certificate Revocation List) ==="
-            printf "$ openssl crl -in ${MC_EXT_FILENAME} -noout -text\n"
+            printf "$ openssl crl -in %s -noout -text\n" "${MC_EXT_FILENAME}"
             openssl crl -in "${MC_EXT_FILENAME}" -noout -text 2>&1
             ;;
         *)
