@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2024-04-23
+# 2024-07-11
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -41,15 +41,25 @@ do_view_action() {
             nm -C "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         so)
-            print_mc_under "=== ldd ==="
-            ldd "${MC_EXT_FILENAME}" 2>/dev/null
+            if command -v libtree > /dev/null; then
+                print_mc_under "=== libtree ==="
+                libtree --path -v "${MC_EXT_FILENAME}" 2>/dev/null
+            else
+                print_mc_under "=== ldd ==="
+                ldd "${MC_EXT_FILENAME}" 2>/dev/null
+            fi
             printf "\n"; print_mc_under "=== nm ==="
             nm -C -D "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         elf)
             # i.e. all executable programs
-            print_mc_under "=== ldd ==="
-            ldd "${MC_EXT_FILENAME}" 2>/dev/null
+            if command -v libtree > /dev/null; then
+                print_mc_under "=== libtree ==="
+                libtree --path -v "${MC_EXT_FILENAME}" 2>/dev/null
+            else
+                print_mc_under "=== ldd ==="
+                ldd "${MC_EXT_FILENAME}" 2>/dev/null
+            fi
             printf "\n"; print_mc_under "=== nm ==="
             nm -C "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
