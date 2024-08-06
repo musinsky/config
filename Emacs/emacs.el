@@ -1,4 +1,4 @@
-;; 2024-08-05
+;; 2024-08-06
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -76,7 +76,7 @@
 ;;(set-face-background 'region "SkyBlue1") ; for Emacs 21+ is obsolete
 ;; set-face-background calling set-face-attribute (provide compatibility with older versions)
 (set-face-attribute 'escape-glyph nil :background "grey25" :foreground "white")
-(set-face-attribute 'highlight nil :background "#e0ffe0") ; darkseagreen2 default
+(set-face-attribute 'highlight nil :background "grey85") ; darkseagreen2 default
 ;; M-x hl-line-mode (face: hl-line inherit from face: highlight)
 ;;
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
