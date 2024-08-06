@@ -345,6 +345,7 @@
 (setq font-latex-fontify-sectioning (quote color)) ; only color
 (setq font-latex-script-display (quote (nil)))     ; _sub/^super-script on baseline
 ;;(setq font-latex-fontify-script nil)             ; _sub/^super-script disable at all
+(setq tex-fontify-script nil)                      ; _sub/^super-script in Emacs latex mode
 
 ;; RefTeX (bundled with Emacs)
 ;; https://www.gnu.org/software/auctex/manual/reftex.html
