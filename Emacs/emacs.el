@@ -69,14 +69,14 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Attribute-Functions.html
 ;; M-x list-faces-display, M-x describe-face
-(set-face-attribute 'line-number nil :background "grey90" :foreground "grey60")
-(set-face-attribute 'line-number-current-line nil :background "grey80")
-(set-face-attribute 'fringe nil :background "grey75")
+(set-face-attribute 'line-number nil :background "gray90" :foreground "gray60")
+(set-face-attribute 'line-number-current-line nil :background "gray80")
+(set-face-attribute 'fringe nil :background "gray75")
 (set-face-attribute 'region nil :background "#b3d9ff")
 ;;(set-face-background 'region "SkyBlue1") ; for Emacs 21+ is obsolete
 ;; set-face-background calling set-face-attribute (provide compatibility with older versions)
-(set-face-attribute 'escape-glyph nil :background "grey25" :foreground "white")
-(set-face-attribute 'highlight nil :background "grey85") ; darkseagreen2 default
+(set-face-attribute 'escape-glyph nil :background "gray25" :foreground "white")
+(set-face-attribute 'highlight nil :background "gray85") ; darkseagreen2 default
 ;; M-x hl-line-mode (face: hl-line inherit from face: highlight)
 ;;
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
