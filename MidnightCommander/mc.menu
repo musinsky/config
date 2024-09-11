@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2024-04-10
+# 2024-09-11
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -145,7 +145,8 @@ e   detect encoding of the current file (uchardet + enca)
 -   find non-portable filename in the current dir (pathchk)
     %view
     pathchk --portability "123456789@12345" 2>&1 \
-        | grep 'nonportable' > /dev/null || { printf "wrong test\n"; exit 1; }
+        | grep 'portable' > /dev/null || { printf "wrong test\n"; exit 1; }
+    # since coreutils 9.4 (2023-08) 'nonportable' changed to 'non-portable'
     printf "Non-portable filename in dir '%d'\n"
     printf "Find with 'pathchk' (exclude _POSIX_NAME_MAX 14 limitation)\n"
     printf "===========================================================\n"
