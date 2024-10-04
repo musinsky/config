@@ -1,4 +1,4 @@
-;; 2024-08-06
+;; 2024-10-04
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -130,6 +130,9 @@
 ;;(global-visual-line-mode t) ; M-x visual-line-mode
 
 (setq-default indent-tabs-mode nil) ; no tabs (use spaces)
+
+;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/sh-script.el
+(setq sh-basic-offset 2) ; default 4
 
 ;; https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html
 (setq c-basic-offset 2)
