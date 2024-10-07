@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       47%{?dist}
+Release:       48%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -527,7 +527,7 @@ echo 'Building cernlib %{verdir}'
 # patch patchy 4 installer fortran generator script
 # actually it is unusefull, because the unpacking has been done
 # offline, see comment above.
-#%patch -P 1500
+#%%patch -P 1500
 
 %patch -P 1501
 
@@ -537,7 +537,7 @@ echo 'Building cernlib %{verdir}'
 #        ./rceta.sh
 #popd
 
-#%patch -P 1502 -b .use_OPT
+#%%patch -P 1502 -b .use_OPT
 %patch -P 1503
 %patch -P 1507 -p1 -b .use_OPT
 
@@ -589,7 +589,7 @@ cd %{version}
 %patch -P 110 -p1
 %patch -P 111 -p1
 %patch -P 112 -p1
-#%patch -P 113 -p1
+#%%patch -P 113 -p1
 %patch -P 114 -p1
 %patch -P 115 -p1
 %patch -P 116 -p1
@@ -626,14 +626,14 @@ cd %{version}
 %patch -P 21302 -p1
 %patch -P 21303 -p1
 %patch -P 214 -p1
-#%patch -P 215 -p1
+#%%patch -P 215 -p1
 %patch -P 216 -p1
 %patch -P 217 -p1
 %patch -P 220 -p1
 %patch -P 221 -p1
 %patch -P 300 -p1
-#%patch -P 301 -p1
-#%patch -P 302 -p1
+#%%patch -P 301 -p1
+#%%patch -P 302 -p1
 %patch -P 303 -p1
 %patch -P 304 -p1
 %patch -P 30501 -p1
@@ -648,7 +648,7 @@ cd %{version}
 %patch -P 312 -p1
 %patch -P 31301 -p1
 %patch -P 31302 -p1
-#%patch -P 314 -p1
+#%%patch -P 314 -p1
 %patch -P 315 -p1
 
 # copy a paw include file to include directory (debian
@@ -777,9 +777,9 @@ popd
 %patch -P 80702 -p1
 %patch -P 80703 -p1
 
-#%patch -P 1504 -p2 -b .np_flags
-#%patch -P 1505 -p1
-#%patch -P 1506 -p2 -b .curdir
+#%%patch -P 1504 -p2 -b .np_flags
+#%%patch -P 1505 -p1
+#%%patch -P 1506 -p2 -b .curdir
 
 %patch -P 1201
 
@@ -1512,6 +1512,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Mon Oct 07 2024 Jan Musinsky <musinsky@gmail.com> - 2006-48
+- fix octothorp in comments, Fedora 41
+
 * Wed Mar 27 2024 Jan Musinsky <musinsky@gmail.com> - 2006-47
 - gcc14 support, Fedora 40
 
