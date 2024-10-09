@@ -132,7 +132,7 @@
 (setq-default indent-tabs-mode nil) ; no tabs (use spaces)
 
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/sh-script.el
-(setq sh-basic-offset 2) ; default 4
+;;(setq sh-basic-offset 2) ; default 4
 
 ;; https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html
 (setq c-basic-offset 2)
