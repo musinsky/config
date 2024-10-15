@@ -1,9 +1,10 @@
-<p align="right">last edit: 2023-09-14</p>
+<p align="right">last edit: 2024-10-15</p>
 
 ## Emacs
 ### custom init file
 ```
-wget -nc https://raw.githubusercontent.com/musinsky/config/master/Emacs/emacs.el -O $HOME/.emacs.el
+cp -p $HOME/.emacs.el $HOME/.emacs.el.$(date +%F_%T)
+wget -O $HOME/.emacs.el https://raw.githubusercontent.com/musinsky/config/master/Emacs/emacs.el
 ```
 
 ### muke-emacs-format.sh
