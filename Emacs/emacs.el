@@ -1,4 +1,4 @@
-;; 2024-10-04
+;; 2024-10-15
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -18,6 +18,9 @@
 ;; M-x eval-expression (bound) M-:
 ;; M-x customize-variable, M-x customize-mode, M-x customize-face, etc
 
+;; evaluates the Lisp expression before point and inserts the value at point
+;; in the *scratch* buffer C-j (bound) M-x eval-print-last-sexp
+
 ;; M-q (bound) M-x fill-paragraph      => justify region
 ;; C-\ (bound) M-x toggle-input-method => multilingual text input
 ;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>, <^[>)
@@ -33,10 +36,9 @@
 ;; C-u => prefix argument, https://www.emacswiki.org/emacs/PrefixArgument
 ;; print the buffer (or region) to PostScript file (see below)
 ;; C-u M-x ps-print-buffer-with-faces (with-faces include color)
-;; describe the character at cursor position (charset, font, etc)
+;; describe the character at cursor position (charset, font name, etc)
 ;; C-u C-x = (bound) C-u M-x what-cursor-position (or M-x describe-char)
 
-;; https://www.emacswiki.org/emacs/SetFonts
 ;;(set-frame-font "DejaVu Sans Mono-9") ; or via face-s (see below)
 ;; https://www.emacswiki.org/emacs/FrameSize
 ;; https://www.emacswiki.org/emacs/FrameTitle
@@ -78,11 +80,28 @@
 (set-face-attribute 'escape-glyph nil :background "gray25" :foreground "white")
 (set-face-attribute 'highlight nil :background "gray85") ; darkseagreen2 default
 ;; M-x hl-line-mode (face: hl-line inherit from face: highlight)
+;; for column highlighting (vertical line displaying) install "vline" package from MELPA
 ;;
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
 ;;(set-face-attribute 'default nil :font "DejaVu Sans Mono-9")
 ;;(set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 90)
 ;;(set-face-attribute 'default nil :height 90) ; in units of 1/10 point
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Modifying-Fontsets.html
+;; https://www.emacswiki.org/emacs/SetFonts
+;; https://www.emacswiki.org/emacs/FontSets
+;;
+;; Emacs uses multiple fonts to represent different Unicode blocks
+;; https://en.wikipedia.org/wiki/Unicode_block
+;; e.g. greek or sub/super-scripts can be represented by different font
+;; M-x describe-char, M-x describe-fontset, M-x describe-font, M-x describe-face
+;; choose (install, set) appropriate fonts
+;; ;; U+2070..U+209F Superscripts and Subscripts Unicode block
+;; (set-fontset-font "fontset-default" '(#x2070 . #x209f) "Noto Sans Mono")
+;; ;; U+0370..U+03FF Greek and Coptic Unicode block
+;; (set-fontset-font "fontset-default"
+;;                   (cons (decode-char 'ucs #x0370)
+;;                         (decode-char 'ucs #x03ff))
+;;                   "Source Code Pro Bold")
 
 (setq inhibit-eol-conversion t) ; show ^M (DOS end of line)
 (show-paren-mode t)
