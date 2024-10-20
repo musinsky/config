@@ -1,4 +1,4 @@
-;; 2024-10-15
+;; 2024-10-20
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -198,6 +198,8 @@
 ;;;   ps-number-of-columns 2
       )
 
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Spelling.html
+;; M-x flyspell-mode, M-x flyspell-prog-mode
 (setq ispell-program-name "/usr/bin/hunspell")
 (setq ispell-personal-dictionary "~/.musinsky.dic") ; don't use $HOME
 
