@@ -35,6 +35,14 @@
 # https://github.com/wikimedia/mediawiki-vendor/archive/refs/heads/REL1_42.zip
 # no release tags version
 
+print_usage() {
+    local bname=${0##*/} # basename in bash
+    printf "Usage: %s MW-GIT-BRANCH\n" "$bname"
+    printf "       https://github.com/wikimedia/mediawiki/branches/active\n"
+    printf "Example:\n %s REL1_42\n" "$bname"
+    printf " %s master\n" "$bname"
+    exit 1
+}
 gh_get() {
     local owner="$1"
     local repo="$2"
@@ -52,8 +60,15 @@ gh_get() {
         mv --verbose "$DIR_UNPK/$repo-$branch" "$MW_CORE_DIR/$dir_move" || exit 1
 }
 
-MW_BRANCH="REL1_42" # release (stable) branch
-MW_BRANCH="master"  # development branch
+[ "$#" -ne 1 ] && print_usage
+printf "checking branch '%s'\n" "$1"
+# https://git-scm.com/docs/git-ls-remote
+git ls-remote --exit-code --branches https://github.com/wikimedia/mediawiki "$1"
+[ "$?" -ne 0 ] && { printf "'%s' branch does not exist\n" "$1"; exit 1; }
+
+MW_BRANCH="$1"
+# MW_BRANCH="REL1_42" # release (stable) branch
+# MW_BRANCH="master"  # development branch
 DIR_DNLD="$(mktemp --directory --suffix _Download_$MW_BRANCH)" || exit 1
 DIR_UNPK="$(mktemp --directory --suffix _Unpack_$MW_BRANCH)" || exit 1
 OPT_MW_CORE_EXCLUDE="no" # exclude or not exclude MediaWiki core
