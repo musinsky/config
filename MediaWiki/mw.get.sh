@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2024-10-21
+# 2024-10-22
 # https://github.com/musinsky/config/blob/master/MediaWiki/mw.get.sh
 
 # https://releases.wikimedia.org/mediawiki/1.42/?C=M;O=D
@@ -63,14 +63,14 @@ gh_get() {
 [ "$#" -ne 1 ] && print_usage
 printf "checking branch '%s'\n" "$1"
 # https://git-scm.com/docs/git-ls-remote
-git ls-remote --exit-code --branches https://github.com/wikimedia/mediawiki "$1"
-[ "$?" -ne 0 ] && { printf "'%s' branch does not exist\n" "$1"; exit 1; }
+git ls-remote --exit-code --branches https://github.com/wikimedia/mediawiki "$1" ||
+    { printf "'%s' branch does not exist\n" "$1"; exit 1; }
 
 MW_BRANCH="$1"
 # MW_BRANCH="REL1_42" # release (stable) branch
 # MW_BRANCH="master"  # development branch
-DIR_DNLD="$(mktemp --directory --suffix _Download_$MW_BRANCH)" || exit 1
-DIR_UNPK="$(mktemp --directory --suffix _Unpack_$MW_BRANCH)" || exit 1
+DIR_DNLD="$(mktemp --directory --suffix _Download_"$MW_BRANCH")" || exit 1
+DIR_UNPK="$(mktemp --directory --suffix _Unpack_"$MW_BRANCH")" || exit 1
 OPT_MW_CORE_EXCLUDE="no" # exclude or not exclude MediaWiki core
 #OPT_MW_CORE_EXCLUDE="yes"
 
@@ -119,8 +119,8 @@ gh_get wikimedia mediawiki-skins-Vector      "$MW_BRANCH" skins/Vector
 
 rmdir "$DIR_DNLD"   # remove empty download dir
 # remove unnecessary parts
-find "$MW_CORE_DIR" -type f -name '.*' | xargs -r rm   # all dot files, i.a. '.htaccess'
-find "$MW_CORE_DIR" -type d -name '.phan' | xargs -r rm -rf
+find "$MW_CORE_DIR" -type f -name '.*' -print0 | xargs -0 -r rm   # dot files, i.a. '.htaccess'
+find "$MW_CORE_DIR" -type d -name '.phan' -print0 | xargs -0 -r rm -rf
 rm -rf "$MW_CORE_DIR/tests"
 
 # printf "\nMediaWiki has been downloaded into the dir: '%s'\n" "$MW_CORE_DIR"
