@@ -1,4 +1,4 @@
-;; 2024-10-20
+;; 2024-10-25
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -98,10 +98,7 @@
 ;; ;; U+2070..U+209F Superscripts and Subscripts Unicode block
 ;; (set-fontset-font "fontset-default" '(#x2070 . #x209f) "Noto Sans Mono")
 ;; ;; U+0370..U+03FF Greek and Coptic Unicode block
-;; (set-fontset-font "fontset-default"
-;;                   (cons (decode-char 'ucs #x0370)
-;;                         (decode-char 'ucs #x03ff))
-;;                   "Source Code Pro Bold")
+;; (set-fontset-font "fontset-default" '(#x0370 . #x03ff) "Source Code Pro Bold")
 
 (setq inhibit-eol-conversion t) ; show ^M (DOS end of line)
 (show-paren-mode t)
