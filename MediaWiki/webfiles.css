@@ -1,9 +1,8 @@
 /*
- * 2024-06-26
+ * 2024-10-28
  * https://github.com/musinsky/config/blob/master/MediaWiki/webfiles.css
  *
- * chmod 644       /opt/webfiles/webfiles.css
- * chown root:root /opt/webfiles/webfiles.css
+ * /opt/webfiles/webfiles.css   (644, root:root)
  */
 
 body {
