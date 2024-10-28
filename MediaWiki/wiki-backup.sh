@@ -7,6 +7,7 @@
 
 MWDIR="/opt/mediawiki"
 MWLSF="LocalSettings.php"
+MW_DIR_FILES="$MWDIR/files"
 # parsing between two apostrophes ($wgDBname = "example_wiki"; => example_wiki)
 DBname="$(grep wgDBname     "$MWDIR/$MWLSF" | grep -oP '(?<=").*(?=")')"
 DBuser="$(grep wgDBuser     "$MWDIR/$MWLSF" | grep -oP '(?<=").*(?=")')"
@@ -18,7 +19,7 @@ DUMP="$DBname-dump_$(date +%F)"
 MWSQL="$DUMP.sql"
 MWXML="$DUMP.xml"
 MWUPL="$DUMP.uploads"
-FILES="$DUMP.files"
+MWFLS="$DUMP.$(basename "$MW_DIR_FILES")"
 MWEXT="$DUMP.extensions"
 
 # SQL
@@ -30,20 +31,21 @@ php "$MWDIR/maintenance/dumpBackup.php" --current > "$MWXML"
 # uploaded files (images)
 php "$MWDIR/maintenance/dumpUploads.php" > "$MWUPL"
 # files (local files)
-ls -lR --group-directories-first --time-style="+%F %T" "$MWDIR/files" > "$FILES"
+ls -lR --group-directories-first --time-style="+%F %T" "$MW_DIR_FILES" > "$MWFLS"
 # extensions (dir names)
 ls -ld --time-style="+%F %T" "$MWDIR/extensions"/*/ > "$MWEXT" # don't quotes "*"
 
 # archiving
 tar -chJf "$MWBCP" \
-    "$MWSQL" "$MWXML" "$MWUPL" "$FILES" "$MWEXT" \
+    "$MWSQL" "$MWXML" "$MWUPL" "$MWFLS" "$MWEXT" \
     --exclude="$MWDIR/images/thumb" "$MWDIR/images" "$MWDIR/$MWLSF" \
+    "$MW_DIR_FILES" \
     -C "$(dirname "$0")" "$(basename "$0")" \
     -P /etc/httpd/conf.d/mediawiki.conf \
     /var/www/html/robots.txt \
     /var/www/html/google*.html \
     && printf "'%s' created\n" "$MWBCP"
-rm "$MWSQL" "$MWXML" "$MWUPL" "$FILES" "$MWEXT"
+rm "$MWSQL" "$MWXML" "$MWUPL" "$MWFLS" "$MWEXT"
 chmod 400 "$MWBCP"
 
 # ### webfiles ###
