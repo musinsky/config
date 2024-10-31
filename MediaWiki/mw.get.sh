@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2024-10-22
+# 2024-10-31
 # https://github.com/musinsky/config/blob/master/MediaWiki/mw.get.sh
 
 # https://releases.wikimedia.org/mediawiki/1.42/?C=M;O=D
@@ -8,6 +8,9 @@
 # => mediawiki-1.42.3.tar.gz      ~85M
 # release (tarball) comes with a number of extensions and skins bundled
 # https://www.mediawiki.org/wiki/Bundled_extensions_and_skins
+# Git branches and tags have a bunch of Git submodules (extensions and skins
+# and the 'vendor' directory). The master branch does not have these.
+# https://github.com/wikimedia/mediawiki/blob/REL1_42/.gitmodules
 #
 # https://github.com/wikimedia/mediawiki   (MediaWiki core)
 # https://github.com/wikimedia/mediawiki/archive/refs/heads/master.zip  # development branch
