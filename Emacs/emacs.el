@@ -1,4 +1,4 @@
-;; 2024-10-25
+;; 2024-10-31
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -312,6 +312,10 @@
 ;; apache-mode (package "apache-mode" installed from MELPA repository)
 ;; https://github.com/emacs-php/apache-mode
 ;; M-x apache-mode
+
+;; php-mode (package "php-mode" installed from MELPA repository)
+;; https://github.com/emacs-php/php-mode
+;; M-x php-mode
 
 ;; AUCTeX (package "auctex" installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
