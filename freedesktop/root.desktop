@@ -1,0 +1,13 @@
+# $HOME/.local/share/applications/root.desktop
+# $HOME/.local/share/icons/root.svg
+#
+# /usr/local/share/applications/root.desktop
+# /usr/local/share/icons/hicolor/scalable/apps/root.svg
+
+[Desktop Entry]
+Name=ROOT
+Type=Application
+Icon=root
+Comment=Data analysis framework
+Exec=root
+Terminal=true
