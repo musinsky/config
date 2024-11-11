@@ -1,9 +1,10 @@
+# $HOME/.local/share/applications/eclipse.desktop
+# /usr/local/share/applications/eclipse.desktop
+
 [Desktop Entry]
 Name=Eclipse CDT
 Comment=Eclipse IDE for C/C++ Developers
 Exec=/opt/eclipse/eclipse
-Icon=/opt/eclipse/icon.xpm
-Terminal=false
+Icon=/opt/eclipse/icon
 Type=Application
 Categories=Development;IDE;
-StartupWMClass=Eclipse
