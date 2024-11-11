@@ -1,3 +1,5 @@
+<p align="right">last edit: 2024-11-11</p>
+
 ## Bash shell
 
 ### user
@@ -11,13 +13,6 @@ wget https://raw.githubusercontent.com/musinsky/config/master/bash/bashrc -O "$H
 ```
 /usr/bin/cp -ip /etc/skel/.bashrc "$HOME"
 source "$HOME"/.bashrc
-```
-
-* user dirs
-```
-wget https://raw.githubusercontent.com/musinsky/config/master/bash/user-dirs.dirs -O "$HOME"/.config/user-dirs.dirs
-chmod 600 "$HOME"/.config/user-dirs.dirs
-chown "$USER":"$USER" "$HOME"/.config/user-dirs.dirs
 ```
 
 ### admin
