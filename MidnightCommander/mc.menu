@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2024-09-11
+# 2024-12-06
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -194,6 +194,21 @@ d   compare current two files from two panels (diff + cmp)
 + ! t t & ! T t
 -   recursive diff current two dirs from two panels (meld)
     meld %d %D
+
+=+ ! t t & t n
+r   dnf provides (find rpm package of the current file)
+    # SKIPDIR="$(sed --quiet 's/^HOME=//p' /etc/default/useradd)"   # '/home'
+    SKIPDIR="$(dirname "$HOME")"   # '/home'
+    WORKDIR="$(pwd -P)"   # avoid all symlinks (without trailing slash)
+    FILE="$WORKDIR/%p"
+    if [[ "$WORKDIR" == "$SKIPDIR"* ]]; then   # must be double brackets (only bash)
+        printf "\nFile '%%s' from '%%s' dir (not in rpm package)\n" "$FILE" "$SKIPDIR"
+        read -n 1 -r -s -p "Press any key"
+        exit 1
+    fi
+    printf '\n\x1b[1m$ dnf provides %%s\x1b[0m\n' "$FILE"
+    dnf provides "$FILE"
+    read -n 1 -r -s -p "Press any key"
 
 --- ExifTool ---
     %view
