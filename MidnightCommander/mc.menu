@@ -197,8 +197,10 @@ d   compare current two files from two panels (diff + cmp)
 
 =+ ! t t & t n
 r   dnf provides (find rpm package of the current file)
-    # SKIPDIR="$(sed --quiet 's/^HOME=//p' /etc/default/useradd)"   # '/home'
-    SKIPDIR="$(dirname "$HOME")"   # '/home'
+    SKIPDIR="$(dirname "$HOME")"   # '/home' ('/user/home' or '/afs/cern.ch/user/m')
+    if [ $EUID -eq 0 ]; then   # if root user
+        SKIPDIR="$(sed --quiet 's/^HOME=//p' /etc/default/useradd)"   # '/home'
+    fi
     WORKDIR="$(pwd -P)"   # avoid all symlinks (without trailing slash)
     FILE="$WORKDIR/%p"
     if [[ "$WORKDIR" == "$SKIPDIR"* ]]; then   # must be double brackets (only bash)
