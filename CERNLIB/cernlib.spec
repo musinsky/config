@@ -90,10 +90,8 @@ BuildRequires: tcsh
 BuildRequires: gawk
 
 BuildRequires: desktop-file-utils
-
-%if 0%{?fedora} >= 28
 BuildRequires: libnsl2-devel make
-%endif
+
 
 %if %{with gfortran}
 BuildRequires: gcc-gfortran
@@ -362,9 +360,7 @@ Requires:       lapack blas
 Requires:       lapack-devel blas-devel
 %endif
 
-%if 0%{?fedora} >= 28
 Requires: libnsl2-devel
-%endif
 
 # Motif and X devel libs are indirectly required through xbae
 Requires: xbae-devel
@@ -1543,7 +1539,7 @@ touch --no-create %{_datadir}/icons/hicolor || :
 - fix MXLENG
 - replace strfromd/strfromd9 function name
 - fix printf with flis_name
-- add libnsl2-devel for newer distributions
+- add libnsl2-devel for Fedora28+
 - replace -O2 (or -O3) by -O gcc flags for older distributions
 - cernlib package is now compiling (but not guaranteed to work properly)
 
