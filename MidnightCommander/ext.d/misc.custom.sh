@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2024-07-11
+# 2024-12-11
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -96,8 +96,16 @@ do_view_action() {
         font)
             print_mc_under "=== exiftool ==="
             exiftool "${MC_EXT_FILENAME}" 2>/dev/null
+            printf "\n"; print_mc_under "=== fc-query (formatted) ==="
+            FCQ_FMT="%{file|basename}\t%{family}\t%{style}\t%{fullname}\t"
+            #FCQ_FMT="%{file|basename}\t%{family}\t%{style[0]}\t%{fullname[0]}\t"
+            FCQ_FMT="$FCQ_FMT%{postscriptname}\t%{weight}\t%{variable}\n"
+            # only in bash (not in POSIX sh)
+            fc-query --format="$FCQ_FMT" "${MC_EXT_FILENAME}" | \
+                column --separator $'\t' --output-separator ' | ' --table \
+                       --table-columns FILE,FAMILY,STYLE,FULLNAME,POSTSCRIPTNAME,WEIGHT,VARIABLE
             printf "\n"; print_mc_under "=== fc-query ==="
-            fc-query "${MC_EXT_FILENAME}" 2>/dev/null
+            fc-query --brief "${MC_EXT_FILENAME}" # brief without FC_CHARSET and FC_LANG
             ;;
         certificate)
             print_mc_under "=== openssl (X.509 Certificate) ==="
