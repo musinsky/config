@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2024-12-06
+# 2025-01-10
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -196,21 +196,32 @@ d   compare current two files from two panels (diff + cmp)
     meld %d %D
 
 =+ ! t t & t n
-r   dnf provides (find rpm package of the current file)
-    SKIPDIR="$(dirname "$HOME")"   # '/home' ('/user/home' or '/afs/cern.ch/user/m')
-    if [ $EUID -eq 0 ]; then   # if root user
-        SKIPDIR="$(sed --quiet 's/^HOME=//p' /etc/default/useradd)"   # '/home'
+r   find rpm package that owns the current file
+    %view{nroff}
+    if FRPM=$(rpm --query --file %p); then
+        printf "file: %%s\nrpm:  %%s\n\n" %d/%p "$FRPM"
+        printf "=== package information ===\n"
+        rpm --query --info "$FRPM"
+        # printf "\n=== list files in package ===\n"
+        # rpm --query --list "$FRPM"
+    else
+        printf "%%s\n" "$FRPM" # file XYZ is not owned by any package
     fi
-    WORKDIR="$(pwd -P)"   # avoid all symlinks (without trailing slash)
-    FILE="$WORKDIR/%p"
-    if [[ "$WORKDIR" == "$SKIPDIR"* ]]; then   # must be double brackets (only bash)
-        printf "\nFile '%%s' from '%%s' dir (not in rpm package)\n" "$FILE" "$SKIPDIR"
-        read -n 1 -r -s -p "Press any key"
-        exit 1
-    fi
-    printf '\n\x1b[1m$ dnf provides %%s\x1b[0m\n' "$FILE"
-    dnf provides "$FILE"
-    read -n 1 -r -s -p "Press any key"
+# r   dnf provides (find rpm package of the current file)
+#     SKIPDIR="$(dirname "$HOME")"   # '/home' ('/user/home' or '/afs/cern.ch/user/m')
+#     if [ $EUID -eq 0 ]; then   # if root user
+#         SKIPDIR="$(sed --quiet 's/^HOME=//p' /etc/default/useradd)"   # '/home'
+#     fi
+#     WORKDIR="$(pwd -P)"   # avoid all symlinks (without trailing slash)
+#     FILE="$WORKDIR/%p"
+#     if [[ "$WORKDIR" == "$SKIPDIR"* ]]; then   # must be double brackets (only bash)
+#         printf "\nFile '%%s' from '%%s' dir (not in rpm package)\n" "$FILE" "$SKIPDIR"
+#         read -n 1 -r -s -p "Press any key"
+#         exit 1
+#     fi
+#     printf '\n\x1b[1m$ dnf provides %%s\x1b[0m\n' "$FILE"
+#     dnf provides "$FILE"
+#     read -n 1 -r -s -p "Press any key"
 
 --- ExifTool ---
     %view
