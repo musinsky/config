@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2024-12-11
+# 2025-01-15
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -96,15 +96,17 @@ do_view_action() {
         font)
             print_mc_under "=== exiftool ==="
             exiftool "${MC_EXT_FILENAME}" 2>/dev/null
-            printf "\n"; print_mc_under "=== fc-query (formatted) ==="
+            printf "\n"; print_mc_under "=== fc-query (custom format) ==="
             FCQ_FMT="%{file|basename}\t%{family}\t%{style}\t%{fullname}\t"
-            #FCQ_FMT="%{file|basename}\t%{family}\t%{style[0]}\t%{fullname[0]}\t"
-            FCQ_FMT="$FCQ_FMT%{postscriptname}\t%{weight}\t%{variable}\n"
+            #FCQ_FMT="%{file|basename}\t%{family[0]}\t%{style[0]}\t%{fullname[0]}\t"
+            FCQ_FMT="${FCQ_FMT}%{postscriptname}\t%{weight}\t%{slant}\t%{variable}\n"
+            TAB_COL="FILE,FAMILY,STYLE,FULLNAME"
+            TAB_COL="${TAB_COL},POSTSCRIPTNAME,WEIGHT,SLANT,VARIABLE"
             # only in bash (not in POSIX sh)
             fc-query --format="$FCQ_FMT" "${MC_EXT_FILENAME}" | \
                 column --separator $'\t' --output-separator ' | ' --table \
-                       --table-columns FILE,FAMILY,STYLE,FULLNAME,POSTSCRIPTNAME,WEIGHT,VARIABLE
-            printf "\n"; print_mc_under "=== fc-query ==="
+                       --table-columns "$TAB_COL"
+            printf "\n"; print_mc_under "=== fc-query (brief) ==="
             fc-query --brief "${MC_EXT_FILENAME}" # brief without FC_CHARSET and FC_LANG
             ;;
         certificate)
