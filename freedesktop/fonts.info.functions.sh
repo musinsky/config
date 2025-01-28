@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2025-01-15
+# 2025-01-28
 # https://github.com/musinsky/config/blob/master/freedesktop/fonts.info.functions.sh
 
 # https://www.freedesktop.org/software/fontconfig/fontconfig-user.html
@@ -39,7 +39,7 @@ font_auto_file_name() {
 
     # query only first value of family/style, see multi-language property of font
     fc-query --format="%{family[0]|delete( )}-%{style[0]|delete( )}\n" "$ff" # delete spaces
-    return 0 # return value can be checked
+    # return value (exit value of the last executed command) can be checked
 }
 font_version() {
     # get font version
@@ -54,7 +54,7 @@ font_version() {
     # https://stackoverflow.com/q/30613236
     fc-query --format="%{fontversion}\n" "$ff" | perl -e 'printf "%.2f\n", <>/65536.0'
     # if multi-line output (Variable Font) perl execute only one (first) line
-    return 0 # return value can be checked
+    # return value (exit value of the last executed command) can be checked
 }
 font_property_lang() {
     # Do not confuse '{property}lang' with 'lang'
