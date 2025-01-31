@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # 2025-01-31
+# https://github.com/musinsky/config/blob/master/freedesktop/fonts.find.copy.sh
 
 copy_font_file() {
     local ff_src_full="$1" # [source] font file (full dir/file)
