@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2025-01-31
+# 2025-02-04
 # https://github.com/musinsky/config/blob/master/freedesktop/fonts.find.copy.sh
 
 copy_font_file() {
@@ -49,6 +49,9 @@ LINUX_FONTS_DIR="/usr/share/fonts"         # $XDG_DATA_DIRS/fonts, admin
 LINUX_FONTS_DIR="/usr/local/share/fonts"   # $XDG_DATA_DIRS/fonts, admin (recommended)
 LINUX_FONTS_DIR="$HOME/.local/share/fonts" # $XDG_DATA_HOME/fonts, user (recommended)
 
+DOWNLOADS_DIR="/home/musinsky/Downloads"
+DOWNLOADS_DIR="$HOME/Downloads"
+
 ########## MS Windows Fonts ##########
 # https://learn.microsoft.com/en-us/typography/fonts/windows_10_font_list
 # https://learn.microsoft.com/en-us/typography/fonts/windows_11_font_list
@@ -93,7 +96,7 @@ fonts_summary "$FONTS_DIR"
 # https://www.microsoft.com/en-us/download/details.aspx?id=106087
 # file 'Microsoft Aptos Fonts.zip' (ver: 4.40, date: 6/4/2024, 2979784 bytes)
 
-APTOS_ZIP="$HOME/Downloads/Microsoft Aptos Fonts.zip" # download in browser
+APTOS_ZIP="$DOWNLOADS_DIR/Microsoft Aptos Fonts.zip" # download in browser
 [ -r "$APTOS_ZIP" ] || { printf "cannot read file '%s'\n" "$APTOS_ZIP" 1>&2; exit 1; }
 TMP_DIR="$(mktemp -d)" || exit 1
 unzip -q "$APTOS_ZIP" -d "$TMP_DIR" || exit 1
@@ -110,7 +113,7 @@ rm -rf "$TMP_DIR"
 # $ wget -O Caveat.zip https://fonts.google.com/download?family=Caveat # will not work
 # Google changed rules (2024-03), https://github.com/google/fonts/issues/7481
 
-GFONTS_ZIP="$HOME/Downloads/Caveat,Caveat_Brush,Exo_2,Shantell_Sans.zip" # download in browser
+GFONTS_ZIP="$DOWNLOADS_DIR/Caveat,Caveat_Brush,Exo_2,Shantell_Sans.zip" # download in browser
 [ -r "$GFONTS_ZIP" ] || { printf "cannot read file '%s'\n" "$GFONTS_ZIP" 1>&2; exit 1; }
 TMP_DIR="$(mktemp -d)" || exit 1
 unzip -q "$GFONTS_ZIP" -d "$TMP_DIR" || exit 1
