@@ -1,4 +1,4 @@
-# 20254-03-11
+# 2025-03-11
 # https://github.com/musinsky/config/blob/master/bash/muke-profile.sh
 
 function __muke_var_value {
