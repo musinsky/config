@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       48%{?dist}
+Release:       49%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -935,6 +935,12 @@ G_LDFLAGS='-Wl,--build-id'
 FC_COMPILER=g77
 %endif
 
+# 2025-04-15 gcc15 (after fortran optflags)
+%if 0%{?gcc_dump_ver} >= 15
+%global optflags -std=gnu17 %{optflags}
+%endif
+
+
 PATHSAVE=$PATH
 # Build patchy version 4
 pushd ../patchy
@@ -1503,11 +1509,15 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %{_bindir}/ytobin
 %{_bindir}/ytoceta
 %{_mandir}/man1/ny*.1*
-%{_mandir}/man1/yexpand.1* 
+%{_mandir}/man1/yexpand.1*
 %{_mandir}/man1/ypatchy.1*
 %endif
 
 %changelog
+* Tue Apr 15 2025 Jan Musinsky <musinsky@gmail.com> - 2006-49
+- gcc 15 support, Fedora 42
+- not yet completely, bug in gcc (15.0.1 20250329)
+
 * Mon Oct 07 2024 Jan Musinsky <musinsky@gmail.com> - 2006-48
 - fix octothorp in comments, Fedora 41
 
