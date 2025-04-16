@@ -1,4 +1,4 @@
-;; 2024-10-31
+;; 2025-04-16
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -287,6 +287,10 @@
   ;; (add-to-list 'package-archives
   ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   (package-initialize))
+
+;; M-x package-install-selected-packages
+(setq package-selected-packages
+      '(apache-mode flycheck markdown-mode php-mode sql-indent))
 
 ;; CMake
 ;; "cmake-data.rpm" provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
