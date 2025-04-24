@@ -1,4 +1,4 @@
-# 2024-01-24
+# 2025-04-24
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 
 ### default (file '/etc/skel/.bashrc') ###
@@ -68,6 +68,35 @@ alias unix2dos='unix2dos -k'
 alias root='root --version && root -l --web=off'
 # source /cern/root_v5-34-00-patches/bin/thisroot.sh
 # alias root='root -l'
+
+# mukeds_opt='--rsh="ssh -p 75" --rsync-path="/usr/local/bin/rsync" '
+# mukeds_opt+='--archive --delete --backup --backup-dir="/tmp/BackupDir$(date +_%F_%T)" '
+# mukeds_opt+='--exclude="@eaDir" --itemize-changes '
+# mukeds_opt+='--progress --stats --remote-option=--log-file="/tmp/RSYNC.LOG"'
+# alias rsync-mukeds="rsync $mukeds_opt"
+# unset mukeds_opt
+# _completion_loader rsync   # /usr/share/bash-completion/completions/rsync
+# complete -o nospace -F _comp_cmd_rsync rsync rsync-mukeds
+# # bash completion issue with alias 'rsync-mukeds'
+# # https://github.com/scop/bash-completion/issues/1370
+
+# https://superuser.com/q/354361
+# https://mywiki.wooledge.org/BashFAQ/050
+# https://www.shellcheck.net/wiki/SC2089
+#
+# $ rsync "${MUKEDS_OPT[@]}" user-admin@dsm.host:/etc/ssh/
+MUKEDS_OPT=('--rsh=ssh -p 75' --rsync-path=/usr/local/bin/rsync)
+MUKEDS_OPT+=(--remote-option=--log-file=/tmp/RSYNC.LOG)
+MUKEDS_OPT+=(--archive --exclude=@eaDir)
+MUKEDS_OPT+=(--delete --backup --backup-dir=/tmp/BACKUP_RSYNC)
+MUKEDS_OPT+=(--itemize-changes --progress --stats)
+export MUKEDS_OPT   # bash, POSIX sh has no arrays
+#
+# MUKEDS_OPT+=('--backup-dir=/tmp/BackupDir$(date +_%F_%T)')   # will not work
+# rsync --debug=ALL => --backup-dir "/tmp/BackupDir\$\(date\ +_%F_%T\)"
+# on receiver       => dir  '/tmp/BackupDir$(date +_%F_%T)'
+# see function 'char *safe_arg(const char *opt, const char *arg)'
+# in https://github.com/RsyncProject/rsync/blob/master/options.c file
 
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
