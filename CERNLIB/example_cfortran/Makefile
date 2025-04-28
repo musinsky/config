@@ -1,9 +1,18 @@
-# 2023-07-25
+# 2025-04-28
 
+# GCC 15 (released 2025-04) changes '-std=gnu17' to '-std=gnu23'
+# CERNLIB not compile with C language standard '-std=gnu23'
 GCC		= gcc
+GCC_MAJOR	= $(shell $(GCC) -dumpversion | cut -f1 -d '.')
+#$(info GCC_MAJOR is $(GCC_MAJOR))
+GCC_MORE_15	= $(shell [ $(GCC_MAJOR) -ge 15 ] && echo "yes")
+#$(info GCC_MORE_15 is $(GCC_MORE_15))
 GFC		= gfortran
 CEXT		= c
-GCCFLAGS	=
+ifeq "$(GCC_MORE_15)" "yes"
+GCCFLAGS	=-std=gnu17
+endif
+GCCFLAGS	+=
 GFCFLAGS	=
 CERNLIBINC	= '/usr/include/cernlib/2006'
 
