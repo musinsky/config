@@ -1,15 +1,16 @@
 # 2025-04-28
 
-# GCC 15 (released 2025-04) changes '-std=gnu17' to '-std=gnu23'
+# GCC 15 (released 2025-04) changes from '-std=gnu17' to '-std=gnu23'
 # CERNLIB not compile with C language standard '-std=gnu23'
 GCC		= gcc
 GCC_MAJOR	= $(shell $(GCC) -dumpversion | cut -f1 -d '.')
 #$(info GCC_MAJOR is $(GCC_MAJOR))
-GCC_MORE_15	= $(shell [ $(GCC_MAJOR) -ge 15 ] && echo "yes")
-#$(info GCC_MORE_15 is $(GCC_MORE_15))
+GCC_15_OR_MORE	= $(shell expr $(GCC_MAJOR) \>= 15)
+#$(info GCC_15_OR_MORE is $(GCC_15_OR_MORE))
 GFC		= gfortran
 CEXT		= c
-ifeq "$(GCC_MORE_15)" "yes"
+ifeq ($(GCC_15_OR_MORE),1)
+#$(info CERNLIB will not compile for C standard greater than 17)
 GCCFLAGS	=-std=gnu17
 endif
 GCCFLAGS	+=
