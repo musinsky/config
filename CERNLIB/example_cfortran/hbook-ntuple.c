@@ -1,5 +1,5 @@
 /*
- * 2023-07-25, Jan Musinsky, last test on Fedora 38 (gcc 13.1.1) Linux x86_64
+ * 2025-04-28, Jan Musinsky, last test on Fedora 42 (gcc 15.1.1) Linux x86_64
  *
  * gcc -c hbook-ntuple.c -I/usr/include/cernlib/2006
  * gfortran -o hbook-ntuple hbook-ntuple.o $(cernlib packlib)
