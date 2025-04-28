@@ -1514,9 +1514,10 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
-* Tue Apr 15 2025 Jan Musinsky <musinsky@gmail.com> - 2006-49
+* Mon Apr 28 2025 Jan Musinsky <musinsky@gmail.com> - 2006-49
 - gcc 15 support, Fedora 42
-- not yet completely, bug in gcc (15.0.1 20250329)
+- gcc 15.0.1 20250329 with bug in gfortran
+- gcc 15.1.1 20250425 successful compilation
 
 * Mon Oct 07 2024 Jan Musinsky <musinsky@gmail.com> - 2006-48
 - fix octothorp in comments, Fedora 41
