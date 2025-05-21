@@ -1,4 +1,4 @@
-;; 2025-04-16
+;; 2025-05-21
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -290,7 +290,7 @@
 
 ;; M-x package-install-selected-packages
 (setq package-selected-packages
-      '(apache-mode flycheck markdown-mode php-mode sql-indent))
+      '(apache-mode flycheck markdown-mode php-mode rpm-spec-mode sql-indent))
 
 ;; CMake
 ;; "cmake-data.rpm" provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
