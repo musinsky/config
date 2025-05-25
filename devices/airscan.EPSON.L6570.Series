@@ -1,5 +1,7 @@
 # 2025-05-24
 
+# /etc/sane.d/airscan.conf untouched
+
 === airscan ===
 $ airscan-discover   # LAN BJ K30
 [devices]
