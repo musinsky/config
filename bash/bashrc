@@ -1,4 +1,4 @@
-# 2025-04-24
+# 2025-05-29
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 
 ### default (file '/etc/skel/.bashrc') ###
@@ -60,6 +60,7 @@ alias llt-full='ls -l --time-style="+%F %T.%N %:z"' # full-time/full-iso equival
 #tsf_newline=$'\n'   # bash ANSI-C Quoting
 #alias llt='ls -l --time-style="+%F %H:%M:%S $tsf_newline%F %H:%M:%S^"'
 
+alias dnf='sudo dnf'
 alias cp='cp -p'
 alias scp='scp -p'
 alias sftp='sftp -p'
