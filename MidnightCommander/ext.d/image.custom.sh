@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2025-06-02
+# 2025-06-05
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/image.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/image.sh
 
@@ -38,9 +38,11 @@ do_view_action() {
             print_mc_under "=== file ==="
             file "${MC_EXT_FILENAME}"
             printf "\n"; print_mc_under "=== identify ==="
+            # https://imagemagick.org/script/escape.php
+            # https://imagemagick.org/script/fx.php
             identify -version | head --lines 1
             identify "${MC_EXT_FILENAME}"
-            identify -units PixelsPerInch -format "%M %m compression quality: %Q, depth: %z-bit, class and colorspace: %r, DPI: %[fx:round(resolution.x)]x%[fx:round(resolution.y)] (print size: %[fx:printsize.x*2.54]x%[fx:printsize.y*2.54] cm)\n" "${MC_EXT_FILENAME}"
+            identify -units PixelsPerInch -format "%M %m compression type (quality): %C (%Q), depth: %z-bit, class and colorspace: %r, DPI: %[fx:round(resolution.x)]x%[fx:round(resolution.y)] (print size: %[fx:resolution.x>1?round(printsize.x*25.4):0]x%[fx:resolution.y>1?round(printsize.y*25.4):0] mm)\n" "${MC_EXT_FILENAME}"
             # printf "\n"; print_mc_under "=== exiftool ==="
             # exiftool "${MC_EXT_FILENAME}"
             # printf "\n"; print_mc_under "=== mediainfo ==="
