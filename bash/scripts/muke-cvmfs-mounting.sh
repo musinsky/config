@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# 2025-06-19
+# 2025-06-20
 # https://github.com/musinsky/config/blob/master/bash/scripts/muke-cvmfs-mounting.sh
 
 print_status_usage() {
     # 1st) status
-    printf 'List of cvmfs repositories:\n'
+    printf 'List of available cvmfs repositories:\n'
     printf '%s\n' "${CVMFS_REPOS[@]}"
     printf '\nList of mounted cvmfs repositories:\n'
     findmnt --source cvmfs2 || printf 'none cvmfs repository mounted\n'
