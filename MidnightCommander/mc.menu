@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2025-01-10
+# 2025-06-30
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -48,7 +48,7 @@ x   extract the current compressed tar file to subdirectory
     # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
 
 + t r | t t
-g   gzip or gunzip selected file(s)
+4   gzip or gunzip selected file(s)
     for ifile in %s ; do
         case "$ifile" in
             *.gz|*.[zZ]) gzip --verbose --decompress "$ifile";;
@@ -56,7 +56,16 @@ g   gzip or gunzip selected file(s)
         esac
     done
 
-z   zip selected file(s) or dir(s)
++ t r | t t
+5   xz   or unxz   selected file(s)
+    for ifile in %s ; do
+        case "$ifile" in
+            *.xz) xz --verbose --decompress "$ifile";;
+            *)    xz --verbose "$ifile";;
+        esac
+    done
+
+6   zip selected file(s) or dir(s)
     if [ "%s" = ".." ]; then
         printf "Don't try compress (zip) parent directory '..'\n"
         exit 1
