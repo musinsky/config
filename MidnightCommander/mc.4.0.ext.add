@@ -1,4 +1,4 @@
-# 2024-07-10
+# 2025-07-29
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
@@ -6,17 +6,17 @@
 
 ### Documents ###
 [rtf]
-# override default 'rtf' section
+# will be merged with default 'rtf' section
 Shell=.rtf
 ShellIgnoreCase=true
 View=%view{ascii} /usr/libexec/mc/ext.d/doc.sh view msdoc
 
 ### Images ###
-[webp]
-# override default 'webp' section from mc v4.8.31+
-Shell=.webp
-ShellIgnoreCase=true
-Include=image
+[tiff2]
+# section with higher priority than default 'tiff' section
+Type=^TIFF
+Open=/usr/libexec/mc/ext.d/image.sh open ALL_FORMATS
+View=%view{ascii} /usr/libexec/mc/ext.d/image.sh view tiff
 
 ### Video ###
 [Blu-ray]
@@ -59,10 +59,12 @@ View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate-crl
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate
 
 ### Other ###
-[ipk2]
-# override default 'ipk' section
+[ipk-enigma]
+# section with higher priority than default 'ipk' sections
 Shell=.ipk
 ShellIgnoreCase=false
 Open=%cd %p/uar://
+#Open=%cd %p/u7z://
+View=%view{ascii} /usr/libexec/mc/ext.d/archive.sh view 7z
 
 ### End of additional entries ###
