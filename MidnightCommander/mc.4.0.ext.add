@@ -12,6 +12,12 @@ ShellIgnoreCase=true
 View=%view{ascii} /usr/libexec/mc/ext.d/doc.sh view msdoc
 
 ### Images ###
+[png2]
+# section with higher priority than default 'png' section
+Type=^PNG
+Open=/usr/libexec/mc/ext.d/image.sh open ALL_FORMATS
+View=%view{ascii} /usr/libexec/mc/ext.d/image.sh view png
+
 [tiff2]
 # section with higher priority than default 'tiff' section
 Type=^TIFF

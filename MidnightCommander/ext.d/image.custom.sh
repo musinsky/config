@@ -62,6 +62,11 @@ do_view_action() {
 
     # additional info for specific image type
     case "${filetype}" in
+        png)
+            printf "\n"; print_mc_under "=== pngcheck ==="
+            check_command pngcheck pngcheck
+            pngcheck -tv "${MC_EXT_FILENAME}" | grep --invert-match 'chunk IDAT'
+            ;;
         tiff)
             printf "\n"; print_mc_under "=== tiffinfo ==="
             check_command tiffinfo libtiff-tools
