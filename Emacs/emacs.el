@@ -1,4 +1,4 @@
-;; 2025-05-21
+;; 2025-08-11
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -39,12 +39,12 @@
 ;; describe the character at cursor position (charset, font name, etc)
 ;; C-u C-x = (bound) C-u M-x what-cursor-position (or M-x describe-char)
 
-;;(set-frame-font "DejaVu Sans Mono-9") ; or via face-s (see below)
+(set-frame-font "Source Code Pro Medium-10") ; or via face-s (see below)
 ;; https://www.emacswiki.org/emacs/FrameSize
 ;; https://www.emacswiki.org/emacs/FrameTitle
 (when (display-graphic-p) ; don't set-frame-size in text terminal
   (set-frame-position (selected-frame) -1 0) ; in pixels (0 0 is left top)
-  (set-frame-size (selected-frame) 105 60)   ; in characters (set font before)
+  (set-frame-size (selected-frame) 105 52)   ; in characters (set font before)
   (setq frame-title-format
         '((:eval (if (buffer-file-name)
                      (abbreviate-file-name (buffer-file-name))
