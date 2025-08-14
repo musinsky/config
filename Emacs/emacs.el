@@ -1,4 +1,4 @@
-;; 2025-08-11
+;; 2025-08-15
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -385,5 +385,17 @@
 ;; BibTeX (bundled with Emacs)
 (setq bibtex-user-optional-fields
       '(("language" "Language for current bibitem")))
+
+;; WSLg breaks copy paste from Emacs into Windows
+;; https://www.lukas-barth.net/blog/emacs-wsl-copy-clipboard/
+;; https://gitlab.com/shilling.jake/dotfiles/-/blob/master/home/emacs/emacs/init.el
+(defconst is-wsl
+  (and (eq system-type 'gnu/linux)
+       (string-match-p "microsoft" (shell-command-to-string "uname -a"))))
+(when is-wsl
+  (setq select-active-regions nil
+        select-enable-clipboard 't
+        select-enable-primary nil
+        interprogram-cut-function #'gui-select-text))
 
 ;; Emacs customize (options saved by emacs)
