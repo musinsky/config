@@ -1,4 +1,4 @@
-;; 2025-08-15
+;; 2025-08-27
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -24,15 +24,22 @@
 ;; M-q (bound) M-x fill-paragraph      => justify region
 ;; C-\ (bound) M-x toggle-input-method => multilingual text input
 ;; C-q (bound) M-x quoted-insert       => insert control char (<TAB>, <^C>, <^[>)
+;;             M-x goto-address-mode   => activate URLs
 ;;
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Rectangles.html
 ;; C-x SPC (bound) M-x rectangle-mark-mode => rectangle (columns) select
 ;; C-x SPC (rectangle mark mode) C-t       => string rectangle (columns replace)
+;;     C-x r N (rectangle-number-lines)    => insert line numbers along the left edge
+;; C-u C-x r N => if invoked with prefix argument (C-u), prompt for formatting
 ;;
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/CUA-Bindings.html
 ;; M-x cua-mode => use CUA keys (C-x, C-c, C-v, etc)
 ;; C-RET        => start CUA enhanced rectangle support (in CUA mode)
 ;;
-;; M-x goto-address-mode => activate URLs
-
+;; To enter an Emacs command like C-x C-f while the mark is active, use one of
+;; the following methods: either hold Shift together with the prefix key, e.g.,
+;; S-C-x C-f, or quickly (< 0.2s) type the prefix key twice, e.g., C-x C-x C-f.
+;;
 ;; C-u => prefix argument, https://www.emacswiki.org/emacs/PrefixArgument
 ;; print the buffer (or region) to PostScript file (see below)
 ;; C-u M-x ps-print-buffer-with-faces (with-faces include color)
