@@ -1,3 +1,4 @@
+# 2025-09-09
 # GNOME 46
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
@@ -18,6 +19,7 @@ gsettings set org.gnome.desktop.interface clock-format '24h'
 #gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'                    # Cantarell 11
 #gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
 gsettings set org.gnome.desktop.interface show-battery-percentage true
+gsettings set org.gnome.desktop.interface enable-hot-corners false
 
 gsettings set org.gnome.desktop.privacy remember-app-usage false
 gsettings set org.gnome.desktop.privacy remember-recent-files false
