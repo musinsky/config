@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       49%{?dist}
+Release:       50%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
