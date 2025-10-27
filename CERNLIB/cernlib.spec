@@ -940,7 +940,6 @@ FC_COMPILER=g77
 %global optflags -std=gnu17 %{optflags}
 %endif
 
-
 PATHSAVE=$PATH
 # Build patchy version 4
 pushd ../patchy
@@ -1016,6 +1015,13 @@ sed -i 's/ArExtCmd ArCmdBase xl/ArExtCmd ArCmdBase x/g'   config/Imake.tmpl
 # be careful with sed (4 spaces and *)
 #sed -i "s/char\s\{4,\}\*prompt/const char    *prompt/g" packlib/cspack/tcpaw/tcpaw.c
 sed -i "s/char    \*prompt/const char    *prompt/g" packlib/cspack/tcpaw/tcpaw.c
+
+# 2025-10-27 glibc-2.42 (replaced obsolete <termio.h> with <termios.h> and <sys/ioctl.h>)
+sed -i "s~<termio.h>~<termios.h>\n#include <sys/ioctl.h>~g" packlib/cspack/tcpaw/tcpaw.c
+sed -i "s~<termio.h>~<termios.h>\n#include <sys/ioctl.h>~g" packlib/cspack/tcpaw/tcpold.c
+sed -i "s/struct termio/struct termios/g" packlib/cspack/tcpaw/tcpaw.c
+sed -i "s/struct termio/struct termios/g" packlib/cspack/tcpaw/tcpold.c
+#sed -i "s/<termio.h>/<termios.h>/g" packlib/kuip/code_kuip/getline.c
 
 
 # Create the top level Makefile with imake
@@ -1514,6 +1520,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Mon Oct 27 2025 Jan Musinsky <musinsky@gmail.com> - 2006-50
+- glibc-2.42 support, Fedora 43
+
 * Mon Apr 28 2025 Jan Musinsky <musinsky@gmail.com> - 2006-49
 - gcc 15 support, Fedora 42
 - gcc 15.0.1 20250329 with bug in gfortran
