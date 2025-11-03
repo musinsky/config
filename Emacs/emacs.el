@@ -1,4 +1,4 @@
-;; 2025-08-27
+;; 2025-11-03
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -279,9 +279,9 @@
 
 (defun display-ansi-colors ()
   "Colorize the full buffer containing SGR control sequences"
-  (require 'ansi-color)
   (interactive)
-  (ansi-color-apply-on-region (point-min) (point-max)))
+  (require 'ansi-color)
+  (ansi-color-apply-on-region (point-min) (point-max) t))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html
 ;; M-x list-packages (or alias) M-x package-list-packages
