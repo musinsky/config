@@ -1,4 +1,4 @@
-;; 2025-11-03
+;; 2025-11-04
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -297,7 +297,7 @@
 
 ;; M-x package-install-selected-packages
 (setq package-selected-packages
-      '(apache-mode flycheck markdown-mode php-mode rpm-spec-mode sql-indent))
+      '(apache-mode flycheck htmlize markdown-mode php-mode rpm-spec-mode sql-indent))
 
 ;; CMake
 ;; "cmake-data.rpm" provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
@@ -311,6 +311,10 @@
 ;; https://github.com/joaotavora/eglot
 ;; M-x eglot   # "clangd" ("clang-tools-extra.rpm") is required for C/C++ support
 ;; Emacs 29.1 (2023-07) with built-in Eglot package
+
+;; htmlize (package "htmlize" installed from from MELPA repository)
+;; https://github.com/emacsorphanage/htmlize
+;; https://www.gnu.org/software/emacs/manual/html_mono/htmlfontify.html
 
 ;; Markdown Mode (package "markdown-mode" installed from MELPA repository)
 ;; https://jblevins.org/projects/markdown-mode/
