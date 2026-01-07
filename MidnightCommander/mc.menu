@@ -9,8 +9,13 @@ shell_patterns=1
     printf "Choose any compression method from menu (all with default \
             compression level).\n"
 
+=+ f *.tar | f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz & t rl & ! t t
+x   extract the current compressed tar file to subdirectory
+    tar --one-top-level -xvf %f
+    # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
+
 + ! t t
-1   archive and compress the current dir (tar.gz)
+1   current dir => tar.gz (archive and compress)
     BNDIR=$(basename %d)
     printf "Name of the compressed file (without .tar.gz extension) [$BNDIR]: "
     read TARNAME
@@ -21,7 +26,7 @@ shell_patterns=1
         && printf "../$TARNAME.tar.gz created\n"
 
 + ! t t
-2   archive and compress the current dir (tar.xz)
+2   current dir => tar.xz (archive and compress)
     BNDIR=$(basename %d)
     printf "Name of the compressed file (without .tar.xz extension) [$BNDIR]: "
     read TARNAME
@@ -32,7 +37,7 @@ shell_patterns=1
         && printf "../$TARNAME.tar.xz created\n"
 
 + ! t t
-3   archive only the current dir (tar)
+3   current dir => tar    (archive only)
     BNDIR=$(basename %d)
     printf "Name of the archived file (without .tar extension) [$BNDIR]: "
     read TARNAME
@@ -42,57 +47,7 @@ shell_patterns=1
         && chmod 0444 "$TARNAME.tar" \
         && printf "../$TARNAME.tar created\n"
 
-=+ f *.tar | f *.tar.gz | f *.tgz | f *.tar.Z | f *.tar.bz2 | f *.tar.xz & t rl & ! t t
-x   extract the current compressed tar file to subdirectory
-    tar --one-top-level -xvf %f
-    # GNU tar 1.28 (2014-07-28) with new option "--one-top-level"
-
-+ t r | t t
-4   gzip or gunzip selected file(s)
-    for ifile in %s ; do
-        case "$ifile" in
-            *.gz|*.[zZ]) gzip --verbose --decompress "$ifile";;
-            *)           gzip --verbose "$ifile";;
-        esac
-    done
-
-+ t r | t t
-5   xz   or unxz   selected file(s)
-    for ifile in %s ; do
-        case "$ifile" in
-            *.xz) xz --verbose --decompress "$ifile";;
-            *)    xz --verbose "$ifile";;
-        esac
-    done
-
-6   zip selected file(s) or dir(s)
-    if [ "%s" = ".." ]; then
-        printf "Don't try compress (zip) parent directory '..'\n"
-        exit 1
-    fi
-    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
-    printf "Name of the zip file (without .zip extension) [$PACKUNIQ]: "
-    read PACKNAME
-    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
-    zip -r --quiet "$PACKNAME.zip" %s \
-        && printf "$PACKNAME.zip created\n" \
-        && printf "%u" > /dev/null # files are untagged
-
-7   7z  selected file(s) or dir(s)
-    if [ "%s" = ".." ]; then
-        printf "Don't try compress (7z) parent directory '..'\n"
-        exit 1
-    fi
-    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
-    printf "Name of the 7z file (without .7z extension) [$PACKUNIQ]: "
-    read PACKNAME
-    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
-    7za a -bd -bso0 "$PACKNAME.7z" %s \
-        && printf "$PACKNAME.7z created\n" \
-        && printf "%u" > /dev/null # files are untagged
-
-
--   tar.gz selected file(s) or dir(s)
+4   selected file(s) or dir(s) => tar.gz
     if [ "%s" = ".." ]; then
         printf "Don't try compress (tar.gz) parent directory '..'\n"
         exit 1
@@ -105,7 +60,7 @@ x   extract the current compressed tar file to subdirectory
         && printf "$PACKNAME.tar.gz created\n" \
         && printf "%u" > /dev/null # files are untagged
 
--   tar.xz selected file(s) or dir(s)
+5   selected file(s) or dir(s) => tar.xz
     if [ "%s" = ".." ]; then
         printf "Don't try compress (tar.xz) parent directory '..'\n"
         exit 1
@@ -117,6 +72,50 @@ x   extract the current compressed tar file to subdirectory
     tar -cJf "$PACKNAME.tar.xz" %s \
         && printf "$PACKNAME.tar.xz created\n" \
         && printf "%u" > /dev/null # files are untagged
+
+6   selected file(s) or dir(s) => zip
+    if [ "%s" = ".." ]; then
+        printf "Don't try compress (zip) parent directory '..'\n"
+        exit 1
+    fi
+    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    printf "Name of the zip file (without .zip extension) [$PACKUNIQ]: "
+    read PACKNAME
+    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
+    zip -r --quiet "$PACKNAME.zip" %s \
+        && printf "$PACKNAME.zip created\n" \
+        && printf "%u" > /dev/null # files are untagged
+
+7   selected file(s) or dir(s) => 7z
+    if [ "%s" = ".." ]; then
+        printf "Don't try compress (7z) parent directory '..'\n"
+        exit 1
+    fi
+    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    printf "Name of the 7z file (without .7z extension) [$PACKUNIQ]: "
+    read PACKNAME
+    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
+    7za a -bd -bso0 "$PACKNAME.7z" %s \
+        && printf "$PACKNAME.7z created\n" \
+        && printf "%u" > /dev/null # files are untagged
+
++ t r | t t
+8   individual selected file(s) => gzip or gunzip
+    for ifile in %s ; do
+        case "$ifile" in
+            *.gz|*.[zZ]) gzip --verbose --decompress "$ifile";;
+            *)           gzip --verbose "$ifile";;
+        esac
+    done
+
++ t r | t t
+9   individual selected file(s) => xz   or unxz
+    for ifile in %s ; do
+        case "$ifile" in
+            *.xz) xz --verbose --decompress "$ifile";;
+            *)    xz --verbose "$ifile";;
+        esac
+    done
 
 --- Utility ---
     %view
