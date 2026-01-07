@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2025-06-30
+# 2026-01-07
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -89,6 +89,33 @@ x   extract the current compressed tar file to subdirectory
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
     7za a -bd -bso0 "$PACKNAME.7z" %s \
         && printf "$PACKNAME.7z created\n" \
+        && printf "%u" > /dev/null # files are untagged
+
+
+-   tar.gz selected file(s) or dir(s)
+    if [ "%s" = ".." ]; then
+        printf "Don't try compress (tar.gz) parent directory '..'\n"
+        exit 1
+    fi
+    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    printf "Name of the tar.gz file (without .tar.gz extension) [$PACKUNIQ]: "
+    read PACKNAME
+    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
+    tar -czf "$PACKNAME.tar.gz" %s \
+        && printf "$PACKNAME.tar.gz created\n" \
+        && printf "%u" > /dev/null # files are untagged
+
+-   tar.xz selected file(s) or dir(s)
+    if [ "%s" = ".." ]; then
+        printf "Don't try compress (tar.xz) parent directory '..'\n"
+        exit 1
+    fi
+    PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    printf "Name of the tar.xz file (without .tar.xz extension) [$PACKUNIQ]: "
+    read PACKNAME
+    [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
+    tar -cJf "$PACKNAME.tar.xz" %s \
+        && printf "$PACKNAME.tar.xz created\n" \
         && printf "%u" > /dev/null # files are untagged
 
 --- Utility ---
