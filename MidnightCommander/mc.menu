@@ -53,6 +53,7 @@ x   extract the current compressed tar file to subdirectory
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    [ "%s" = "%f" ] && PACKUNIQ="%f"       # pack name is current file name
     printf "Name of the tar.gz file (without .tar.gz extension) [$PACKUNIQ]: "
     read PACKNAME
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
@@ -66,6 +67,7 @@ x   extract the current compressed tar file to subdirectory
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    [ "%s" = "%f" ] && PACKUNIQ="%f"       # pack name is current file name
     printf "Name of the tar.xz file (without .tar.xz extension) [$PACKUNIQ]: "
     read PACKNAME
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
@@ -79,6 +81,7 @@ x   extract the current compressed tar file to subdirectory
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    [ "%s" = "%f" ] && PACKUNIQ="%f"       # pack name is current file name
     printf "Name of the zip file (without .zip extension) [$PACKUNIQ]: "
     read PACKNAME
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
@@ -92,6 +95,7 @@ x   extract the current compressed tar file to subdirectory
         exit 1
     fi
     PACKUNIQ="pack_$(date +%%F_%%H%%M%%S)" # unique pack name
+    [ "%s" = "%f" ] && PACKUNIQ="%f"       # pack name is current file name
     printf "Name of the 7z file (without .7z extension) [$PACKUNIQ]: "
     read PACKNAME
     [ "$PACKNAME"x = x ] && PACKNAME="$PACKUNIQ" # if $PACKNAME is empty
@@ -299,21 +303,21 @@ c   clear (echo 3) cached RAM (only as root)
 
 d   view Midnight Commander macro substitution (debug)
     %view
-    printf "%%%%m   The current menu name\n     %m\n"
+    printf "%%%%m   The current menu name\n     '%m'\n"
     printf "=====\n"
-    printf "%%%%p   The current file name (without path, but pwd is its path)\n     %p\n"
+    printf "%%%%p   The current file name (without path, but pwd is its path)\n     '%p'\n"
     printf "%%%%f   The current file name (if non-local vfs, file will be copied locally \
-            and %%%%f will be full path to it)\n     %f\n"
-    printf "%%%%x   The extension of current file name\n     %x\n"
-    printf "%%%%b   The current file name without extension\n     %b\n"
-    printf "%%%%d   The current directory name (pwd, without trailing slash)\n     %d\n"
-    printf "%%%%t   The currently tagged files (space separated list)\n     %t\n"
+            and %%%%f will be full path to it)\n     '%f'\n"
+    printf "%%%%x   The extension of current file name\n     '%x'\n"
+    printf "%%%%b   The current file name without extension\n     '%b'\n"
+    printf "%%%%d   The current directory name (pwd, without trailing slash)\n     '%d'\n"
+    printf "%%%%t   The currently tagged files (space separated list)\n     '%t'\n"
     printf "%%%%u   Similar to the %%%%t macro, but in addition the files are \
             untagged\n     DOES NOT SHOW IN THIS EXAMPLE\n"
     printf "%%%%s   The selected files (the tagged files if any, otherwise the current \
-            file)\n     %s\n"
+            file)\n     '%s'\n"
     printf "=====\n"
     printf "If the format letter is in uppercase (%%%%P, %%%%F, %%%%X, %%%%B, %%%%D, \
            %%%%T, %%%%U or %%%%S),\nit refers to the other (unselected, opposite) panel.\n"
     printf "=====\n"
-    printf "%%%%S   The selected files in the other (unselected) panel\n     %S\n"
+    printf "%%%%S   The selected files in the other (unselected) panel\n     '%S'\n"
