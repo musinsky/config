@@ -1,4 +1,4 @@
-;; 2025-11-04
+;; 2026-01-21
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -45,6 +45,10 @@
 ;; C-u M-x ps-print-buffer-with-faces (with-faces include color)
 ;; describe the character at cursor position (charset, font name, etc)
 ;; C-u C-x = (bound) C-u M-x what-cursor-position (or M-x describe-char)
+
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Symbol-Search.html
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Query-Replace.html
+;; M-s . => select string (under cursor) => C-M-% => and replacement ==> aka variable refactoring
 
 (set-frame-font "Source Code Pro Medium-10") ; or via face-s (see below)
 ;; https://www.emacswiki.org/emacs/FrameSize
