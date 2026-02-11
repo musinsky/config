@@ -1,4 +1,4 @@
-;; 2026-01-21
+;; 2026-02-11
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -185,6 +185,8 @@
 ;;(add-hook 'fortran-mode-hook
 ;;          (lambda ()
 ;;            (setq flycheck-gfortran-language-standard "gnu")))
+
+(setq js-indent-level 2)
 
 ;; https://www.emacswiki.org/emacs/BackupDirectory
 (setq make-backup-files t)
