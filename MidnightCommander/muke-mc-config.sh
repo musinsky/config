@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2023-06-18
+# 2026-02-12
 # https://github.com/musinsky/config/blob/master/MidnightCommander/muke-mc-config.sh
 
 function wget_file {
@@ -242,7 +242,7 @@ self_upgrade
 }
 # check running mc
 # 'whoami' utility has been obsoleted and is equivalent to 'id -un'
-pgrep -a -u "$(id -un)" --full "$(type -P mc)" && {
+pgrep -a -u "$(id -un)" -x mc && {
     printf "please close all running 'mc' processes\n"
     rm "$TMP_F"
     exit 1
