@@ -1,4 +1,4 @@
-# 2023-06-18
+# 2026-02-12
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.3.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/4.8.28/misc/mc.ext.in
 
@@ -21,7 +21,7 @@ regex/i/\.(m2ts|mpls|clpi|bdmv)$
 	Include=video
 
 ### Miscellaneous ###
-shell/.root
+type/^ROOT
 	View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view root
 
 type/i/font

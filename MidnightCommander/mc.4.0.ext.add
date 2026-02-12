@@ -1,4 +1,4 @@
-# 2025-07-29
+# 2026-02-12
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
@@ -32,7 +32,7 @@ Include=video
 
 ### Miscellaneous ###
 [root]
-Shell=.root
+Type=^ROOT
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view root
 
 [font]
