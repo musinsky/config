@@ -1,4 +1,4 @@
-;; 2026-02-11
+;; 2026-02-19
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -168,6 +168,12 @@
             ;; toggle from block comments to line comments
             (c-toggle-comment-style -1)              ; from Emacs 26.1 (2018-05)
 ;;;         (setq comment-start "//" comment-end "") ; old solution
+            ))
+
+(add-hook 'c++-mode-hook
+          (lambda ()
+            ;; no indentation in namespace
+            (c-set-offset 'innamespace 0)
             ))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
