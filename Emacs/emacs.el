@@ -1,4 +1,4 @@
-;; 2026-02-19
+;; 2026-02-23
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -311,8 +311,14 @@
 (setq package-selected-packages
       '(apache-mode flycheck htmlize markdown-mode php-mode rpm-spec-mode sql-indent))
 
-;; CMake
-;; "cmake-data.rpm" provide /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
+;; CMake, https://melpa.org/#/cmake-mode
+;; "cmake-data.rpm" provides /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
+;; identical or older as on MELPA repository
+
+;; ClangFormat, https://melpa.org/#/clang-format
+;; "clang-tools-extra.rpm" provides /usr/share/emacs/site-lisp/site-start.d/clang-format.el
+;; identical or older as on MELPA repository
+;; https://clang.llvm.org/docs/ClangFormat.html#emacs-integration
 
 ;; Flycheck (package "flycheck" installed from MELPA repository)
 ;; https://www.flycheck.org
