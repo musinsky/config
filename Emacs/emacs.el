@@ -1,4 +1,4 @@
-;; 2026-02-23
+;; 2026-02-24
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -50,6 +50,7 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Query-Replace.html
 ;; M-s . => select string (under cursor) => C-M-% => and replacement ==> aka variable refactoring
 
+;; best monospace fonts: JetBrains Mono, Source Code Pro, DejaVu Sans Mono
 (set-frame-font "Source Code Pro Medium-10") ; or via face-s (see below)
 ;; https://www.emacswiki.org/emacs/FrameSize
 ;; https://www.emacswiki.org/emacs/FrameTitle
@@ -157,6 +158,13 @@
 ;;(global-visual-line-mode t) ; M-x visual-line-mode
 
 (setq-default indent-tabs-mode nil) ; no tabs (use spaces)
+
+;; ToDo: Emacs 29 (released 2023-07) adds tree-sitter parser integration
+;; https://emacs-tree-sitter.github.io/
+;; https://www.masteringemacs.org/article/how-to-get-started-tree-sitter
+;; https://www.masteringemacs.org/article/tree-sitter-complications-of-parsing-languages
+;; "and a long-term plan to fully rewrite most major modes to use it."
+;; # dnf remove libtree-sitter => don't remove, only for dependecies
 
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/sh-script.el
 ;;(setq sh-basic-offset 2) ; default 4
