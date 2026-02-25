@@ -1,8 +1,9 @@
-# 2026-02-24
+# 2026-02-25
 # https://github.com/musinsky/config/blob/master/ClangFormat/clang-format.yaml
 
 # https://clang.llvm.org/docs/ClangFormat.html
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# https://releases.llvm.org/20.1.0/tools/clang/docs/ClangFormatStyleOptions.html
 #
 # The '.clang-format' file uses YAML format.
 #
@@ -19,14 +20,23 @@
 # CodingGuidelines, AliceO2 and QualityControl have identical format style,
 # with a few exceptions:
 # Cpp11BracedListStyle: false # in CodingGuidelines and QualityControl
-# Cpp11BracedListStyle: true  # in AliceO2 (and Google)
+# Cpp11BracedListStyle: true  # in AliceO2 (and Google style)
 # DeriveLineEnding: true      # in QualityControl, option is deprecated (without effect)
 #
 # NOTE: Cpp11BracedListStyle since version 23 (or 22) will change from Boolean
 # to enum BracedListStyle: Block (previous false), FunctionCall (previous true)
 # and AlignFirstComment (similar to FunctionCall)
-#
-# $ clang-format --dump-config > clang-format.default   # identical as '-style=llvm'
+
+# $ clang-format --dump-config > clang-format.default   # identical as '--style=llvm'
 # $ clang-format --dump-config --style=google > clang-format.Google.default
-#
 # $ clang-format --dump-config --style=file:path/to/clang-format.X > clang-format.X.full
+#
+# $ diff --side-by-side --suppress-common-lines \   # -u0 --color=always
+#        <(clang-format --dump-config --style=Google) \
+#        <(clang-format --dump-config --style=file:clang-format.CodingGuidelines)
+
+
+# function 'FormatStyle getGoogleStyle()' in clang/lib/Format/Format.cpp
+# https://github.com/llvm/llvm-project/blob/main/clang/lib/Format/Format.cpp#L1947
+
+# $ curl https://raw.githubusercontent.com/AliceO2Group/CodingGuidelines/master/.clang-format -o clang-format.CodingGuidelines
