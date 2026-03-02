@@ -1,0 +1,10 @@
+# 2026-02-28
+# https://adoptium.net/installation/linux
+# https://src.fedoraproject.org/rpms/adoptium-temurin-java-repository
+
+[adoptium-temurin-java]
+name=Adoptium
+baseurl=https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch
+enabled=0
+gpgcheck=1
+gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public

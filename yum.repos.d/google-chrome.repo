@@ -1,0 +1,10 @@
+# 2026-02-28
+# https://www.google.com/linuxrepositories/
+# https://src.fedoraproject.org/rpms/fedora-workstation-repositories
+
+[google-chrome]
+name=Google Chrome
+baseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=0
+gpgcheck=1
+gpgkey=https://dl.google.com/linux/linux_signing_key.pub
