@@ -181,6 +181,7 @@
 (add-hook 'c++-mode-hook
           (lambda ()
             (c-set-offset 'case-label '+)   ;; indentation for switch
+            (c-set-offset 'access-label -1) ;; indentation for "public/private" words
             (c-set-offset 'innamespace 0)   ;; no indentation in namespace
             ))
 
