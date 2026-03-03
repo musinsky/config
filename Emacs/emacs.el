@@ -1,4 +1,4 @@
-;; 2026-02-24
+;; 2026-03-03
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -180,8 +180,8 @@
 
 (add-hook 'c++-mode-hook
           (lambda ()
-            ;; no indentation in namespace
-            (c-set-offset 'innamespace 0)
+            (c-set-offset 'case-label '+)   ;; indentation for switch
+            (c-set-offset 'innamespace 0)   ;; no indentation in namespace
             ))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
