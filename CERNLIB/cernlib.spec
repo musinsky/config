@@ -55,7 +55,7 @@
 
 Name:          %{?compat}cernlib%{?compiler}
 Version:       2006
-Release:       50%{?dist}
+Release:       51%{?dist}
 Summary:       General purpose CERN library
 Group:         Development/Libraries
 # As explained in the cernlib on debian FAQ, cfortran can be considered LGPL.
@@ -1023,6 +1023,11 @@ sed -i "s/struct termio/struct termios/g" packlib/cspack/tcpaw/tcpaw.c
 sed -i "s/struct termio/struct termios/g" packlib/cspack/tcpaw/tcpold.c
 #sed -i "s/<termio.h>/<termios.h>/g" packlib/kuip/code_kuip/getline.c
 
+# 2026-03-13 gcc16 (Fortran 2023: The 'split' intrinsic subroutine is now supported)
+# replace SPLIT by SPLIT9
+cd $CERN_ROOT/src
+sed -i 's/SPLIT/SPLIT9/g' mathlib/gen/divon/split.F
+sed -i 's/SPLIT/SPLIT9/g' mathlib/gen/divon/recpar.F   # 3x
 
 # Create the top level Makefile with imake
 cd $CERN_ROOT/build
@@ -1520,6 +1525,9 @@ touch --no-create %{_datadir}/icons/hicolor || :
 %endif
 
 %changelog
+* Fri Mar 13 2026 Jan Musinsky <musinsky@gmail.com> - 2006-51
+- gcc 16 support, Fedora 44
+
 * Mon Oct 27 2025 Jan Musinsky <musinsky@gmail.com> - 2006-50
 - glibc-2.42 support, Fedora 43
 
