@@ -1,0 +1,55 @@
+// 2026-03-18
+// https://github.com/musinsky/config/blob/master/VSCode/settings.json
+
+// VS Code uses JSONC (JSON with Comments) for settings files.
+// To view the default values, press Ctrl+Space (suggestion).
+// https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf
+
+// C/C++ Extension Pack(4)   [ms-vscode.cpptools-extension-pack]
+//   * C/C++                   [ms-vscode.cpptools]
+//   * C/C++ DevTools          [ms-vscode.cpp-devtools]
+//   * C/C++ Themes            [ms-vscode.cpptools-themes]
+//   * CMake Tools             [ms-vscode.makefile-tools]
+// Makefile Tools            [ms-vscode.makefile-tools]
+// Prettier - Code formatter [esbenp.prettier-vscode]
+// vscode-icons              [vscode-icons-team.vscode-icons]
+
+{
+  // $ fc-list :spacing=mono family | sort -u
+  "editor.fontSize": 13,
+  // "editor.fontWeight": "500", // "normal"=400, "medium"=500
+  "editor.fontFamily": "Roboto Mono, Source Code Pro, DejaVu Sans Mono, Consolas",
+  "editor.renderWhitespace": "trailing",
+  "editor.rulers": [80, 100, 120],
+  // "editor.stickyScroll.enabled": false,
+  "files.insertFinalNewline": true,
+  "workbench.colorTheme": "Visual Studio Light - C++",
+  // "workbench.colorTheme": "Default Light+",
+  // "workbench.colorTheme": "Visual Studio Light",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.tree.indent": 16,
+  "workbench.colorCustomizations": {
+    "editorRuler.foreground": "#dfdfdf",
+    "editorWhitespace.foreground": "#ff47b8"
+  },
+
+  // === JSON ===
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.trailingComma": "none"
+  },
+  // "prettier.tabWidth": 2,
+  // "prettier.useTabs": true,
+  // "json.format.keepLines": true,
+
+  // === C/C++ ===
+  // "C_Cpp.intelliSenseEngine": "default",
+  "C_Cpp.clang_format_fallbackStyle": "Google",
+  // "C_Cpp.formatting": "clangFormat",
+
+  // === Makefile ===
+  "makefile.configureOnOpen": true
+}
