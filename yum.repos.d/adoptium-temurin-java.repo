@@ -3,7 +3,7 @@
 # https://src.fedoraproject.org/rpms/adoptium-temurin-java-repository
 
 [adoptium-temurin-java]
-name=Adoptium
+name=Adoptium Temurin Java
 baseurl=https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch
 enabled=0
 gpgcheck=1
