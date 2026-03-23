@@ -16,6 +16,11 @@
 // vscode-icons              [vscode-icons-team.vscode-icons]
 //
 // Cpp Reference             [guyutongxue.cpp-reference]
+//
+// Remote Explorer           [ms-vscode.remote-explorer]
+// Remote - SSH              [ms-vscode-remote.remote-ssh]
+// Remote - SSH: Editing Configuration Files
+//                           [ms-vscode-remote.remote-ssh-edit]
 
 /*
   rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # crypto
@@ -39,6 +44,7 @@
   // "editor.fontWeight": "500", // "normal"=400, "medium"=500
   "editor.fontFamily": "Roboto Mono, Source Code Pro, DejaVu Sans Mono, Consolas",
   "editor.renderWhitespace": "trailing",
+  // "editor.renderWhitespace": "boundary", // i.a. view TABs
   "editor.rulers": [80, 100, 120],
   // "editor.stickyScroll.enabled": false,
   "files.insertFinalNewline": true,
@@ -51,6 +57,12 @@
     "editorRuler.foreground": "#dfdfdf",
     "editorWhitespace.foreground": "#ff47b8"
   },
+
+  // === vscode-icons ===
+  "vsicons.presets.jsonOfficial": true,
+  "vsicons.presets.yamlOfficial": true,
+  "vsicons.presets.jsOfficial": true,
+  "vsicons.presets.tsOfficial": true,
 
   // === JSON ===
   "[json]": {
