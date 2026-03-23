@@ -1,19 +1,38 @@
-// 2026-03-18
+// 2026-03-23
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
-// To view the default values, press Ctrl+Space (suggestion).
+// To view the default values, press Ctrl+Space (Trigger Suggestions).
+// https://code.visualstudio.com/docs
 // https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf
 
 // C/C++ Extension Pack(4)   [ms-vscode.cpptools-extension-pack]
 //   * C/C++                   [ms-vscode.cpptools]
 //   * C/C++ DevTools          [ms-vscode.cpp-devtools]
 //   * C/C++ Themes            [ms-vscode.cpptools-themes]
-//   * CMake Tools             [ms-vscode.makefile-tools]
+//   * CMake Tools             [ms-vscode.cmake-tools]
 // Makefile Tools            [ms-vscode.makefile-tools]
 // Prettier - Code formatter [esbenp.prettier-vscode]
 // vscode-icons              [vscode-icons-team.vscode-icons]
+//
+// Cpp Reference             [guyutongxue.cpp-reference]
 
+/*
+  rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # crypto
+  rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
+  rm -rf "$HOME/.cache/Microsoft/"        # only deviceid
+  rm -rf "$HOME/.cache/vscode-cpptools/"  # cpptools extension cache (big dir)
+  rm -rf "$HOME/.config/Code/"            # user config (big dir)
+  rm -rf "$HOME/.vscode/"                 # user extensions
+
+  # remote machine
+  rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # crypto
+  rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
+  rm -rf "$HOME/.cache/Microsoft/"        # only deviceid
+  rm -rf "$HOME/.cache/vscode-cpptools/"  # cpp extension cache (big dir)
+  rn -rf "$HOME/.local/share/CMakeTools/" # cmake-tools extension
+  rm -rf "$HOME/.vscode-server/"          # remote server (big dir)
+*/
 {
   // $ fc-list :spacing=mono family | sort -u
   "editor.fontSize": 13,
@@ -45,11 +64,25 @@
   // "prettier.useTabs": true,
   // "json.format.keepLines": true,
 
+  // === Markdown ===
+  // https://code.visualstudio.com/docs/languages/markdown
+  // https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
+  // https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false,
+    // "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+
   // === C/C++ ===
   // "C_Cpp.intelliSenseEngine": "default",
   "C_Cpp.clang_format_fallbackStyle": "Google",
   // "C_Cpp.formatting": "clangFormat",
 
   // === Makefile ===
-  "makefile.configureOnOpen": true
+  "makefile.configureOnOpen": true,
+
+  // === Cpp Reference ===
+  // https://marketplace.visualstudio.com/items?itemName=Guyutongxue.cpp-reference
+  "cppref.searchEngine": "Google"
 }
