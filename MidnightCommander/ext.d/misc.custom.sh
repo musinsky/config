@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2025-01-15
+# 2026-03-24
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -123,6 +123,11 @@ do_view_action() {
             print_mc_under "=== openssl (Certificate Revocation List) ==="
             printf "$ openssl crl -in %s -noout -text\n" "${MC_EXT_FILENAME}"
             openssl crl -in "${MC_EXT_FILENAME}" -noout -text 2>&1
+            ;;
+        json)
+            print_mc_under "=== jq ==="
+            printf "$ jq '.' %s\n" "${MC_EXT_FILENAME}"
+            jq '.' "${MC_EXT_FILENAME}" 2>&1
             ;;
         *)
             printf "no view action\n"
