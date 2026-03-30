@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2026-03-24
+# 2026-03-31
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 
@@ -18,9 +18,17 @@ print_mc_under() {
     printf "\n"
 }
 
+cat_raw_file() {
+    print_mc_under "=== cat (print raw file) ==="
+    # printf "$ cat %s\n" "${MC_EXT_FILENAME}"
+    cat "${MC_EXT_FILENAME}" && printf "\n"
+}
+
 do_view_action() {
     filetype=$1
-    print_mc_under "=== file ==="
+    # print_mc_under "=== file ==="
+    print_mc_under "=== file (determine file type) ==="
+    # printf "$ file %s\n" "${MC_EXT_FILENAME}"
     file "${MC_EXT_FILENAME}" && printf "\n"
 
     case "${filetype}" in
@@ -109,8 +117,16 @@ do_view_action() {
             printf "\n"; print_mc_under "=== fc-query (brief) ==="
             fc-query --brief "${MC_EXT_FILENAME}" # brief without FC_CHARSET and FC_LANG
             ;;
+        ssh-public-key)
+            cat_raw_file
+            print_mc_under "=== OpenSSH (public key) ==="
+            printf "$ ssh-keygen -l -f %s -E sha256\n" "${MC_EXT_FILENAME}"
+            ssh-keygen -l -f "${MC_EXT_FILENAME}" -E sha256
+            printf "$ ssh-keygen -l -f %s -E md5\n" "${MC_EXT_FILENAME}"
+            ssh-keygen -l -f "${MC_EXT_FILENAME}" -E md5
+            ;;
         certificate)
-            print_mc_under "=== openssl (X.509 Certificate) ==="
+            print_mc_under "=== OpenSSL (X.509 Certificate) ==="
             print_mc_under "# brief"
             openssl x509 -in "${MC_EXT_FILENAME}" -noout -text \
                     -certopt no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_extensions \
@@ -120,7 +136,7 @@ do_view_action() {
             openssl x509 -in "${MC_EXT_FILENAME}" -noout -text 2>&1
             ;;
         certificate-crl)
-            print_mc_under "=== openssl (Certificate Revocation List) ==="
+            print_mc_under "=== OpenSSL (Certificate Revocation List) ==="
             printf "$ openssl crl -in %s -noout -text\n" "${MC_EXT_FILENAME}"
             openssl crl -in "${MC_EXT_FILENAME}" -noout -text 2>&1
             ;;
