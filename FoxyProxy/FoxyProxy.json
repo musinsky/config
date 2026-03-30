@@ -1,0 +1,45 @@
+{
+  "$comment": [
+    "2026-03-30",
+    "https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/"
+  ],
+  "mode": "disable",
+  "sync": false,
+  "autoBackup": false,
+  "passthrough": "",
+  "theme": "",
+  "container": {},
+  "commands": {
+    "setProxy": "",
+    "setTabProxy": "",
+    "includeHost": "",
+    "excludeHost": ""
+  },
+  "data": [
+    {
+      "active": true,
+      "title": "CERN",
+      "type": "socks5",
+      "hostname": "localhost",
+      "port": "8888",
+      "username": "",
+      "password": "",
+      "cc": "",
+      "city": "",
+      "color": "#0033a0",
+      "pac": "",
+      "pacString": "",
+      "proxyDNS": true,
+      "include": [
+        {
+          "type": "wildcard",
+          "title": "all CERN pages",
+          "pattern": "*://*.cern.ch/",
+          "active": true
+        }
+      ],
+      "exclude": [],
+      "tabProxy": []
+    }
+  ]
+}
