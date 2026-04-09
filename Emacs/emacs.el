@@ -1,4 +1,4 @@
-;; 2026-03-03
+;; 2026-04-09
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -168,6 +168,13 @@
 
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/sh-script.el
 ;;(setq sh-basic-offset 2) ; default 4
+;;(setq shfmt-respect-sh-basic-offset t)
+(setq shfmt-arguments '("-i" "4" "-ci" "-sr" "-kp")) ; man shfmt
+;; M-x shfmt-buffer
+;;
+;; (add-hook 'sh-mode-hook
+;;           (lambda ()
+;;             (defalias 'indent-region #'shfmt-region)))
 
 ;; https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html
 (setq c-basic-offset 2)
@@ -318,7 +325,8 @@
 
 ;; M-x package-install-selected-packages
 (setq package-selected-packages
-      '(apache-mode flycheck htmlize markdown-mode php-mode rpm-spec-mode sql-indent))
+      '(apache-mode flycheck htmlize markdown-mode php-mode rpm-spec-mode shfmt
+                    sql-indent))
 
 ;; CMake, https://melpa.org/#/cmake-mode
 ;; "cmake-data.rpm" provides /usr/share/emacs/site-lisp/site-start.d/cmake-init.el
@@ -358,6 +366,10 @@
 ;; php-mode (package "php-mode" installed from MELPA repository)
 ;; https://github.com/emacs-php/php-mode
 ;; M-x php-mode
+
+;; shfmt (package "shfmt" installed from MELPA repository)
+;; https://github.com/purcell/emacs-shfmt
+;; M-x shfmt-buffer
 
 ;; AUCTeX (package "auctex" installed from GNU ELPA repository)
 ;; https://www.gnu.org/software/auctex/manual/auctex.html
