@@ -1,4 +1,4 @@
-;; 2026-04-09
+;; 2026-04-13
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -50,7 +50,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Query-Replace.html
 ;; M-s . => select string (under cursor) => C-M-% => and replacement ==> aka variable refactoring
 
-;; best monospace fonts: JetBrains Mono, Source Code Pro, DejaVu Sans Mono
+;; recommended monospace fonts: Roboto Mono, Source Code Pro, DejaVu Sans Mono
+;; https://www.programmingfonts.org/
 (set-frame-font "Source Code Pro Medium-10") ; or via face-s (see below)
 ;; https://www.emacswiki.org/emacs/FrameSize
 ;; https://www.emacswiki.org/emacs/FrameTitle
