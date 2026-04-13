@@ -6,7 +6,7 @@
 
 ## custom init file
 
-```console
+```plain
 cp -p "$HOME/.emacs.el" "$HOME/.emacs.el.$(date +%F_%T)"
 curl -o "$HOME/.emacs.el" https://raw.githubusercontent.com/musinsky/config/master/Emacs/emacs.el
 ```
@@ -19,7 +19,7 @@ Support all languages supported by Emacs (several hundred).
 
 ### install (download)
 
-```console
+```plain
 curl --silent https://raw.githubusercontent.com/musinsky/config/master/Emacs/muke-emacs-format.sh |
     install --verbose --mode=755 /dev/stdin /usr/local/bin/muke-emacs-format.sh
 ```
@@ -27,6 +27,12 @@ curl --silent https://raw.githubusercontent.com/musinsky/config/master/Emacs/muk
 ### usage
 
 ```console
-muke-emacs-format.sh sample.tex
-muke-emacs-format.sh -e c++-mode sample.c
+$ muke-emacs-format.sh
+Usage: muke-emacs-format.sh [OPTION] FILE
+Option:
+   -i        | load emacs user init file (default off)
+   -e EXPR   | evaluate the Lisp expression (default none)
+Example:
+   muke-emacs-format.sh sample.c
+   muke-emacs-format.sh -i -e c++-mode sample.c
 ```
