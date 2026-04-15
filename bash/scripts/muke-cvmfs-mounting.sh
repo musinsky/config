@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 
-# 2025-07-01
+# 2026-04-15
 # https://github.com/musinsky/config/blob/master/bash/scripts/muke-cvmfs-mounting.sh
 
 print_status_usage() {
     # 1st) status
-    printf 'List of available cvmfs repositories:\n'
+    printf '# List of available cvmfs repositories:\n'
     printf '%s\n' "${CVMFS_REPOS[@]}"
-    printf '\nList of mounted cvmfs repositories:\n'
+    printf '\n# List of mounted cvmfs repositories:\n'
     findmnt --source cvmfs2 || printf 'none cvmfs repository mounted\n'
     # 2nd) usage
     local bname=${0##*/}   # basename in bash
     printf '\nUsage: %s <command>   # root privileges required\n' "$bname"
     printf 'commands are:\n'
-    printf '   mount      # mount all repositories\n'
-    printf '   umount     # umount all repositories\n'
+    printf '   mount      # mount all available repositories\n'
+    printf '   umount     # umount all mounted repositories\n'
+    printf 'Tip: CVMFS_HTTP_PROXY=DIRECT %s mount\n' "$bname"
     exit 1
 }
 mount_repo() {
@@ -28,6 +29,10 @@ mount_repo() {
 umount_repo() {
     local repo="$1"
     local repo_dir="$CVMFS_DIR/$repo"
+    mountpoint --quiet "$repo_dir" || {
+        printf "Repository '%s' not mounted\n" "$repo"
+        return
+    }
     # works correct if not mounted
     umount "$repo_dir" && printf "Repository '%s' unmounted" "$repo" &&
         rmdir "$repo_dir" && printf ", dir '%s' removed\n\n" "$repo_dir"
