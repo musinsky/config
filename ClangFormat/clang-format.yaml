@@ -1,10 +1,15 @@
-# 2026-03-03
+# 2026-04-16
 # https://github.com/musinsky/config/blob/master/ClangFormat/clang-format.yaml
 
+# https://muke.saske.sk/wiki/GCC#ClangFormat
+#
+# $ clang-format path/to/file.c   # '--style=file' by default (in the closest parent dir)
+# $ clang-format --style=file:$HOME/.clang-format -i path/to/file.c
+#
 # $ clang-format --dump-config --style=google > clang-format.Google
 # $ clang-format --dump-config                > clang-format.user
 
-BasedOnStyle: Google
+BasedOnStyle: Google                       # Alice O2 style(s) based on Google
 # all AlignConsecutiveXYZ styles are disabled in Google style
 AlignConsecutiveAssignments: Consecutive   # Google, O2: None
 AlignTrailingComments: Leave               # Google, O2: Always
