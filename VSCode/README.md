@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-04-14</p>
+<p align="right">last edit: 2026-04-27</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 # Visual Studio Code
@@ -39,12 +39,7 @@
   (common for Fedora/RHEL)
 - `$ dnf5 --repo=vscode repoquery --latest-limit=1`
 - supported architectures: `aarch64`, `armv7hl`, `x86_64` (platform/distribution: `el8`)
-- `code-exploration` (early preview) → `code-insiders` (preview, early access) → **`code`** (stable, weekly)
-
-```console
-$ code --transient
-State is temporarily stored. Relaunch this state with: code --user-data-dir "/tmp/vscode-LOq2Yb03/data" --extensions-dir "/tmp/vscode-LOq2Yb03/extensions"
-```
+- `code-exploration` ~~(early preview)~~ → `code-insiders` (preview, early access) → **`code`** (stable, weekly)
 
 ## Extensions
 
@@ -73,6 +68,60 @@ State is temporarily stored. Relaunch this state with: code --user-data-dir "/tm
 | ---------------- | ----------- |
 | `foxundermoon.shell-format` | [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format) (nefunkcne) |
 | `jeff-hykin.better-shellscript-syntax` | [Better Shell Syntax](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.better-shellscript-syntax) (zbytocne) |
+
+## Settings and profiles
+
+- VS Code docs: [User and workspace settings](https://code.visualstudio.com/docs/configure/settings),
+[Settings Sync](https://code.visualstudio.com/docs/configure/settings-sync),
+[Profiles in Visual Studio Code](https://code.visualstudio.com/docs/configure/profiles)
+
+```bash
+# local and remote machine
+rm -rf "$HOME/.cache/Microsoft/"        # only one 'DeveloperTools/deviceid' file
+rm -rf "$HOME/.cache/vscode-cpptools/"  # [extension] very large dir
+rm -rf "$HOME/.local/share/CMakeTools/" # [extension] only log files
+
+rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # cryptography
+rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
+
+# only on local machine
+rm -rf "$HOME/.config/Code/"            # user data/config dir, '--user-data-dir'
+rm -rf "$HOME/.vscode/"                 # user extensions,      '--extensions-dir'
+
+# only on remote machine
+rm -rf "$HOME/.vscode-server/"          # dirs: 'cli', 'data' and 'extensions'
+```
+
+- **`$HOME/.config/Code/User/`** dir with default (built-in) profile
+- `$HOME/.config/Code/User/profiles/<profile-id>` dir with other profiles
+
+```plain
+# Manage > Profiles: Default (Built-in)
+#          You can Export any profile as Local file or GitHub gist (or sync via GitHub account)
+
+$HOME/.config/Code/User/settings.json      # Settings
+$HOME/.config/Code/User/keybindings.json   # Keyboard shortcuts
+$HOME/.config/Code/User/tasks.json         # Tasks
+$HOME/.config/Code/User/mcp.json           # MCP Servers (Model Context Protocol)
+$HOME/.config/Code/User/snippets/          # Snippets (dir with snippets)
+$HOME/.vscode/extensions/extensions.json   # Extensions (list of extensions, not the extensions themselves)
+```
+
+## Notes
+
+- VS Code docs:
+  [Keyboard Shortcuts reference](https://code.visualstudio.com/docs/configure/keybindings#_keyboard-shortcuts-reference)
+  (file [keyboard-shortcuts-linux.pdf](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf))  
+  Help > Keyboard Shortcut Reference (Ctrl+K Ctrl+R)
+
+- Default font (Fedora, 2026) in VS Code: `'Droid Sans Mono', monospace`  
+  compare [Droid Sans](https://www.programmingfonts.org/#droid-sans) (default)
+  with [Roboto Mono](https://www.programmingfonts.org/#roboto) (personal prefer)
+
+```plain
+$ code --transient   # Run with temporary data and extension directories, as if launched for the first time
+State is temporarily stored. Relaunch this state with: code --user-data-dir "/tmp/vscode-LOq2Yb03/data" --extensions-dir "/tmp/vscode-LOq2Yb03/extensions"
+```
 
 ```plain
 $ code --install-extension ms-vscode-remote.remote-ssh \
