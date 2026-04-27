@@ -1,43 +1,9 @@
-// 2026-03-23
+// 2026-04-27
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
 // To view the default values, press Ctrl+Space (Trigger Suggestions).
-// https://code.visualstudio.com/docs
-// https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf
 
-// C/C++ Extension Pack(4)   [ms-vscode.cpptools-extension-pack]
-//   * C/C++                   [ms-vscode.cpptools]
-//   * C/C++ DevTools          [ms-vscode.cpp-devtools]
-//   * C/C++ Themes            [ms-vscode.cpptools-themes]
-//   * CMake Tools             [ms-vscode.cmake-tools]
-// Makefile Tools            [ms-vscode.makefile-tools]
-// Prettier - Code formatter [esbenp.prettier-vscode]
-// vscode-icons              [vscode-icons-team.vscode-icons]
-//
-// Cpp Reference             [guyutongxue.cpp-reference]
-//
-// Remote Explorer           [ms-vscode.remote-explorer]
-// Remote - SSH              [ms-vscode-remote.remote-ssh]
-// Remote - SSH: Editing Configuration Files
-//                           [ms-vscode-remote.remote-ssh-edit]
-
-/*
-  rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # crypto
-  rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
-  rm -rf "$HOME/.cache/Microsoft/"        # only deviceid
-  rm -rf "$HOME/.cache/vscode-cpptools/"  # cpptools extension cache (big dir)
-  rm -rf "$HOME/.config/Code/"            # user config (big dir)
-  rm -rf "$HOME/.vscode/"                 # user extensions
-
-  # remote machine
-  rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # crypto
-  rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
-  rm -rf "$HOME/.cache/Microsoft/"        # only deviceid
-  rm -rf "$HOME/.cache/vscode-cpptools/"  # cpp extension cache (big dir)
-  rn -rf "$HOME/.local/share/CMakeTools/" # cmake-tools extension
-  rm -rf "$HOME/.vscode-server/"          # remote server (big dir)
-*/
 {
   // $ fc-list :spacing=mono family | sort -u
   "editor.fontSize": 13,
