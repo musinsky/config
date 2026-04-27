@@ -68,6 +68,7 @@
 | ---------------- | ----------- |
 | `foxundermoon.shell-format` | [shell-format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format) (nefunkcne) |
 | `jeff-hykin.better-shellscript-syntax` | [Better Shell Syntax](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.better-shellscript-syntax) (zbytocne) |
+| `stkb.rewrap` | [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap) (unmaintained) |
 
 ## Settings and profiles
 
