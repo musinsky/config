@@ -5,18 +5,19 @@
 // To view the default values, press Ctrl+Space (Trigger Suggestions).
 
 {
-  // $ fc-list :spacing=mono family | sort -u
-  "editor.fontSize": 13,
+  "editor.fontSize": 12,
   // "editor.fontWeight": "500", // "normal"=400, "medium"=500
-  "editor.fontFamily": "Roboto Mono, Source Code Pro, DejaVu Sans Mono, Consolas",
+  "editor.fontFamily": "Roboto Mono, Source Code Pro, DejaVu Sans Mono",
+  // "Droid Sans Mono" default font in VS Code (Fedora, 2026)
+  // $ fc-list :spacing=mono family | sort -u
   "editor.renderWhitespace": "trailing",
   // "editor.renderWhitespace": "boundary", // i.a. view TABs
   "editor.rulers": [80, 100, 120],
-  // "editor.stickyScroll.enabled": false,
+  "editor.stickyScroll.enabled": false,
   "files.insertFinalNewline": true,
   "workbench.colorTheme": "Visual Studio Light - C++",
-  // "workbench.colorTheme": "Default Light+",
   // "workbench.colorTheme": "Visual Studio Light",
+  // "workbench.colorTheme": "Light+",
   "workbench.iconTheme": "vscode-icons",
   "workbench.tree.indent": 16,
   "workbench.colorCustomizations": {
@@ -30,26 +31,49 @@
   "vsicons.presets.jsOfficial": true,
   "vsicons.presets.tsOfficial": true,
 
+  // === esbenp.prettier-vscode ===
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  // "prettier.tabWidth": 2,
+  // "prettier.useTabs": true,
+
   // === JSON ===
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "vscode.json-language-features",
     "prettier.trailingComma": "none"
   },
-  // "prettier.tabWidth": 2,
-  // "prettier.useTabs": true,
   // "json.format.keepLines": true,
 
   // === Markdown ===
   // https://code.visualstudio.com/docs/languages/markdown
-  // https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
   // https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles
+  // https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
   "[markdown]": {
-    "files.trimTrailingWhitespace": false,
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    // "editor.defaultFormatter": "vscode.markdown-language-features",
     // "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    "files.trimTrailingWhitespace": false
+  },
+
+  // === Rewrap ===
+  // https://marketplace.visualstudio.com/items?itemName=dnut.rewrap-revived
+  "rewrap.wrappingColumn": 120,
+  // "editor.wordWrap": "wordWrapColumn", // "only visual" word wrap
+  // "editor.wordWrapColumn": 120,
+
+  // === Shell Script ===
+  // https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck
+  // https://marketplace.visualstudio.com/items?itemName=mkhl.shfmt
+  // $ dnf install shfmt
+  "shfmt.executableArgs": ["-i", "4"],
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt"
   },
 
   // === C/C++ ===
@@ -60,7 +84,7 @@
   // === Makefile ===
   "makefile.configureOnOpen": true,
 
-  // === Cpp Reference ===
-  // https://marketplace.visualstudio.com/items?itemName=Guyutongxue.cpp-reference
-  "cppref.searchEngine": "Google"
+  "editor.minimap.enabled": false
+
+  // === End of user settings ===
 }
