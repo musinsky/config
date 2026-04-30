@@ -1,5 +1,5 @@
-# 2025-09-09
-# GNOME 46
+# 2026-04-30
+# GNOME 50
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
 gsettings set org.gnome.desktop.background picture-options 'none'
@@ -20,6 +20,7 @@ gsettings set org.gnome.desktop.interface clock-format '24h'
 #gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 9'          # Monospace 11
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 gsettings set org.gnome.desktop.interface enable-hot-corners false
+gsettings set org.gnome.desktop.interface gtk-enable-primary-paste true               # GNOME 50+
 
 gsettings set org.gnome.desktop.privacy remember-app-usage false
 gsettings set org.gnome.desktop.privacy remember-recent-files false
