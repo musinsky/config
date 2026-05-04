@@ -71,6 +71,7 @@ sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.pow
 # GNOME 46+
 sudo -u gdm dbus-run-session gsettings set org.gnome.desktop.interface clock-format '24h'
 
+gsettings set org.gnome.shell always-show-log-out true                               # GNOME 50+
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
 ### this keys overrides the keys in org.gnome.mutter when running GNOME Shell
