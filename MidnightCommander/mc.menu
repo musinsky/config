@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2026-01-07
+# 2026-05-14
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -309,7 +309,8 @@ d   view Midnight Commander macro substitution (debug)
     printf "%%%%f   The current file name (if non-local vfs, file will be copied locally \
             and %%%%f will be full path to it)\n     '%f'\n"
     printf "%%%%x   The extension of current file name\n     '%x'\n"
-    printf "%%%%b   The current file name without extension\n     '%b'\n"
+    printf "%%%%b   The current file name without extension (old)\n     '%b'\n"
+    printf "%%%%n   The current file name without extension (new)\n     '%n'\n"
     printf "%%%%d   The current directory name (pwd, without trailing slash)\n     '%d'\n"
     printf "%%%%t   The currently tagged files (space separated list)\n     '%t'\n"
     printf "%%%%u   Similar to the %%%%t macro, but in addition the files are \
