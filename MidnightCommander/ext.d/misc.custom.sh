@@ -1,8 +1,9 @@
 #!/usr/bin/sh
 
-# 2026-03-31
+# 2026-05-14
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
+# '$HOME/.config/mc/ext.d/misc.custom.sh' or '/usr/libexec/mc/ext.d/misc.sh'
 
 action=$1   # $1 - action
 filetype=$2 # $2 - type of file
@@ -92,7 +93,9 @@ do_view_action() {
             rootls --treeListing "${MC_EXT_FILENAME}" 2>/dev/null
             ;;
         torrent)
-            print_mc_under "=== transmission-show ==="
+            print_mc_under "=== /usr/libexec/mc/extfs.d/torrent ==="
+            /usr/libexec/mc/extfs.d/torrent list "${MC_EXT_FILENAME}" 2>/dev/null
+            printf "\n"; print_mc_under "=== transmission-show ==="
             transmission-show "${MC_EXT_FILENAME}" 2>/dev/null || \
                 { printf "\n"; print_mc_under "=== exiftool ===";
                   exiftool "${MC_EXT_FILENAME}" 2>/dev/null; }

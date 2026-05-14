@@ -1,8 +1,9 @@
 #!/usr/bin/sh
 
-# 2023-03-01
+# 2026-05-14
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/doc.custom.sh
-# https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/doc.sh.in
+# https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/doc.sh
+# '$HOME/.config/mc/ext.d/doc.custom.sh' or '/usr/libexec/mc/ext.d/doc.sh'
 
 action=$1   # $1 - action
 filetype=$2 # $2 - type of file

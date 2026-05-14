@@ -1,8 +1,9 @@
 #!/usr/bin/sh
 
-# 2022-10-19
+# 2026-05-14
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/sound.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/sound.sh
+# '$HOME/.config/mc/ext.d/sound.custom.sh' or '/usr/libexec/mc/ext.d/sound.sh'
 
 action=$1   # $1 - action
 filetype=$2 # $2 - type of file
