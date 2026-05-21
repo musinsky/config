@@ -1,0 +1,46 @@
+# 2026-05-21
+# https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
+# https://gitlab.cern.ch/linuxsupport/rpms/releases/almalinux-release/-/tree/a9
+#
+# In principle, it is possible to replace Alma <-> RHEL
+# https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
+# https://linuxsoft.cern.ch/cern/rhel/9/CERN/x86_64/Packages/
+
+# First you need to install or manually add the RPM-GPG-KEY-kojiv2 key
+# cern-gpg-keys, https://gitlab.cern.ch/linuxsupport/rpms/cern-gpg-keys
+# install => $ dnf install cern-gpg-keys --no-gpgchecks
+# add =>     $ rpm --import https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
+
+# On Fedora only specific (noarch) packages from CERN AlmaLinux 9
+# CERN-CA-certs, https://gitlab.cern.ch/linuxsupport/rpms/cern-ca-certs
+#
+# Packages only needed when printing at CERN
+# lpadmincern, https://gitlab.cern.ch/linuxsupport/rpms/lpadmincern
+# sicgsfilter, https://gitlab.cern.ch/linuxsupport/rpms/sicgsfilter (Canon printers filter)
+
+[cern]
+name=AlmaLinux 9 - CERN
+baseurl=http://linuxsoft.cern.ch/cern/alma/9/CERN/$basearch
+enabled=1
+priority=5
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
+# gpgkey=https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
+includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
+
+[cern-testing]
+name=AlmaLinux 9 - CERN - testing
+baseurl=http://linuxsoft.cern.ch/cern/alma/9-testing/CERN/$basearch
+enabled=0
+priority=5
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
+includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
+
+[cern-source]
+name=AlmaLinux 9 - CERN Source
+baseurl=https://linuxsoft.cern.ch/cern/alma/9/CERN/Source/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
+includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
