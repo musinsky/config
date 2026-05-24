@@ -1,4 +1,4 @@
-# 2026-05-21
+# 2026-05-24
 # https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
 # https://gitlab.cern.ch/linuxsupport/rpms/releases/almalinux-release/-/tree/a9
 #
@@ -19,7 +19,7 @@
 # sicgsfilter, https://gitlab.cern.ch/linuxsupport/rpms/sicgsfilter (Canon printers filter)
 
 [cern]
-name=AlmaLinux 9 - CERN
+name=AlmaLinux 9 (only specific pkgs) - CERN
 baseurl=http://linuxsoft.cern.ch/cern/alma/9/CERN/$basearch
 enabled=1
 priority=5
@@ -29,7 +29,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
 [cern-testing]
-name=AlmaLinux 9 - CERN - testing
+name=AlmaLinux 9 (only specific pkgs) - CERN - testing
 baseurl=http://linuxsoft.cern.ch/cern/alma/9-testing/CERN/$basearch
 enabled=0
 priority=5
@@ -38,7 +38,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
 [cern-source]
-name=AlmaLinux 9 - CERN Source
+name=AlmaLinux 9 (only specific pkgs) - CERN Source
 baseurl=https://linuxsoft.cern.ch/cern/alma/9/CERN/Source/
 enabled=0
 gpgcheck=1
