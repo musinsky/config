@@ -1,4 +1,4 @@
-# 2026-04-30
+# 2026-06-01
 # GNOME 50
 
 gsettings set org.gnome.desktop.background color-shading-type 'vertical'
@@ -37,6 +37,8 @@ gsettings set org.gnome.desktop.wm.keybindings close "[]"                       
 gsettings set org.gnome.desktop.wm.keybindings panel-main-menu "[]"                  # disable Alt+F1
 gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog "['<Alt>R']"         # replace Alt+F2 by Alt+R
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Ctrl><Alt>M']"
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "[]"              # ['<Super>Tab', '<Alt>Tab']
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"         # []
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Alt>F1']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Alt>F2']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>F3']"
