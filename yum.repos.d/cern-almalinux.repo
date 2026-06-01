@@ -6,10 +6,12 @@
 # https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
 # https://linuxsoft.cern.ch/cern/rhel/9/CERN/x86_64/Packages/
 
-# First you need to install or manually add the RPM-GPG-KEY-kojiv2 key
+# First you need to install (or manually add) the RPM-GPG-KEY-kojiv2 key
 # cern-gpg-keys, https://gitlab.cern.ch/linuxsupport/rpms/cern-gpg-keys
-# install => $ dnf install cern-gpg-keys --no-gpgchecks
-# add =>     $ rpm --import https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
+# install      => $ dnf install cern-gpg-keys --no-gpgchecks
+#
+# manually add => $ rpm --import https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
+# ! access only from CERN !      https://linuxsoft.cern.ch/internal/*
 
 # On Fedora only specific (noarch) packages from CERN AlmaLinux 9
 # CERN-CA-certs, https://gitlab.cern.ch/linuxsupport/rpms/cern-ca-certs
