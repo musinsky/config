@@ -1,0 +1,78 @@
+-------- Diagnostics - 6/3/2026, 2:25:23 PM
+Version: 1.32.2
+Current Configuration:
+{
+    "name": "Linux",
+    "includePath": [
+        "/home/musinsky/HSIMPLE/**"
+    ],
+    "defines": [],
+    "compilerPath": "/usr/bin/clang",
+    "cStandard": "c17",
+    "cppStandard": "c++17",
+    "intelliSenseMode": "linux-clang-x64",
+    "compilerPathInCppPropertiesJson": "/usr/bin/clang",
+    "intelliSenseModeIsExplicit": false,
+    "cStandardIsExplicit": false,
+    "cppStandardIsExplicit": false,
+    "mergeConfigurations": false,
+    "recursiveIncludes": {},
+    "recursiveIncludesReduceIsExplicit": false,
+    "recursiveIncludesPriorityIsExplicit": false,
+    "recursiveIncludesOrderIsExplicit": false,
+    "compilerPathIsExplicit": false,
+    "browse": {
+        "limitSymbolsToIncludedHeaders": true
+    }
+}
+Additional Tracked Settings:
+{
+    "editorTabSize": 4,
+    "editorInsertSpaces": true,
+    "editorAutoClosingBrackets": "languageDefined",
+    "filesEncoding": "utf8",
+    "filesAssociations": {},
+    "filesExclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "filesAutoSaveAfterDelay": false,
+    "editorInlayHintsEnabled": true,
+    "editorParameterHintsEnabled": true,
+    "searchExclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true
+    },
+    "workbenchSettingsEditor": "ui"
+}
+cpptools version (native): 1.32.2.0
+Current database path: /home/musinsky/.cache/vscode-cpptools/75030871f09ab32f6df56649394167ad/.browse.VC.db
+Translation Unit Mappings:
+[ /home/musinsky/HSIMPLE/hsimple.C - source TU]:
+Translation Unit Configurations:
+[ /home/musinsky/HSIMPLE/hsimple.C ]
+    Process ID: 108608
+    Memory Usage: 21 MB
+    Compiler Path: /usr/bin/clang
+    Include Paths:
+        system include: /usr/include/c++/16
+        system include: /usr/include/c++/16/x86_64-redhat-linux
+        system include: /usr/include/c++/16/backward
+        system include: /usr/lib/clang/22/include
+        system include: /usr/local/include
+        system include: /usr/include
+    Standard Version: c++17
+    IntelliSense Mode: linux-clang-x64
+    Other Flags:
+        --clang
+        --clang_version=220106
+Total Memory Usage: 21 MB
+
+------- Workspace parsing diagnostics -------
+Number of files discovered (not excluded): 12255
+Number of files parsed: 1
+

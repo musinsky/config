@@ -1,0 +1,84 @@
+-------- Diagnostics - 6/3/2026, 3:48:22 PM
+Version: 1.32.2
+Current Configuration:
+{
+    "name": "Linux",
+    "includePath": [
+        "/home/musinsky/STRELA/**",
+        "/cern/root/include/**"
+    ],
+    "defines": [],
+    "compilerPath": "/usr/bin/g++",
+    "cStandard": "gnu23",
+    "cppStandard": "gnu++20",
+    "intelliSenseMode": "linux-gcc-x64",
+    "configurationProvider": "ms-vscode.makefile-tools",
+    "compilerPathIsExplicit": true,
+    "cStandardIsExplicit": true,
+    "cppStandardIsExplicit": true,
+    "intelliSenseModeIsExplicit": true,
+    "recursiveIncludesReduceIsExplicit": false,
+    "recursiveIncludesPriorityIsExplicit": false,
+    "recursiveIncludesOrderIsExplicit": false,
+    "compilerPathInCppPropertiesJson": "/usr/bin/g++",
+    "configurationProviderInCppPropertiesJson": "ms-vscode.makefile-tools",
+    "mergeConfigurations": false,
+    "recursiveIncludes": {},
+    "browse": {
+        "limitSymbolsToIncludedHeaders": true
+    }
+}
+Additional Tracked Settings:
+{
+    "editorTabSize": 4,
+    "editorInsertSpaces": true,
+    "editorAutoClosingBrackets": "languageDefined",
+    "filesEncoding": "utf8",
+    "filesAssociations": {},
+    "filesExclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    "filesAutoSaveAfterDelay": false,
+    "editorInlayHintsEnabled": true,
+    "editorParameterHintsEnabled": true,
+    "searchExclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true
+    },
+    "workbenchSettingsEditor": "ui"
+}
+cpptools version (native): 1.32.2.0
+Current database path: /home/musinsky/.cache/vscode-cpptools/1e02429a4a9e935e122e345dcccfff80/.browse.VC.db
+Translation Unit Mappings:
+[ /home/musinsky/STRELA/VME/TVMERawData.cxx - source TU]:
+    /home/musinsky/STRELA/VME/TVMERawData.h
+Translation Unit Configurations:
+[ /home/musinsky/STRELA/VME/TVMERawData.cxx ]
+    Process ID: 176288
+    Memory Usage: 195 MB
+    Compiler Path: /usr/bin/c++
+    Include Paths:
+        include: /cern/root/include
+        include: /home/musinsky/STRELA/include
+        system include: /usr/include/c++/16
+        system include: /usr/include/c++/16/x86_64-redhat-linux
+        system include: /usr/include/c++/16/backward
+        system include: /usr/lib/gcc/x86_64-redhat-linux/16/include
+        system include: /usr/local/include
+        system include: /usr/include
+    Standard Version: c++20
+    IntelliSense Mode: linux-gcc-x64
+    Other Flags:
+        --g++
+        --gnu_version=160101
+Total Memory Usage: 195 MB
+
+------- Workspace parsing diagnostics -------
+Number of files discovered (not excluded): 14321
+Number of files parsed: 569
+
