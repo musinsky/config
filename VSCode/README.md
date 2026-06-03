@@ -1,6 +1,7 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-04-27</p>
+<p align="right">last edit: 2026-06-03</p>
 <!-- markdownlint-enable  MD033 MD041-->
+<!-- markdownlint-disable MD014-->
 
 # Visual Studio Code
 
@@ -88,6 +89,7 @@ rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
 # only on local machine
 rm -rf "$HOME/.config/Code/"            # user data/config dir, '--user-data-dir'
 rm -rf "$HOME/.vscode/"                 # user extensions,      '--extensions-dir'
+rm -rf "$HOME/.vscode-shared/"          # shared dir
 
 # only on remote machine
 rm -rf "$HOME/.vscode-server/"          # dirs: 'cli', 'data' and 'extensions'
@@ -127,4 +129,12 @@ State is temporarily stored. Relaunch this state with: code --user-data-dir "/tm
 ```plain
 $ code --install-extension ms-vscode-remote.remote-ssh \
        --install-extension ms-vscode.remote-explorer
+```
+
+- Check environments on remote SSH (VS Code server). Note that IntelliSense and Terminal
+  use different environments.
+
+```plain
+$ ps -ef | grep vscode-server   # on remote host
+$ cat /proc/<PID>/environ | tr '\0' '\n'
 ```
