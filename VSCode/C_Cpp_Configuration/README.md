@@ -1,10 +1,11 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-06-03</p>
+<p align="right">last edit: 2026-06-04</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 # C/C++ Configuration in VS Code
 
-- VS Code docs: [Using C++ on Linux in VS Code](https://code.visualstudio.com/docs/cpp/config-linux)
+- VS Code docs: [C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp),
+  [Using C++ on Linux in VS Code](https://code.visualstudio.com/docs/cpp/config-linux)
 
 - Install
   [C/C++ Extension Pack (4-pack)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)
