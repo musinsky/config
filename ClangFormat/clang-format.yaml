@@ -1,4 +1,4 @@
-# 2026-04-16
+# 2026-06-04
 # https://github.com/musinsky/config/blob/master/ClangFormat/clang-format.yaml
 
 # https://muke.saske.sk/wiki/GCC#ClangFormat
@@ -11,12 +11,14 @@
 
 BasedOnStyle: Google                       # Alice O2 style(s) based on Google
 # all AlignConsecutiveXYZ styles are disabled in Google style
+# IndentWidth: 2 in Google style
 AlignConsecutiveAssignments: Consecutive   # Google, O2: None
 AlignTrailingComments: Leave               # Google, O2: Always
 BreakBeforeBraces: Linux                   # Google: Attach, O2: Linux
 ColumnLimit: 120                           # Google: 80, O2: 0
 ConstructorInitializerIndentWidth: 2       # Google: 4,  O2: 2
 ContinuationIndentWidth: 2                 # Google: 4,  O2: 2
+InsertBraces: true                         # Google, O2: false
 # SpacesBeforeTrailingComments ignore if AlignTrailingComments: Leave
 # SpacesBeforeTrailingComments: 1          # Google: 2,  O2: 1
 TabWidth: 2                                # Google: 8,  O2: 2
