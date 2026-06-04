@@ -1,7 +1,4 @@
-ms-vscode.cpptools
-ms-vscode.cpptools-themes
-ms-vscode.cpp-devtools
-ms-vscode.cmake-tools
+ms-vscode.cpptools-extension-pack
 ms-vscode.makefile-tools
 ms-vscode-remote.remote-ssh
 ms-vscode-remote.remote-ssh-edit
