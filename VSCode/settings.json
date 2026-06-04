@@ -1,4 +1,4 @@
-// 2026-06-03
+// 2026-06-04
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
@@ -14,6 +14,7 @@
   // "editor.renderWhitespace": "boundary", // i.a. view TABs
   "editor.rulers": [80, 100, 120],
   "editor.stickyScroll.enabled": false,
+  "editor.minimap.enabled": false,
   "files.associations": { "*.C": "cpp" },
   "files.insertFinalNewline": true,
   "workbench.colorTheme": "Visual Studio Light - C++",
@@ -77,15 +78,27 @@
     "editor.defaultFormatter": "mkhl.shfmt"
   },
 
+  // === Git ===
+  // "git.openRepositoryInParentFolders": "never",
+  // "git.openRepositoryInParentFolders": "prompt",
+
   // === C/C++ ===
-  // "C_Cpp.intelliSenseEngine": "default",
+  // https://code.visualstudio.com/docs/cpp/customize-cpp-settings
+  // Fedora + GCC
+  "C_Cpp.default.compilerPath": "/usr/bin/g++",
+  "C_Cpp.default.cppStandard": "gnu++20",
+  "C_Cpp.default.cStandard": "gnu23",
+  "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+  // // replace IntelliSense by clangd (llvm-vs-code-extensions.vscode-clangd)
+  // "C_Cpp.autocomplete": "disabled",
+  // "C_Cpp.intelliSenseEngine": "disabled",
+  // https://code.visualstudio.com/docs/cpp/cpp-ide#_code-formatting
   "C_Cpp.clang_format_fallbackStyle": "Google",
-  // "C_Cpp.formatting": "clangFormat",
+  "C_Cpp.formatting": "clangFormat",
 
   // === Makefile ===
-  "makefile.configureOnOpen": true,
-
-  "editor.minimap.enabled": false
+  // "makefile.configureOnOpen": true,
 
   // === End of user settings ===
+  "dummy.last.setting": "end"
 }
