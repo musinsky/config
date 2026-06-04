@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-06-03</p>
+<p align="right">last edit: 2026-06-04</p>
 <!-- markdownlint-enable  MD033 MD041-->
 <!-- markdownlint-disable MD014-->
 
@@ -71,6 +71,10 @@
 | `jeff-hykin.better-shellscript-syntax` | [Better Shell Syntax](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.better-shellscript-syntax) (zbytocne) |
 | `stkb.rewrap` | [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap) (unmaintained) |
 
+> ```bash
+> curl -s https://raw.githubusercontent.com/musinsky/config/master/VSCode/extensions.list | xargs -L 1 code --install-extension
+> ```
+
 ## Settings and profiles
 
 - VS Code docs: [User and workspace settings](https://code.visualstudio.com/docs/configure/settings),
@@ -110,6 +114,14 @@ $HOME/.config/Code/User/snippets/          # Snippets (dir with snippets)
 $HOME/.vscode/extensions/extensions.json   # Extensions (list of extensions, not the extensions themselves)
 ```
 
+- `settings.json` contains only items different from the default settings
+
+> ```bash
+> # close VS code
+> cp "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/Code/User/settings.json.$(date +%F_%T)"
+> curl https://raw.githubusercontent.com/musinsky/config/master/VSCode/settings.json -o "${HOME}/.config/Code/User/settings.json"
+> ```
+
 ## Notes
 
 - VS Code docs:
@@ -129,6 +141,9 @@ State is temporarily stored. Relaunch this state with: code --user-data-dir "/tm
 ```plain
 $ code --install-extension ms-vscode-remote.remote-ssh \
        --install-extension ms-vscode.remote-explorer
+
+$ code --list-extensions > extensions.list
+$ cat extensions.list | xargs -L 1 code --install-extension
 ```
 
 - Check environments on remote SSH (VS Code server). Note that IntelliSense and Terminal
