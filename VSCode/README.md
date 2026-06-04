@@ -118,8 +118,8 @@ $HOME/.vscode/extensions/extensions.json   # Extensions (list of extensions, not
 
 > ```bash
 > # close VS code
-> cp "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/Code/User/settings.json.$(date +%F_%T)"
-> curl https://raw.githubusercontent.com/musinsky/config/master/VSCode/settings.json -o "${HOME}/.config/Code/User/settings.json"
+> cp -p "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/Code/User/settings.json.$(date +%F_%T)"
+> curl -o "${HOME}/.config/Code/User/settings.json" https://raw.githubusercontent.com/musinsky/config/master/VSCode/settings.json
 > ```
 
 ## Notes
