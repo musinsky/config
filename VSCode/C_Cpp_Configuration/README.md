@@ -125,6 +125,27 @@ kedze sa tato Include Path pridava automaticky cez `Makefile`. Je vsak potrebne
 pre subory, ktore nie su priamo v `Makefile`, typicky pre rozne ROOT macros ako
 napr. `Strela.C`.
 
+## 20 - default after changes in `settings.json` file
+
+Zmenene C/C++ default nastavenia v `settings.json` file, t.j. novy default
+`Linux` ako `C/C++ Configuration`.
+
+```json
+"C_Cpp.default.compilerPath": "/usr/bin/g++",
+"C_Cpp.default.cppStandard": "gnu++20",
+"C_Cpp.default.cStandard": "gnu23",
+"C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+```
+
+`20.CC++.Diagnostics.log`  
+`21.c_cpp_properties.json`  
+`21.CC++.Diagnostics.log`  
+V podstate mame preddefinovany novy default `Linux` ako `C/C++ Configuration`,
+s tym rozdielom, ze jednotlive polozky su zadefinovane uz ako explicitne. Subor
+`21.c_cpp_properties.json` obsahuje "kvazi diff" k novej default konfiguracii,
+a teda nic podstatne, a teda `21.CC++.Diagnostics.log` je identicky ako
+`20.CC++.Diagnostics.log` (len poprehadzovane riadky).
+
 ## Notes
 
 - Ak mame zdrojovy kod pre ROOT je vhodne tuto cestu pridat do
