@@ -24,7 +24,9 @@
   "workbench.tree.indent": 16,
   "workbench.colorCustomizations": {
     "editorRuler.foreground": "#dfdfdf",
-    "editorWhitespace.foreground": "#ff47b8"
+    "editorWhitespace.foreground": "#ff47b8",
+    "editorIndentGuide.background": "#2b91af25",
+    "editorIndentGuide.activeBackground": "#2b91af50"
   },
 
   // === vscode-icons ===
