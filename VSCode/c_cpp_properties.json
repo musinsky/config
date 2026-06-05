@@ -1,0 +1,47 @@
+{
+  "configurations": [
+    {
+      "name": "Linux GCC",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/g++",
+      "cStandard": "gnu23",
+      "cppStandard": "gnu++20",
+      "intelliSenseMode": "linux-gcc-x64"
+    },
+    {
+      "name": "Linux GCC + ROOT",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/cern/root/include/**"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/g++",
+      "cStandard": "gnu23",
+      "cppStandard": "gnu++20",
+      "intelliSenseMode": "linux-gcc-x64",
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "/cern/root_master_src/"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    },
+    {
+      "name": "Linux GCC + ROOTSYS",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${env:ROOTSYS}/include/**"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/g++",
+      "cStandard": "gnu23",
+      "cppStandard": "gnu++20",
+      "intelliSenseMode": "linux-gcc-x64"
+    }
+  ],
+  "version": 4
+}
