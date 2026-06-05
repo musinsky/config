@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-06-04</p>
+<p align="right">last edit: 2026-06-05</p>
 <!-- markdownlint-enable  MD033 MD041-->
 <!-- markdownlint-disable MD014-->
 
@@ -100,7 +100,8 @@ rm -rf "$HOME/.vscode-server/"          # dirs: 'cli', 'data' and 'extensions'
 ```
 
 - **`$HOME/.config/Code/User/`** dir with default (built-in) profile
-- `$HOME/.config/Code/User/profiles/<profile-id>` dir with other profiles
+- `$HOME/.config/Code/User/profiles/<profile-id>` dir with other profiles (each profile
+  with its own individual settings)
 
 ```plain
 # Manage > Profiles: Default (Built-in)
@@ -120,6 +121,15 @@ $HOME/.vscode/extensions/extensions.json   # Extensions (list of extensions, not
 > # close VS code
 > cp -p "${HOME}/.config/Code/User/settings.json" "${HOME}/.config/Code/User/settings.json.$(date +%F_%T)"
 > curl -o "${HOME}/.config/Code/User/settings.json" https://raw.githubusercontent.com/musinsky/config/master/VSCode/settings.json
+> ```
+
+## C/C++ Configuration in VS Code
+
+- <https://github.com/musinsky/config/tree/master/VSCode/C_Cpp_Configuration>
+
+> ```bash
+> cp -p .vscode/c_cpp_properties.json .vscode/c_cpp_properties.json.$(date +%F_%T)
+> curl --create-dirs -o .vscode/c_cpp_properties.json https://raw.githubusercontent.com/musinsky/config/master/VSCode/c_cpp_properties.json
 > ```
 
 ## Notes
