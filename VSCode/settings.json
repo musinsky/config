@@ -1,4 +1,4 @@
-// 2026-06-04
+// 2026-06-05
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
@@ -45,11 +45,12 @@
 
   // === JSON ===
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
+    // "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     // "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "prettier.trailingComma": "none"
   },
   // "json.format.keepLines": true,
