@@ -1,4 +1,4 @@
-;; 2026-04-13
+;; 2026-06-11
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -168,9 +168,9 @@
 ;; # dnf remove libtree-sitter => don't remove, only for dependecies
 
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/sh-script.el
-;;(setq sh-basic-offset 2) ; default 4
-;;(setq shfmt-respect-sh-basic-offset t)
-(setq shfmt-arguments '("-i" "4" "-ci" "-sr" "-kp")) ; man shfmt
+(setq sh-basic-offset 2) ; default 4
+(setq shfmt-respect-sh-basic-offset t)
+(setq shfmt-arguments '("-i" "2" "-ci" "-sr" "-kp")) ; man shfmt
 ;; M-x shfmt-buffer
 ;;
 ;; (add-hook 'sh-mode-hook
