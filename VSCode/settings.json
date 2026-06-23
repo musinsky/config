@@ -23,7 +23,7 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.tree.indent": 16,
   "workbench.colorCustomizations": {
-    "editorRuler.foreground": "#dfdfdf",
+    "editorRuler.foreground": "#ff47b825",
     "editorWhitespace.foreground": "#ff47b8",
     "editorIndentGuide.background1": "#2b91af25",
     "editorIndentGuide.activeBackground1": "#2b91af50"
