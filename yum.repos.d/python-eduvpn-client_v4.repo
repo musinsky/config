@@ -1,0 +1,12 @@
+# 2026-07-10
+# https://eduvpn.docs.cern.ch/
+# https://docs.eduvpn.org/client/linux/installation.html
+#
+# curl -o /etc/pki/rpm-gpg/RPM-GPG-KEY-python-eduvpn-client_v4 https://app.eduvpn.org/linux/v4/rpm/app+linux@eduvpn.org.asc
+
+[python-eduvpn-client_v4]
+name=eduVPN for Linux 4.x (Fedora $releasever)
+baseurl=https://app.eduvpn.org/linux/v4/rpm/fedora-$releasever-$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-python-eduvpn-client_v4
