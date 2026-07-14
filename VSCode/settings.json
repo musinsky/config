@@ -1,4 +1,4 @@
-// 2026-06-05
+// 2026-07-14
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
@@ -76,7 +76,7 @@
   // https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck
   // https://marketplace.visualstudio.com/items?itemName=mkhl.shfmt
   // $ dnf install shfmt
-  "shfmt.executableArgs": ["-i", "4"],
+  "shfmt.executableArgs": ["-i", "2", "-ci", "-sr", "-bn"],
   "[shellscript]": {
     "editor.defaultFormatter": "mkhl.shfmt"
   },

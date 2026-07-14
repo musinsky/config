@@ -1,4 +1,4 @@
-;; 2026-06-11
+;; 2026-07-14
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -170,7 +170,7 @@
 ;; https://github.com/emacs-mirror/emacs/blob/master/lisp/progmodes/sh-script.el
 (setq sh-basic-offset 2) ; default 4
 (setq shfmt-respect-sh-basic-offset t)
-(setq shfmt-arguments '("-i" "2" "-ci" "-sr" "-kp")) ; man shfmt
+(setq shfmt-arguments '("-i" "2" "-ci" "-sr" "-bn")) ; man shfmt
 ;; M-x shfmt-buffer
 ;;
 ;; (add-hook 'sh-mode-hook
