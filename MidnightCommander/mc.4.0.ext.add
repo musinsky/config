@@ -1,4 +1,4 @@
-# 2026-03-31
+# 2026-07-21
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
@@ -69,7 +69,7 @@ View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate-crl
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate
 
 [json]
-Type=^JSON
+Type=JSON
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view json
 
 ### Other ###
