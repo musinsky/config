@@ -209,7 +209,7 @@ e   detect encoding of the current file (uchardet + enca)
     printf 'Done\n'
 
 + ! t t & t r & ! T t & T r
-d   compare current two files from two panels (diff + cmp)
+d   compare current two files from two panels (cmp)
     %view{nroff}
     FILE1=%d/%f; FILE2=%D/%F
     printf 'file:\t%%s\t# size:\t%%s\nfile:\t%%s\t# size:\t%%s\n' \
@@ -217,10 +217,11 @@ d   compare current two files from two panels (diff + cmp)
            "$FILE2" "$(stat --format '%%s' "$FILE2")" \
         | column --separator $'\t' --table --table-columns A,B,C,D,E \
                  --table-right B,D --table-noheadings
+    printf '\n'
     DIFFER='_\bd_\bi_\bf_\bf_\be_\br_\be_\bn_\bt'
-    printf '\ndiff: files are '
-    if diff "$FILE1" "$FILE2" >/dev/null; then
-        printf 'identical\n'; else printf '%%b\n' "$DIFFER"; fi
+    #printf '\ndiff: files are '
+    #if diff "$FILE1" "$FILE2" >/dev/null; then
+    #    printf 'identical\n'; else printf '%%b\n' "$DIFFER"; fi
     printf 'cmp:  files are '
     if cmp --quiet "$FILE1" "$FILE2" 2>&1; then
         printf 'identical\n'; else printf '%%b\n' "$DIFFER"; fi
