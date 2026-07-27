@@ -1,6 +1,6 @@
 shell_patterns=1
 
-# 2026-05-14
+# 2026-07-27
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.menu
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.menu.in
 
@@ -261,6 +261,25 @@ r   find rpm package that owns the current file
 #     printf '\n\x1b[1m$ dnf provides %%s\x1b[0m\n' "$FILE"
 #     dnf provides "$FILE"
 #     read -n 1 -r -s -p "Press any key"
+
+g   git info
+    %view
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1  ; then
+        printf "Not a Git repository\n"
+        exit 1
+    fi
+    GITTOP="$(git rev-parse --path-format=absolute --show-toplevel)"
+    GITDIR="$(git rev-parse --path-format=absolute --git-dir)"
+    du --summarize --human-readable "${GITTOP}"
+    du --summarize --human-readable "${GITDIR}"
+    printf "\n"
+    git remote --verbose
+    printf "\n"
+    git branch --all --verbose --verbose
+    printf "\n"
+    git log -3 --oneline --decorate
+    printf "\n"
+    git config --local --list --show-origin
 
 --- ExifTool ---
     %view
