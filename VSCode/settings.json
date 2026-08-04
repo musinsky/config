@@ -1,4 +1,4 @@
-// 2026-07-14
+// 2026-08-04
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
@@ -28,6 +28,7 @@
     "editorIndentGuide.background1": "#2b91af25",
     "editorIndentGuide.activeBackground1": "#2b91af50"
   },
+  "workbench.experimental.modernUI": false,
 
   // === vscode-icons ===
   "vsicons.presets.jsonOfficial": true,
@@ -78,6 +79,8 @@
   // $ dnf install shfmt
   "shfmt.executableArgs": ["-i", "2", "-ci", "-sr", "-bn"],
   "[shellscript]": {
+    "editor.insertSpaces": true,
+    // "editor.tabSize": 4,
     "editor.defaultFormatter": "mkhl.shfmt"
   },
 
