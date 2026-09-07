@@ -1,0 +1,13 @@
+# 2026-09-07
+# https://github.com/musinsky/config/blob/master/GNOME/01-muke-customize-gdm
+
+# /etc/dconf/db/gdm.d/01-muke-customize-gdm
+# sudo dconf update
+
+[org/gnome/settings-daemon/plugins/power]
+sleep-inactive-ac-timeout=600
+sleep-inactive-ac-type='blank'
+power-button-action='nothing'
+
+[org/gnome/desktop/interface]
+clock-format='24h'
