@@ -1,8 +1,12 @@
-# 2026-09-07
+# 2026-09-09
 # https://github.com/musinsky/config/blob/master/GNOME/01-muke-customize-gdm
-
+#
 # /etc/dconf/db/gdm.d/01-muke-customize-gdm
 # sudo dconf update
+
+# The following settings are no longer recommended
+# $ sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 600
+# $ sudo -u gdm dbus-run-session gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'blank'
 
 [org/gnome/settings-daemon/plugins/power]
 sleep-inactive-ac-timeout=600
