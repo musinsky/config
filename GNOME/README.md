@@ -6,7 +6,7 @@
 
 ## admin
 
-```bash
+```plain
 sudo curl -fSs https://raw.githubusercontent.com/musinsky/config/master/GNOME/01-muke-customize-gdm \
      --output-dir /etc/dconf/db/gdm.d/ --remote-name
 sudo dconf update
@@ -14,6 +14,6 @@ sudo dconf update
 
 ## user
 
-```bash
+```plain
 curl -fSs https://raw.githubusercontent.com/musinsky/config/master/GNOME/dconf-settings.sh | bash
 ```
