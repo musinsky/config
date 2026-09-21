@@ -5,6 +5,6 @@
 [adoptium-temurin-java]
 name=Adoptium Temurin Java
 baseurl=https://packages.adoptium.net/artifactory/rpm/fedora/$releasever/$basearch
-enabled=0
+enabled=1
 gpgcheck=1
 gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
