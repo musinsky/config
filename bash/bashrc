@@ -1,16 +1,16 @@
-# 2025-05-29
+# 2026-09-21
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 
 ### default (file '/etc/skel/.bashrc') ###
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+  . /etc/bashrc
 fi
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
@@ -22,14 +22,14 @@ HISTIGNORE=?:??:*crypt*:*passw*:history
 HISTFILESIZE=99999   # file
 HISTSIZE=99999       # memory
 
-export LESSHISTFILE=-
 export EDITOR='emacs -nw'
+export LESSHISTFILE=-
 # color for man pages
 #export MANROFFOPT='-c'
 #export MANPAGER='less -Dd+y -Dur --use-color'
 
-# https://www.gnu.org/software/libc/manual/html_node/Locales.html
-# LANG=en_US.UTF-8   # current locale
+# https://sourceware.org/glibc/manual/latest/html_node/Locales.html
+# LANG=en_US.UTF-8   # default locale
 # LC_ALL=            # locale based on environment variable (i.e. en_US.UTF-8)
 export LC_PAPER='sk_SK.UTF-8'
 export LC_MEASUREMENT='sk_SK.UTF-8'
@@ -37,12 +37,12 @@ export LC_MEASUREMENT='sk_SK.UTF-8'
 export LS_COLORS=$LS_COLORS:'di=01;30:'   # bold black dirname color
 ls_common='--color=auto --group-directories-first --time-style="+%F %T"'
 # LC_COLLATE: filename sorting (case sensitive, dot files first, etc.)
-# don't use recommended LC_ALL=C (overrides any others LC_ variables, used in ls bellow)
+# don't use recommended LC_ALL=C (overrides any others LC_* variables, used in ls bellow)
 if locale -a | grep -i -x -q 'C.UTF8'; then
-    # glibc 2.35 (2022-02) support C.UTF-8 locale
-    alias ls="LC_COLLATE=C.UTF8 ls $ls_common"
+  # glibc 2.35 (2022-02) support C.UTF-8 locale
+  alias ls="LC_COLLATE=C.UTF8 ls $ls_common"
 else
-    alias ls="LC_COLLATE=C ls $ls_common"
+  alias ls="LC_COLLATE=C ls $ls_common"
 fi
 unset ls_common
 # LC_NUMERIC: number formatting (thousands separator)
@@ -59,6 +59,7 @@ alias llt-full='ls -l --time-style="+%F %T.%N %:z"' # full-time/full-iso equival
 # format strings separated by a newline are used for non-recent and recent files
 #tsf_newline=$'\n'   # bash ANSI-C Quoting
 #alias llt='ls -l --time-style="+%F %H:%M:%S $tsf_newline%F %H:%M:%S^"'
+complete -F _muke_ll_completion ll lls llt
 
 alias dnf='sudo dnf'
 alias cp='cp -p'
@@ -67,7 +68,7 @@ alias sftp='sftp -p'
 alias dos2unix='dos2unix -k'
 alias unix2dos='unix2dos -k'
 alias root='root --version && root -l --web=off'
-# source /cern/root_v5-34-00-patches/bin/thisroot.sh
+# source /opt/root5/bin/thisroot.sh
 # alias root='root -l'
 
 # mukeds_opt='--rsh="ssh -p 75" --rsync-path="/usr/local/bin/rsync" '
@@ -118,3 +119,12 @@ GIT_PS1_SHOWCOLORHINTS="nonempty"
 # don't use '\e[COLORm', use '\[\e[COLORm\]' or '\001\e[COLORm\002' instead
 #PS1='[\u@\h \001\e[1m\002\W\001\e[0m\002$(__git_ps1 " (%s)")]\$ '
 PS1='[\u@\h \[\e[1m\]\W\[\e[0m\]$(__git_ps1 " (%s)")]\$ '
+
+### user functions ###
+
+_muke_ll_completion()
+{
+  # $ complete -p ls
+  # complete -F _comp_complete_longopt ls
+  _comp_complete_longopt ls
+}
