@@ -1,4 +1,4 @@
-;; 2026-07-14
+;; 2026-09-22
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -236,6 +236,11 @@
 (setq ispell-program-name "/usr/bin/hunspell")
 (setq ispell-personal-dictionary "~/.musinsky.dic") ; don't use $HOME
 
+(require 'ispell)
+(ispell-set-spellchecker-params)
+(ispell-hunspell-add-multi-dic "en_US,sk_SK-ascii")
+(ispell-hunspell-add-multi-dic "en_US,ru_RU-wiki")
+
 ;; mucha (user functions)
 (defun mucha-emacs-reload ()
   "Reload ~/.emacs.el init file"
@@ -256,7 +261,7 @@
   "Russian environment"
   (interactive)
   (set-input-method "cyrillic-yawerty")
-  (setq ispell-dictionary "russian") ; russian = ru_RU
+  (setq ispell-dictionary "ru_RU-wiki") ; "russian" = "ru_RU"
   (flyspell-mode 1)
   (message "Switch to russian: cyrillic-yawerty and flyspell mode on"))
 
@@ -264,7 +269,7 @@
   "Slovak environment"
   (interactive)
   (set-input-method "slovak-prog-2")
-  (setq ispell-dictionary "slovak") ; slovak = sk_SK
+  (setq ispell-dictionary "slovak") ; "slovak" = "sk_SK"
   (flyspell-mode 1)
   (message "Switch to slovak: slovak-prog-2 and flyspell mode on"))
 
@@ -280,7 +285,7 @@
   "Default english environment"
   (interactive)
   (set-input-method nil)
-  (setq ispell-dictionary nil) ; default = english = en_US
+  (setq ispell-dictionary nil) ; default ("english" = "en_US")
   (flyspell-mode -1)
   (message "Switch to default english and flyspell mode off"))
 
