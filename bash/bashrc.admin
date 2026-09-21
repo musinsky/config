@@ -1,0 +1,34 @@
+# 2026-09-21
+# https://github.com/musinsky/config/blob/master/bash/bashrc.admin
+
+### default (file '/usr/share/rootfiles/.bashrc') ###
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+### customized ###
+
+HISTCONTROL=ignoreboth:erasedups
+HISTIGNORE=?:??:*crypt*:*passw*:history
+HISTFILESIZE=99999   # file
+HISTSIZE=99999       # memory
+
+export EDITOR='emacs -nw'
+export LESSHISTFILE=-
+export LS_COLORS=$LS_COLORS:'di=01;30:'   # bold black dirname color
+
+alias rm='rm -i'
+alias cp='cp -ip'
+alias mv='mv -i'
+alias scp='scp -p'
+alias sftp='sftp -p'
+alias dos2unix='dos2unix -k'
+alias unix2dos='unix2dos -k'
