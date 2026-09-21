@@ -1,4 +1,4 @@
-# 2026-09-17
+# 2026-09-21
 # https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
 # https://gitlab.cern.ch/linuxsupport/rpms/releases/almalinux-release/-/tree/a9
 #
@@ -20,7 +20,7 @@
 # lpadmincern, https://gitlab.cern.ch/linuxsupport/rpms/lpadmincern
 # sicgsfilter, https://gitlab.cern.ch/linuxsupport/rpms/sicgsfilter (Canon printers filter)
 
-[cern]
+[cern-almalinux]
 name=AlmaLinux 9 (selected pkgs for Fedora only) - CERN
 baseurl=http://linuxsoft.cern.ch/cern/alma/9/CERN/$basearch
 enabled=1
@@ -30,7 +30,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
 # gpgkey=https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
-[cern-testing]
+[cern-almalinux-testing]
 name=AlmaLinux 9 (selected pkgs for Fedora only) - CERN - testing
 baseurl=http://linuxsoft.cern.ch/cern/alma/9-testing/CERN/$basearch
 enabled=0
@@ -39,7 +39,7 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
-[cern-source]
+[cern-almalinux-source]
 name=AlmaLinux 9 (selected pkgs for Fedora only) - CERN Source
 baseurl=https://linuxsoft.cern.ch/cern/alma/9/CERN/Source/
 enabled=0
