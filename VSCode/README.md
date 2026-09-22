@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-06-05</p>
+<p align="right">last edit: 2026-09-22</p>
 <!-- markdownlint-enable  MD033 MD041-->
 <!-- markdownlint-disable MD014-->
 
@@ -41,6 +41,7 @@
 - `$ dnf5 --repo=vscode repoquery --latest-limit=1`
 - supported architectures: `aarch64`, `armv7hl`, `x86_64` (platform/distribution: `el8`)
 - `code-exploration` ~~(early preview)~~ → `code-insiders` (preview, early access) → **`code`** (stable, weekly)
+- `$ dnf install code`
 
 ## Extensions
 
@@ -73,6 +74,7 @@
 
 > ```bash
 > curl -s https://raw.githubusercontent.com/musinsky/config/master/VSCode/extensions.list | xargs -L 1 code --install-extension
+> curl -s https://raw.githubusercontent.com/musinsky/config/master/VSCode/extensions.remote.list | xargs -L 1 code --install-extension
 > ```
 
 ## Settings and profiles
