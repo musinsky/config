@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # 2026-09-23
-# https://github.com/musinsky/config/blob/master/bash/scripts/muke-dict-sync.sh
+# https://github.com/musinsky/config/blob/master/dictionary/muke-dict-sync.sh
 
 remote_dic_curl() {
   local remote_dic="$TMP_DIR/remote.dic"
