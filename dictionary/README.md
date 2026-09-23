@@ -1,13 +1,15 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-09-22</p>
+<p align="right">last edit: 2026-09-23</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 ## Sharing personal dictionary
 
 ```plain
 # curl https://raw.githubusercontent.com/musinsky/config/master/dictionary/musinsky.dic -o "$HOME/.musinsky.dic"
-ln -s "$HOME/config/dictionary/musinsky.dic" "$HOME/.musinsky.dic"
 ```
+
+Pouizvanie [`muke-dict-sync.sh`](https://github.com/musinsky/config/blob/master/dictionary/muke-dict-sync.sh)
+automatizuje synchronizaciu personalneho slovnika medzi roznymi aplikaciami.
 
 ### Emacs
 
@@ -44,8 +46,8 @@ Nazov slovnika (suboru) nie je mozne menit. Pri ulozeni noveho slova do `persdic
 sa tento slovnik (subor) zdielal s LibreOffice, potom by sa preusporiadali aj prve riadky z hlavicky tohoto slovnika, a
 teda pre LibreOffice by bol tento slovnik uz dalej nepouzitelny.
 
-Prijatelne riesenie je cas od casu vytvorit novy personalny slovnik pre Firefox spojenim jeho stareho slovnika a
-spolocneho slovnika pre Emacs a LibreOffice
+Prijatelne riesenie je cas od casu vytvorit (resp. synchronizovat) novy personalny slovnik pre Firefox spojenim jeho
+povodneho slovnika a spolocneho slovnika pre Emacs a LibreOffice
 
 ```plain
 sed -n '5,$p' "$HOME/.musinsky.dic" "$HOME"/.config/mozilla/firefox/*.default-release/persdict.dat | LC_COLLATE=C sort -u > persdict_merge.dat
