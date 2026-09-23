@@ -1,7 +1,9 @@
 {
   "$comment": [
-    "2026-03-30",
-    "https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/"
+    "2026-09-23",
+    "https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/",
+    "FoxyProxy/Options > Import (this JSON file)",
+    "$ ssh -D 8888 <username>@lxtunnel.cern.ch"
   ],
   "mode": "disable",
   "sync": false,
