@@ -3,6 +3,21 @@
 # 2026-09-23
 # https://github.com/musinsky/config/blob/master/bash/scripts/muke-dict-sync.sh
 
+remote_dic_curl() {
+  local remote_dic="$TMP_DIR/remote.dic"
+  curl -o "$remote_dic" https://raw.githubusercontent.com/musinsky/config/master/dictionary/musinsky.dic
+  printf "\n"
+  if cmp --silent "$remote_dic" "$DIC_USER" 2>&1; then
+    printf "Remote and User dictionary: identical\n"
+    rm "$remote_dic"
+  else
+    printf "Remote and User dictionary: different\n"
+    printf "   => User dictionary replaced by Remote dictionary\n"
+    cp -p "$DIC_USER" "$DIC_USER.$(date +%F_%T)" 2> /dev/null # even if $DIC_USER does not exist
+    mv "$remote_dic" "$DIC_USER"
+  fi
+}
+
 libre_office_link() {
   local lo_dir
   lo_dir="$(find "$HOME/.config/libreoffice" -maxdepth 2 -type d -name 'user')"
@@ -47,7 +62,7 @@ firefox_sync() {
   printf "Firefox personal dir: '%s'\n" "$ff_dir"
 
   local ff_dic="$ff_dir/persdict.dat"
-  local user_dic_nohead="/tmp/user.dic.nohead"
+  local user_dic_nohead="$TMP_DIR/user.dic.nohead"
   tail -n +5 "$DIC_USER" > "$user_dic_nohead"
 
   [[ ! -f "$ff_dic" ]] && {
@@ -57,7 +72,7 @@ firefox_sync() {
     return
   }
 
-  local ff_dic_merge="/tmp/ff.dic.merge"
+  local ff_dic_merge="$TMP_DIR/ff.dic.merge"
   if cmp --silent "$ff_dic" "$user_dic_nohead" 2>&1; then
     printf "Firefox and User dictionary: identical\n"
     rm "$user_dic_nohead"
@@ -68,24 +83,20 @@ firefox_sync() {
     cat "$user_dic_nohead" "$ff_dic" | LC_COLLATE=C sort --unique > "$ff_dic_merge"
     mv "$ff_dic_merge" "$ff_dic"
     head -4 "$DIC_USER" > "$ff_dic_merge"
-    cp "$DIC_USER" "$DIC_USER.$(date +%F_%T)"
+    cp -p "$DIC_USER" "$DIC_USER.Firefox.$(date +%F_%T)"
     cat "$ff_dic_merge" "$ff_dic" > "$DIC_USER"
+    printf "   => \x1b[1;31mcommit or revert changes\x1b[0m, do not run this program again\n"
     rm "$user_dic_nohead"
     rm "$ff_dic_merge"
   fi
 }
 
 DIC_USER="$HOME/.musinsky.dic"
+TMP_DIR="$(dirname "$(mktemp --dry-run)")" # "${TMPDIR:-/tmp}"
 
-# # ToDo
-# [[ ! -f "$DIC_USER" ]] && {
-#   printf "User dictionary: not found: '%s'\n" "$DIC_USER"
-#   return 1
-#   # resp. curl
-# }
-
+remote_dic_curl
+printf "\n"
 libre_office_link
 printf "\n"
 firefox_sync
-
-echo "THE END"
+printf "\n"
