@@ -51,7 +51,7 @@ sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/p
 sudo dnf install eduvpn-client
 ```
 
-### AlmaLinux 9 (selected pkgs for Fedora only) - CERN
+### AlmaLinux 9 (only selected pkgs for Fedora) - CERN
 
 ```plain
 sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/cern-almalinux.repo \

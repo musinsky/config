@@ -21,7 +21,7 @@
 # sicgsfilter, https://gitlab.cern.ch/linuxsupport/rpms/sicgsfilter (Canon printers filter)
 
 [cern-almalinux]
-name=AlmaLinux 9 (selected pkgs for Fedora only) - CERN
+name=AlmaLinux 9 (only selected pkgs for Fedora) - CERN
 baseurl=http://linuxsoft.cern.ch/cern/alma/9/CERN/$basearch
 enabled=1
 priority=5
@@ -31,7 +31,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
 [cern-almalinux-testing]
-name=AlmaLinux 9 (selected pkgs for Fedora only) - CERN - testing
+name=AlmaLinux 9 (only selected pkgs for Fedora) - CERN - testing
 baseurl=http://linuxsoft.cern.ch/cern/alma/9-testing/CERN/$basearch
 enabled=0
 priority=5
@@ -40,7 +40,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
 [cern-almalinux-source]
-name=AlmaLinux 9 (selected pkgs for Fedora only) - CERN Source
+name=AlmaLinux 9 (only selected pkgs for Fedora) - CERN Source
 baseurl=https://linuxsoft.cern.ch/cern/alma/9/CERN/Source/
 enabled=0
 gpgcheck=1
