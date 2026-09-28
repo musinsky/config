@@ -1,42 +1,63 @@
-# 2026-03-03
+# 2026-09-28
 # https://github.com/musinsky/config/blob/master/bash/muke-profile.sh
 
-function __muke_var_value {
-    local var_value="${!1}"
-    # printf "var_name         = %s\n" "$1"
-    # printf "var_value        = %s\n" "$var_value"
-    # printf "var_value_append = %s\n" "$2"
+# export MUKE_PROFILE_VERBOSE=1 # enable verbose output
 
-    if [[ -z "$var_value" ]]; then
-        declare -g "$1"="$2"
-        # printf "# created variable with value\n"
-    elif [[ "$var_value" != *"$2"* ]]; then
-        declare -g "$1"="$var_value:$2"
-        # printf "# appended value to exist variable\n"
-    else
-        # printf "# variable exist and already contains value\n"
-        return
-    fi
+__muke_var_value_export() {
+  [[ "${MUKE_PROFILE_VERBOSE}" == 1 ]] && {
+    printf "var_name         = '%s'\n" "${1}"
+    printf "var_value        = '%s'\n" "${!1}"
+    printf "var_value_append = '%s'\n" "${2}"
+  }
+  # Note: value referenced by ${!1} may change during function execution
+
+  if [[ -z "${!1}" ]]; then
+    declare -gx "${1}"="${2}"
+    [[ "${MUKE_PROFILE_VERBOSE}" == 1 ]] && {
+      printf "variable '%s' is unset or empty\n" "${1}"
+      printf "=> variable '%s' set to value '%s' (and exported)\n" "${1}" "${2}"
+    }
+  elif [[ "${!1}" != *"${2}"* ]]; then
+    declare -gx "${1}"="${!1}:${2}"
+    [[ "${MUKE_PROFILE_VERBOSE}" == 1 ]] && {
+      printf "variable '%s' exists but does not contain value '%s'\n" "${1}" "${2}"
+      printf "=> value '%s' appended to variable '%s' (and exported)\n" "${2}" "${1}"
+    }
+  else
+    [[ "${MUKE_PROFILE_VERBOSE}" == 1 ]] && {
+      printf "variable '%s' exists and already contains value '%s'\n" "${1}" "${2}"
+      printf "=> no changes\n"
+    }
+  fi
+
+  [[ "${MUKE_PROFILE_VERBOSE}" == 1 ]] && {
+    printf "===> '%s' = '%s'\n\n" "${1}" "${!1}"
+  }
 }
 
-# https://sft.its.cern.ch/jira/browse/ROOT-9309
-# it's better to never set ROOTSYS, LD_LIBRARY_PATH and never source thisroot.sh
-#   ROOTSYS='/cern/root'
-#   __muke_var_value PATH "$ROOTSYS/bin"
-#   __muke_var_value LD_LIBRARY_PATH "$ROOTSYS/lib"
-#   __muke_var_value CMAKE_PREFIX_PATH "$ROOTSYS"
+PREFIX_PATH="/opt/root"
+[[ -d "${PREFIX_PATH}" ]] && {
+  # __muke_var_value_export ROOTSYS "${PREFIX_PATH}"
+  __muke_var_value_export PATH "${PREFIX_PATH}/bin"
+  __muke_var_value_export LD_LIBRARY_PATH "${PREFIX_PATH}/lib"
+  __muke_var_value_export CMAKE_PREFIX_PATH "${PREFIX_PATH}"
+  [[ -d "${PREFIX_PATH}/lib/cppyy" ]] && { # root-config --has-pyroot
+    __muke_var_value_export PYTHONPATH "${PREFIX_PATH}/lib"
+    __muke_var_value_export JUPYTER_PATH "${PREFIX_PATH}/etc/notebook"
+    __muke_var_value_export JUPYTER_CONFIG_PATH "${PREFIX_PATH}/etc/notebook"
+  }
+}
 
-ROOT_PATH='/cern/root'
-__muke_var_value PATH         "$ROOT_PATH/bin"
-__muke_var_value PYTHONPATH   "$ROOT_PATH/lib"
-__muke_var_value JUPYTER_PATH "$ROOT_PATH/etc/notebook"
+PREFIX_PATH="/opt/xrootd"
+[[ -d "${PREFIX_PATH}" ]] && {
+  __muke_var_value_export PATH "${PREFIX_PATH}/bin"
+  __muke_var_value_export LD_LIBRARY_PATH "${PREFIX_PATH}/lib64"
+}
 
-__muke_var_value PATH            '/cern/xrootd/bin'
-__muke_var_value LD_LIBRARY_PATH '/cern/xrootd/lib64'
+PREFIX_PATH="/opt/texlive/2026"
+[[ -d "${PREFIX_PATH}" ]] && {
+  __muke_var_value_export PATH "${PREFIX_PATH}/bin/x86_64-linux"
+}
 
-__muke_var_value PATH '/opt/texlive/2026/bin/x86_64-linux'
-
-# MAN and INFO are added automatically
-export PATH LD_LIBRARY_PATH PYTHONPATH JUPYTER_PATH
-
-unset ROOT_PATH
+# man and info paths are automatically determined by the programs
+unset PREFIX_PATH
