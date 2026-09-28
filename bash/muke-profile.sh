@@ -2,6 +2,9 @@
 # https://github.com/musinsky/config/blob/master/bash/muke-profile.sh
 
 # export MUKE_PROFILE_VERBOSE=1 # enable verbose output
+# __muke_var_value_export TEST 111
+# __muke_var_value_export TEST 222
+# __muke_var_value_export TEST 111
 
 __muke_var_value_export() {
   [[ "${MUKE_PROFILE_VERBOSE}" == 1 ]] && {
