@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-09-22</p>
+<p align="right">last edit: 2026-09-29</p>
 <!-- markdownlint-enable  MD033 MD041-->
 <!-- markdownlint-disable MD014-->
 
@@ -38,7 +38,7 @@
   [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux)
 - repository [`/etc/yum.repos.d/vscode.repo`](https://github.com/musinsky/config/blob/master/yum.repos.d/vscode.repo)
   (common for Fedora/RHEL)
-- `$ dnf5 --repo=vscode repoquery --latest-limit=1`
+- `$ dnf --repo=vscode list --available`
 - supported architectures: `aarch64`, `armv7hl`, `x86_64` (platform/distribution: `el8`)
 - `code-exploration` ~~(early preview)~~ → `code-insiders` (preview, early access) → **`code`** (stable, weekly)
 - `$ dnf install code`
