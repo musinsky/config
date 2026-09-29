@@ -70,7 +70,7 @@ two_files() {
     [[ "$date_mkv1" == "$date_mkv2" ]] && \
         { printf "datetimes of both files are identical\n"; return; }
 
-    read -r -p "change '$2' Matroska multiplex datetime? [y]:"
+    read -r -p "change '$2' Matroska multiplex datetime ? [y/N] "
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mkvpropedit "$2" --edit info --set "date=$date_mkv1" --quiet && \
             printf "'%s' Matroska multiplex datetime was changed\n" "$2"
