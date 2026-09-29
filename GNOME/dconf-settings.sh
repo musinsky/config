@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2026-09-16
+# 2026-09-29
 # GNOME 50 (Fedora 44)
 
 change_font_size() {
@@ -41,12 +41,6 @@ gsettings set org.gnome.desktop.interface show-battery-percentage true
 gsettings set org.gnome.desktop.privacy remember-app-usage false
 gsettings set org.gnome.desktop.privacy remember-recent-files false
 
-gsettings set org.gnome.desktop.session idle-delay 3600             # monitor blank (screensaver starts)
-
-gsettings set org.gnome.desktop.screensaver lock-delay 600          # lock screen (after idle-delay + lock-delay)
-#gsettings set org.gnome.desktop.screensaver lock-enabled false     # disable lock screen (only on home PC)
-gsettings set org.gnome.desktop.screensaver lock-enabled true       # enable lock screen
-
 gsettings set org.gnome.desktop.wm.keybindings close "[]"                            # disable Alt+F4
 gsettings set org.gnome.desktop.wm.keybindings panel-run-dialog "['<Alt>R']"         # replace Alt+F2 by Alt+R
 gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Ctrl><Alt>M']"
@@ -60,13 +54,13 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>F4'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
 #change_font_size org.gnome.desktop.wm.preferences titlebar-font 10        # 'Adwaita Sans Bold 11'
-# ==============================================================================
 
-gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0         # 0 means never
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'blank'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 600
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'blank'
+# gsettings set org.gnome.desktop.session                 # => dconf-settings-power.sh
+# gsettings set org.gnome.desktop.screensaver             # => dconf-settings-power.sh
+# gsettings set org.gnome.settings-daemon.plugins.power   # => dconf-settings-power.sh
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys logout "[]"               # disable Ctrl+Alt+Del
+gsettings set org.gnome.settings-daemon.plugins.media-keys reboot "['<Control><Alt>Delete']"
 
 #gsettings reset org.gnome.shell command-history
 gsettings set org.gnome.shell always-show-log-out true
