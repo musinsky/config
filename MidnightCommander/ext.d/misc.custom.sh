@@ -11,167 +11,167 @@ filetype=$2 # $2 - type of file
 [ -n "${MC_XDG_OPEN}" ] || MC_XDG_OPEN="xdg-open"
 
 print_mc_under() {
-    # only in bash (not in POSIX sh)
-    underline=$1
-    for ((i=0; i < ${#underline}; i++)); do
-        printf "_\b%b" "${underline:i:1}"
-    done
-    printf "\n"
+  # only in bash (not in POSIX sh)
+  underline=$1
+  for ((i=0; i < ${#underline}; i++)); do
+    printf "_\b%b" "${underline:i:1}"
+  done
+  printf "\n"
 }
 
 cat_raw_file() {
-    print_mc_under "=== cat (print raw file) ==="
-    # printf "$ cat %s\n" "${MC_EXT_FILENAME}"
-    cat "${MC_EXT_FILENAME}" && printf "\n"
+  print_mc_under "=== cat (print raw file) ==="
+  # printf "$ cat %s\n" "${MC_EXT_FILENAME}"
+  cat "${MC_EXT_FILENAME}" && printf "\n"
 }
 
 do_view_action() {
-    filetype=$1
-    # print_mc_under "=== file ==="
-    print_mc_under "=== file (determine file type) ==="
-    # printf "$ file %s\n" "${MC_EXT_FILENAME}"
-    file "${MC_EXT_FILENAME}" && printf "\n"
+  filetype=$1
+  # print_mc_under "=== file ==="
+  print_mc_under "=== file (determine file type) ==="
+  # printf "$ file %s\n" "${MC_EXT_FILENAME}"
+  file "${MC_EXT_FILENAME}" && printf "\n"
 
-    case "${filetype}" in
-        iso9660)
-            print_mc_under "=== isoinfo ==="
-            isoinfo -d -i "${MC_EXT_FILENAME}" 2>/dev/null && \
-                isoinfo -l -i "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        cat)
-            cat "${MC_EXT_FILENAME}"
-            ;;
-        lib)
-            cat "${MC_EXT_FILENAME}"
-            ;;
-        ar)
-            print_mc_under "=== ar ==="
-            ar tv "${MC_EXT_FILENAME}" 2>/dev/null
-            printf "\n"; print_mc_under "=== nm ==="
-            nm -C "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        so)
-            if command -v libtree > /dev/null; then
-                print_mc_under "=== libtree ==="
-                libtree --path -v "${MC_EXT_FILENAME}" 2>/dev/null
-            else
-                print_mc_under "=== ldd ==="
-                ldd "${MC_EXT_FILENAME}" 2>/dev/null
-            fi
-            printf "\n"; print_mc_under "=== nm ==="
-            nm -C -D "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        elf)
-            # i.e. all executable programs
-            if command -v libtree > /dev/null; then
-                print_mc_under "=== libtree ==="
-                libtree --path -v "${MC_EXT_FILENAME}" 2>/dev/null
-            else
-                print_mc_under "=== ldd ==="
-                ldd "${MC_EXT_FILENAME}" 2>/dev/null
-            fi
-            printf "\n"; print_mc_under "=== nm ==="
-            nm -C "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        dbf)
-            # dbview is dead
-            cat "${MC_EXT_FILENAME}"
-            ;;
-        sqlite)
-            print_mc_under "=== sqlite3 ==="
-            sqlite3 "file:${MC_EXT_FILENAME}?immutable=1" .dump 2>/dev/null
-            ;;
-        mo)
-            print_mc_under "=== msgunfmt ==="
-            msgunfmt --indent --no-wrap "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        root)
-            print_mc_under "=== rootls ==="
-            # aliases in the sub-shell are ignored
-            (type rootls; printf "\n"; \
-             root --version 2>&1) | awk '{print "# " $0}'; printf "\n"
-            rootls --treeListing "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        torrent)
-            print_mc_under "=== /usr/libexec/mc/extfs.d/torrent ==="
-            /usr/libexec/mc/extfs.d/torrent list "${MC_EXT_FILENAME}" 2>/dev/null
-            printf "\n"; print_mc_under "=== transmission-show ==="
-            transmission-show "${MC_EXT_FILENAME}" 2>/dev/null || \
-                { printf "\n"; print_mc_under "=== exiftool ===";
-                  exiftool "${MC_EXT_FILENAME}" 2>/dev/null; }
-            ;;
-        javaclass)
-            print_mc_under "=== javap ==="
-            javap -private "${MC_EXT_FILENAME}" 2>/dev/null
-            ;;
-        font)
-            print_mc_under "=== exiftool ==="
-            exiftool "${MC_EXT_FILENAME}" 2>/dev/null
-            printf "\n"; print_mc_under "=== fc-query (custom format) ==="
-            FCQ_FMT="%{file|basename}\t%{family}\t%{style}\t%{fullname}\t"
-            #FCQ_FMT="%{file|basename}\t%{family[0]}\t%{style[0]}\t%{fullname[0]}\t"
-            FCQ_FMT="${FCQ_FMT}%{postscriptname}\t%{weight}\t%{slant}\t%{variable}\n"
-            TAB_COL="FILE,FAMILY,STYLE,FULLNAME"
-            TAB_COL="${TAB_COL},POSTSCRIPTNAME,WEIGHT,SLANT,VARIABLE"
-            # only in bash (not in POSIX sh)
-            fc-query --format="$FCQ_FMT" "${MC_EXT_FILENAME}" | \
-                column --separator $'\t' --output-separator ' | ' --table \
-                       --table-columns "$TAB_COL"
-            printf "\n"; print_mc_under "=== fc-query (brief) ==="
-            fc-query --brief "${MC_EXT_FILENAME}" # brief without FC_CHARSET and FC_LANG
-            ;;
-        ssh-public-key)
-            cat_raw_file
-            print_mc_under "=== OpenSSH (public key) ==="
-            printf "$ ssh-keygen -l -f %s -E sha256\n" "${MC_EXT_FILENAME}"
-            ssh-keygen -l -f "${MC_EXT_FILENAME}" -E sha256
-            printf "$ ssh-keygen -l -f %s -E md5\n" "${MC_EXT_FILENAME}"
-            ssh-keygen -l -f "${MC_EXT_FILENAME}" -E md5
-            ;;
-        certificate)
-            print_mc_under "=== OpenSSL (X.509 Certificate) ==="
-            print_mc_under "# brief"
-            openssl x509 -in "${MC_EXT_FILENAME}" -noout -text \
-                    -certopt no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_extensions \
-                    -nameopt multiline 2>&1
-            print_mc_under "# full details"
-            printf "$ openssl x509 -in %s -noout -text\n" "${MC_EXT_FILENAME}"
-            openssl x509 -in "${MC_EXT_FILENAME}" -noout -text 2>&1
-            ;;
-        certificate-crl)
-            print_mc_under "=== OpenSSL (Certificate Revocation List) ==="
-            printf "$ openssl crl -in %s -noout -text\n" "${MC_EXT_FILENAME}"
-            openssl crl -in "${MC_EXT_FILENAME}" -noout -text 2>&1
-            ;;
-        json)
-            print_mc_under "=== jq ==="
-            printf "$ jq '.' %s\n" "${MC_EXT_FILENAME}"
-            jq '.' "${MC_EXT_FILENAME}" 2>&1
-            ;;
-        *)
-            printf "no view action\n"
-            ;;
-    esac
+  case "${filetype}" in
+    iso9660)
+      print_mc_under "=== isoinfo ==="
+      isoinfo -d -i "${MC_EXT_FILENAME}" 2>/dev/null && \
+        isoinfo -l -i "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    cat)
+      cat "${MC_EXT_FILENAME}"
+      ;;
+    lib)
+      cat "${MC_EXT_FILENAME}"
+      ;;
+    ar)
+      print_mc_under "=== ar ==="
+      ar tv "${MC_EXT_FILENAME}" 2>/dev/null
+      printf "\n"; print_mc_under "=== nm ==="
+      nm -C "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    so)
+      if command -v libtree > /dev/null; then
+        print_mc_under "=== libtree ==="
+        libtree --path -v "${MC_EXT_FILENAME}" 2>/dev/null
+      else
+        print_mc_under "=== ldd ==="
+        ldd "${MC_EXT_FILENAME}" 2>/dev/null
+      fi
+      printf "\n"; print_mc_under "=== nm ==="
+      nm -C -D "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    elf)
+      # i.e. all executable programs
+      if command -v libtree > /dev/null; then
+        print_mc_under "=== libtree ==="
+        libtree --path -v "${MC_EXT_FILENAME}" 2>/dev/null
+      else
+        print_mc_under "=== ldd ==="
+        ldd "${MC_EXT_FILENAME}" 2>/dev/null
+      fi
+      printf "\n"; print_mc_under "=== nm ==="
+      nm -C "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    dbf)
+      # dbview is dead
+      cat "${MC_EXT_FILENAME}"
+      ;;
+    sqlite)
+      print_mc_under "=== sqlite3 ==="
+      sqlite3 "file:${MC_EXT_FILENAME}?immutable=1" .dump 2>/dev/null
+      ;;
+    mo)
+      print_mc_under "=== msgunfmt ==="
+      msgunfmt --indent --no-wrap "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    root)
+      print_mc_under "=== rootls ==="
+      # aliases in the sub-shell are ignored
+      (type rootls; printf "\n"; \
+       root --version 2>&1) | awk '{print "# " $0}'; printf "\n"
+      rootls --treeListing "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    torrent)
+      print_mc_under "=== /usr/libexec/mc/extfs.d/torrent ==="
+      /usr/libexec/mc/extfs.d/torrent list "${MC_EXT_FILENAME}" 2>/dev/null
+      printf "\n"; print_mc_under "=== transmission-show ==="
+      transmission-show "${MC_EXT_FILENAME}" 2>/dev/null || \
+        { printf "\n"; print_mc_under "=== exiftool ===";
+          exiftool "${MC_EXT_FILENAME}" 2>/dev/null; }
+      ;;
+    javaclass)
+      print_mc_under "=== javap ==="
+      javap -private "${MC_EXT_FILENAME}" 2>/dev/null
+      ;;
+    font)
+      print_mc_under "=== exiftool ==="
+      exiftool "${MC_EXT_FILENAME}" 2>/dev/null
+      printf "\n"; print_mc_under "=== fc-query (custom format) ==="
+      FCQ_FMT="%{file|basename}\t%{family}\t%{style}\t%{fullname}\t"
+      #FCQ_FMT="%{file|basename}\t%{family[0]}\t%{style[0]}\t%{fullname[0]}\t"
+      FCQ_FMT="${FCQ_FMT}%{postscriptname}\t%{weight}\t%{slant}\t%{variable}\n"
+      TAB_COL="FILE,FAMILY,STYLE,FULLNAME"
+      TAB_COL="${TAB_COL},POSTSCRIPTNAME,WEIGHT,SLANT,VARIABLE"
+      # only in bash (not in POSIX sh)
+      fc-query --format="$FCQ_FMT" "${MC_EXT_FILENAME}" | \
+        column --separator $'\t' --output-separator ' | ' --table \
+               --table-columns "$TAB_COL"
+      printf "\n"; print_mc_under "=== fc-query (brief) ==="
+      fc-query --brief "${MC_EXT_FILENAME}" # brief without FC_CHARSET and FC_LANG
+      ;;
+    ssh-public-key)
+      cat_raw_file
+      print_mc_under "=== OpenSSH (public key) ==="
+      printf "$ ssh-keygen -l -f %s -E sha256\n" "${MC_EXT_FILENAME}"
+      ssh-keygen -l -f "${MC_EXT_FILENAME}" -E sha256
+      printf "$ ssh-keygen -l -f %s -E md5\n" "${MC_EXT_FILENAME}"
+      ssh-keygen -l -f "${MC_EXT_FILENAME}" -E md5
+      ;;
+    certificate)
+      print_mc_under "=== OpenSSL (X.509 Certificate) ==="
+      print_mc_under "# brief"
+      openssl x509 -in "${MC_EXT_FILENAME}" -noout -text \
+              -certopt no_version,no_serial,no_signame,no_pubkey,no_sigdump,no_extensions \
+              -nameopt multiline 2>&1
+      print_mc_under "# full details"
+      printf "$ openssl x509 -in %s -noout -text\n" "${MC_EXT_FILENAME}"
+      openssl x509 -in "${MC_EXT_FILENAME}" -noout -text 2>&1
+      ;;
+    certificate-crl)
+      print_mc_under "=== OpenSSL (Certificate Revocation List) ==="
+      printf "$ openssl crl -in %s -noout -text\n" "${MC_EXT_FILENAME}"
+      openssl crl -in "${MC_EXT_FILENAME}" -noout -text 2>&1
+      ;;
+    json)
+      print_mc_under "=== jq ==="
+      printf "$ jq '.' %s\n" "${MC_EXT_FILENAME}"
+      jq '.' "${MC_EXT_FILENAME}" 2>&1
+      ;;
+    *)
+      printf "no view action\n"
+      ;;
+  esac
 }
 
 do_open_action() {
-    filetype=$1
+  filetype=$1
 
-    case "${filetype}" in
-        *)
-            printf "no open action, 'xdg-open' is used\n"
-            ;;
-    esac
+  case "${filetype}" in
+    *)
+      printf "no open action, 'xdg-open' is used\n"
+      ;;
+  esac
 }
 
 case "${action}" in
-    view)
-        do_view_action "${filetype}"
-        ;;
-    open)
-        ("${MC_XDG_OPEN}" "${MC_EXT_FILENAME}" >/dev/null 2>&1) || \
-            do_open_action "${filetype}"
-        ;;
-    *)
-        ;;
+  view)
+    do_view_action "${filetype}"
+    ;;
+  open)
+    ("${MC_XDG_OPEN}" "${MC_EXT_FILENAME}" >/dev/null 2>&1) || \
+      do_open_action "${filetype}"
+    ;;
+  *)
+    ;;
 esac
