@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2026-05-14
+# 2026-10-01
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 # '$HOME/.config/mc/ext.d/misc.custom.sh' or '/usr/libexec/mc/ext.d/misc.sh'
@@ -147,6 +147,14 @@ do_view_action() {
       print_mc_under "=== jq ==="
       printf "$ jq '.' %s\n" "${MC_EXT_FILENAME}"
       jq '.' "${MC_EXT_FILENAME}" 2>&1
+      ;;
+    dconf)
+      print_mc_under "=== dconf ==="
+      TF=$(mktemp) || exit 1;
+      printf "file-db:%s\n" "${MC_EXT_FILENAME}" > "${TF}"
+      printf "$ DCONF_PROFILE=%s dconf dump /\n\n" "${TF}"
+      DCONF_PROFILE="${TF}" dconf dump /
+      rm --force "${TF}"
       ;;
     *)
       printf "no view action\n"
