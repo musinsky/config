@@ -4,24 +4,24 @@
 # https://github.com/musinsky/config/blob/master/Emacs/muke-emacs-format.sh
 
 function print_usage {
-    local bname=${0##*/} # basename in bash
-    printf 'Usage: %s [OPTION] FILE\n' "$bname"
-    printf 'Option:\n'
-    printf '   -i        | load emacs user init file (default off)\n'
-    printf '   -e EXPR   | evaluate the Lisp expression (default none)\n'
-    printf 'Example:\n'
-    printf '   %s sample.c\n' "$bname"
-    printf '   %s -i -e c++-mode sample.c\n' "$bname"
-    exit 1
+  local bname=${0##*/} # basename in bash
+  printf 'Usage: %s [OPTION] FILE\n' "$bname"
+  printf 'Option:\n'
+  printf '   -i        | load emacs user init file (default off)\n'
+  printf '   -e EXPR   | evaluate the Lisp expression (default none)\n'
+  printf 'Example:\n'
+  printf '   %s sample.c\n' "$bname"
+  printf '   %s -i -e c++-mode sample.c\n' "$bname"
+  exit 1
 }
 
 while getopts ':ie:' VAL ; do
-    case $VAL in
-        i ) EINIT=1 ;;
-        e ) EEVAL="$OPTARG" ;;
-        : ) print_usage ;; # no arg
-        * ) print_usage ;; # unknown option
-    esac
+  case $VAL in
+    i ) EINIT=1 ;;
+    e ) EEVAL="$OPTARG" ;;
+    : ) print_usage ;; # no arg
+    * ) print_usage ;; # unknown option
+  esac
 done
 shift $((OPTIND -1))
 
@@ -31,16 +31,16 @@ shift $((OPTIND -1))
 FMT_FUNC='muke-clean'
 FMT_FILE="$(mktemp)" || { printf 'mktemp error\n'; exit 1; }
 [[ "$EINIT" ]] && {
-    # emacs option '--batch' implies '-q' (do not load an initialization file)
-    # load user initialization file (if exist) can increase emacs execution time
-    for ifile in "$HOME/.emacs.el" "$HOME/.emacs" "$HOME/.emacs.d/init.el"; do
-        # emacs looks user init file in that order
-        [[ -f "$ifile" ]] && {
-            cp "$ifile" "$FMT_FILE"
-            printf "load user emacs init file '%s'\n" "$ifile"
-            break
-        }
-    done
+  # emacs option '--batch' implies '-q' (do not load an initialization file)
+  # load user initialization file (if exist) can increase emacs execution time
+  for ifile in "$HOME/.emacs.el" "$HOME/.emacs" "$HOME/.emacs.d/init.el"; do
+    # emacs looks user init file in that order
+    [[ -f "$ifile" ]] && {
+      cp "$ifile" "$FMT_FILE"
+      printf "load user emacs init file '%s'\n" "$ifile"
+      break
+    }
+  done
 }
 
 cat << EOF >> "$FMT_FILE"
@@ -84,7 +84,7 @@ rm "$FMT_FILE"
 # i.e. how enable use of packages (previously disabled) in my custom init file.
 #
 # emacs --batch "$1" --eval="(setq noninteractive nil)" -l "$FMT_FILE" \
-#       --eval="($EEVAL)" --eval="(setq noninteractive t)" -f "$FMT_FUNC"
+  #       --eval="($EEVAL)" --eval="(setq noninteractive t)" -f "$FMT_FUNC"
 #
 # $ muke-emacs-format.sh -i -e TeX-latex-mode sample.tex # only with AUCTeX
 #

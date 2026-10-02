@@ -4,11 +4,11 @@
 # https://github.com/musinsky/config/blob/master/bash/scripts/muke-inotify-capture-files.sh
 
 print_usage() {
-    local bname=${0##*/}   # basename in bash
-    printf 'Usage: %s DIR\n' "$bname"
-    printf 'Example:\n'
-    printf '   %s /var/tmp\n' "$bname"
-    exit 1
+  local bname=${0##*/}   # basename in bash
+  printf 'Usage: %s DIR\n' "$bname"
+  printf 'Example:\n'
+  printf '   %s /var/tmp\n' "$bname"
+  exit 1
 }
 
 [ "$#" -ne 1 ] && print_usage   # just one argument (dir name)
@@ -27,7 +27,7 @@ printf "captured (saved) files in dir: '%s'\n\n" "$CAPTURE_DIR"
 inotifywait --monitor --event "$NOTIFY_EVENT" \
             --no-newline --format '%w%f%0' \
             --exclude "$CAPTURE_DIR" --recursive "$NOTIFY_DIR" | \
-    while IFS= read -r -d '' ntf_file; do
-        # printf "notify file: '%s'\n" "$ntf_file"
-        cp -pv --parents "$ntf_file" "$CAPTURE_DIR"
-    done
+  while IFS= read -r -d '' ntf_file; do
+    # printf "notify file: '%s'\n" "$ntf_file"
+    cp -pv --parents "$ntf_file" "$CAPTURE_DIR"
+  done
