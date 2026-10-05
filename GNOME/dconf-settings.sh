@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2026-09-29
+# 2026-10-05
 # GNOME 50 (Fedora 44)
 
 change_font_size() {
@@ -105,8 +105,8 @@ gsettings reset-recursively "${UUID_PATH}"
 gsettings set "${UUID_PATH}" default-size-columns 120    # 80
 gsettings set "${UUID_PATH}" default-size-rows 32        # 24
 gsettings set "${UUID_PATH}" scrollback-unlimited true   # limit 10000 lines
-#gsettings set "${UUID_PATH}" use-system-font true
-#gsettings set "${UUID_PATH}" font 'Monospace 12'
+#gsettings set "${UUID_PATH}" use-system-font false      # true
+#gsettings set "${UUID_PATH}" font 'Roboto Mono 10'      # 'Monospace 12'
 
 ### GNOME Terminal Profile Palette
 gsettings reset "${UUID_PATH}" palette
