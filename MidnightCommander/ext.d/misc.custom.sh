@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2026-10-05
+# 2026-10-06
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 # '$HOME/.config/mc/ext.d/misc.custom.sh' or '/usr/libexec/mc/ext.d/misc.sh'
@@ -147,6 +147,11 @@ do_view_action() {
       print_mc_under "=== jq ==="
       printf "$ jq '.' %s\n" "${MC_EXT_FILENAME}"
       jq '.' "${MC_EXT_FILENAME}" 2>&1
+      ;;
+    gschemas)
+      print_mc_under "=== gsettings ==="
+      printf "$ gsettings --schemadir %s list-recursively\n" "${MC_EXT_CURRENTDIR}"
+      gsettings --schemadir "${MC_EXT_CURRENTDIR}" list-recursively
       ;;
     dconf)
       print_mc_under "=== dconf ==="

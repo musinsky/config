@@ -1,4 +1,4 @@
-# 2026-10-01
+# 2026-10-06
 # https://github.com/musinsky/config/blob/master/MidnightCommander/mc.4.0.ext.add
 # https://github.com/MidnightCommander/mc/blob/master/misc/mc.ext.ini.in
 
@@ -71,6 +71,12 @@ View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view certificate
 [json]
 Type=JSON
 View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view json
+
+[gschemas]
+Shell=gschemas.compiled
+# must be before [dconf]
+# Type=^GVariant
+View=%view{ascii} /usr/libexec/mc/ext.d/misc.sh view gschemas
 
 [dconf]
 Type=^GVariant
