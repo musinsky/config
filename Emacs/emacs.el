@@ -1,4 +1,6 @@
-;; 2026-09-22
+;; -*- lexical-binding: t; -*-
+
+;; 2026-10-06
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
