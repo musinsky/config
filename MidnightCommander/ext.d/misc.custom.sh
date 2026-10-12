@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-# 2026-10-06
+# 2026-10-12
 # https://github.com/musinsky/config/blob/master/MidnightCommander/ext.d/misc.custom.sh
 # https://github.com/MidnightCommander/mc/blob/master/misc/ext.d/misc.sh.in
 # '$HOME/.config/mc/ext.d/misc.custom.sh' or '/usr/libexec/mc/ext.d/misc.sh'
@@ -80,6 +80,14 @@ do_view_action() {
     sqlite)
       print_mc_under "=== sqlite3 ==="
       sqlite3 "file:${MC_EXT_FILENAME}?immutable=1" .dump 2>/dev/null
+      ;;
+    csv)
+      print_mc_under "=== view csv (via sqlite3) ==="
+      sqlite3 :memory: <<SQL
+.import --csv "${MC_EXT_FILENAME}" importCSV
+.mode column
+SELECT * FROM importCSV;
+SQL
       ;;
     mo)
       print_mc_under "=== msgunfmt ==="
