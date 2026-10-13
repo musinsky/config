@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-09-21</p>
+<p align="right">last edit: 2026-10-14</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 ## global
@@ -9,6 +9,12 @@
 ```plain
 sudo curl https://raw.githubusercontent.com/musinsky/config/master/bash/muke-profile.sh \
      --output-dir /etc/profile.d/ --remote-name
+```
+
+- muke scripts (link or copy script files to `/usr/local/bin/` dir)
+
+```plain
+curl -fsSL https://raw.githubusercontent.com/musinsky/config/master/bash/muke-scripts.sh | sudo bash
 ```
 
 ## root user
