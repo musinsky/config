@@ -26,7 +26,7 @@ sed -i '\|^C /root/\.tcshrc|s|^|#|'      /usr/lib/tmpfiles.d/rootfiles.conf
 
 ```plain
 cp -p /root/.bashrc /root/.bashrc."$(date +%F_%T)"
-curl -o /root/.bashrc https://raw.githubusercontent.com/musinsky/config/master/bash/bashrc.root
+curl -o /root/.bashrc https://raw.githubusercontent.com/musinsky/config/master/bash/bashrc_root
 ```
 
 - restoring `/root/.bashrc` (`$HOME/.bashrc`) file to default (if something wrong)
