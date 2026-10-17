@@ -1,4 +1,4 @@
-# 2026-09-21
+# 2026-10-17
 # https://github.com/musinsky/config/blob/master/bash/bashrc.root
 
 ### default (file '/usr/share/rootfiles/.bashrc') ###
@@ -17,12 +17,13 @@ export PATH
 ### customized ###
 
 HISTCONTROL=ignoreboth:erasedups
-HISTIGNORE=?:??:*crypt*:*passw*:history
+HISTIGNORE="?:??:*crypt*:*passw*:history"
 HISTFILESIZE=99999   # file
 HISTSIZE=99999       # memory
 
 export EDITOR='emacs -nw'
 export LESSHISTFILE=-
+export LC_COLLATE=C   # string sorting and comparison (ls, grep, etc.)
 export LS_COLORS=$LS_COLORS:'di=01;30:'   # bold black dirname color
 
 alias rm='rm -i'
