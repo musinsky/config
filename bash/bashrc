@@ -1,4 +1,4 @@
-# 2026-09-21
+# 2026-10-17
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 
 ### default (file '/etc/skel/.bashrc') ###
@@ -18,7 +18,7 @@ export PATH
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
 HISTCONTROL=ignoreboth:erasedups
-HISTIGNORE=?:??:*crypt*:*passw*:history
+HISTIGNORE="?:??:*crypt*:*passw*:history"
 HISTFILESIZE=99999   # file
 HISTSIZE=99999       # memory
 
@@ -28,26 +28,20 @@ export LESSHISTFILE=-
 #export MANROFFOPT='-c'
 #export MANPAGER='less -Dd+y -Dur --use-color'
 
-# https://sourceware.org/glibc/manual/latest/html_node/Locales.html
+# https://sourceware.org/glibc/manual/latest/html_node/Locale-Categories.html
+# https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
 # LANG=en_US.UTF-8   # default locale
-# LC_ALL=            # locale based on environment variable (i.e. en_US.UTF-8)
-export LC_PAPER='sk_SK.UTF-8'
-export LC_MEASUREMENT='sk_SK.UTF-8'
+# LC_ALL             # overrides all other LC_* variables and LANG
+export LC_COLLATE='C'               # string sorting and comparison (ls, grep, etc.)
+export LC_MEASUREMENT='sk_SK.UTF-8' # metric system
+export LC_PAPER='sk_SK.UTF-8'       # A4
 
 export LS_COLORS=$LS_COLORS:'di=01;30:'   # bold black dirname color
-ls_common='--color=auto --group-directories-first --time-style="+%F %T"'
-# LC_COLLATE: filename sorting (case sensitive, dot files first, etc.)
-# don't use recommended LC_ALL=C (overrides any others LC_* variables, used in ls bellow)
-if locale -a | grep -i -x -q 'C.UTF8'; then
-  # glibc 2.35 (2022-02) support C.UTF-8 locale
-  alias ls="LC_COLLATE=C.UTF8 ls $ls_common"
-else
-  alias ls="LC_COLLATE=C ls $ls_common"
-fi
-unset ls_common
+# LC_COLLATE: sorting results of filename expansion (LC_COLLATE=C)
+alias ls='ls --color=auto --group-directories-first --time-style="+%F %T"'
 # LC_NUMERIC: number formatting (thousands separator)
 # $ LC_NUMERIC= locale -k LC_NUMERIC   # (i.e. en_US.UTF-8)
-# thousands_sep="," (de_DE.UTF8 => ".", sk_SK.utf8 => " ", C => "")
+# thousands_sep=',' (de_DE.UTF8 => '.', sk_SK.utf8 => ' ', C => '')
 # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
 alias lls="ls -l --block-size=\"'1\""         # or global BLOCK_SIZE env
 alias lls-dot='LC_NUMERIC=de_DE.UTF8 lls'
