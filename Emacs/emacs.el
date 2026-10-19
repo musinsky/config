@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-;; 2026-10-06
+;; 2026-10-19
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -243,23 +243,23 @@
 (ispell-hunspell-add-multi-dic "en_US,sk_SK-ascii")
 (ispell-hunspell-add-multi-dic "en_US,ru_RU-wiki")
 
-;; mucha (user functions)
-(defun mucha-emacs-reload ()
+;; muke (user functions)
+(defun muke-emacs-reload ()
   "Reload ~/.emacs.el init file"
   (interactive) ; working with M-x
   (load-file user-init-file)
   (message "Load user init file: %s" user-init-file))
 
-(defun mucha-clean ()
+(defun muke-clean ()
   "Clean the whole buffer"
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)) ; replaces tabs with spaces
   ;;(save-buffer)
-  (message "mucha-clean is done, now you can save file with C-x C-s"))
+  (message "muke-clean is done, now you can save file with C-x C-s"))
 
-(defun mucha-russian ()
+(defun muke-russian ()
   "Russian environment"
   (interactive)
   (set-input-method "cyrillic-yawerty")
@@ -267,7 +267,7 @@
   (flyspell-mode 1)
   (message "Switch to russian: cyrillic-yawerty and flyspell mode on"))
 
-(defun mucha-slovak ()
+(defun muke-slovak ()
   "Slovak environment"
   (interactive)
   (set-input-method "slovak-prog-2")
@@ -275,7 +275,7 @@
   (flyspell-mode 1)
   (message "Switch to slovak: slovak-prog-2 and flyspell mode on"))
 
-(defun mucha-slovak-ascii ()
+(defun muke-slovak-ascii ()
   "Slovak ASCII environment"
   (interactive)
   (set-input-method nil)
@@ -283,7 +283,7 @@
   (flyspell-mode 1)
   (message "Switch to slovak ascii and flyspell mode on"))
 
-(defun mucha-default-english ()
+(defun muke-default-english ()
   "Default english environment"
   (interactive)
   (set-input-method nil)
@@ -411,19 +411,19 @@
           (lambda ()
             (add-to-list 'TeX-command-list
                          ;; pdflatex options are stored in Makefile (or via $HOME/.latexmkrc)
-                         '("mucha-make" "make" ; make call latexmk
+                         '("muke-make" "make" ; make call latexmk
                            TeX-run-TeX nil     ; (nil or t) switch toggle prompt
-                           (latex-mode) :help "Run mucha-make"))
+                           (latex-mode) :help "Run muke-make"))
             (add-to-list 'TeX-command-list
                          ;; pdflatex options set with command argument $ make OPT="auctex options"
-                         '("mucha-make-opt" "make OPT=\"%(file-line-error) %(extraopts) %S %(mode)\""
+                         '("muke-make-opt" "make OPT=\"%(file-line-error) %(extraopts) %S %(mode)\""
                            TeX-run-TeX nil
-                           (latex-mode) :help "Run mucha-make-opt"))
+                           (latex-mode) :help "Run muke-make-opt"))
             (add-to-list 'TeX-command-list
-                         '("mucha-make-clean" "make clean"
+                         '("muke-make-clean" "make clean"
                            TeX-run-command nil
-                           (latex-mode) :help "Run mucha-make-clean"))
-;;;         (setq TeX-command-default "mucha-make-opt")
+                           (latex-mode) :help "Run muke-make-clean"))
+;;;         (setq TeX-command-default "muke-make-opt")
 ;;;         (add-hook 'after-save-hook 'TeX-command-master)
             ))
 
