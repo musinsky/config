@@ -1,4 +1,4 @@
-# 2026-08-14
+# 2026-10-19
 # https://github.com/musinsky/config/blob/master/ClangFormat/clang-format.yaml
 
 # https://muke.saske.sk/wiki/GCC#ClangFormat
@@ -10,7 +10,7 @@
 # $ clang-format --dump-config                                  > clang-format.user
 # $ clang-format --dump-config --style=file:$HOME/.clang-format > clang-format.user
 
-# style identical as O2 QualityControl (last edit 2022-03-22)
+# style identical as O2 QualityControl (last edit 2026-08-05)
 BasedOnStyle: Google
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortIfStatementsOnASingleLine: Never
