@@ -1,4 +1,4 @@
-# 2026-10-17
+# 2026-10-20
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 
 ### default (file '/etc/skel/.bashrc') ###
@@ -65,34 +65,8 @@ alias root='root --version && root -l --web=off'
 # source /opt/root5/bin/thisroot.sh
 # alias root='root -l'
 
-# mukeds_opt='--rsh="ssh -p 75" --rsync-path="/usr/local/bin/rsync" '
-# mukeds_opt+='--archive --delete --backup --backup-dir="/tmp/BackupDir$(date +_%F_%T)" '
-# mukeds_opt+='--exclude="@eaDir" --itemize-changes '
-# mukeds_opt+='--progress --stats --remote-option=--log-file="/tmp/RSYNC.LOG"'
-# alias rsync-mukeds="rsync $mukeds_opt"
-# unset mukeds_opt
-# _completion_loader rsync   # /usr/share/bash-completion/completions/rsync
-# complete -o nospace -F _comp_cmd_rsync rsync rsync-mukeds
-# # bash completion issue with alias 'rsync-mukeds'
-# # https://github.com/scop/bash-completion/issues/1370
-
-# https://superuser.com/q/354361
-# https://mywiki.wooledge.org/BashFAQ/050
-# https://www.shellcheck.net/wiki/SC2089
-#
-# $ rsync "${MUKEDS_OPT[@]}" user-admin@dsm.host:/etc/ssh/
-MUKEDS_OPT=('--rsh=ssh -p 75' --rsync-path=/usr/local/bin/rsync)
-MUKEDS_OPT+=(--remote-option=--log-file=/tmp/RSYNC.LOG)
-MUKEDS_OPT+=(--archive --exclude=@eaDir)
-MUKEDS_OPT+=(--delete --backup --backup-dir=/tmp/BACKUP_RSYNC)
-MUKEDS_OPT+=(--itemize-changes --progress --stats)
-export MUKEDS_OPT   # bash, POSIX sh has no arrays
-#
-# MUKEDS_OPT+=('--backup-dir=/tmp/BackupDir$(date +_%F_%T)')   # will not work
-# rsync --debug=ALL => --backup-dir "/tmp/BackupDir\$\(date\ +_%F_%T\)"
-# on receiver       => dir  '/tmp/BackupDir$(date +_%F_%T)'
-# see function 'char *safe_arg(const char *opt, const char *arg)'
-# in https://github.com/RsyncProject/rsync/blob/master/options.c file
+# bash completion for rsync-mukeds() function (advanced alias)
+complete -o nospace -F _muke_rsync-mukeds_completion rsync-mukeds
 
 # https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
@@ -115,9 +89,23 @@ GIT_PS1_SHOWCOLORHINTS="nonempty"
 PS1='[\u@\h \[\e[1m\]\W\[\e[0m\]$(__git_ps1 " (%s)")]\$ '
 
 ### user functions ###
+rsync-mukeds() {
+  rsync --rsh='ssh -p 75' --rsync-path=/usr/local/bin/rsync \
+        --remote-option=--log-file=/tmp/RSYNC.LOG \
+        --archive --exclude=@eaDir \
+        --delete --backup --backup-dir="/tmp/BACKUP_RSYNC$(date +_%F_%T)" \
+        --itemize-changes --progress --stats \
+        "$@"
+}
 
-_muke_ll_completion()
-{
+_muke_rsync-mukeds_completion() {
+  # https://github.com/scop/bash-completion/issues/1370
+  # https://github.com/scop/bash-completion/discussions/1751
+  declare -F _comp_cmd_rsync >/dev/null || _comp_load rsync
+  _comp_cmd_rsync rsync "${@:2}"
+}
+
+_muke_ll_completion() {
   # $ complete -p ls
   # complete -F _comp_complete_longopt ls
   _comp_complete_longopt ls
