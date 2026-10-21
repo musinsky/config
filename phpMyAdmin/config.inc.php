@@ -1,6 +1,9 @@
 <?php
 /*
- * https://github.com/musinsky/config/tree/master/phpMyAdmin
+ * 2026-10-21
+ * https://github.com/musinsky/config/blob/master/phpMyAdmin/config.inc.php
+ *
+ * /etc/phpMyAdmin/config.inc.php   (640, root:apache)
  */
 
 declare(strict_types=1);
@@ -17,8 +20,5 @@ $cfg['Servers'][$i]['AllowNoPassword'] = true;
 /* End of servers configuration */
 
 $cfg['MaxRows'] = '999';
-
-/* MariaDB> SHOW GLOBAL VARIABLES LIKE '%collation%'; */
-$cfg['DefaultConnectionCollation'] = 'latin1_swedish_ci';
 
 ?>
