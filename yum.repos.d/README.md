@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-09-21</p>
+<p align="right">last edit: 2026-10-22</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 ### Remove unnecessary Fedora repositories
@@ -86,4 +86,15 @@ sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/g
 ```plain
 sudo dnf --repo=google-chrome list --available
 sudo dnf install google-chrome-stable
+```
+
+### Zoom Workplace
+
+```plain
+sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/zoom.repo \
+     --output-dir /etc/yum.repos.d/ --remote-name
+```
+
+```plain
+sudo dnf install zoom
 ```
