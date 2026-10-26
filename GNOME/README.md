@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-09-29</p>
+<p align="right">last edit: 2026-10-26</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 - <https://muke.saske.sk/wiki/GNOME>
@@ -12,6 +12,8 @@ curl https://raw.githubusercontent.com/musinsky/config/master/GNOME/dconf-settin
 ```
 
 ## GDM (GNOME Display Manager) as admin
+
+On the server (muke) additional settings are required for the `gdm` user (login screen). Sudo privileges are required.
 
 ```plain
 sudo curl https://raw.githubusercontent.com/musinsky/config/master/GNOME/01-muke-customize-gdm \
