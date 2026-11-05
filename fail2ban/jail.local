@@ -1,7 +1,7 @@
-# 2026-11-04
+# 2026-11-05
 # https://github.com/musinsky/config/blob/master/fail2ban/jail.local
 #
-# /etc/fail2ban/jail.local   (644, root:root)
+# /etc/fail2ban/jail.local
 
 # /etc/fail2ban/jail.d/00-firewalld.conf (package 'fail2ban-firewalld')
 # [DEFAULT]
@@ -13,12 +13,23 @@
 # backend=systemd
 
 [DEFAULT]
+# https://fail2ban.dev/config/whitelist/
+ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24 147.213.192.75 147.213.192.79
+
+# https://fail2ban.dev/config/bantime-findtime-maxretry/
 maxretry = 5
 findtime = 10m
 bantime  = 1d
 # after 5 attempts within the last 10minutes the IP will be blocked for 1day
-ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24 147.213.192.79
+
+# https://fail2ban.dev/config/backend/
+backend = systemd
+
+# https://fail2ban.dev/guides/nftables/
+banaction = nftables
+banaction_allports = nftables[type=allports]
 
 [sshd]
+# https://fail2ban.dev/guides/ssh/
 enabled = true
-mode    = aggressive
+mode = aggressive
