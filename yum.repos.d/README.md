@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-10-22</p>
+<p align="right">last edit: 2026-11-09</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 ### Remove unnecessary Fedora repositories
@@ -51,7 +51,7 @@ sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/p
 sudo dnf install eduvpn-client
 ```
 
-### AlmaLinux 9 (only selected pkgs for Fedora) - CERN
+### AlmaLinux 10 (only selected pkgs for Fedora) - CERN
 
 ```plain
 sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/cern-almalinux.repo \

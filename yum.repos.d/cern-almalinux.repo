@@ -1,19 +1,19 @@
-# 2026-09-21
-# https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
-# https://gitlab.cern.ch/linuxsupport/rpms/releases/almalinux-release/-/tree/a9
+# 2026-11-09
+# https://linuxsoft.cern.ch/cern/alma/10/CERN/x86_64/Packages/
+# https://gitlab.cern.ch/linuxsupport/rpms/releases/almalinux-release/-/tree/a10
 #
 # In principle, it is possible to replace Alma <-> RHEL
-# https://linuxsoft.cern.ch/cern/alma/9/CERN/x86_64/Packages/
-# https://linuxsoft.cern.ch/cern/rhel/9/CERN/x86_64/Packages/
+# https://linuxsoft.cern.ch/cern/alma/10/CERN/x86_64/Packages/
+# https://linuxsoft.cern.ch/cern/rhel/10/CERN/x86_64/Packages/
 
-# First you need to install (or manually add) the RPM-GPG-KEY-kojiv2 key
+# First you need to install (or manually add) the RPM-GPG-KEY-kojiv3 key
 # cern-gpg-keys, https://gitlab.cern.ch/linuxsupport/rpms/cern-gpg-keys
 # install      => $ dnf install cern-gpg-keys --no-gpgchecks
 #
-# manually add => $ rpm --import https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
-# ! access only from CERN !      https://linuxsoft.cern.ch/internal/*
+# manually add => $ rpm --import https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv3
+# ! access only from CERN !      https://linuxsoft.cern.ch/internal/repos/
 
-# On Fedora only selected and specific (noarch) packages from CERN AlmaLinux 9
+# On Fedora only selected and specific (noarch) package(s) from CERN AlmaLinux 10
 # CERN-CA-certs, https://gitlab.cern.ch/linuxsupport/rpms/cern-ca-certs
 #
 # Packages only needed when printing at CERN
@@ -21,28 +21,27 @@
 # sicgsfilter, https://gitlab.cern.ch/linuxsupport/rpms/sicgsfilter (Canon printers filter)
 
 [cern-almalinux]
-name=AlmaLinux 9 (only selected pkgs for Fedora) - CERN
-baseurl=http://linuxsoft.cern.ch/cern/alma/9/CERN/$basearch
+name=AlmaLinux 10 (only selected pkgs for Fedora) - CERN
+baseurl=http://linuxsoft.cern.ch/cern/alma/10/CERN/$basearch
 enabled=1
 priority=5
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
-# gpgkey=https://linuxsoft.cern.ch/internal/repos/RPM-GPG-KEY-kojiv2
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv3
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
 [cern-almalinux-testing]
-name=AlmaLinux 9 (only selected pkgs for Fedora) - CERN - testing
-baseurl=http://linuxsoft.cern.ch/cern/alma/9-testing/CERN/$basearch
+name=AlmaLinux 10 (only selected pkgs for Fedora) - CERN - testing
+baseurl=http://linuxsoft.cern.ch/cern/alma/10-testing/CERN/$basearch
 enabled=0
 priority=5
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv3
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
 
 [cern-almalinux-source]
-name=AlmaLinux 9 (only selected pkgs for Fedora) - CERN Source
-baseurl=https://linuxsoft.cern.ch/cern/alma/9/CERN/Source/
+name=AlmaLinux 10 (only selected pkgs for Fedora) - CERN Source
+baseurl=https://linuxsoft.cern.ch/cern/alma/10/CERN/Source/
 enabled=0
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv2
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-kojiv3
 includepkgs=cern-gpg-keys CERN-CA-certs lpadmincern sicgsfilter
