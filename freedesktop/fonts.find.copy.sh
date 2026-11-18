@@ -146,4 +146,4 @@ copy_font_file "$TMP_DIR/Shantell_Sans/ShantellSans-Italic-VariableFont_BNCE,INF
 fonts_summary "$FONTS_DIR"
 rm -rf "$TMP_DIR"
 
-fc-cache && printf "fc-cache successfully done\n" 1>&2
+fc-cache -rf && printf "fc-cache successfully done\n" 1>&2
