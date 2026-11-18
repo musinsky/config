@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 2025-02-04
+# 2026-11-18
 # https://github.com/musinsky/config/blob/master/freedesktop/fonts.find.copy.sh
 
 copy_font_file() {
@@ -107,28 +107,31 @@ fonts_summary "$FONTS_DIR"
 rm -rf "$TMP_DIR"
 
 ########## Google Fonts ##########
-# https://fonts.google.com/share?selection.family=Caveat|Caveat+Brush|Exo+2|Shantell+Sans
-# https://fonts.google.com/download?family=Caveat|Caveat+Brush|Exo+2|Shantell+Sans
+# https://fonts.google.com/share?selection.family=Caveat|Caveat+Brush|Exo+2|Roboto+Mono|Shantell+Sans
+# https://fonts.google.com/download?family=Caveat|Caveat+Brush|Exo+2|Roboto+Mono|Shantell+Sans
 #
 # $ wget -O Caveat.zip https://fonts.google.com/download?family=Caveat # will not work
 # Google changed rules (2024-03), https://github.com/google/fonts/issues/7481
 
-GFONTS_ZIP="$DOWNLOADS_DIR/Caveat,Caveat_Brush,Exo_2,Shantell_Sans.zip" # download in browser
+GFONTS_ZIP="$DOWNLOADS_DIR/Caveat,Caveat_Brush,Exo_2,Roboto_Mono,Shantell_Sans.zip" # download in browser
 [ -r "$GFONTS_ZIP" ] || { printf "cannot read file '%s'\n" "$GFONTS_ZIP" 1>&2; exit 1; }
 TMP_DIR="$(mktemp -d)" || exit 1
 unzip -q "$GFONTS_ZIP" -d "$TMP_DIR" || exit 1
 
 # https://fonts.google.com/specimen/Caveat
+# not available in Fedora
 FONTS_DIR="$LINUX_FONTS_DIR/impallari-caveat-fonts"
 find_font_files "$TMP_DIR/Caveat/static" "*.ttf" "$FONTS_DIR" # 4 (static) files
 copy_font_file "$TMP_DIR/Caveat/Caveat-VariableFont_wght.ttf" "$FONTS_DIR" \
                "Caveat[wght].ttf" # 1 (variable) file
 fonts_summary "$FONTS_DIR"
 # https://fonts.google.com/specimen/Caveat+Brush
+# not available in Fedora
 FONTS_DIR="$LINUX_FONTS_DIR/impallari-caveat-brush-fonts"
 find_font_files "$TMP_DIR/Caveat_Brush" "*.ttf" "$FONTS_DIR" # 1 file
 fonts_summary "$FONTS_DIR"
 # https://fonts.google.com/specimen/Exo+2
+# https://src.fedoraproject.org/rpms/ndiscover-exo-2-fonts
 FONTS_DIR="$LINUX_FONTS_DIR/ndiscover-exo-2-fonts"
 find_font_files "$TMP_DIR/Exo_2/static" "*.ttf" "$FONTS_DIR" # 18 (static) files
 copy_font_file "$TMP_DIR/Exo_2/Exo2-VariableFont_wght.ttf" "$FONTS_DIR" \
@@ -136,7 +139,17 @@ copy_font_file "$TMP_DIR/Exo_2/Exo2-VariableFont_wght.ttf" "$FONTS_DIR" \
 copy_font_file "$TMP_DIR/Exo_2/Exo2-Italic-VariableFont_wght.ttf" "$FONTS_DIR" \
                "Exo2-Italic[wght].ttf" # 1 (variable) file
 fonts_summary "$FONTS_DIR"
+# https://fonts.google.com/specimen/Roboto+Mono
+# https://src.fedoraproject.org/rpms/google-roboto-mono-fonts
+FONTS_DIR="$LINUX_FONTS_DIR/google-roboto-mono-fonts"
+find_font_files "$TMP_DIR/Roboto_Mono/static" "*.ttf" "$FONTS_DIR" # 14 (static) files
+copy_font_file "$TMP_DIR/Roboto_Mono/RobotoMono-VariableFont_wght.ttf" "$FONTS_DIR" \
+               "RobotoMono[wght].ttf"        # 1 (variable) file
+copy_font_file "$TMP_DIR/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf" "$FONTS_DIR" \
+               "RobotoMono-Italic[wght].ttf" # 1 (variable) file
+fonts_summary "$FONTS_DIR"
 # https://fonts.google.com/specimen/Shantell+Sans
+# not available in Fedora
 FONTS_DIR="$LINUX_FONTS_DIR/arrowtype-shantell-sans-fonts"
 find_font_files "$TMP_DIR/Shantell_Sans/static" "*.ttf" "$FONTS_DIR" # 12 (static) files
 copy_font_file "$TMP_DIR/Shantell_Sans/ShantellSans-VariableFont_BNCE,INFM,SPAC,wght.ttf" \
