@@ -4,42 +4,42 @@
 # https://github.com/musinsky/config/blob/master/freedesktop/fonts.find.copy.sh
 
 copy_font_file() {
-    local ff_src_full="$1" # [source] font file (full dir/file)
-    local ff_dst_dir="$2"  # [destination] font dir
-    local ff_dst_file="$3" # [destination] font file
-    # 1st) ff_dst_file=  (empty/null) # automatically generates recommended font file
-    # 2nd) ff_dst_file='same'         # same as source font file
-    # 3rd) ff_dst_file='FontFile.ttf' # explicit font file
+  local ff_src_full="$1" # [source] font file (full dir/file)
+  local ff_dst_dir="$2"  # [destination] font dir
+  local ff_dst_file="$3" # [destination] font file
+  # 1st) ff_dst_file=  (empty/null) # automatically generates recommended font file
+  # 2nd) ff_dst_file='same'         # same as source font file
+  # 3rd) ff_dst_file='FontFile.ttf' # explicit font file
 
-    # recommended font subdir name: 'fontfoundry-fontfamily-fonts' (e.g. 'ms-calibri-fonts')
-    [ -d "$ff_dst_dir" ] || { mkdir -p "$ff_dst_dir" || return 1; }
-    # recommended font file name: 'FontFamily-FontStyle' (e.g. 'Calibri-BoldItalic.ttf')
-    if [ -z "$ff_dst_file" ]; then # automatically generates recommended font file
-        ff_dst_file="$(font_auto_file_name "$ff_src_full")" || {
-            printf "skipped font file: '%s'\n" "$ff_src_full" 1>&2
-            return 1
-        }
-        ff_dst_file="${ff_dst_file}.${ff_src_full##*.}" # extension in bash
-    elif [ "$ff_dst_file" = "same" ]; then # same as source font file
-        ff_dst_file="${ff_src_full##*/}" # basename in bash
-    fi
+  # recommended font subdir name: 'fontfoundry-fontfamily-fonts' (e.g. 'ms-calibri-fonts')
+  [ -d "$ff_dst_dir" ] || { mkdir -p "$ff_dst_dir" || return 1; }
+  # recommended font file name: 'FontFamily-FontStyle' (e.g. 'Calibri-BoldItalic.ttf')
+  if [ -z "$ff_dst_file" ]; then # automatically generates recommended font file
+    ff_dst_file="$(font_auto_file_name "$ff_src_full")" || {
+      printf "skipped font file: '%s'\n" "$ff_src_full" 1>&2
+      return 1
+    }
+    ff_dst_file="${ff_dst_file}.${ff_src_full##*.}" # extension in bash
+  elif [ "$ff_dst_file" = "same" ]; then # same as source font file
+    ff_dst_file="${ff_src_full##*/}" # basename in bash
+  fi
 
-    ff_dst_file="$ff_dst_dir/$ff_dst_file" # full dir/file
-    #printf "source      font file: '%s'\n" "$ff_src_full"
-    #printf "destination font file: '%s'\n" "$ff_dst_file"
-    cp -p "$ff_src_full" "$ff_dst_file" && chmod 644 "$ff_dst_file"
+  ff_dst_file="$ff_dst_dir/$ff_dst_file" # full dir/file
+  #printf "source      font file: '%s'\n" "$ff_src_full"
+  #printf "destination font file: '%s'\n" "$ff_dst_file"
+  cp -p "$ff_src_full" "$ff_dst_file" && chmod 644 "$ff_dst_file"
 }
 find_font_files() {
-    local find_dir="$1"     # [source] find starting point (font dir)
-    local find_pattern="$2" # [source] find name pattern (font files)
-    local ff_dir="$3"       # [destination] font dir
+  local find_dir="$1"     # [source] find starting point (font dir)
+  local find_pattern="$2" # [source] find name pattern (font files)
+  local ff_dir="$3"       # [destination] font dir
 
-    # find "$find_dir" -type f -name "$find_pattern" -exec printf "ff: '%s'\n" '{}' \;
-    find "$find_dir" -type f -name "$find_pattern" -print0 |
-        while IFS= read -r -d '' f_file; do   # -d $'\0'
-            #printf "ff: '%s'\n" "$f_file"
-            copy_font_file "$f_file" "$ff_dir"
-        done
+  # find "$find_dir" -type f -name "$find_pattern" -exec printf "ff: '%s'\n" '{}' \;
+  find "$find_dir" -type f -name "$find_pattern" -print0 |
+    while IFS= read -r -d '' f_file; do   # -d $'\0'
+      #printf "ff: '%s'\n" "$f_file"
+      copy_font_file "$f_file" "$ff_dir"
+    done
 }
 
 source "$(dirname "$0")"/fonts.info.functions.sh || exit 1 # both scripts are in the same dir
