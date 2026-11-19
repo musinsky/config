@@ -1,4 +1,4 @@
-# 2026-10-20
+# 2026-11-19
 # https://github.com/musinsky/config/blob/master/bash/bashrc
 
 ### default (file '/etc/skel/.bashrc') ###
@@ -17,10 +17,12 @@ export PATH
 ### user customized ###
 
 # https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html
+# https://www.gnu.org/software/bash/manual/html_node/Bash-History-Facilities.html
+# shell option 'histappend' is set by default (shopt -s histappend)
 HISTCONTROL=ignoreboth:erasedups
 HISTIGNORE="?:??:*crypt*:*passw*:history"
-HISTFILESIZE=99999   # file
-HISTSIZE=99999       # memory
+HISTSIZE=100000     # memory
+HISTFILESIZE=200000 # file
 
 export EDITOR='emacs -nw'
 export LESSHISTFILE=-
