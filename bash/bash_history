@@ -1,0 +1,39 @@
+#################################### 2026-11 ###################################
+# Git
+git commit -m "[Dir] update $(date +%F\ %T)"
+git push origin master
+git clone git@github.com:musinsky/config.git
+# ExifTool
+exiftool '-FileModifyDate<ModifyDate' file.pdf
+exiftool '-FileName<CreateDate' -d %Y-%m-%d_%%f.%%e file
+exiftool '-FileModifyDate<CreateDate' *.jpg
+exiftool '-FileName<RECFA.Bratislava.${CreateDate;DateFmt("%Y-%m-%d_%H-%M-%S")}.jpg' *.jpg
+exiftool '-FileName<${Model;s/ /./g}.${CreateDate;DateFmt("%Y-%m-%d_%H-%M-%S")}.${FileTypeExtension}' *.jpg
+# ROOT
+git -C /cern/root_master_src/ pull
+cmake ../root_master_src/ -Dbuiltin_civetweb=ON -Dfortran=ON -Droofit=OFF -Dtmva=OFF -Dpyroot=OFF -Dtpython=OFF -DCMAKE_INSTALL_PREFIX=/cern/root_master/   # OK 2026-??
+# GNOME
+gsettings reset org.gnome.shell command-history
+gsettings set org.gnome.shell command-history "['emacs', 'audacious', 'gnome-terminal']" # reset gnome command history
+gsettings list-recursively org.gnome.calculator
+gsettings list-recursively | grep -iE 'logout|reboot|restart'
+dconf dump / | grep -iE 'logout|reboot|restart'
+# mukeds
+ssh musinsky@mukeds.saske.sk -p75   # mkdir -p "/tmp/$USER" && HOME="/tmp/$USER" && mc   # syno mc
+rsync-mukeds /home/musinsky/WorkSync/ musinsky@mukeds.saske.sk:/volume1/backup/WorkSync/ --dry-run   # rsync OK 2026-11
+# cURL
+curl --remote-name --remote-time https://root.cern.ch/files/gem.root
+curl --output gem123.root --remote-time https://root.cern.ch/files/gem.root
+# miscellaneous
+sort --version-sort deny-ip-list.txt > deny-ip-list.sort.txt
+git commit -m "[synology] deny ip list 2026-10-26"
+rclone sync /home/musinsky/CLOUD_yandex/ yandex_disk: --verbose --dry-run # OK local -> yandex
+touch -cmd "2022-02-22 12:12:12" file
+ssh lxplus.cern.ch
+ssh mucha@sunhe.jinr.ru
+ps -auxwf
+7z a -p pack_with_passwd.7z file
+avahi-browse --all --terminate | grep -iE 'printer|ipp|pdl|scan' # generic mDNS/DNS-SD
+rsync -rlgoD --size-only --exclude=.git/ muke01.saske.sk:develop/ develop/ --dry-run --itemize-changes --verbose   # -p # git repo
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/6.42.00-rc1/x86_64-fedora44-gcc162-opt/bin/thisroot.sh
+################################################################################
