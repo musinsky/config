@@ -88,6 +88,14 @@ gsettings set org.gnome.gnome-system-monitor.proctree col-3-width 90
 gsettings set org.gnome.gnome-system-monitor.proctree col-4-visible true   # Resident Memory
 gsettings set org.gnome.gnome-system-monitor.proctree col-4-width 90
 
+command -v kgx > /dev/null && { # GNOME Console
+  gsettings reset-recursively org.gnome.Console
+  #gsettings set org.gnome.Console use-system-font false          # true
+  #gsettings set org.gnome.Console custom-font 'Roboto Mono 10'   # ''
+  gsettings set org.gnome.Console ignore-scrollback-limit true    # limit 10000 lines
+  gsettings set org.gnome.Console transparency true
+}
+
 command -v evince > /dev/null && { # legacy
   gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
   gsettings set org.gnome.Evince page-cache-size 500              # zoom more than 400%
