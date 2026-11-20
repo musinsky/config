@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-;; 2026-10-19
+;; 2026-11-20
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -52,9 +52,11 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Query-Replace.html
 ;; M-s . => select string (under cursor) => C-M-% => and replacement ==> aka variable refactoring
 
-;; recommended monospace fonts: Roboto Mono, Source Code Pro, DejaVu Sans Mono
-;; https://www.programmingfonts.org/
-(set-frame-font "Source Code Pro Medium-10") ; or via face-s (see below)
+;; https://www.programmingfonts.org
+;;(set-frame-font "Roboto Mono-10") ; or via face-s (see below)
+;;(set-frame-font "Adwaita Mono-10")           ; default system mono font (Fedora 42 - ??)
+;;(set-frame-font "Source Code Pro Medium-10") ; default system mono font (Fedora 24 - 41)
+;;(set-frame-font "DejaVu Sans Mono-10")       ; default system mono font (Fedora  6 - 23)
 ;; https://www.emacswiki.org/emacs/FrameSize
 ;; https://www.emacswiki.org/emacs/FrameTitle
 (when (display-graphic-p) ; don't set-frame-size in text terminal
