@@ -1,0 +1,16 @@
+ENTRY "/sh://musinsky@muke.saske.sk/home/musinsky" URL "/sh://musinsky@muke.saske.sk/home/musinsky"
+ENTRY "/sh://musinsky@muke01.saske.sk/home/musinsky" URL "/sh://musinsky@muke01.saske.sk/home/musinsky"
+ENTRY "/sh://musinsky@mukeds.saske.sk:75/volume1" URL "/sh://musinsky@mukeds.saske.sk:75/volume1"
+ENTRY "/sh://musinsky@lxplus.cern.ch/afs/cern.ch/user/m/musinsky" URL "/sh://musinsky@lxplus.cern.ch/afs/cern.ch/user/m/musinsky"
+GROUP "CERN"
+  ENTRY "/sh://musinsky@lxplus.cern.ch/eos/project/a/alicetrg/backup/2025_rhel9/pit/ctpctr/home/trigger/WORK/ctpc" URL "/sh://musinsky@lxplus.cern.ch/eos/project/a/alicetrg/backup/2025_rhel9/pit/ctpctr/home/trigger/WORK/ctpc"
+ENDGROUP
+GROUP "CVUT"
+  ENTRY "/sh://musinjan@sunrise.fjfi.cvut.cz/home/musinjan" URL "/sh://musinjan@sunrise.fjfi.cvut.cz/home/musinjan"
+ENDGROUP
+ENTRY "" URL ""
+ENTRY "/home/musinsky/.config/Code/User" URL "/home/musinsky/.config/Code/User"
+ENTRY "/run/media/musinsky" URL "/run/media/musinsky"
+ENTRY "" URL ""
+ENTRY "/mnt/win_c/Users/musinsky/Downloads" URL "/mnt/win_c/Users/musinsky/Downloads"
+ENTRY "/mnt/win_d" URL "/mnt/win_d"
