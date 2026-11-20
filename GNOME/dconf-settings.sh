@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# 2026-10-05
-# GNOME 50 (Fedora 44)
+# 2026-11-20
+# GNOME 51 (Fedora 45)
 
 change_font_size() {
   local path="$1"
@@ -88,29 +88,33 @@ gsettings set org.gnome.gnome-system-monitor.proctree col-3-width 90
 gsettings set org.gnome.gnome-system-monitor.proctree col-4-visible true   # Resident Memory
 gsettings set org.gnome.gnome-system-monitor.proctree col-4-width 90
 
-gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
-gsettings set org.gnome.Evince page-cache-size 500                         # zoom more than 400%
+command -v evince > /dev/null && { # legacy
+  gsettings set org.gnome.Evince.Default sizing-mode 'fit-page'
+  gsettings set org.gnome.Evince page-cache-size 500              # zoom more than 400%
+}
 
-# GNOME Terminal
-gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false   # disable F10
-gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'           # 'light'
-gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ \
-          reset-and-clear '<Control><Shift>R'
+command -v gnome-terminal > /dev/null && { # legacy
+  # GNOME Terminal
+  gsettings set org.gnome.Terminal.Legacy.Settings menu-accelerator-enabled false   # disable F10
+  gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'           # 'light'
+  gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ \
+            reset-and-clear '<Control><Shift>R'
 
-## GNOME Terminal Profile
-gsettings reset-recursively org.gnome.Terminal.ProfilesList
-PROFILE_UUID="$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')"
-UUID_PATH="org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/"
-gsettings reset-recursively "${UUID_PATH}"
-gsettings set "${UUID_PATH}" default-size-columns 120    # 80
-gsettings set "${UUID_PATH}" default-size-rows 32        # 24
-gsettings set "${UUID_PATH}" scrollback-unlimited true   # limit 10000 lines
-#gsettings set "${UUID_PATH}" use-system-font false      # true
-#gsettings set "${UUID_PATH}" font 'Roboto Mono 10'      # 'Monospace 12'
+  ## GNOME Terminal Profile
+  gsettings reset-recursively org.gnome.Terminal.ProfilesList
+  PROFILE_UUID="$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')"
+  UUID_PATH="org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${PROFILE_UUID}/"
+  gsettings reset-recursively "${UUID_PATH}"
+  gsettings set "${UUID_PATH}" default-size-columns 120    # 80
+  gsettings set "${UUID_PATH}" default-size-rows 32        # 24
+  gsettings set "${UUID_PATH}" scrollback-unlimited true   # limit 10000 lines
+  #gsettings set "${UUID_PATH}" use-system-font false      # true
+  #gsettings set "${UUID_PATH}" font 'Roboto Mono 10'      # 'Monospace 12'
 
-### GNOME Terminal Profile Palette
-gsettings reset "${UUID_PATH}" palette
-COLOR_PALETTE="$(gsettings get "${UUID_PATH}" palette)"
-COLOR5="$(echo "${COLOR_PALETTE}" | gawk -F "', '#" '{print $5}')" # find default COLOR5      (ugly blue color)
-COLOR_PALETTE="${COLOR_PALETTE//$COLOR5/254b70}" # replace COLOR5 by rgb(37,75,112)=#254b70 (pretty blue color)
-gsettings set "${UUID_PATH}" palette "${COLOR_PALETTE}"
+  ### GNOME Terminal Profile Palette
+  gsettings reset "${UUID_PATH}" palette
+  COLOR_PALETTE="$(gsettings get "${UUID_PATH}" palette)"
+  COLOR5="$(echo "${COLOR_PALETTE}" | gawk -F "', '#" '{print $5}')" # find default COLOR5      (ugly blue color)
+  COLOR_PALETTE="${COLOR_PALETTE//$COLOR5/254b70}" # replace COLOR5 by rgb(37,75,112)=#254b70 (pretty blue color)
+  gsettings set "${UUID_PATH}" palette "${COLOR_PALETTE}"
+}
