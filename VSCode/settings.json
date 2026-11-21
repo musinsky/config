@@ -14,14 +14,15 @@
   // "editor.renderWhitespace": "boundary", // i.a. view TABs
   "editor.rulers": [80, 100, 120],
   "editor.stickyScroll.enabled": false,
+  "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "files.associations": { "*.C": "cpp" },
   "files.insertFinalNewline": true,
-  "workbench.colorTheme": "Visual Studio Dark - C++",
+  "workbench.colorTheme": "Visual Studio Light - C++",
   "workbench.iconTheme": "vscode-icons",
   "workbench.tree.indent": 16,
   "workbench.colorCustomizations": {
-    "editorRuler.foreground": "#ff47b810",
+    "editorRuler.foreground": "#ff47b820",
     "editorWhitespace.foreground": "#ff47b8",
     "editorIndentGuide.background1": "#2b91af25",
     "editorIndentGuide.activeBackground1": "#2b91af50"
