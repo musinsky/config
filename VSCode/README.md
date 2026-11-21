@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-09-29</p>
+<p align="right">last edit: 2026-11-21</p>
 <!-- markdownlint-enable  MD033 MD041-->
 <!-- markdownlint-disable MD014-->
 
@@ -42,6 +42,8 @@
 - supported architectures: `aarch64`, `armv7hl`, `x86_64` (platform/distribution: `el8`)
 - `code-exploration` ~~(early preview)~~ → `code-insiders` (preview, early access) → **`code`** (stable, weekly)
 - `$ dnf install code`
+- VS Code requires OpenSSL 3, Fedora 45 (released 2026-11) switched to OpenSSL 4
+- `$ dnf install openssl3-libs`
 
 ## Extensions
 
@@ -74,8 +76,16 @@
 
 > ```bash
 > curl -s https://raw.githubusercontent.com/musinsky/config/master/VSCode/extensions.list | xargs -L 1 code --install-extension
+> ```
+>
+> ```bash
 > curl -s https://raw.githubusercontent.com/musinsky/config/master/VSCode/extensions.remote.list | xargs -L 1 code --install-extension
 > ```
+
+### Extension [C/C++ Themes](https://github.com/microsoft/vscode-cpptools/tree/main/Themes)
+
+- `Visual Studio Light - C++` (2019, prefer), file `ms-vscode.cpptools-themes/themes/cpptools_light_vs_new.json`
+- `Visual Studio 2017 Light - C++` (2017, older), file `ms-vscode.cpptools-themes/themes/cpptools_light_vs.json`
 
 ## Settings and profiles
 
@@ -93,12 +103,15 @@ rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # cryptography
 rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
 
 # only on local machine
-rm -rf "$HOME/.config/Code/"            # user data/config dir, '--user-data-dir'
-rm -rf "$HOME/.vscode/"                 # user extensions,      '--extensions-dir'
-rm -rf "$HOME/.vscode-shared/"          # shared dir
+rm -rf "$HOME/.config/Code/"            # user data/config dir ('--user-data-dir')
+rm -rf "$HOME/.vscode/"                 # dir with user extensions ('--extensions-dir'), AI agent plugin, etc.
+rm -rf "$HOME/.vscode-shared/"          # shared data dir
 
 # only on remote machine
 rm -rf "$HOME/.vscode-server/"          # dirs: 'cli', 'data' and 'extensions'
+
+# GitHub Copilot
+rm -rf "$HOME/.copilot/"
 ```
 
 - **`$HOME/.config/Code/User/`** dir with default (built-in) profile
@@ -141,13 +154,21 @@ $HOME/.vscode/extensions/extensions.json   # Extensions (list of extensions, not
   (file [keyboard-shortcuts-linux.pdf](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-linux.pdf))  
   Help > Keyboard Shortcut Reference (Ctrl+K Ctrl+R)
 
-- Default font (Fedora, 2026) in VS Code: `'Droid Sans Mono', monospace`  
-  compare [Droid Sans](https://www.programmingfonts.org/#droid-sans) (default)
-  with [Roboto Mono](https://www.programmingfonts.org/#roboto) (personal prefer)
+- Default fonts in VS Code: `'Droid Sans Mono', monospace`
+  - [Droid Sans Mono](https://www.programmingfonts.org/#droid-sans) - default (if installed), package `google-droid-sans-mono-fonts`
+  - [Noto Sans Mono](https://www.programmingfonts.org/#noto) - default Fedora system `monospace` font, package `google-noto-sans-mono-vf-fonts`
+    - [Adwaita Mono](https://www.programmingfonts.org/#adwaita-mono) - default GNOME monospace font, package `adwaita-mono-fonts`
+    - [Roboto Mono](https://www.programmingfonts.org/#roboto) - personal prefer font, package `google-roboto-mono-fonts`
 
 ```plain
 $ code --transient   # Run with temporary data and extension directories, as if launched for the first time
-State is temporarily stored. Relaunch this state with: code --user-data-dir "/tmp/vscode-LOq2Yb03/data" --extensions-dir "/tmp/vscode-LOq2Yb03/extensions"
+State is temporarily stored. Relaunch this state with:
+   code --user-data-dir         "/tmp/vscode-aSOZ8baG/data"
+        --extensions-dir        "/tmp/vscode-aSOZ8baG/extensions"
+        --shared-data-dir       "/tmp/vscode-aSOZ8baG/shared"
+        --agent-plugins-dir     "/tmp/vscode-aSOZ8baG/agent-plugins"
+        --agents-user-data-dir  "/tmp/vscode-aSOZ8baG/agents-data"
+        --agents-extensions-dir "/tmp/vscode-aSOZ8baG/agents-extensions"
 ```
 
 ```plain
