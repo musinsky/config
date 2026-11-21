@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041-->
-<p align="right">last edit: 2026-11-09</p>
+<p align="right">last edit: 2026-11-21</p>
 <!-- markdownlint-enable  MD033 MD041-->
 
 ### Remove unnecessary Fedora repositories
@@ -36,6 +36,7 @@ sudo curl https://raw.githubusercontent.com/musinsky/config/master/yum.repos.d/v
 
 ```plain
 sudo dnf install code
+sudo dnf install openssl3-libs   # since Fedora 45 OpenSSL 4
 ```
 
 ### eduVPN for Linux 4.x
