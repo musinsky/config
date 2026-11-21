@@ -99,18 +99,18 @@ rm -rf "$HOME/.cache/Microsoft/"        # only one 'DeveloperTools/deviceid' fil
 rm -rf "$HOME/.cache/vscode-cpptools/"  # [extension] very large dir
 rm -rf "$HOME/.local/share/CMakeTools/" # [extension] only log files
 
-rm -rf "$HOME/.dotnet/" "$HOME/.pki/"   # cryptography
-rm -rf "$HOME/.copilot/"                # MCP (copilot), only id
+rm -rf "$HOME/.dotnet/" "$HOME/.local/share/pki/"   # cryptography
 
 # only on local machine
 rm -rf "$HOME/.config/Code/"            # user data/config dir ('--user-data-dir')
-rm -rf "$HOME/.vscode/"                 # dir with user extensions ('--extensions-dir'), AI agent plugin, etc.
+rm -rf "$HOME/.vscode/"                 # dir with user extensions ('--extensions-dir'), AI agent plugins, etc.
 rm -rf "$HOME/.vscode-shared/"          # shared data dir
 
 # only on remote machine
 rm -rf "$HOME/.vscode-server/"          # dirs: 'cli', 'data' and 'extensions'
 
 # GitHub Copilot
+rm -rf "$HOME/.cache/copilot/"
 rm -rf "$HOME/.copilot/"
 ```
 
