@@ -1,4 +1,4 @@
-# 2026-09-28
+# 2026-11-22
 # https://github.com/musinsky/config/blob/master/bash/muke-profile.sh
 
 # export MUKE_PROFILE_VERBOSE=1 # enable verbose output
@@ -38,7 +38,7 @@ __muke_var_value_export() {
   }
 }
 
-PREFIX_PATH="/opt/root"
+PREFIX_PATH="/cern/root"
 [[ -d "${PREFIX_PATH}" ]] && {
   # __muke_var_value_export ROOTSYS "${PREFIX_PATH}"
   __muke_var_value_export PATH "${PREFIX_PATH}/bin"
@@ -51,7 +51,7 @@ PREFIX_PATH="/opt/root"
   }
 }
 
-PREFIX_PATH="/opt/xrootd"
+PREFIX_PATH="/cern/xrootd"
 [[ -d "${PREFIX_PATH}" ]] && {
   __muke_var_value_export PATH "${PREFIX_PATH}/bin"
   __muke_var_value_export LD_LIBRARY_PATH "${PREFIX_PATH}/lib64"
