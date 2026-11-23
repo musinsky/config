@@ -25,7 +25,7 @@
       "browse": {
         "path": [
           "${workspaceFolder}",
-          "/cern/root_master_src/"
+          "/cern/root_source/"
         ],
         "limitSymbolsToIncludedHeaders": true
       }
