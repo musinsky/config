@@ -197,6 +197,8 @@
             (c-set-offset 'innamespace 0)   ;; no indentation in namespace
             ))
 
+;;(setq cmake-tab-width 2) ; default 2
+
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Fortran-Indent.html
 (setq fortran-check-all-num-for-matching-do t) ; (default nil)
 (setq fortran-line-number-indent 5)            ; (default 1) rigth-justify to end
