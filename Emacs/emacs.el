@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
-;; 2026-11-20
+;; 2026-11-24
 ;; https://github.com/musinsky/config/tree/master/Emacs
 
 ;; help: C-h b, C-h f, C-h k (C-h c), C-h v or general C-h ? (bound) F1 ?
@@ -53,7 +53,7 @@
 ;; M-s . => select string (under cursor) => C-M-% => and replacement ==> aka variable refactoring
 
 ;; https://www.programmingfonts.org
-;;(set-frame-font "Roboto Mono-10") ; or via face-s (see below)
+(set-frame-font "Roboto Mono-10") ; or via face-s (see below)
 ;;(set-frame-font "Adwaita Mono-10")           ; default system mono font (Fedora 42 - ??)
 ;;(set-frame-font "Source Code Pro Medium-10") ; default system mono font (Fedora 24 - 41)
 ;;(set-frame-font "DejaVu Sans Mono-10")       ; default system mono font (Fedora  6 - 23)
