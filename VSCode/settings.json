@@ -1,4 +1,4 @@
-// 2026-11-21
+// 2026-11-25
 // https://github.com/musinsky/config/blob/master/VSCode/settings.json
 
 // VS Code uses JSONC (JSON with Comments) for settings files.
@@ -27,12 +27,16 @@
     "editorIndentGuide.background1": "#2b91af25",
     "editorIndentGuide.activeBackground1": "#2b91af50"
   },
+  "explorer.sortOrderLexicographicOptions": "upper",
 
   // === vscode-icons ===
   "vsicons.presets.jsonOfficial": true,
   "vsicons.presets.yamlOfficial": true,
   "vsicons.presets.jsOfficial": true,
   "vsicons.presets.tsOfficial": true,
+  "vsicons.associations.files": [
+    { "icon": "cmake", "extensions": ["CMakeLists.txt"], "filename": true }
+  ],
 
   // === esbenp.prettier-vscode ===
   "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
